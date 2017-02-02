@@ -1,0 +1,200 @@
+/* CSS Document */
+
+.template_about-us {
+	
+	.section-hero {
+		text-align: center;
+	}
+	
+	.section-advancing-dermatology {
+		
+		.wrap {			
+			@media #{$xxxlarge-up} {
+				padding: 0 80px;
+			}
+		}
+		
+	}
+	
+	.section-states-locations {
+		
+		
+      	img.map {
+			
+			max-width: 80%;
+			display: block;
+			margin: 0 auto 15px;
+			
+			@media #{$large-up} {
+				max-width: 40%;	
+				margin: 0;
+			}
+		}
+		
+		.entry-content {
+			
+			padding: 15px 0 30px;
+			
+			text-align: center!important;	
+			
+			img {
+				float: none;
+				margin: 0 auto;
+				display: block;	
+			}
+		}
+		
+		.stats {
+			
+			padding: 15px 0 0 0;
+			
+			strong {
+				color: $teal;
+				font-size: 30px;	
+				
+				@media #{$medium-up} {
+    				font-size: 60px;	  
+				}
+			}
+			
+			span {
+				display: block;
+				font-size: 15px;
+				@media #{$medium-up} {
+    				font-size: 30px;	  
+				}
+			}
+		}
+		
+	}
+	
+	
+	.section-testimonial {
+		
+	}
+	
+	
+	.section-the-forefront-vision {
+		
+		img {
+			max-width: 240px;	
+		}
+	}
+	
+	
+	
+	.section-dermatologists-surgeons {
+		background-image: url(assets/images/about-us/statistics-infographic@2x.jpg);
+		background-size: cover;
+		background-repeat: no-repeat;
+		background-position: center center;	
+		
+		.entry-content {
+			
+			padding: 45px 0 45px;
+			
+			@media #{$large-up} {
+      			padding: 90px 0 90px;
+			}
+			
+			text-align: center!important;	
+			
+			img {
+				float: none;
+				margin: 0 auto;
+				display: block;	
+			}
+		}
+		
+		.stats {
+			
+			padding: 10px 0 0 0;
+			
+			
+			
+			strong {
+				color: $teal;
+				font-size: 60px;
+				line-height: .95;	
+				
+				@media #{$large-up} {
+    				font-size: 150px;	
+					line-height: .95;  
+				}
+			}
+			
+			span {
+				display: block;
+				font-size: 16px;
+				font-weight: 700;
+				color: $medium-teal;
+				line-height: 1;
+				
+				@media #{$medium-up} {
+      				font-size: 20px;
+				}
+				
+				@media #{$large-up} {
+    				font-size: 40px;	  
+				}
+			}
+		}
+	}
+	
+	
+	.section-leadership-recruitment-team {
+		
+		h2 {
+			text-align: center;
+			margin-bottom: 30px;	
+			
+			@media #{$large-up} {
+      			margin-bottom: 60px;	
+			}
+		}
+		
+		img {
+			margin-bottom: 20px;
+			border-radius: 6px;
+		}
+		
+		.details {
+			overflow: hidden;
+			margin-bottom: 30px;	
+			
+			h4 {
+				margin-bottom: 0;	
+			}
+		}
+		
+		.featured {
+			
+			margin-bottom: 30px;	
+			
+			@media #{$large-up} {
+      			margin-bottom: 60px;	
+			
+				h4 {
+					font-size: 32px;
+				}
+				
+				p {
+					font-size: 20px;	
+				}
+			}
+		}
+		
+		@media #{$large-up} {
+      		img {
+				float: left;
+				margin-right: 40px;	
+ 			}
+			
+			.details {
+				overflow: hidden;
+ 			}
+	
+		}	
+	}
+	
+}

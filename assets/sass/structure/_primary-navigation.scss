@@ -1,0 +1,218 @@
+// Primary Navigation
+
+.nav-primary {
+	display: none;
+	
+	@media #{$xlarge-up} {
+    	display: block;  
+	}	
+}
+
+
+
+@media #{$xlarge-up} {
+ 	
+	.nav-primary .menu {
+								
+		.menu-item { 			
+			a {
+				position: relative;
+				display: block;
+				text-decoration: none;
+			}
+			
+		}
+		
+		// First level
+		> .menu-item {
+			position: relative;
+			display: inline-block;
+			
+			text-align: left;		
+		
+			&:hover,
+			&:focus,
+			&:active,
+			&.sfHover {
+				
+				> .sub-menu {
+					left: 0;
+					opacity: 1;
+					transition: opacity 200ms linear;
+					
+				}
+			}
+			
+			&.current-menu-item,
+			&.current_page_parent,
+			&.current-page-ancestor,
+			&.current-menu-ancestor,
+			&.current-category-ancestor {
+		
+				> a {
+					
+					
+				}
+			}
+			
+				
+			&.menu-item-has-children > a {
+			  padding-right: 30px;  				  
+			  &:after {
+				  content: "\f0d7";
+				  font-family: 'FontAwesome';
+				  position: absolute;
+				  top: 50%;
+				  transform: translateY(-50%);
+				  right: 12px;
+				  color: $gray;
+			  }
+	
+		  }
+			
+		}
+		
+		// Sublevels
+		.sub-menu {
+			position: absolute;
+			top: 100%;
+			left: -9999px;
+			z-index: 99;
+			opacity: 0;
+			
+			.menu-item a {
+				padding-left: 15px;	
+			}
+		
+			> .menu-item {
+		
+				> a {
+					position: relative;
+				}
+			}
+			
+			.sub-menu {
+		
+			}
+		}
+			
+	}
+     
+}
+
+
+ 
+@media #{$xlarge-up} {
+ 
+ 	.nav-primary,
+	.nav-primary .sub-menu {
+		width: auto;
+		display: block;
+	}
+	
+	.nav-primary {
+		background: $white;
+		padding: 0;
+ 			
+		.menu {
+ 			display: inline-block;
+			left: auto;
+ 		}
+		
+		.menu > li {
+			display: block;
+			list-style-type: none;
+			border-top: none;
+			width: auto;
+			margin: 0;
+			padding: 0;
+		}
+		
+		
+		.menu > .menu-item {
+			display: inline-block;
+		}
+		
+		.menu-item {
+		
+			&.current-menu-item,
+			&.current_page_parent,
+			&.current-page-ancestor,
+			&.current-menu-ancestor,
+			&.current-menu-parent,
+			&.current-category-ancestor {
+		
+				> a {
+  					color: $gray;
+					background-color: #decfa4;
+				}
+			}
+		
+			a {
+ 				color: $gray;
+				font-size: 14px;
+ 				padding: 5px 12px;
+				
+				&:hover {
+					color: $gray;
+					background-color: #decfa4;
+				}
+ 			}	
+			
+		}
+		
+		
+		// Sublevels
+		.sub-menu {
+			background: rgba($white, 1);
+			box-shadow: 0px 3px 4px rgba(#666, 0.4);
+			width: 200px;
+			padding: 0;
+		
+			.menu-item {
+				margin: 0;
+				padding: 0;
+				border-top: 1px solid $gray;
+				
+				&:first-child {
+					border-top: 0;	
+				}
+				
+				&.current-menu-item,
+				&.current_page_parent,
+				&.current-page-ancestor,
+				&.current-menu-ancestor,
+				&.current-menu-parent,
+				&.current-category-ancestor {
+			
+					> a {
+						color: $gray;
+						background-color: transparent;
+					}
+				}
+				
+				
+				&:hover {
+					
+					a {
+					    background-color: rgba(244,239,227,1);
+						color: rgba(203,182,128,1);	
+					}
+				}
+				
+				> a {
+					position: relative;
+					color: $gray;
+				}
+				
+				
+			}
+			
+			.sub-menu {
+		
+			}
+		}
+	
+	}
+      
+}

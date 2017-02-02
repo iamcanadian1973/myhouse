@@ -1,0 +1,141 @@
+//  Settings (includes overrides for sass/foundation/settings.scss)
+//  -----------------------------
+//
+//  Table of Contents:
+//
+//   1. Global
+//   2. Breakpoints
+//   3. The Grid
+//   4. Base Typography
+//   5. Typography Helpers
+
+
+// 1. Global
+// ---------
+
+$global-font-size: 100%;
+$global-width: 1130px;
+$global-lineheight: 1.4;
+
+
+
+// Theme
+$footer-cta: #81c0c9;
+$light-teal: #63B0BB;
+$medium-teal: #53B1C1;
+$teal: #008091;
+$java: #19838D; // Footer background
+
+$blue: #0E9BC6;
+$eastern-blue: #008091; // General Dermatology
+
+$yellow: #FFB800;
+$red: #C54D4D;
+$pink: #F27B7B;
+
+$green: green;
+
+$salmon: salmon;
+
+// Default 
+
+$light-gray: #d1d2d4;
+$gray: #666666;
+$medium-gray: #474747;
+$dark-gray: #212121;
+$black: #000000;
+$white: #ffffff;
+
+$primary: $teal; // Teal
+
+
+$body-background: $white;
+$body-font-color: $black;
+$body-font-family: 'Open Sans', sans-serif;
+
+$global-margin: 24px;
+$global-padding: 10px;
+$global-weight-normal: normal;
+$global-weight-bold: 700;
+$global-radius: 0;
+$global-text-direction: ltr;
+
+
+// 2. Breakpoints
+// --------------
+
+$breakpoints: (
+  small: 0,
+  medium: 640px,
+  large: 980px,
+  xlarge: 1024px,
+  xxlarge: 1200px,
+  xxxlarge: 1366px
+);
+// must match $breakpoints
+$breakpoint-classes: (small medium large xlarge xxlarge xxxlarge)!default;
+
+
+// 3. The Grid
+// -----------
+
+$grid-row-width: $global-width;
+$grid-column-count: 12; // usually 12
+$grid-column-gutter: (
+  small: 30px,
+  large: 30px,
+);
+$grid-column-align-edge: true;
+$block-grid-max: 8;
+
+
+// 4. Base Typography
+// ---------
+
+$header-font-family: 'Open Sans', sans-serif;
+$header-font-weight: $global-weight-bold;
+$header-font-style: normal;
+
+$header-sizes: (
+  small: (
+    'h1': 32,
+    'h2': 28,
+    'h3': 24,
+    'h4': 22,
+    'h5': 18,
+    'h6': 16,
+  ),
+  medium: (
+    'h1': 42,
+    'h2': 30,
+    'h3': 26,
+    'h4': 22,
+    'h5': 20,
+    'h6': 16,
+  ),
+  large: (
+    'h1': 48,
+    'h2': 36,
+    'h3': 32,
+    'h4': 24,
+    'h5': 20,
+    'h6': 16,
+  ),
+);
+
+$header-color: #000000;
+$header-lineheight: 1.4;
+$header-margin-bottom: 24px;
+$small-font-size: 80%;
+$header-small-font-color: $medium-gray;
+
+$paragraph-font-family: $body-font-family;
+$paragraph-font-style: normal;
+$paragraph-font-weight: 400;
+$paragraph-font-size: 16px;
+$paragraph-line-height: 1.75;
+$paragraph-font-color: #474747;
+$paragraph-margin-bottom: 24px;
+
+$anchor-color: $blue;
+$anchor-color-hover: #4CAAC6;

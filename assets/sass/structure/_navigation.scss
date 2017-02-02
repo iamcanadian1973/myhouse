@@ -1,0 +1,66 @@
+//--------------------------------------------------------------
+// Navigation
+//--------------------------------------------------------------
+
+// Default menu (active after a fresh WordPress install)
+.menu {
+	@include list-reset;
+
+	li {
+		margin: 0 10px 0 0;
+	}
+
+	ul {
+		@include list-reset;
+	}
+
+} // .menu
+
+
+.no-touchevents a[href^="tel:"] {
+	pointer-events: none;    /* prevents click event */
+    cursor: text;            /* use text highlight cursor*/	
+}
+
+// Navigation on Comment, Post and Posts
+.comment-navigation,
+.posts-navigation,
+.post-navigation {
+
+	.site-main & {
+		margin: 0;
+		overflow: hidden;
+	} // .site-main &
+
+	&.nav-previous {
+		float: left;
+	} // &.nav-previous
+
+	&.nav-next {
+		float: right;
+		text-align: right;
+	} // &.nav-next
+} // .comment-navigation, .posts-navigation, .post-navigation
+
+.more {
+	font-weight: 700;
+	text-transform: uppercase;
+}
+
+.btn {
+	background: $blue;	
+	border-radius: 6px;
+	color: $white;
+	display: inline-block;
+	font-size: 12px;
+	font-weight: 700;
+	min-width: 168px;
+	padding: 11px 16px;
+	text-transform: uppercase;
+	text-align: center;
+	
+	&:hover {
+		background: $anchor-color-hover;	
+		color: $white;
+	}
+}

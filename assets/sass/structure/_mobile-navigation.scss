@@ -1,0 +1,79 @@
+// Mobile Navigation
+
+
+				
+	
+.nav-mobile {
+	
+	padding-bottom: 30px;
+	
+	ul {
+		padding: 30px 15px 0;	
+	}
+	
+	li {
+		list-style-type: none;
+		padding: 5px 5px;
+		
+		a {
+ 			color: #eeeeee;
+			font-size: 16px;
+			line-height: 25px;
+			padding: 2px 0;	
+ 					
+			&:hover {
+				color: #fff;
+			}
+		}
+		
+		ul {
+			
+			padding-top: 5px;
+			
+			li {
+				padding: 2px 15px;	
+				
+				a {
+					
+				}
+			}
+		}
+		
+	}
+	
+	.secondary {
+		li {
+			text-align: center;
+			padding: 10px 0;
+			
+			a {
+				display: block;
+				background-size: cover;
+				background-repeat: no-repeat;
+				background-position: center center;
+				padding: 10px 5px;
+			}
+			
+			&:first-child() a {
+				background-image: url(assets/images/silos/custom-homes.jpg);
+			}
+			
+			&:nth-child(2) a {
+				background-image: url(assets/images/silos/renovations.jpg);
+			}
+			
+			&:nth-child(3) a {
+				background-image: url(assets/images/silos/kitchen-bath.jpg);
+			}
+			
+			&:nth-child(4) a {
+				background-image: url(assets/images/silos/home-improvements.jpg);
+			}
+			
+			&:nth-child(5) a {
+				background-image: url(assets/images/silos/mechanical.jpg);
+			}
+		}
+	}
+}
+	

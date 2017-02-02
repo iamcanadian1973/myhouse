@@ -1,0 +1,67 @@
+//
+// Footer
+// --------------------------------------------------
+
+
+.footer-widgets {
+	
+	.widget-title {
+		display: none;	
+	}
+	
+	.menu {
+	
+		ul {
+			@include list-reset;	
+		}
+		
+	}
+	
+}
+
+
+
+.site-footer {
+	padding: 30px 0 20px;
+		
+	
+	.dark {
+		background: #333132;
+		
+		text-align: center;
+	
+		@include breakpoint(medium) {
+			text-align: left;
+		}
+		
+		p, a {
+			color: #666;
+			font-size: 14px;	
+		}
+	}
+	
+	
+	.copyright {
+		
+		padding: 35px 0 0 5px;
+		
+		p {
+			font-size: 9px;
+			line-height: 12px;
+		}
+		
+		a {
+			color: gray;	
+		}
+		
+				
+		span {
+			display: block;	
+			
+			@media #{$medium-up} {
+      			display: inline;
+			}
+			
+		}
+	}
+}

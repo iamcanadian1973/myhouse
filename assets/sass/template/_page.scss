@@ -1,0 +1,48 @@
+
+.hide {
+	display: none;	
+}
+
+body {
+	background-color: #fff;	
+	overflow-x: hidden;
+	
+}
+
+.site-container {
+	background: #fff;
+ 	margin: 0 auto;	
+}
+
+.site-content {
+	padding-top: 15px;
+}
+
+.wrap {
+	
+}
+
+
+.page-template-default,
+.error404 {
+	
+	.content {
+		padding-top: 0;	
+		padding-bottom: 30px;
+	}
+	
+	.entry-content {
+		
+		padding-top: 0;
+		margin-bottom: 0;
+		
+		> *:last-child {
+			//margin-bottom: 0;	
+		}
+	}
+	
+	.entry-title {
+		
+	}
+	
+}

@@ -1,0 +1,26 @@
+// Century Gothic
+
+$fa-font-path:        "assets/fonts/CenturyGothic" !default;
+$fa-version:          "1.0" !default;
+
+
+// Century Gothic
+@font-face {
+  font-family: 'Century Gothic';
+  src: url('#{$fa-font-path}/CenturyGothic.eot?#iefix') format('embedded-opentype'),  
+  url('#{$fa-font-path}/CenturyGothic.svg#CenturyGothic') format('svg'),
+  url('#{$fa-font-path}/CenturyGothic.woff') format('woff'), 
+  url('#{$fa-font-path}/CenturyGothic.ttf')  format('truetype');
+  font-weight: normal;
+  font-style: normal;
+}
+// Century Gothic Bold
+@font-face {
+  font-family: 'Century Gothic';
+  src: url('#{$fa-font-path}/CenturyGothic-Bold.eot?#iefix') format('embedded-opentype'),  
+  url('#{$fa-font-path}/CenturyGothic-Bold.svg#CenturyGothic-Bold') format('svg'),
+  url('#{$fa-font-path}/CenturyGothic-Bold.woff') format('woff'), 
+  url('#{$fa-font-path}/CenturyGothic-Bold.ttf')  format('truetype');
+  font-weight: bold;
+  font-style: normal;
+}

@@ -1,0 +1,85 @@
+// Section - Hero
+
+.section-hero {
+	
+	position: relative;
+	background-color: #04869e;
+	background-repeat: no-repeat;
+	background-position: center top;
+	background-size: cover;
+	padding: 0;	
+	
+	margin-bottom: 30px;
+	
+	@media #{$xlarge-up} {
+		margin-bottom: 48px;
+	}
+	
+	.wrap {
+		
+		position: relative;
+		z-index: 3;	
+		padding-top: 30px;
+		padding-bottom: 30px;
+		
+		min-height: 100px;  
+		
+		@media only screen and (min-width : 480px) {
+			min-height: 200px;  
+		}
+		
+		@media #{$large-up} {
+			min-height: 350px;
+		}	
+		
+		@media #{$xxlarge-up} {
+			min-height: 500px;
+		}	
+	}
+	
+	
+	.hero-header {
+		max-width: 600px;
+		margin: 0 auto;	
+		text-align: center;
+		
+		h1 {
+			color: #fff;
+			margin: 0;
+			line-height: 1.2;	
+		}
+	}
+	
+	.hero-description {
+		
+		padding-top: 10px;
+		text-align: center;
+		
+		p, span {
+			color: #fff;
+			font-size: 22px;
+			line-height: 30px;
+			margin-bottom: 0;
+			font-weight: 700;
+		}
+		
+	}
+
+}
+
+
+.section-hero {
+
+	&.flex-wrapper {
+		display: flex;
+		flex-direction: column;	
+	}
+	
+	.flex {
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+		justify-content: center;		
+	}
+	
+}

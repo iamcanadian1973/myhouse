@@ -1,0 +1,240 @@
+# Copyright (C) 2017 _s
+# This file is distributed under the same license as the _s package.
+msgid ""
+msgstr ""
+"Project-Id-Version: _s\n"
+"Report-Msgid-Bugs-To: http://_s.com\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"PO-Revision-Date: 2017-MO-DA HO:MI+ZONE\n"
+"Last-Translator: John Doe <mail@_s.com>\n"
+"Language-Team: Team <mail@_s.com>\n"
+"X-Poedit-Basepath: ..\n"
+"X-Poedit-SourceCharset: UTF-8\n"
+"X-Poedit-KeywordsList: __;_e;_n:1,2;_x:1,2c;_ex:1,2c;_nx:4c,1,2;esc_attr__;esc_attr_e;esc_attr_x:1,2c;esc_html__;esc_html_e;esc_html_x:1,2c;_n_noop:1,2;_nx_noop:3c,1,2;__ngettext_noop:1,2\n"
+"X-Poedit-SearchPath-0: .\n"
+"X-Poedit-SearchPathExcluded-0: *.js\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#: 404.php:14
+msgid "Oops! Page not found."
+msgstr ""
+
+#: 404.php:36
+msgid "It looks like nothing was found at this location."
+msgstr ""
+
+#: comments.php:31
+msgctxt "comments title"
+msgid "One thought on &ldquo;%2$s&rdquo;"
+msgid_plural "%1$s thoughts on &ldquo;%2$s&rdquo;"
+msgstr[0] ""
+msgstr[1] ""
+
+#: comments.php:40, comments.php:61
+msgid "Comment navigation"
+msgstr ""
+
+#: comments.php:43, comments.php:64
+msgid "Older Comments"
+msgstr ""
+
+#: comments.php:44, comments.php:65
+msgid "Newer Comments"
+msgstr ""
+
+#: comments.php:77
+msgid "Comments are closed."
+msgstr ""
+
+#: footer.php:27
+msgid "Contact"
+msgstr ""
+
+#: footer.php:45
+msgid "My House Design Build Team Ltd. All material on this site is copyrighted by My House Design Build Team Ltd."
+msgstr ""
+
+#: footer.php:46
+msgid "My House Design Build Team® is a registered trademark."
+msgstr ""
+
+#: footer.php:47
+msgid "No images or copy on this site may be used without written permission of My House Design Build Team Ltd."
+msgstr ""
+
+#: footer.php:48
+msgid "Terms & Conditions"
+msgstr ""
+
+#: footer.php:49
+msgid "Privacy Policy"
+msgstr ""
+
+#: functions.php:70
+msgid "Primary Menu"
+msgstr ""
+
+#: functions.php:71
+msgid "Secondary Menu"
+msgstr ""
+
+#: functions.php:72
+msgid "Footer Menu"
+msgstr ""
+
+#: functions.php:73
+msgid "Copyright links"
+msgstr ""
+
+#: functions.php:139
+msgid "Sidebar 1"
+msgstr ""
+
+#: functions.php:140
+msgid "Header Right"
+msgstr ""
+
+#: functions.php:141
+msgid "Before Footer"
+msgstr ""
+
+#: functions.php:149
+msgid "Widget area for %s"
+msgstr ""
+
+#: header.php:30
+msgid "Skip to content"
+msgstr ""
+
+#: header.php:51
+msgid "Client Login"
+msgstr ""
+
+#: lib/functions/off-canvas-menu.php:23
+msgid "Close"
+msgstr ""
+
+#: lib/functions/off-canvas-menu.php:35
+msgid "Menu"
+msgstr ""
+
+#: lib/functions/template-tags.php:40
+msgctxt "post date"
+msgid "%s"
+msgstr ""
+
+#: lib/functions/template-tags.php:72, lib/functions/template-tags.php:78
+msgid ", "
+msgstr ""
+
+#: lib/functions/template-tags.php:74
+msgid "Posted in %1$s"
+msgstr ""
+
+#: lib/functions/template-tags.php:80
+msgid "Tagged %1$s"
+msgstr ""
+
+#: lib/functions/template-tags.php:86
+msgid "Leave a comment"
+msgstr ""
+
+#: lib/functions/template-tags.php:86
+msgid "1 Comment"
+msgstr ""
+
+#: lib/functions/template-tags.php:86
+msgid "% Comments"
+msgstr ""
+
+#: lib/functions/template-tags.php:93, template-parts/content-page.php:31
+msgid "Edit %s"
+msgstr ""
+
+#: lib/post-types/cpt-events.php:21
+msgid "Event"
+msgstr ""
+
+#: lib/post-types/cpt-events.php:22
+msgid "Events"
+msgstr ""
+
+#: lib/post-types/cpt-events.php:66
+msgid "Start Date"
+msgstr ""
+
+#: lib/post-types/cpt-events.php:67
+msgid "End Date"
+msgstr ""
+
+#: lib/post-types/cpt-events.php:165, lib/post-types/cpt-events.php:178
+msgid "Event Category"
+msgstr ""
+
+#: lib/post-types/cpt-events.php:166, lib/post-types/cpt-events.php:179
+msgid "Event Categories"
+msgstr ""
+
+#: lib/post-types/cpt-events.php:191
+msgid "State"
+msgstr ""
+
+#: lib/post-types/cpt-events.php:192
+msgid "States"
+msgstr ""
+
+#: lib/post-types/cpt-events.php:205
+msgid "City"
+msgstr ""
+
+#: lib/post-types/cpt-events.php:206
+msgid "Cities"
+msgstr ""
+
+#: lib/post-types/cpt-galleries.php:21
+msgid "Gallery"
+msgstr ""
+
+#: lib/post-types/cpt-galleries.php:22
+msgid "Galleries"
+msgstr ""
+
+#: lib/post-types/cpt-videos.php:21
+msgid "Video"
+msgstr ""
+
+#: lib/post-types/cpt-videos.php:22
+msgid "Videos"
+msgstr ""
+
+#: search.php:22
+msgid "Search Results for: %s"
+msgstr ""
+
+#: searchform.php:13
+msgctxt "placeholder"
+msgid "Search&hellip;"
+msgstr ""
+
+#: searchform.php:16
+msgctxt "submit button"
+msgid "Search"
+msgstr ""
+
+#: single-post.php:61, template-parts/content-page.php:20, template-parts/content-post.php:37, template-parts/content-single.php:24, template-parts/content.php:34
+msgid "Pages:"
+msgstr ""
+
+#: template-parts/content-none.php:13
+msgid "Nothing Found"
+msgstr ""
+
+#: template-parts/content-none.php:19
+msgid "Ready to publish your first post? <a href=\"%1$s\">Get started here</a>."
+msgstr ""
+
+#: template-parts/content.php:27
+msgid "Continue reading %s <span class=\"meta-nav\">&rarr;</span>"
+msgstr ""
