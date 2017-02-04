@@ -1,3 +1,5 @@
+'use strict';
+
 // Settings
 const proxy_url = 'myhouse.vanwp.ca';
 
@@ -37,7 +39,7 @@ const paths = {
 	'php': [ './*.php', './**/*.php' ],
 	'sass': 'assets/sass/**/*.scss',
 	'concat_scripts': 'assets/scripts/concat/*.js',
-	'scripts': [ 'assets/scripts/*.js', '!assets/scripts/*.min.js', '!assets/scripts/project.js', '!assets/scripts/*config.js' ,'!assets/scripts/customizer.js' ],
+	'scripts': [ 'assets/scripts/*.js', '!assets/scripts/*.min.js', '!assets/scripts/*config.js' ,'!assets/scripts/customizer.js' ],
 	'sprites': 'assets/images/sprites/*.png',
 	'foundationJSpath': 'node_modules/foundation-sites/js/',
 };
@@ -63,9 +65,9 @@ function handleErrors () {
 /**
  * Delete style.css and style.min.css before we minify and optimize
  */
-gulp.task( 'clean:styles', () =>
-	del( [ 'style.css', 'style.min.css' ] )
-);
+gulp.task( 'clean:styles', () => {
+	return del( [ 'style.css', 'style.min.css' ] );
+});
 
 /**
  * Compile Sass and run stylesheet through PostCSS.
@@ -75,8 +77,8 @@ gulp.task( 'clean:styles', () =>
  * https://www.npmjs.com/package/gulp-autoprefixer
  * https://www.npmjs.com/package/css-mqpacker
  */
-gulp.task( 'postcss', [ 'clean:styles' ], () =>
-	gulp.src( 'assets/sass/*.scss', paths.css )
+gulp.task( 'postcss', [ 'clean:styles' ], () => {
+	return gulp.src( 'assets/sass/*.scss', paths.css )
 
 		// Deal with errors.
 		.pipe( plumber( {'errorHandler': handleErrors} ) )
@@ -87,7 +89,7 @@ gulp.task( 'postcss', [ 'clean:styles' ], () =>
 			// Compile Sass using LibSass.
 			.pipe( sass( {
 				'errLogToConsole': true,
-				'outputStyle': 'compressed' // Options: nested, expanded, compact, compressed
+				'outputStyle': 'expanded' // Options: nested, expanded, compact, compressed
 			} ) )
 
 			// Parse with PostCSS plugins.
@@ -99,36 +101,35 @@ gulp.task( 'postcss', [ 'clean:styles' ], () =>
 			] ) )
 
 		// Create sourcemap.
-		//.pipe( sourcemaps.write() )
-		.pipe(sourcemaps.write('./maps'))
+		.pipe(sourcemaps.write('.'))
 
 		// Create style.css.
 		.pipe( gulp.dest( './' ) )
-		.pipe( browserSync.stream() )
-);
+		.pipe( browserSync.stream() );
+});
 
 /**
  * Minify and optimize style.css.
  *
  * https://www.npmjs.com/package/gulp-cssnano
  */
-gulp.task( 'cssnano', [ 'postcss' ], () =>
-	gulp.src( 'style.css' )
+gulp.task( 'cssnano', [ 'postcss' ], () => {
+	return gulp.src( 'style.css' )
 		.pipe( plumber( {'errorHandler': handleErrors} ) )
 		.pipe( cssnano( {
 			'safe': true // Use safe optimizations.
 		} ) )
-		.pipe( rename( 'style.min.css' ) )
+		//.pipe( rename( 'style.min.css' ) )
 		.pipe( gulp.dest( './' ) )
-		.pipe( browserSync.stream() )
-);
+		.pipe( browserSync.stream() );
+});
 
 /**
  * Delete the svg-icons.svg before we minify, concat.
  */
-gulp.task( 'clean:icons', () =>
-	del( [ 'assets/images/svg-icons.svg' ] )
-);
+gulp.task( 'clean:icons', () => {
+	return del( [ 'assets/images/svg-icons.svg' ] );
+});
 
 /**
  * Minify, concatenate, and clean SVG icons.
@@ -137,8 +138,8 @@ gulp.task( 'clean:icons', () =>
  * https://www.npmjs.com/package/gulp-svgstore
  * https://www.npmjs.com/package/gulp-cheerio
  */
-gulp.task( 'svg', [ 'clean:icons' ], () =>
-	gulp.src( paths.icons )
+gulp.task( 'svg', [ 'clean:icons' ], () => {
+	return gulp.src( paths.icons )
 
 		// Deal with errors.
 		.pipe( plumber( {'errorHandler': handleErrors} ) )
@@ -164,30 +165,30 @@ gulp.task( 'svg', [ 'clean:icons' ], () =>
 
 		// Save svg-icons.svg.
 		.pipe( gulp.dest( 'assets/images/' ) )
-		.pipe( browserSync.stream() )
-);
+		.pipe( browserSync.stream() );
+});
 
 /**
  * Optimize images.
  *
  * https://www.npmjs.com/package/gulp-imagemin
  */
-gulp.task( 'imagemin', () =>
-	gulp.src( paths.images )
+gulp.task( 'imagemin', () => {
+	return gulp.src( paths.images )
 		.pipe( plumber( {'errorHandler': handleErrors} ) )
 		.pipe( imagemin( {
 			'optimizationLevel': 5,
 			'progressive': true,
 			'interlaced': true
 		} ) )
-		.pipe( gulp.dest( 'assets/images' ) )
-);
+		.pipe( gulp.dest( 'assets/images' ) );
+});
 
 /**
  * Delete the sprites.png before rebuilding sprite.
  */
 gulp.task( 'clean:sprites', () => {
-	del( [ 'assets/images/sprites*.png' ] )
+	return del( [ 'assets/images/sprites*.png' ] );
 } );
 
 /**
@@ -195,8 +196,8 @@ gulp.task( 'clean:sprites', () => {
  *
  * https://www.npmjs.com/package/gulp.spritesmith
  */
-gulp.task( 'spritesmith', [ 'clean:sprites' ], () =>
-	gulp.src( paths.sprites )
+gulp.task( 'spritesmith', [ 'clean:sprites' ], () => {
+	return gulp.src( paths.sprites )
 		.pipe( plumber( {'errorHandler': handleErrors} ) )
 		.pipe( spritesmith( {
 			// Filter out `-2x` (retina) images to separate spritesheet
@@ -212,14 +213,14 @@ gulp.task( 'spritesmith', [ 'clean:sprites' ], () =>
 			'algorithm': 'binary-tree'
 		} ) )
 		.pipe( gulp.dest( 'assets/images/' ) )
-		.pipe( browserSync.stream() )
-);
+		.pipe( browserSync.stream() );
+});
 
 
 
 
 
-gulp.task('foundation-js', function() {
+gulp.task('foundation-js', () => {
 	return gulp.src([
 
 		/* Choose what JS Plugin you'd like to use. Note that some plugins also
@@ -241,9 +242,7 @@ gulp.task('foundation-js', function() {
 		/*
 		paths.foundationJSpath + 'foundation.accordionMenu.js',
 		paths.foundationJSpath + 'foundation.drilldown.js',
-		*/
 		paths.foundationJSpath + 'foundation.dropdown.js',
-		/*
 		paths.foundationJSpath + 'foundation.dropdownMenu.js',
 		paths.foundationJSpath + 'foundation.equalizer.js',
 		paths.foundationJSpath + 'foundation.interchange.js',
@@ -258,17 +257,15 @@ gulp.task('foundation-js', function() {
 		paths.foundationJSpath + 'foundation.tabs.js',
 		paths.foundationJSpath + 'foundation.toggler.js',
 		paths.foundationJSpath + 'foundation.tooltip.js',
-		
-		*/
 		paths.foundationJSpath + 'foundation.util.box.js',
+		*/
 		paths.foundationJSpath + 'foundation.util.keyboard.js',
 		paths.foundationJSpath + 'foundation.util.motion.js',
-		paths.foundationJSpath + 'foundation.util.triggers.js',
 		/*
 		paths.foundationJSpath + 'foundation.util.nest.js',
 		paths.foundationJSpath + 'foundation.util.timerAndImageLoader.js',
 		paths.foundationJSpath + 'foundation.util.touch.js',
-		
+		paths.foundationJSpath + 'foundation.util.triggers.js',
 		*/
 	])
 	.pipe(babel({
@@ -276,8 +273,7 @@ gulp.task('foundation-js', function() {
 		compact: false
 	}))
 	.pipe(concat('foundation.js'))
-	.pipe(uglify())	
-	.pipe( gulp.dest( 'assets/scripts' ) );
+ 	.pipe( gulp.dest( 'assets/scripts' ) );
 });
 
 
@@ -289,8 +285,8 @@ gulp.task('foundation-js', function() {
  * https://github.com/babel/gulp-babel
  * https://www.npmjs.com/package/gulp-sourcemaps
  */
-gulp.task( 'concat', () =>
-	gulp.src( paths.concat_scripts )
+gulp.task( 'concat', () => {
+	return gulp.src( paths.concat_scripts )
 
 		// Deal with errors.
 		.pipe( plumber(
@@ -307,46 +303,45 @@ gulp.task( 'concat', () =>
 
 		// Concatenate partials into a single script.
 		.pipe( concat( 'project.js' ) )
-		.pipe(uglify())	
-
+ 
 		// Append the sourcemap to project.js.
-		.pipe( sourcemaps.write('./maps') )
+		.pipe( sourcemaps.write('.') )
 
-		// Save project.js
 		.pipe( gulp.dest( 'assets/scripts' ) )
-		.pipe( browserSync.stream() )
-);
+		
+		.pipe( browserSync.stream() );
+});
 
 /**
   * Minify compiled JavaScript.
   *
   * https://www.npmjs.com/package/gulp-uglify
   */
-gulp.task( 'uglify', [ 'concat' ], () =>
-	gulp.src( paths.scripts )
+gulp.task( 'uglify', () => {
+	return gulp.src( paths.scripts )
 		.pipe( rename( {'suffix': '.min'} ) )
 		.pipe( uglify( {
 			'mangle': false
 		} ).on('error', function(e){
             console.log(e);
          }) )
-		.pipe( gulp.dest( 'assets/scripts' ) )
-);
+		.pipe( gulp.dest( 'assets/scripts' ) );
+});
 
 /**
  * Delete the theme's .pot before we create a new one.
  */
-gulp.task( 'clean:pot', () =>
-	del( [ 'languages/_s.pot' ] )
-);
+gulp.task( 'clean:pot', () => {
+	return del( [ 'languages/_s.pot' ] );
+});
 
 /**
  * Scan the theme and create a POT file.
  *
  * https://www.npmjs.com/package/gulp-wp-pot
  */
-gulp.task( 'wp-pot', [ 'clean:pot' ], () =>
-	gulp.src( paths.php )
+gulp.task( 'wp-pot', [ 'clean:pot' ], () => {
+	return gulp.src( paths.php )
 		.pipe( plumber( {'errorHandler': handleErrors} ) )
 		.pipe( sort() )
 		.pipe( wpPot( {
@@ -357,16 +352,16 @@ gulp.task( 'wp-pot', [ 'clean:pot' ], () =>
 			'lastTranslator': 'John Doe <mail@_s.com>',
 			'team': 'Team <mail@_s.com>'
 		} ) )
-		.pipe( gulp.dest( 'languages/' ) )
-);
+		.pipe( gulp.dest( 'languages/' ) );
+});
 
 /**
  * Sass linting.
  *
  * https://www.npmjs.com/package/sass-lint
  */
-gulp.task( 'sass:lint', () =>
-	gulp.src( [
+gulp.task( 'sass:lint', () => {
+	return gulp.src( [
 		'assets/sass/**/*.scss',
 		'!assets/sass/base/_normalize.scss',
 		'!assets/sass/base/_sprites.scss',
@@ -374,16 +369,16 @@ gulp.task( 'sass:lint', () =>
 	] )
 		.pipe( sassLint() )
 		.pipe( sassLint.format() )
-		.pipe( sassLint.failOnError() )
-);
+		.pipe( sassLint.failOnError() );
+});
 
 /**
  * JavaScript linting.
  *
  * https://www.npmjs.com/package/gulp-eslint
  */
-gulp.task( 'js:lint', () =>
-	gulp.src( [
+gulp.task( 'js:lint', () => {
+	return gulp.src( [
 		'assets/scripts/concat/*.js',
 		'assets/scripts/*.js',
 		'!assets/scripts/project.js',
@@ -395,8 +390,8 @@ gulp.task( 'js:lint', () =>
 	] )
 		.pipe( eslint() )
 		.pipe( eslint.format() )
-		.pipe( eslint.failAfterError() )
-);
+		.pipe( eslint.failAfterError() );
+});
 
 /**
  * Process tasks and reload browsers on file changes.
@@ -418,8 +413,8 @@ gulp.task( 'watch', function () {
 	// Run tasks when files change.
 	gulp.watch( paths.icons, [ 'icons' ] );
 	gulp.watch( paths.sass, [ 'styles' ] );
+	gulp.watch( paths.concat_scripts, [ 'concat' ] );
 	gulp.watch( paths.scripts, [ 'scripts' ] );
-	gulp.watch( paths.concat_scripts, [ 'scripts' ] );
 	gulp.watch( paths.sprites, [ 'sprites' ] );
 	gulp.watch( paths.php, [ 'markup' ] );
 } );
@@ -434,4 +429,4 @@ gulp.task( 'scripts', [ 'uglify' ] );
 gulp.task( 'styles', [ 'cssnano' ] );
 gulp.task( 'sprites', [ 'spritesmith' ] );
 gulp.task( 'lint', [ 'sass:lint', 'js:lint' ] );
-gulp.task( 'default', [ 'i18n', 'styles', 'scripts', 'foundation-js', 'imagemin'] );
+gulp.task( 'default', [ 'i18n', 'styles', 'concat', 'scripts', 'foundation-js', 'imagemin'] );
