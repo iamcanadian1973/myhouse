@@ -116,10 +116,18 @@ gulp.task( 'postcss', [ 'clean:styles' ], () => {
 gulp.task( 'cssnano', [ 'postcss' ], () => {
 	return gulp.src( 'style.css' )
 		.pipe( plumber( {'errorHandler': handleErrors} ) )
+		
+		.pipe( sourcemaps.init() )
+		
 		.pipe( cssnano( {
 			'safe': true // Use safe optimizations.
 		} ) )
+		
 		//.pipe( rename( 'style.min.css' ) )
+		
+		// Create sourcemap.
+		.pipe(sourcemaps.write('.'))
+		
 		.pipe( gulp.dest( './' ) )
 		.pipe( browserSync.stream() );
 });
@@ -231,7 +239,10 @@ gulp.task('foundation-js', () => {
 
 		// Core Foundation - needed when choosing plugins ala carte
 		paths.foundationJSpath + 'foundation.core.js',
-		paths.foundationJSpath + 'foundation.util.mediaQuery.js',
+		
+		paths.foundationJSpath + 'foundation.dropdown.js',
+		
+		paths.foundationJSpath + 'foundation.equalizer.js',
 
 		// Choose the individual plugins you want in your project
 		
@@ -242,9 +253,9 @@ gulp.task('foundation-js', () => {
 		/*
 		paths.foundationJSpath + 'foundation.accordionMenu.js',
 		paths.foundationJSpath + 'foundation.drilldown.js',
-		paths.foundationJSpath + 'foundation.dropdown.js',
+		
 		paths.foundationJSpath + 'foundation.dropdownMenu.js',
-		paths.foundationJSpath + 'foundation.equalizer.js',
+		
 		paths.foundationJSpath + 'foundation.interchange.js',
 		paths.foundationJSpath + 'foundation.magellan.js',
 		paths.foundationJSpath + 'foundation.offcanvas.js',
@@ -257,15 +268,21 @@ gulp.task('foundation-js', () => {
 		paths.foundationJSpath + 'foundation.tabs.js',
 		paths.foundationJSpath + 'foundation.toggler.js',
 		paths.foundationJSpath + 'foundation.tooltip.js',
-		paths.foundationJSpath + 'foundation.util.box.js',
+		
 		*/
+		
+		paths.foundationJSpath + 'foundation.util.mediaQuery.js',
+ 		paths.foundationJSpath + 'foundation.util.box.js',
+		paths.foundationJSpath + 'foundation.util.triggers.js',
+		
 		paths.foundationJSpath + 'foundation.util.keyboard.js',
 		paths.foundationJSpath + 'foundation.util.motion.js',
+		paths.foundationJSpath + 'foundation.util.timerAndImageLoader.js',
 		/*
 		paths.foundationJSpath + 'foundation.util.nest.js',
-		paths.foundationJSpath + 'foundation.util.timerAndImageLoader.js',
+		
 		paths.foundationJSpath + 'foundation.util.touch.js',
-		paths.foundationJSpath + 'foundation.util.triggers.js',
+		
 		*/
 	])
 	.pipe(babel({
@@ -346,13 +363,9 @@ gulp.task( 'wp-pot', [ 'clean:pot' ], () => {
 		.pipe( sort() )
 		.pipe( wpPot( {
 			'domain': '_s',
-			'destFile': '_s.pot',
 			'package': '_s',
-			'bugReport': 'http://_s.com',
-			'lastTranslator': 'John Doe <mail@_s.com>',
-			'team': 'Team <mail@_s.com>'
 		} ) )
-		.pipe( gulp.dest( 'languages/' ) );
+		.pipe( gulp.dest( 'languages/_s.pot' ) );
 });
 
 /**
@@ -429,4 +442,4 @@ gulp.task( 'scripts', [ 'uglify' ] );
 gulp.task( 'styles', [ 'cssnano' ] );
 gulp.task( 'sprites', [ 'spritesmith' ] );
 gulp.task( 'lint', [ 'sass:lint', 'js:lint' ] );
-gulp.task( 'default', [ 'i18n', 'styles', 'concat', 'scripts', 'foundation-js', 'imagemin'] );
+gulp.task( 'default', [ 'i18n', 'styles', 'concat', 'foundation-js', 'scripts', 'imagemin'] );

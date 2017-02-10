@@ -2,34 +2,20 @@
 
 .blog {
 	
-	.section-hero {
-		// remove the curve
-		&:before {
-			display: none;	
-		}
-		
-		.wrap {
-			@media #{$large-up} {
-				min-height: 275px;	
-			}
-		}
-	}
 	
 	.site-main {
 		padding-top: 0;
 		padding-bottom: 90px;	
 	}
 	
-	.sticky-posts {
-		@include linear-gradient( #f4f4f4, #ffffff );	
-	}
+	
 	
 	.hentry {
 		@include clearfix;	
 		margin-top: 30px;
 		
 		.entry-meta {
-			color: $teal;	
+			color: $primary;	
 			font-weight: 700;
 			margin-bottom: 10px;	
 		}
@@ -52,7 +38,7 @@
 				z-index: 2;
 				font-size: 20px;
 				padding: 4px 8px;
-				background: $blue;
+				background: $primary;
 				color: $white;
 				text-transform: uppercase;	
 				box-shadow: 0px 3px 4px rgba(100,100,100, .4);
@@ -61,69 +47,12 @@
 	
 	}
 	
-	.hentry:not(.sticky) {
- 		@include linear-gradient( #f3f3f3, #ffffff );
-		border-radius: 23px 23px 0 0;
-		max-width: 1080px;
-		margin: 30px auto 0;
-		padding: 15px 30px;
-		
-		@media #{$large-up} {
-			margin-top: 60px;
-			padding: 20px 40px 0 40px;
-		}
-
-	}
 	
-	.thumbnail-box {
-		margin-bottom: 30px;
-		
-		@media #{$large-up} {
-      		margin-bottom: 0;
-		}	
-	}
-	
-	.hentry:not(.sticky) {
-	
-		.thumbnail-box {
- 			
-			@media #{$large-up} {
- 				margin-top: 20px;
-				border-radius: 12px;
-				float: left;
-				margin-right: 40px;		
-				padding: 0 60px;
-				@include linear-gradient(to bottom, #f3efee 0%,#fbf9fa 60%, #ffffff 100%); 
-				
-				img {
-					position: relative;
-					top: -10px;
-					margin-bottom: -20px;	
-				}
-			}	
-		}
-		
-	}
-	
-	
-	@media #{$large-up} {
-		
-		.entry-content {
-			overflow: hidden;
-			text-align: left;	
-		}
-				
-	}	
 }
 
 
 .single-post {
 
-	.section-hero {
-		@media #{$large-up} {
-    		min-height: 275px; 
-		}
-	}
 	
 	.section-content {
 		padding-top: 60px;
@@ -131,49 +60,3 @@
 	}
 	
 }
-
-
-// Load more posts
-
-.load-more-posts .posts-navigation {
-  display: none; }
-
-.load-more {
-  	text-align: center;
-	padding: 30px 0 30px;
- }
-
-.load-more-link, .load-more-indicator {
-  background: $blue;	
-	border-radius: 6px;
-	color: $white!important;
-	display: inline-block;
-	font-size: 12px;
-	font-weight: 700;
-	min-width: 168px;
-	padding: 11px 16px;
-	text-transform: uppercase;
-	text-align: center;
-	text-decoration: none;
-	
-	&:hover {
-		background: $anchor-color-hover;	
-		color: $white;
-	}
- 
-  
-}
-.load-more-link {
-  display: inline-block; }
-
-.loading .load-more-link {
-  display: none; }
-
-.load-more-indicator {
-  display: none; }
-
-.loading .load-more-indicator {
-  display: inline-block;
-  text-align: center; }
-  
-  

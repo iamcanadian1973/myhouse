@@ -50,6 +50,17 @@ get_header(); ?>
 		
 		$rows = get_field( 'groups' );
 		
+		// Cache thumbnails
+		foreach ($rows as $row) {
+			$grid = $row['grid'];
+			foreach( $grid as $item ) {
+				$ids[] = $item['photo'];
+			}
+			
+		}
+		$cache = get_posts(array('post_type' => 'attachment', 'numberposts' => -1, 'post__in' => $ids));
+		
+		// Loop results
 		foreach( $rows as $row ) {
 			
 			$title = $row['title'];
@@ -86,7 +97,7 @@ get_header(); ?>
 				continue;
 			}
 			
-			$groups .= sprintf( '<h2>%s</h2><div class="row small-up-1">%s</div>', $title, $out );
+			$groups .= sprintf( '<h1>%s</h1><div class="row small-up-1">%s</div>', $title, $out );
 			
 		}
 	

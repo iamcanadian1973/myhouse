@@ -1,0 +1,79 @@
+/* CSS Document */
+
+.template_silo-process {
+	
+	.section-steps {
+	
+		h3 {
+			background-color: #4d778f;
+			color: $white;
+			margin: 7px auto 15px;
+			text-align: center;
+			padding: 14px 5px;
+			text-transform: uppercase;
+			
+			position: relative;
+			
+			@media #{$large-up} {
+      			&:after {
+					content: '';
+					width: 0;
+					height: 0;
+					border-style: solid;
+					border-width: 30px 0 30px 14px;
+					border-color: transparent transparent transparent #4d778f;
+					position: absolute;
+					top: 0;
+					right: -14px;
+				}
+			}
+				
+		}
+		
+		.grid {
+		
+			.column {
+				
+				img {
+					margin: 0 auto;	
+				}
+				
+				&:last-child h3:after {
+					display: none;	
+				}
+				
+				
+				&:nth-child(2) {
+					
+					h3 {
+ 						background-color: #5c596c;
+ 						&:after {
+							border-color: transparent transparent transparent #5c596c;	
+						}
+					}
+				}
+				
+				&:nth-child(3) {
+					
+					h3 {
+ 						background-color: #b47b4e;
+ 						&:after {
+							border-color: transparent transparent transparent #b47b4e;	
+						}
+					}
+				}
+				
+				&:nth-child(4) {
+					
+					h3 {
+ 						background-color: #6a8d6d;
+					}
+				}
+					
+			}
+			
+		}
+		
+	}
+	
+}

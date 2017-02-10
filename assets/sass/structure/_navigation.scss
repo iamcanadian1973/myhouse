@@ -47,20 +47,42 @@
 	text-transform: uppercase;
 }
 
-.btn {
-	background: $blue;	
-	border-radius: 6px;
-	color: $white;
-	display: inline-block;
-	font-size: 12px;
-	font-weight: 700;
-	min-width: 168px;
-	padding: 11px 16px;
-	text-transform: uppercase;
-	text-align: center;
+.buttons {
 	
-	&:hover {
-		background: $anchor-color-hover;	
-		color: $white;
+	padding-bottom: 24px;
+	
+	a {
+		vertical-align: middle;	
 	}
 }
+
+.btn {
+	background: $gray;	
+	border-radius: 4px;
+	color: $white!important;
+	display: inline-block;
+	font-size: 18px;
+	min-width: 200px;
+	padding: 4px 16px;
+	
+	text-align: center;
+	
+	margin: 0 auto 0;
+	
+	&:hover {
+		background: $black;	
+		color: $white!important;
+	}
+	
+	&.gold {
+		background: $primary;	
+		border: 1px solid $primary;
+		
+ 		&:hover {
+			background: $white;	
+			color: $primary!important;
+		}
+	}
+}
+
+

@@ -10,7 +10,7 @@ get_header(); ?>
 get_template_part( 'template-parts/section', 'hero' );
 ?>
 
-<div id="primary" class="content-area">
+z<div id="primary" class="content-area">
 
 	<main id="main" class="site-main" role="main">
 	<?php
@@ -25,7 +25,7 @@ get_template_part( 'template-parts/section', 'hero' );
 		$right_column = $left_column = '';
 		
 		// Left column
-		$left_column = sprintf( '<div class="small-12 large-7 columns"><div class="entry-content">%s</div></div>', apply_filters( 'the_content', get_the_content() ) );
+		$left_column = sprintf( '<div class="small-12 large-7 columns"><div class="entry-content">%s</div></div>', apply_filters( 'pb_the_content', get_the_content() ) );
 		
 		// Right Column
 		$prefix = 'awards';
@@ -39,7 +39,7 @@ get_template_part( 'template-parts/section', 'hero' );
 		
 		$attr = array( 'class' => 'section-content section-default' );
 		_s_section_open( $attr );		
-			printf( '<div class="column row">%s%s</div>', $left_column, $right_column );
+			printf( '<div class="row">%s%s</div>', $left_column, $right_column );
 		_s_section_close();	
 		
 	}
@@ -73,7 +73,7 @@ get_template_part( 'template-parts/section', 'hero' );
 		
 		$attr = array( 'class' => 'section-content section-why-work-with-us' );
 		_s_section_open( $attr );		
-			printf( '<div class="column row">%s%s</div>', $left_column, $right_column );
+			printf( '<div class="row">%s%s</div>', $left_column, $right_column );
 		_s_section_close();	
 		
 	}

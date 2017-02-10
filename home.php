@@ -13,41 +13,52 @@
 
 get_header(); ?>
 
-<div id="primary" class="content-area">
+<div class="row">
 
-	<main id="main" class="site-main" role="main">		
-			
-			<div class="wrap">
-			<div class="column row">
-			<?php
-			if ( have_posts() ) :
-				
-				while ( have_posts() ) :
-	
-					the_post();
-					
-					get_template_part( 'template-parts/content', 'post' );
-	
-				endwhile;
-	
-				the_posts_navigation();	
-				?>
-				
- 			<?php
-			else :
-	
-				get_template_part( 'template-parts/content', 'none' );
-	
-			endif; ?>
-		
-		
-			</div><!-- .colum.row -->
-		</div><!-- .wrap -->
-	
-	</main>
+	<div class="medium-8 large-8 columns">
+
+		<div id="primary" class="content-area">
+
+			<main id="main" class="site-main" role="main">
+				<?php
+				if ( have_posts() ) : ?>
+
+					<header class="page-header">
+						<?php
+						printf( '<h1 class="page-title">%s</h1>', __( 'Blog' ) );	
+						?>
+					</header>
+
+					<?php
+					while ( have_posts() ) :
+
+						the_post();
+
+						get_template_part( 'template-parts/content', 'post' );
+
+					endwhile;
+
+					the_posts_navigation();
+
+				else :
+
+					get_template_part( 'template-parts/content', 'none' );
+
+				endif; ?>
+
+			</main>
+
+		</div>
+
+	</div>
+
+	<div class="medium-4 large-4 columns">
+
+		<?php get_sidebar(); ?>
+
+	</div>
 
 </div>
-
 
 <?php
 get_footer();

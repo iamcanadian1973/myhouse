@@ -46,6 +46,15 @@ get_header(); ?>
 		
 		$rows = get_field( 'team_members' );
 		
+		foreach ($rows as $row) {
+			$people = $row['grid'];
+			foreach( $people as $person ) {
+				$ids[] = $person['photo'];
+			}
+			
+		}
+		$cache = get_posts(array('post_type' => 'attachment', 'numberposts' => -1, 'post__in' => $ids));
+ 		
 		if( empty( $rows ) ) {
 			return;
 		}
@@ -66,7 +75,7 @@ get_header(); ?>
 					$photo = wp_get_attachment_image( $photo, 'large' );
 				}
 				
-				$name = isset(  $person['name'] ) ? sprintf( '<h4>%s</h4>', $person['name'] ) : '';
+				$name = isset(  $person['name'] ) ? sprintf( '<h3>%s</h3>', $person['name'] ) : '';
  				$position = isset(  $person['position'] ) ? sprintf( '<p>%s</p>', $person['position'] ) : '';
 				
 				if( !empty( $photo ) && !empty( $name ) ) {

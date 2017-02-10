@@ -10,7 +10,7 @@ function kr_module_slideshow( $prefix= '' ) {
 		return FALSE;		
 	}
 	
-	$size = 'slide';
+	$size = 'hero';
 	
 	if( wp_is_mobile() ) {
 		$size = 'large';
@@ -38,13 +38,13 @@ function kr_module_slideshow( $prefix= '' ) {
 			$text .= sprintf( '%s', wpautop( $slide['caption_description'] ) );
 		}
 		
-		$caption = sprintf( '<div class="rsABlock" data-move-effect="left" data-speed="500" data-delay="%s" data-move-offset="500" data-easing="easeOutBack">%s</div>', $delay,  $text );
+		$caption = sprintf( '<div class="rsABlock" data-move-effect="bottom" data-speed="500" data-delay="%s" data-move-offset="100" data-easing="easeOutBack">%s</div>', $delay,  $text );
 								
 		// 1500px x 500px
 		$items .= sprintf('<div><a data-rsw="%s" data-rsh="%s" class="rsImg" href="%s"></a><figure class="caption">%s</figure></div>', $img_attr[1], $img_attr[2], $img_attr[0], $caption );
 	
 	endforeach;
 		
-	return sprintf( '<div id="slider" class="royalSlider rsHor">%s</div>', $items );
+	return sprintf( '<div id="slider" class="royalSlider rsDefault rsHor">%s</div>', $items );
   	
 }

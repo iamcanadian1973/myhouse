@@ -35,7 +35,7 @@ _s_site_overlay();
 			<div class="row">
 				<div class="site-branding small-4 large-3 columns">
 					<?php		
-					$logo = sprintf('<img src="%s" alt="%s"/>', THEME_IMG .'/logo.png', get_bloginfo( 'name' ) );
+					$logo = _s_site_logo();
 					$site_url = site_url();
 					printf('<div class="site-title"><a href="%s" title="%s">%s</a></div>', $site_url, get_bloginfo( 'name' ), $logo );
 					?>
@@ -58,15 +58,27 @@ _s_site_overlay();
 				
 				printf( '<div class="column row">%s%s%s%s</div>', $social_icons, $client_login, $language_switcher, $mobile_toggle );
 				
-				wp_nav_menu( array(
+				$secondary_menu = wp_nav_menu( array(
 					'theme_location' => 'secondary',
 					'container' => 'nav',
 					'container_class'  => 'secondary-menu',
-					'menu_id'        => 'secondary-menu',
-					'menu_class'     => 'menu',
-					'link_before'	 => '<span>',
-					'link_after'	 => '</span>'
+					'menu_id'          => 'secondary-menu',
+					'menu_class'       => 'menu',
+					'link_before'	   => '<span>',
+					'link_after'	   => '</span>',
+					'echo' 			   => false
 				) );
+				
+				$headercontent = $secondary_menu;
+				
+				if( is_silo_page() ) {
+					
+					$silo_title = get_post_meta( get_the_ID(), 'silo_title', true );
+					$headercontent =  sprintf( '<div class="show-for-large"><h5 class="silo-title">%s</h5></div>', $silo_title );
+				}
+				
+				echo $headercontent;
+								
  				?>				
 				</div><!-- .column -->
 			</div><!-- .row -->

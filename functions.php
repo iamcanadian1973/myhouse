@@ -34,7 +34,7 @@ if ( ! function_exists( '_s_setup' ) ) :
 		
 		
 		// Google API
-		define( 'GOOGLE_API_KEY', 'AIzaSyAVMy9BsiFy9ylnbv-NU3CE0Z8JuEJEH2M' );	
+		define( 'GOOGLE_API_KEY', '' );	
 		
 		
 		/**
@@ -69,8 +69,8 @@ if ( ! function_exists( '_s_setup' ) ) :
 		register_nav_menus( array(
 			'primary' => esc_html__( 'Primary Menu', '_s' ),
 			'secondary' => esc_html__( 'Secondary Menu', '_s' ),
-			'footer' => esc_html__( 'Footer Menu', '_s' ),
-			//'copyright'  => esc_html__( 'Copyright links', '_s' ),
+			'footer' => esc_html__( 'Footer Links', '_s' ),
+			'copyright'  => esc_html__( 'Copyright Links', '_s' ),
 		) );
 
 		/**
@@ -138,7 +138,7 @@ function _s_widgets_init() {
 	$sidebars = array(
 		'sidebar-1'  => esc_html__( 'Sidebar 1', '_s' ),
  		//'header-right'  => esc_html__( 'Header Right', '_s' ),
-		//'before-footer'  => esc_html__( 'Before Footer', '_s' ),
+		//'footer'  => esc_html__( 'Before Footer', '_s' ),
 	);
 
 	// Loop through each sidebar and register.

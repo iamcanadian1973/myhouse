@@ -2,7 +2,7 @@
 /* Core RS CSS file. 95% of time you shouldn't change anything here. */
 .royalSlider {
 	width: 100%;
-	min-height: 300px;
+	height: 400px;
 	position: relative;
 	direction: ltr;
 }
@@ -207,10 +207,10 @@
 
 .rsABlock {
 	left: 0;
-	bottom: 0;
+	top: 0;
 	position: absolute;
 	z-index: 15;
-	width: 100%;
+	
 }
 
 img.rsImg {
@@ -218,11 +218,11 @@ img.rsImg {
 }
 
 .grab-cursor {
-	cursor:url(assets/images/royalslider/grab.png) 8 8, move; 
+	cursor:url(grab.png) 8 8, move; 
 }
 
 .grabbing-cursor{ 
-	cursor:url(assets/images/royalslider/grabbing.png) 8 8, move;
+	cursor:url(grabbing.png) 8 8, move;
 }
 
 .rsNoDrag {
@@ -237,201 +237,5 @@ img.rsImg {
 	height:100%;
 	display:block;	
 	z-index: 20;
-	background: url(assets/images/royalslider/blank.gif);
-	
-	span {
-		 clip: rect(1px, 1px, 1px, 1px);
-		position: absolute !important;
-		height: 1px;
-		width: 1px;
-		overflow: hidden;
-	}
+	background: url(blank.gif);
 }
-
-
-/***************
-*
-*  1. Bullets
-*
-****************/
-
-.rsNav {
-	position: absolute;
-	bottom: 0;
-	z-index: 99;	
-}
-
-.rsBullets {
-    padding: 15px 0;
-	width: 100%;
-	margin: 0 auto 0;
-	float: none;
-	text-align: center;	
-}
-
-.rsBullet {
-	width: 15px;
-	height: 15px;
-	display: inline-block;
-	padding: 0;
-	margin: 0 5px;
-	cursor: pointer;
-}
-
-.rsBullet span {
-	display: block;
-	height: 15px;
-	width: 100%;
-	background-color: #d8d8d8;
-	border-radius: 50%;
-}
-
-.rsBullet.rsNavSelected span {
-	background-color: #ffffff;
-}
-
-
-
-
-/***************
-*
-*  2. Arrows
-*
-****************/
-
-
-.rsArrow {
-	height: 100%;
-	width: 100px;
-	position: absolute;
-	display: none!important;
-	cursor: pointer;
-	z-index: 99;
-	
-	@media #{$large-up} {
-    	display: block!important;  
-	}
-}
-
-.rsHor .rsArrowLeft { left: 0; top: 0; }
-.rsHor .rsArrowRight { right: 0; top:0; }
-
-.rsArrowIcn {		
-	width: 44px;
-	height: 44px;
-	top: 50%;
-	margin-top:-22px;
-	padding: 12px;	
-
-	position: absolute;	
-	cursor: pointer;	
-	background-color: transparent;
-	border-radius: 50%;
-	border: 1px solid #d8d8d8;
-	
-	.rsArrowLeft & {
-		
-		right: 0;
-		
-		&:before {
-			content: "<";
-			color: #d8d8d8;
-			font-family: "Arial";
-			font-size: 32px;
-			line-height: 44px;
-			position: relative;
-			left: -3px;
-			top: -12px;
-		}
-	}
-
-	.rsArrowRight & {
-		
-		left: 0;
-		
-		&:before {
-			content: ">";
-			color: #d8d8d8;
-			font-family: "Arial";
-			font-size: 32px;
-			line-height: 44px;
-			position: relative;
-			right: 0;
-			top: -12px;
-		}
-	}
-
-}
-
-	
-    
-
-
-.rsArrowIcn:hover {
- 	border-color: #ffffff;
-	&:before {
-		color: #fff;	
-	}
-}
-
-
-.rsArrowDisabled .rsArrowIcn { 
-	opacity: .2;
-}
-
-
-.rsMinW .rsArrow {
-	height: 32px;
-	width: 32px;
-	position: absolute;
-	display: block;
-	cursor: pointer;
-	z-index: 21;
-}
-
-.rsMinW .rsArrowLeft { 
-	right: 37px; 
-	bottom: 7px; 
-}
-.rsMinW .rsArrowRight { 
-	right: 7px; 
-	bottom: 7px; 
-}
-
-.rsMinW .rsArrowIcn {		
-	width: 24px;
-	height: 24px;
-	margin-top: 3px;
-	margin-left: 3px;
-	position: absolute;
-	cursor: pointer;	
-	background: $white;
-	
-	border-radius: 2px;
-}
-.rsMinW .rsArrowIcn:hover {
-
-}
-
-
-.rsMinW.rsHor .rsArrowLeft .rsArrowIcn { 
-	background-position: -68px -36px; 
-}
-.rsMinW.rsHor .rsArrowRight .rsArrowIcn { 
-	background-position: -68px -68px; 
-}
-
-.rsMinW.rsVer .rsArrowLeft .rsArrowIcn { 
-	background-position: -100px -36px; 
-}
-.rsMinW.rsVer .rsArrowRight .rsArrowIcn { 
-	background-position: -100px -68px; 
-}
-
-.rsMinW .rsArrowDisabled .rsArrowIcn { 
-	opacity: .3 !important; 
-	filter: alpha(opacity=30);  
-	*display: none; 
-}
-
-

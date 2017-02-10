@@ -1,0 +1,52 @@
+// Video Archive
+
+
+// hide captions for videos
+.fbx-caption {
+	display: none!important;	
+}
+
+a.youtube {
+	display: block;
+	position: relative;	
+	
+	&:hover {
+		opacity: .9;	
+	}
+	
+	.video-icon {
+		width: 50px;
+		height: 35px;
+		position: absolute;
+		top: 50%;
+		left: 50%;
+		transform: translate(-50%,-50%);
+		background-image: url(assets/images/youtube-play@2x.png);
+		background-repeat: no-repeat;
+		background-size: 50px 35px;
+		
+	}
+}
+
+
+	
+
+.post-type-archive-videos {
+
+	
+	.entry-header {
+		
+		padding: 5px 0 30px;
+		
+		h3 {
+			font-size: $paragraph-font-size;	
+			
+			a {
+				color: #000;	
+			}
+		}
+		
+	}
+	
+}
+

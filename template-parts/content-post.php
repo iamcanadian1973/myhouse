@@ -10,17 +10,16 @@
 
 <article id="post-<?php the_ID(); ?>" <?php post_class(); ?>>
 	
+	<header class="entry-header">
+		<?php the_title( '<h3 class="entry-title">', '</h3>' ); ?>
+		<div class="entry-meta">
+			<?php _s_posted_on(); ?>
+		</div><!-- .entry-meta -->
+	</header><!-- .entry-header -->
+	
 	<?php
-	if( !is_single() && has_post_thumbnail() ) {
-		
-		// Change image size for sticky post
-		$sticky = is_sticky() ? '-sticky' : '';
-		// Featured tag
-		$featured = is_sticky() ? '<span>Featured</span>' : '';
-		echo '<div class="thumbnail-box">';
-		echo $featured;
-		the_post_thumbnail( 'post-thumbnail' . $sticky );	
-		echo '</div>';
+	if( has_post_thumbnail() ) {
+		the_post_thumbnail( 'post-thumbnail' );	
 	}
 	?>
 	
@@ -29,9 +28,7 @@
 		if( is_single() ) {
 			the_content(); 
 			
-			// Add blockquote
-			
-			// Add secondary content block
+			echo _s_get_share_icons();
 			
 			wp_link_pages( array(
 				'before' => '<div class="page-links">' . esc_html__( 'Pages:', '_s' ),
@@ -41,20 +38,11 @@
 			
 		} else {
 			
-			?>
-			<header class="entry-header">
-				<?php the_title( '<h3 class="entry-title">', '</h3>' ); ?>
-				<div class="entry-meta">
-					<?php _s_posted_on(); ?>
-				</div><!-- .entry-meta -->
-			</header><!-- .entry-header -->
-			<?php
-			
 			_s_the_excerpt( '', '' );
 			
 			printf( '<p class="read-more"><a href="%s" class="more">Continue Reading ></a></p>', get_permalink() ) ;
 			
-			echo _s_get_share_icons();
+			
 		}
 		?>
 		

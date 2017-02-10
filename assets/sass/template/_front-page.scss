@@ -5,251 +5,26 @@
 
 .home {
 	
-	
-}
-
-	
-.home .section-hero {
-
-	background-position: left center;
-	
-	// remove the curve
-	&:before {
-		display: none;	
-	}
-
-	.hero-header,
-	.hero-description {
-		max-width: none;
-		text-align: left;	
-		
-		em {
-			
-			font-weight: normal;
-			font-style: italic;
-			display: block;
-		}
-	}
-	
-	.hero-description p {
-		font-size: 36px;
-		line-height: (52/48); 	
-		
-		@media #{$large-up} {
-      		font-size: 48px;
-			font-style: italic;
-		}
-	}
-}
-
-
-.home .section-benefits {
-	
-	.entry-title,
-	.entry-content {
-		//max-width: 500px;	
-	}
-	
-	
-	.entry-content {
-		margin-bottom: 30px;
-		
-		@media #{$large-up} {
-      		margin-bottom: 0;
-		}	
-	}
-	
-	.list {
- 		
-		li {
-			padding-left: 80px;
-			position: relative;
-			
-			&:before {
-				content: '';
-				display: block;
-				position: absolute;
-				top: 0;
-				left: 0;
-				width: 48px;
-				height: 100%;
-				background-size: contain;
-				background-repeat: no-repeat;
-			}
-			
-			&:first-child:before {
-				background-image: url(assets/images/home/work-life-balance-icon.svg);
-			}
-			
-			&:nth-child(2):before {
-				background-image: url(assets/images/home/compensation-and-benefits-icon.svg);
-			}
-			
-			&:nth-child(3):before {
-				background-image: url(assets/images/home/collaboration-and-retreats-icon.svg);
-				width: 58px;
-			}
-			
-			&:nth-child(4):before {
-				background-image: url(assets/images/home/shared-support-services-icon.svg);
-				width: 58px;
-			}
-			
-			
-			h5 {
-				margin-bottom: 0;	
-			}
-			
-		}
-	}
-}
-
-// news, events and opportunities
-
-.section-events-news {
-		
-	.post {
-		img.size-post-featured {
-			border-radius: 20px;	
-			margin-bottom: 25px;
-		}
-		
-		img.size-post-small {
-			border-radius: 20px;	
-		}
-		
-		h4 {
-			font-size: 20px;	
-			
-			@media #{$large-up} {
-      			font-size: 24px;
-			}
-		}
-	}
-	
-	.post {
-		
-		padding-bottom: 30px;
-		
-		&.post-featured {
-			padding-bottom: 20px;	
-		}
-		
-		p {
-			margin-bottom: 16px;
-			
-			&:last-of-type {
-				margin-top: -10px;	
-			}
-		}	
-	}
-	
-	.list .post img {
-		
-		display: inline-block;
+	.caption {
+		position: absolute;
+		left: 50%;
+		top: 50%;
+		transform: translate(-50%, -50%);
+		width: 100%;
+		text-align: center;	
 				
-		@media #{$medium-up} {
-      		display: block;
-			float: left;	
-			margin-right: 30px;
-		}
-	}
-	
-	.list .post .details {
-		overflow: hidden;			
-	}
-	
-	.more {
-		font-weight: 700;
-		text-transform: uppercase;	
-	}
-	
-	.opportunities {
-	
-		.post-featured {
-			padding-bottom: 10px;	
+		.rsABlock {
+			position: relative;	
 		}
 		
-		h5 {
-			text-transform: uppercase;	
+		h4,
+		p {
+			color: #fff;	
 		}
-		
-		.list {
-			margin-bottom: 24px;
-			
-			font-weight: 700;
-		}
-		
 	}
+	
 }
 
-
-.section-provider-testimonial-featured {
-		
-	.wrap {
-		@media #{$large-up} {
-      		padding-left: 0;
-		
-			.row .columns {
-				padding-left: 0;	
-			}
-		}
-		
-		text-align: center;
-		
-		@media #{$large-up} {
-      		text-align: left;
-		}
-	}
-	
-	img {
-		border-radius: 20px;
-		
-		@media #{$large-up} {
-      		border-radius: 0 23px 23px 0;
-		}	
-	}
-	
-	a.video-link {
-		display: block;
-		position: relative;
-		
-		&:hover {
-			.video-play {
-				opacity: .7;	
-			}
-		}
-		
-		.video-play {
- 			position: absolute;
-			top: 50%;
-			left: 50%;	
-			transform: translate(-50%, -50%);
-			background-color: rgba($white, 1);
-			border: 2px solid rgba( #c5c4bf, .7 );
-			opacity: .5;
-			border-radius: 50%;
-			background-image: url(assets/images/triangle.svg);
-			padding: 40px;
-			width: 70px;
-			height: 70px;
-			background-repeat: no-repeat;
-			background-position: center center;
-			background-size: 30px;
-		}
-	}
-	
-	h4 {
-		color: $blue;
-		font-weight: 700;
-		margin-bottom: 5px;
-	}
-	
-	.provider-specialties {
-		p {
-			color: #727272;
-			font-weight: 700;	
-			line-height: 1.2;
-		}
-	}
+.rsTextSlide {
+	background: #fff;	
 }

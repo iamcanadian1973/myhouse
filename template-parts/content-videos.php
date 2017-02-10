@@ -13,18 +13,19 @@
 	<div class="entry-content">
 		<?php
 		$video_url = add_query_arg( array( 'rel' => 0, 'autoplay' => 1 ), get_post_meta( get_the_ID(),  'video_url', true ) );
-		//$title = sprintf( ' data-caption-title="%s"', esc_html( get_the_title() ) );
-		$title = esc_html( get_the_title() );
-		$description  = get_post_meta( get_the_ID(),  'video_description', true );
+		$title = sprintf( ' data-caption-title="%s"', esc_html( get_the_title() ) );
+ 		$description  = get_post_meta( get_the_ID(),  'video_description', true );
 		if( !empty( $description ) ) {
-			$title .= ' - ' .  esc_html( $description ) ;
+			$description = sprintf( ' data-caption-desc="%s"', $description );
 		}
-		printf( '<a href="%s" class="foobox" rel="foobox" title="%s">', $video_url, $title );
+		printf( '<a href="%s" class="foobox"%s%s><i class="icon video-icon"></i>', $video_url, $title, $description );
 		the_post_thumbnail( 'video-thumbnail' );
 		echo '</a>';
 		?>
 		<header class="entry-header">
-			<?php the_title( '<h3>', '</h3>' ); ?>
+			<?php 
+				printf( '<h3><a href="%s" class="foobox youtube"%s%s>%s</a></h3>', $video_url, $title, $description, get_the_title() );
+			?>
 		</header><!-- .entry-header -->
 		
 	</div><!-- .entry-content -->

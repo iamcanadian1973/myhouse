@@ -1,0 +1,19 @@
+/* CSS Document */
+
+.section-logos-testimonials {
+
+	.award-logos {
+ 		display: table;
+		margin-bottom: 30px;	
+		> * {
+			display: table-cell;
+			vertical-align: top;
+			height: 100px;
+		}
+	}
+	
+	.testimonial-slider {
+		padding: 0 15px;	
+	}
+	
+}

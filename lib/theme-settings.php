@@ -1,5 +1,8 @@
 <?php
 
+// Gravity forms hide labels
+add_filter( 'gform_enable_field_label_visibility_settings', '__return_true' );
+
 // increase jpeg quality
 add_filter('jpeg_quality', function( $arg ){ return 100; } );
   
@@ -24,7 +27,7 @@ function kr_enqueue_stylesheet() {
 	Image Sizes
 	*****************************************/
 	
-add_image_size( 'hero', 2400, 580 ); // Hero photo
+add_image_size( 'hero', 1900, 800 ); // Hero photo
 add_image_size( 'video-thumbnail', 640, 360, true ); // homepage posts
 //add_image_size( 'post-featured', 520, 210, true ); // homepage posts
 //add_image_size( 'post-thumbnail', 276, 276 ); // blog/News

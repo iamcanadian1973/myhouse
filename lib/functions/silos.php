@@ -1,0 +1,51 @@
+<?php
+
+// Is this a Silo page?
+function is_silo_page() {
+	// Find silo pages by template slug
+	$silo_pages = array( 'silo-landing-page', 'silo-process' );
+	
+	// needs to be a page
+ 	if( !is_page() ) 
+		return false;
+	
+	$page_template = str_replace( '.php', '', basename( get_page_template() ) );
+										
+	if( !in_array( $page_template, $silo_pages ) )
+		return false;
+	
+	return true;
+}
+
+
+// get logo based on Silo or not
+function _s_site_logo() {
+	
+	$logo = '';
+	
+	if( is_silo_page() ) {
+		$logo = '-white';
+	}
+	
+	return sprintf('<img src="%slogo%s.png" alt="%s"/>', trailingslashit( THEME_IMG ) , $logo, get_bloginfo( 'name' ) );	
+}
+
+/**
+ * Silo Body Class
+ *
+ * @param array $classes
+ * @return array
+ */
+function add_silo_body_class( $classes ) {
+  
+	if( is_silo_page() ) {
+		$silo_category = get_post_meta( get_the_ID(), 'silo_category', true );
+		$silo_category = sanitize_title_with_dashes( $silo_category );
+		$classes[] = 'silo-' . $silo_category;
+	}
+  
+  	return $classes;
+}
+add_filter( 'body_class', 'add_silo_body_class' );
+
+

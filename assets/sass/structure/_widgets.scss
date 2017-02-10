@@ -1,7 +1,7 @@
 // widgets
 
-.footer-widgets .widget-title {
-	//@extend %screen-reader-text;
+#secondary.widget-area .widget ul {
+	@include list-reset;
 }
 
 .widget_dpe_fp_widget ul,
@@ -44,7 +44,7 @@
 		}
 		
 		a:hover .icon {
-			background: $blue;
+			background: $primary;
 		}
 		
 		.icon {
