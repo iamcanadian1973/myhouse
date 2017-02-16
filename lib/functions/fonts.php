@@ -6,7 +6,7 @@ function kr_load_google_fonts() {
 	
 	// change array as needed
 	$font_families = array(
-			'Open+Sans:400,600,700',
+			'Open+Sans:300,400,600,700',
 			'Crimson+Text'
 		);
 	

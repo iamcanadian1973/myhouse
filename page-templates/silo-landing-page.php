@@ -77,9 +77,13 @@ echo kr_module_slideshow( 'slider' );
 	section_details();
 	function section_details() {
 				
-		$prefix = 'details';
+		$args = array(
+			'prefix' => 'details',
+			'title_position' => 'after',
+			'title_tag' => 'h3'
+		);
 		$grid = '';
-		$grid_items = _kr_get_grid_items( $prefix );
+		$grid_items = _kr_get_grid_items( $args );
 		if( !empty( $grid_items ) ) {
 			$grid = sprintf( '<div class="row small-up-1 medium-up-3 grid">%s</div>', $grid_items );
 		}
