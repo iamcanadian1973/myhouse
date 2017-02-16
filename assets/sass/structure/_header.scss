@@ -83,7 +83,8 @@ Header
 		display: inline-block;	
 		vertical-align: top;
 		
-		> * {
+		> button,
+		> a {
 			display: inline-block;	
 			vertical-align: top;	
 			
