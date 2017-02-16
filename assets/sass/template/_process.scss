@@ -3,8 +3,29 @@
 .template_process {
 	
 	.section-steps {
+		margin-bottom: 0;	
+	}
 	
-		.column {
+	.section-steps .step-title {
+				
+		padding: 10px 5px;
+		text-align: center;
+		
+		> * {
+			color: #fff;	
+			font-size: 18px;
+		}
+		
+		h3 {
+			margin: 0 auto 0;	
+		}
+		
+		p {
+			margin: 0 auto;	
+		}
+	}
+	
+	.section-steps .grid .column {
 		
 			&:first-child() .step-title {
 				background-image: url(assets/images/silos/custom-homes.jpg);
@@ -21,31 +42,14 @@
 			&:nth-child(4) .step-title {
 				background-image: url(assets/images/silos/home-improvements.jpg);
 			}
-			
-			
-			.step-title {
-				
-				padding: 10px 5px;
-				text-align: center;
-				
-				> * {
-					color: #fff;	
-					font-size: 18px;
-				}
-				
-				h3 {
-					margin: 0 auto 0;	
-				}
-				
-				p {
-					margin: 0 auto;	
-				}
-			}
-			
-			
-			
-		}
 		
+	}
+	
+	
+	.section-process-guarantee {
+		
+		background-color: #f3f0eb;
+		padding: 30px 0 0;
 	}
 	
 }
