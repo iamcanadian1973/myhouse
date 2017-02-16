@@ -9,11 +9,6 @@
 	background-size: cover;
 	padding: 0;	
 	
-	margin-bottom: 30px;
-	
-	@media #{$xlarge-up} {
-		margin-bottom: 48px;
-	}
 	
 	.wrap {
 		
@@ -22,7 +17,7 @@
 		padding-top: 30px;
 		padding-bottom: 30px;
 		
-		min-height: 100px;  
+		min-height: 150px;  
 		
 		@media only screen and (min-width : 480px) {
 			min-height: 200px;  
