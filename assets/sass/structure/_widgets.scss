@@ -20,7 +20,7 @@
 	}
 
 	&:before {
-		content: 'Share this article';	
+		content: 'Share';	
 		display: inline-block;
 		vertical-align: top;
 		font-size: 14px;
@@ -91,11 +91,12 @@
 	
 	li {
  		display: inline-block;
-		margin: 0 15px 0 0;
+		margin: 0 9px 0 0;
 	
 		
 		a {
 			color: rgba($black, .3);
+			padding: 0 3px;
 			
 			&:hover {
 				color: rgba($black, .5);

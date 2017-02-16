@@ -112,7 +112,7 @@
 	
 	.nav-primary {
 		background: $white;
-		padding: 0;
+		padding: 0 0 15px;
  			
 		.menu {
  			display: inline-block;
@@ -150,7 +150,7 @@
 		
 			a {
  				color: $gray;
-				font-size: 14px;
+				font-size: 13px;
  				padding: 5px 12px;
 				
 				&:hover {

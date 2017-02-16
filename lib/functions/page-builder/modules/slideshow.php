@@ -32,7 +32,7 @@ function kr_module_slideshow( $prefix= '' ) {
 		$img_attr = wp_get_attachment_image_src( $slide['photo'], $size ); // returns an array
 		$text = '';
 		if( !empty( $slide['caption_title'] ) ) {
-			$text .= sprintf( '<h4>%s</h4>', $slide['caption_title'] );
+			$text .= sprintf( '<h2>%s</h2>', $slide['caption_title'] );
 		}
 		if( !empty( $slide['caption_description'] ) ) {
 			$text .= sprintf( '%s', wpautop( $slide['caption_description'] ) );

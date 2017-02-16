@@ -32,8 +32,9 @@ $dark-gray: #212121;
 $black: #000000;
 $white: #ffffff;
 
-$primary: #cab580;
+$primary: #cab684;
 
+$orange: #f1592a;
 
 $body-background: $white;
 $body-font-color: $black;
@@ -90,6 +91,14 @@ $header-sizes: (
     'h4': 22,
     'h5': 18,
     'h6': 16,
+  ),
+  large: (
+    'h1': 36,
+    'h2': 32,
+    'h3': 28,
+    'h4': 26,
+    'h5': 22,
+    'h6': 20,
   )
 );
 
@@ -107,5 +116,5 @@ $paragraph-line-height: 1.67;
 $paragraph-font-color: #474747;
 $paragraph-margin-bottom: 24px;
 
-$anchor-color: $primary;
-$anchor-color-hover: $primary;
+$anchor-color: $orange;
+$anchor-color-hover: scale-color($orange, $lightness: 15%);

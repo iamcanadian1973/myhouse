@@ -63,7 +63,7 @@ get_header(); ?>
 			return false;
  		}
 		
-		$grid = sprintf( '<div class="row small-up-1 medium-up-2 large-up-4 grid">%s</div>', $grid_items );
+		$grid = sprintf( '<div class="row small-up-1 medium-up-2 large-up-4 grid" data-equalizer data-equalize-on="medium">%s</div>', $grid_items );
 		
 		$attr = array( 'class' => 'section-content section-steps' );
 		_s_section_open( $attr );	
@@ -105,7 +105,7 @@ get_header(); ?>
 						
 			$title = isset(  $row['grid_title'] ) ? sprintf( '<%1$s>%2$s</%1$s>', $title_tag, $row['grid_title'] ) : '';
  			$title .= isset(  $row['grid_description'] ) ? sprintf( '<p>%s</p>', $row['grid_description'] ) : '';
-			$title = sprintf( '<div class="step-title">%s</div>', $title );
+			$title = sprintf( '<div class="step-title" data-equalizer-watch>%s</div>', $title );
 			
 			$photo = isset(  $row['photo'] ) ? $row['photo']: '';
 			

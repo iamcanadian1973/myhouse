@@ -14,7 +14,7 @@ function section_logos_testimonials() {
 	$logos .= sprintf( '<img src="%sbaeumler-@2x.png" alt="" /></a>', trailingslashit( THEME_IMG ) );
 	$logos .= '</div>';
 	
-	$free_consultation = sprintf( '<p><a href="%s" class="btn cta">%s</a></p>', get_permalink( 1444 ), __( 'Request a free Consultation', '_s' ) );
+	$free_consultation = sprintf( '<p class="cta"><a href="%s" class="btn medium">%s</a></p>', get_permalink( 1444 ), __( 'Request a free Consultation', '_s' ) );
 	$left_column = sprintf( '<div class="small-12 large-4 columns"><div class="entry-content">%s%s</div></div>', $logos, $free_consultation );
 			
 	// Right Column
@@ -65,9 +65,12 @@ function section_logos_testimonials() {
 	
  			$title = get_the_title();
 			$description = get_post_meta( get_the_ID(), 'testimonial_description', true );
+			if( !empty( $description ) ) {
+				$title = sprintf( '%s/ %s', $title, $description );
+			}
 			$content = apply_filters( 'pb_the_content', get_the_content() );	
 			
-			$items .= sprintf( '<div class="rsTextSlide"><div class="quote">%s</div><div class="details">%s/ %s</div></div>', $content, $description, $title );		
+			$items .= sprintf( '<div class="rsContent"><div class="rsTextSlide"><div class="quote">%s</div><div class="details"><p>%s</p></div></div></div>', $content, $title );		
 			
 		endwhile;
 	wp_reset_postdata();

@@ -20,7 +20,7 @@ function _s_off_canvas_menu() {
 	
 	$primary_menu = wp_nav_menu( $args );
 			
-	printf( '<div class="pushy pushy-left"><a href="#" class="close-btn">' . __( 'Close', '_s' ) . '</a><nav class="nav-mobile">%s%s</nav></div>', $secondary_menu, $primary_menu );
+	printf( '<div class="pushy pushy-left"><a href="#" class="close-btn"><span class="screen-reader-text">%s</span><span class="close"></span></a><nav class="nav-mobile">%s%s</nav></div>', __( 'Close', '_s' ), $secondary_menu, $primary_menu );
 }
 
 /**

@@ -22,3 +22,7 @@ require_once( 'page-builder/init.php' );
 require_once( 'off-canvas-menu.php' );
 require_once( 'silos.php' );
 require_once( 'videos.php' );
+
+require_once( 'gallery.php' );
+
+require_once( 'addtoany.php' );

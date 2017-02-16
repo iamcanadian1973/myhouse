@@ -14,15 +14,16 @@
 	li {
 		list-style-type: none;
 		padding: 5px 5px;
+		margin: 0!important;
 		
 		a {
- 			color: #eeeeee;
+ 			color: #666;
 			font-size: 16px;
 			line-height: 25px;
 			padding: 2px 0;	
  					
 			&:hover {
-				color: #fff;
+				color: #333;
 			}
 		}
 		
@@ -42,17 +43,24 @@
 	}
 	
 	.secondary {
+		
+		ul {
+			padding-top: 0!important;	
+		}
+		
 		li {
 			text-align: center;
-			padding: 10px 0;
+			padding: 5px 0;
 			
 			a {
 				display: block;
 				background-size: cover;
 				background-repeat: no-repeat;
 				background-position: center center;
-				padding: 10px 5px;
+				padding: 5px 5px;
+				color: #fff;
 			}
+			
 			
 			&:first-child() a {
 				background-image: url(assets/images/silos/custom-homes.jpg);
@@ -71,7 +79,7 @@
 			}
 			
 			&:nth-child(5) a {
-				background-image: url(assets/images/silos/mechanical.jpg);
+				background-image: url(assets/images/silos/mechanical-plus.jpg);
 			}
 		}
 	}

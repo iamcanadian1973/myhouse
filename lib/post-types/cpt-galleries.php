@@ -40,8 +40,69 @@ class Gallery_CPT extends CPT_Core {
 
         );
 		
+		
+		
+		
      }
+	 
+	 
+	  /**
+     * Registers admin columns to display. Hooked in via _s.
+     * @since  0.1.0
+     * @param  array  $columns Array of registered column names/labels
+     * @return array           Modified array
+     */
+    public function columns( $columns ) {
+        
+		$current_screen = get_current_screen();
+	   
+	    if( $this->post_type != $current_screen->post_type )
+			return;
+		
+		$new_column = array(
+            'thumbnail' => __( 'Thumbnail', '_s' )
+         );
+		
+		//unset( $columns['date'] ); 
+        return array_slice( $columns, 0, 3, true ) + $new_column + array_slice( $columns, 1, null, true );
+    }
+
+    /**
+     * Handles admin column display. Hooked in via _s.
+     * @since  0.1.0
+     * @param  array  $column Array of registered column names
+     */
+    public function columns_display( $column, $post_id ) {
+        
+		$current_screen = get_current_screen();
+	   
+	   if( $this->post_type != $current_screen->post_type )
+			return;
+		
+		switch ( $column ) {
+            case 'event_start_date':
+			echo get_field( 'event_start_date');
+			break; 
+			case 'event_end_date':
+			echo get_field( 'event_end_date' );
+			break;
+        }
+    }
  
 }
 
 new Gallery_CPT();
+
+
+$gallery_categories = array(
+    __( 'Gallery Category', '_s' ), // Singular
+    __( 'Gallery Categories', '_s' ), // Plural
+    'gallery_cat' // Registered name
+);
+
+register_via_taxonomy_core( $gallery_categories, 
+	array(
+		'rewrite' => array('slug'=> 'galleries' )
+	), 
+	array( 'gallery' ) 
+);

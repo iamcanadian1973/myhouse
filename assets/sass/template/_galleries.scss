@@ -1,0 +1,63 @@
+/* CSS Document */
+
+
+.post-type-archive-gallery {
+	
+	article {
+		padding-bottom: 30px;	
+	}
+	
+	a {
+		display: block;
+		position: relative;	
+	}
+	
+	.entry-content {
+		position: absolute;
+		top: 0;
+		left: 0;
+		width: 100%;
+		height: 100%;
+		display: flex;
+		justify-content: center;
+		align-items: flex-end;
+		
+		h2 {
+			color: #ffffff;
+			text-align: center;
+			font-size: 40px;
+		}
+	}
+	
+}
+
+.single-gallery {
+
+	// hide thumbnails when lazy loading slides
+	.royalSlider a.rsImg img {
+		display: none;
+	}
+	
+	// reposition thumbs
+	.rsDefault .rsNav {
+		position: relative!important;
+		bottom: auto!important;
+	}
+	
+	.rsDefault .rsThumb.rsNavSelected {
+		background: $light-gray;
+	}
+	
+	/*
+	// Change thumbnail size
+	.rsThumb {
+        width: 120px;
+        height: 120px;
+    }
+    .rsThumbsHor {
+        height: 120px;
+    }
+	*/
+
+	
+}

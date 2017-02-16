@@ -5,26 +5,64 @@
 
 .home {
 	
-	.caption {
+	.royalSlider {
+		min-height: 200px;
+
+	}
+	
+	.royalSlider .caption {
 		position: absolute;
 		left: 50%;
 		top: 50%;
 		transform: translate(-50%, -50%);
 		width: 100%;
+		max-width: 80%;
 		text-align: center;	
+		
+		@media #{$large-up} {
+      		max-width: 600px;
+		}
 				
 		.rsABlock {
 			position: relative;	
 		}
 		
-		h4,
+		h2,
 		p {
 			color: #fff;	
 		}
+		
+		h2 {
+			
+			font-size: 16px;
+			margin: 0 auto;
+			
+			@media #{$medium-up} {
+      			font-size: 24px;
+			}
+			
+			@media #{$xlarge-up} {
+      			font-size: 40px;
+			}	
+		}
+	}
+	
+	
+	.section-default {
+	
+		padding-top: 30px;
+		
+		.cta {
+			@media #{$large-up} {
+      			text-align: right;
+			}	
+		}
+		
 	}
 	
 }
 
+// fix for background fade issue on slider text
 .rsTextSlide {
 	background: #fff;	
 }

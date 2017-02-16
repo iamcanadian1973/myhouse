@@ -18,7 +18,7 @@
 		if( !empty( $description ) ) {
 			$description = sprintf( ' data-caption-desc="%s"', $description );
 		}
-		printf( '<a href="%s" class="foobox"%s%s><i class="icon video-icon"></i>', $video_url, $title, $description );
+		printf( '<a href="%s" class="foobox youtube"%s%s><i class="icon video-icon"></i>', $video_url, $title, $description );
 		the_post_thumbnail( 'video-thumbnail' );
 		echo '</a>';
 		?>

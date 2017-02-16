@@ -5,31 +5,6 @@
 	// Load Foundation
 	$(document).foundation();
 	
-	// Events open on page load, currently not working.
-	// We don't need this anymore
-	/*
-	var hash, offset, scrollto;
-	hash = window.location.hash;
-	offset = $('.sticky-header').height() + $('#wpadminbar').height();
-		
-	if ( hash !== '' ) {
-		
-		$('.accordion').foundation('down', $(hash) );
-		
-		scrollto = hash.replace("event", "event-item");
-			
-		$(window).on('down.zf.accordion', function(){
-			  $.smoothScroll({
-				offset: offset * -1,
-				scrollTarget: scrollto
-			});
-			
-			
-		});
-		
-		
-	}
-	*/
 	
 	
 	// touch events for main menu
@@ -38,6 +13,7 @@
  		$( '.nav-primary li:has(ul)' ).doubleTapToGo();
 	}
 	
+	// responsive videos
 	var $all_oembed_videos = $("iframe[src*='youtube'], iframe[src*='vimeo']");
 	
 	$all_oembed_videos.each(function() {
@@ -79,6 +55,60 @@
 	$('.equal-height-columns .columns').matchHeight(true);
 	
 	$('.section-helping-advance-dermatology .grid .column div').matchHeight(true);
+	
+	
+	
+	var testimonialSlider, testimonialNav;	
+		  
+	  var testimonial_slider_opts = {
+		transitionType: 'fade',
+		controlNavigation:'none',
+		imageScaleMode: 'none',
+		imageAlignCenter:false,
+		arrowsNav: true,
+		arrowsNavAutoHide: true,
+		sliderTouch: true,
+		addActiveClass: true,
+		sliderDrag:false,
+		arrowsNavHideOnTouch: false,
+		fullscreen: false,
+		loop: true,
+		autoHeight: true, 
+		autoScaleSlider: false, 
+ 		slidesSpacing: 0,
+		keyboardNavEnabled: false,
+		navigateByClick: false,
+		fadeinLoadedSlide: true,
+		globalCaption:false,
+		//imgWidth: 1905,
+		//imgHeight: 450,
+		transitionSpeed: 100,
+		usePreloader: false,
+		
+		autoPlay: {
+				// autoplay options go gere
+				enabled: true,
+				pauseOnHover: false,
+				delay: 4000
+			}
+	  };
+	
+   	$('#testimonial-slider').royalSlider(testimonial_slider_opts);
+		
+	testimonialSlider = $("#slider");
+	
+  
+   // hide single slider nav
+	testimonialNav = testimonialSlider.find('.rsNav'); 	
+	testimonialNav.hide();
+	
+	//nav.appendTo('.slideshow');
+	
+	$('.royalSlider').animate({opacity: 1 }, 200);
+	
+	if (testimonialNav.length && testimonialSlider.data('royalSlider').numSlides > 1 ) { 
+		testimonialNav.show();
+	}
 	
 	
 

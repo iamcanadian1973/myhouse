@@ -27,7 +27,13 @@ function _s_site_logo() {
 		$logo = '-white';
 	}
 	
-	return sprintf('<img src="%slogo%s.png" alt="%s"/>', trailingslashit( THEME_IMG ) , $logo, get_bloginfo( 'name' ) );	
+	$logos = sprintf('<div class="show-for-xxlarge"><img src="%slogo%s.png" alt="%s"/></div>', trailingslashit( THEME_IMG ) , $logo, get_bloginfo( 'name' ) );	
+	
+	$logos .= sprintf('<div class="show-for-xlarge hide-for-xxlarge"><img src="%stablet-logo%s.png" alt="%s"/></div>', trailingslashit( THEME_IMG ) , $logo, get_bloginfo( 'name' ) );	
+	
+	$logos .= sprintf('<div class="hide-for-xlarge"><img src="%smobile-logo%s.png" alt="%s"/></div>', trailingslashit( THEME_IMG ) , $logo, get_bloginfo( 'name' ) );	
+	
+	return $logos;
 }
 
 /**
@@ -41,6 +47,7 @@ function add_silo_body_class( $classes ) {
 	if( is_silo_page() ) {
 		$silo_category = get_post_meta( get_the_ID(), 'silo_category', true );
 		$silo_category = sanitize_title_with_dashes( $silo_category );
+		$classes[] = 'silo-page';
 		$classes[] = 'silo-' . $silo_category;
 	}
   

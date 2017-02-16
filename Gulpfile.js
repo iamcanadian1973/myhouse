@@ -240,18 +240,17 @@ gulp.task('foundation-js', () => {
 		// Core Foundation - needed when choosing plugins ala carte
 		paths.foundationJSpath + 'foundation.core.js',
 		
+		// Choose the individual plugins you want in your project
 		paths.foundationJSpath + 'foundation.dropdown.js',
 		
 		paths.foundationJSpath + 'foundation.equalizer.js',
-
-		// Choose the individual plugins you want in your project
+		
+		paths.foundationJSpath + 'foundation.tabs.js',
 		
 		/*
 		paths.foundationJSpath + 'foundation.abide.js',
-		*/
-		paths.foundationJSpath + 'foundation.accordion.js',
-		/*
-		paths.foundationJSpath + 'foundation.accordionMenu.js',
+ 		paths.foundationJSpath + 'foundation.accordion.js',
+ 		paths.foundationJSpath + 'foundation.accordionMenu.js',
 		paths.foundationJSpath + 'foundation.drilldown.js',
 		
 		paths.foundationJSpath + 'foundation.dropdownMenu.js',
@@ -265,7 +264,7 @@ gulp.task('foundation-js', () => {
 		paths.foundationJSpath + 'foundation.reveal.js',
 		paths.foundationJSpath + 'foundation.slider.js',
 		paths.foundationJSpath + 'foundation.sticky.js',
-		paths.foundationJSpath + 'foundation.tabs.js',
+		
 		paths.foundationJSpath + 'foundation.toggler.js',
 		paths.foundationJSpath + 'foundation.tooltip.js',
 		

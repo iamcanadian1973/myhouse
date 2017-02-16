@@ -123,7 +123,7 @@ add_action( 'after_setup_theme', '_s_setup' );
  * @global int $content_width
  */
 function _s_content_width() {
-	$GLOBALS['content_width'] = apply_filters( '_s_content_width', 640 );
+	$GLOBALS['content_width'] = apply_filters( '_s_content_width', 1024 );
 }
 add_action( 'after_setup_theme', '_s_content_width', 0 );
 

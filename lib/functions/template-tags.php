@@ -177,16 +177,16 @@ function _s_get_social_icons() {
 	'http://www.facebook.com/myhousedesignbuildteam' );
 	
 	$twitter = sprintf( '<li><a href="%s" target="_blank"><span><i class="fa fa-twitter" aria-hidden="true"></i></span></a></li>', 	
-	'http://www.facebook.com/myhousedesignbuildteam' );
+	'http://twitter.com/MyHouselive' );
 	
 	$instagram = sprintf( '<li><a href="%s" target="_blank"><span><i class="fa fa-instagram" aria-hidden="true"></i></span></a></li>', 	
-	'http://www.facebook.com/myhousedesignbuildteam' );
+	'http://instagram.com/myhousedesignbuild' );
 	
 	$youtube = sprintf( '<li><a href="%s" target="_blank"><span><i class="fa fa-youtube" aria-hidden="true"></i></span></a></li>', 	
-	'http://www.facebook.com/myhousedesignbuildteam' );
+	'http://www.youtube.com/user/MyHouseTeam' );
 	
 	$houzz = sprintf( '<li><a href="%s" target="_blank"><span><i class="fa fa-houzz" aria-hidden="true"></i></span></a></li>', 	
-	'http://www.facebook.com/myhousedesignbuildteam' );
+	'http://www.houzz.com/pro/myhousedesignbuildteam' );
 	
 	return sprintf( '<ul class="social-icons">%s%s%s%s%s</ul>', $facebook, $twitter, $instagram, $youtube, $houzz );
 	

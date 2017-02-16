@@ -54,6 +54,8 @@ get_template_part( 'template-parts/section', 'hero' );
 	
 		// Use $loop, a custom variable we made up, so it doesn't overwrite anything
 		$loop = new WP_Query( $args );
+		
+		update_post_thumbnail_cache( $loop );
 	
 		// have_posts() is a wrapper function for $wp_query->have_posts(). Since we
 		// don't want to use $wp_query, use our custom variable instead.

@@ -4,14 +4,16 @@ Header
 
 .site-header {
 	
-	background-image: url(assets/images/header/default.jpg);
+	background-color: #000;
 	background-size: cover;
 	background-position: center center;
 	position: relative;
 	z-index: 999;	
  	margin: 0 auto;
 	
-	
+	@media #{$xlarge-up} {
+    	background-image: url(assets/images/header/default.jpg);  
+	}
 	
 	.site-branding {
 		padding-right: 0;		
@@ -19,10 +21,13 @@ Header
 	}
 	
 	.site-title {
-		
-		position: absolute;
-		top: 10px;
-		left: 0;
+		padding: 15px 0;
+		@media #{$xxlarge-up} {
+      		position: absolute;
+			top: 10px;
+			left: 0;
+			padding: 0;
+		}
 				
 		a {
 			display: block;	
@@ -51,8 +56,18 @@ Header
 .header-widget-area {
 	
 	padding-top: 30px;
-	padding-bottom: 25px;
+	padding-bottom: 20px;
 	text-align: right;
+	
+	@media #{$xlarge-up} {
+      padding-top: 20px;
+	  padding-bottom: 20px;
+	}
+	
+	@media #{$xxlarge-up} {
+      padding-top: 30px;
+	  padding-bottom: 25px;
+	}
 	
 	.social-icons {
 		display: none;	
@@ -64,28 +79,58 @@ Header
 		}
 	}
 	
-	.client-login {
+	.header-buttons {
 		display: inline-block;	
 		vertical-align: top;
 		
-		@media #{$xlarge-up} {
-      		vertical-align: middle;
+		> * {
+			display: inline-block;	
+			vertical-align: top;	
+			
+			background: rgba($gray, 1);
+				
+			&:hover {
+				background: rgba($gray, 1);
+			}
+			
+			@media #{$large-up} {
+      			background: rgba($black, .3);
+				
+				&:hover {
+					background: rgba($black, .5);
+				}
+			}
 		}
 		
 		button {
 			outline: none;	
-			padding: 5px 10px;
-			background: rgba($black, .3);
-			color: #fff;
+			padding: 5px 5px;
+ 			color: #fff;
 			font-size: 13px;
 			
-			&:hover {
-				background: rgba($black, .5);
+			@media #{$medium-up} {
+      			padding: 5px 10px;
 			}
-		}
+ 		}
+		
+		a {
+ 			padding: 1px 5px;
+ 			color: #fff;
+			font-size: 13px;
+			margin-left: 10px;
+			
+			@media #{$medium-up} {
+      			padding: 1px 10px;
+				margin-left: 15px;
+			}
+			
+			@media #{$large-up} {
+      			margin-left: 5px;
+			}
+  		}
 	}
-	
-	
+		
+				
 	.menu {
 		@include list-reset;
 		
@@ -108,7 +153,7 @@ Header
  				color: #fff;
 				position: relative;
  				text-align: center;
-				font-size: 14px;
+				font-size: 13px;
 				
 				&:before {
 					content: '';
@@ -151,15 +196,16 @@ Header
 			}
 			
 			&:nth-child(5) a:before {
-				background-image: url(assets/images/silos/mechanical.jpg);
+				background-image: url(assets/images/silos/mechanical-plus.jpg);
 			}
 			
 		}
 	}
 	
+		
 }
 
-
+// Header client login dropdown
 .dropdown-pane {
     position: absolute;
     z-index: 10;

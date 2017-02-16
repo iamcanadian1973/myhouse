@@ -43,11 +43,11 @@ echo kr_module_slideshow( 'slider' );
 		$right_column = $left_column = '';
 		
 		// Left column
-		$left_column = sprintf( '<div class="small-12 large-6 columns"><div class="entry-content">%s</div></div>', apply_filters( 'the_content', get_the_content() ) );
+		$left_column = sprintf( '<div class="small-12 medium-7 xxlarge-6 columns"><div class="entry-content">%s</div></div>', apply_filters( 'the_content', get_the_content() ) );
 		
 		// Right Column
 		
-		$galleries = sprintf( '<p><a href="%s" class="btn cta">%s</a></p>', get_post_type_archive_link( 'gallery' ), __( 'See Our Galleries', '_s' ) );
+		$galleries = sprintf( '<p class="cta"><a href="%s" class="btn large">%s</a></p>', get_post_type_archive_link( 'gallery' ), __( 'See Our Galleries', '_s' ) );
 		//$video = wp_oembed_get( 'https://www.youtube.com/watch?v=L2KbXuXWt6Q' );
 		$video = '';
 		$video_id = get_field( 'video' );
@@ -57,13 +57,13 @@ echo kr_module_slideshow( 'slider' );
 				
 		$content = $galleries . $video;
 			
-		$right_column = sprintf( '<div class="small-12 large-6 columns">%s</div>', $content );
+		$right_column = sprintf( '<div class="small-12 medium-5 xxlarge-6 columns">%s</div>', $content );
 		
 		// Output section
 		
 		$attr = array( 'class' => 'section-content section-default' );
 		_s_section_open( $attr );		
-			printf( '<div class="column row">%s%s</div>', $left_column, $right_column );
+			printf( '<div class="row">%s%s</div>', $left_column, $right_column );
 		_s_section_close();	
 		
 	}

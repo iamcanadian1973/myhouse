@@ -9,11 +9,86 @@
  * @package _s
  */
  
- function _s_get_footer_contact_details() {
-	return sprintf( '<div class="contact-details">%s</div>', get_field( 'footer_contact_us', 'option' ) );	 
+ 
+ // Footer Widgets
+ 
+ function _s_footer_logo() {
+	echo '<div class="widget">';
+	printf('<img src="%sfooter-logo.png" alt="%s"/>', trailingslashit( THEME_IMG ), get_bloginfo( 'name' ) );	
+	echo '</div>';	 
  }
  
+ function _s_footer_contact_details() {
+	echo '<div class="widget">';
+	printf( '<h3>%s</h3>', __( 'Contact Us' ) );
+	printf( '<div class="contact-details">%s</div>', get_field( 'footer_contact_us', 'option' ) );
+	echo '</div>';
+  }
+  
+  function _s_footer_follow_us() {
+	echo '<div class="widget">';
+	printf( '<h3>%s</h3>', __( 'Follow Us' ) );
+	echo _s_get_social_icons();
+	echo '</div>';
+  }
+
+
+function _s_footer_quick_links() {
+	echo '<div class="widget">';
+	printf( '<h3>%s</h3>', __( 'Quick Links' ) );
+	
+	if( has_nav_menu( 'footer' ) ) {
+								
+		$menu_locations = get_nav_menu_locations(); 
+
+		$menu_id = $menu_locations['footer']; // Get the *primary* menu ID
+
+		$footer_menu = wp_get_nav_menu_items( $menu_id );
+		
+		if( !empty(  $footer_menu ) ) {
+			if( count( $footer_menu ) > 3 ) {
+				$columns = '';
+				$footer_menus = c2c_array_partition( $footer_menu, 2 );
+				foreach( $footer_menus as $menu ) {
+					$links = '';
+					foreach( $menu as $item ) {
+						$links .= sprintf( '<li><a href="%s">%s</a></li>', $item->url, $item->title );
+					}
+					
+					$columns .= sprintf( '<div class="column"><ul class="menu">%s</ul></div>', $links );
+				}
+				
+				printf( '<div class="row medium-up-2">%s</div>', $columns );
+			}
+			else {
+			
+				wp_nav_menu( array(
+					'theme_location'   => 'footer',
+					'container' 	   => 'nav',
+					'container_class'  => 'footer-menu',
+					'menu_id'          => 'footer-menu',
+					'menu_class'       => 'menu',
+					'link_before'	   => '<span>',
+					'link_after'	   => '</span>'
+				) );
+				
+			}
+			
+		}
+	}
+	echo '</div>';	
+}
  
+ 
+function _s_footer_join_us() {
+	echo '<div class="widget">';
+	printf( '<h3>%s</h3>', __( 'Join Us' ) );
+ 	printf( '%s', do_shortcode( '[gravityform id="2" title="false" description="true" ajax="true" tabindex="99"]' ));
+	echo '</div>';
+}
+
+ 
+// Footer Logos 
  function _s_footer_logos() {
 	// arguments, adjust as needed
 		$args = array(
@@ -88,69 +163,34 @@ function _s_footer_copyright() {
 	<footer id="colophon" class="site-footer" role="contentinfo">
 		<div class="wrap dark">
 			<div class="row">
- 				<div class="small-12 medium-6 large-3 columns">
-					<?php
-					printf('<img src="%slogo.png" alt="%s"/>', trailingslashit( THEME_IMG ), get_bloginfo( 'name' ) );	
-					?>
+ 				<div class="small-12 medium-6 columns">
+					<div class="row">
+						<div class="small-12 large-6 columns">
+						<?php
+						_s_footer_logo();
+						?>
+						</div>
+						<div class="small-12 large-6 columns">
+						<?php
+						 _s_footer_contact_details();
+						?>
+						</div>
+					</div>
 				</div>
-				<div class="small-12 medium-6 large-3 columns">
-					<?php
-					printf( '<h3>%s</h3>', __( 'Contact Us' ) );
-					echo _s_get_footer_contact_details();
-					?>
-				</div>
-				<div class="small-12 medium-6 large-3 columns">
- 					<?php
-					printf( '<h3>%s</h3>', __( 'Follow Us' ) );
-					echo _s_get_social_icons();
-					printf( '<h3>%s</h3>', __( 'Quick Links' ) );
-					
-					if( has_nav_menu( 'footer' ) ) {
-						 						
-						$menu_locations = get_nav_menu_locations(); 
-
-						$menu_id = $menu_locations['footer']; // Get the *primary* menu ID
-
-						$footer_menu = wp_get_nav_menu_items( $menu_id );
-						
-						if( !empty(  $footer_menu ) ) {
- 							if( count( $footer_menu ) > 3 ) {
-								$columns = '';
-								$footer_menus = c2c_array_partition( $footer_menu, 2 );
-								foreach( $footer_menus as $menu ) {
-									$links = '';
-									foreach( $menu as $item ) {
-										$links .= sprintf( '<li><a href="%s">%s</a></li>', $item->url, $item->title );
-									}
-									
-									$columns .= sprintf( '<div class="column"><ul class="menu">%s</ul></div>', $links );
-								}
-								
-								printf( '<div class="row small-up-2">%s</div>', $columns );
-							}
-							else {
-							
-								wp_nav_menu( array(
-									'theme_location'   => 'footer',
-									'container' 	   => 'nav',
-									'container_class'  => 'footer-menu',
-									'menu_id'          => 'footer-menu',
-									'menu_class'       => 'menu',
-									'link_before'	   => '<span>',
-									'link_after'	   => '</span>'
-								) );
-								
-							}
-							
-						}
-					}
-					?>
-				</div>
-				<div class="small-12 medium-6 large-3 columns">
-					<?php
-						printf( '<h3>%s</h3>', __( 'Join Us' ) );
- 						printf( '%s', do_shortcode( '[gravityform id="2" title="false" description="true" ajax="true" tabindex="99"]' ));
-					?>
+				<div class="small-12 medium-6 columns">
+ 					<div class="row">
+						<div class="small-12 large-6 columns">
+						<?php
+						_s_footer_follow_us();
+						_s_footer_quick_links();
+						?>
+						</div>
+						<div class="small-12 large-6 columns">
+						<?php
+						 _s_footer_join_us();
+						?>
+						</div>
+					</div>
 				</div>
  			</div>	
 			

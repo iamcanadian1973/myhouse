@@ -7,6 +7,22 @@ body.silo-custom-homes .site-header  {
 	background-image: url(assets/images/header/custom-homes.jpg);			
 }
 
+body.silo-renovations .site-header  {
+	background-image: url(assets/images/header/renovations.jpg);			
+}
+
+body.silo-kitchen-bath .site-header  {
+	background-image: url(assets/images/header/kitchen-bath.jpg);			
+}
+
+body.silo-home-improvements .site-header  {
+	background-image: url(assets/images/header/home-improvements.jpg);			
+}
+
+body.silo-mechanical-plus .site-header  {
+	background-image: url(assets/images/header/mechanical-plus.jpg);			
+}
+
 
 .site-header .silo-title {
 	color: #fff;
@@ -14,4 +30,22 @@ body.silo-custom-homes .site-header  {
 	line-height: 43px;
 	margin: 0 auto;	
 	text-align: left;
+}
+
+
+ 	
+.silo-page .header-buttons > * {
+	background: rgba($black, .3);
+	&:hover {
+		background: rgba($black, .5);
+	}
+}
+
+
+.silo-page .site-header {
+	.menu-btn {
+		span.line {
+ 			background: rgba($black, .3);
+		}
+	}
 }

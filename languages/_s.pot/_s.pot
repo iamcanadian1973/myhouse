@@ -22,6 +22,10 @@ msgstr ""
 msgid "It looks like nothing was found at this location."
 msgstr ""
 
+#: archive-gallery.php:23, page-templates/silo-landing-page.php:45
+msgid "Photo Gallery"
+msgstr ""
+
 #: archive-videos.php:26
 msgid "Feature Videos"
 msgstr ""
@@ -49,27 +53,27 @@ msgstr ""
 msgid "Comments are closed."
 msgstr ""
 
-#: footer.php:73
+#: footer.php:148
 msgid "My House Design Build Team Ltd. All material on this site is copyrighted by My House Design Build Team Ltd."
 msgstr ""
 
-#: footer.php:74
+#: footer.php:149
 msgid "My House Design Build Team® is a registered trademark."
 msgstr ""
 
-#: footer.php:75
+#: footer.php:150
 msgid "No images or copy on this site may be used without written permission of My House Design Build Team Ltd."
 msgstr ""
 
-#: footer.php:76
+#: footer.php:151
 msgid "Terms & Conditions"
 msgstr ""
 
-#: footer.php:77
+#: footer.php:152
 msgid "Privacy Policy"
 msgstr ""
 
-#: footer.php:78
+#: footer.php:153
 msgid "Site by SWCA"
 msgstr ""
 
@@ -109,11 +113,11 @@ msgstr ""
 msgid "Widget area for %s"
 msgstr ""
 
-#: header.php:30
+#: header.php:37
 msgid "Skip to content"
 msgstr ""
 
-#: header.php:51
+#: header.php:58
 msgid "Client Login"
 msgstr ""
 
@@ -206,6 +210,26 @@ msgstr ""
 msgid "Galleries"
 msgstr ""
 
+#: lib/post-types/cpt-galleries.php:63
+msgid "Thumbnail"
+msgstr ""
+
+#: lib/post-types/cpt-galleries.php:98
+msgid "Gallery Category"
+msgstr ""
+
+#: lib/post-types/cpt-galleries.php:99
+msgid "Gallery Categories"
+msgstr ""
+
+#: lib/post-types/cpt-letters.php:21
+msgid "Reference Letter"
+msgstr ""
+
+#: lib/post-types/cpt-letters.php:22
+msgid "Referrence Letters"
+msgstr ""
+
 #: lib/post-types/cpt-logos.php:21
 msgid "Logo"
 msgstr ""
@@ -254,8 +278,8 @@ msgstr ""
 msgid "Videos"
 msgstr ""
 
-#: page-templates/silo-landing-page.php:45
-msgid "Photo Gallery"
+#: page-templates/reference-letters.php:83
+msgid "Click here to view project details"
 msgstr ""
 
 #: search.php:22
@@ -294,6 +318,10 @@ msgstr ""
 
 #: template-parts/section-footer-awards.php:19
 msgid "2016 Ovation Awards Winner"
+msgstr ""
+
+#: template-parts/section-footer-awards.php:22
+msgid "See Full List"
 msgstr ""
 
 #: template-parts/section-footer-awards.php:27

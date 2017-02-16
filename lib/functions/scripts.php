@@ -5,6 +5,7 @@ function _s_register_scripts() {
 	wp_register_script( 'foundation', trailingslashit( THEME_JS ) . 'foundation.min.js', array('jquery'), '', true );
 	wp_register_script( 'front-page', trailingslashit( THEME_JS ) . 'front-page.js', array('jquery', 'project'), '', true );	
 	
+	wp_register_script( 'gallery', trailingslashit( THEME_JS ) . 'gallery.js', array('jquery', 'project'), '', true );	
 	
 	wp_register_script( 'silo-landing', trailingslashit( THEME_JS ) . 'silo-landing-page.js', array('jquery', 'project'), '', true );	
 	

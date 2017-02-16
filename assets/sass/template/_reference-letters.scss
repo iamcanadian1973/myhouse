@@ -1,0 +1,52 @@
+/* CSS Document */
+
+.template_reference-letters {
+	
+	
+	
+	ul.tabs {
+		@include list-reset;
+		margin: 0 0 24px -10px;
+		
+		li {
+			display: inline-block;
+			margin: 0 0 10px 10px;
+			
+			
+			a {
+				width: 30px;
+				height: 30px;
+				line-height: 30px;
+				text-align: center;
+				background-color: $light-gray;
+				color: #fff;
+				display: block;
+				
+				&:hover {
+					background-color: $gray;	
+				}
+			}
+			
+			&.is-active a {
+				background-color: $gray;	
+			}
+		}
+	}
+	
+	.tabs-panel[aria-hidden="false"] {
+		display: block;
+	}
+	
+	.tabs-panel {
+		display: none;	
+		
+		img {
+			margin-bottom: 20px;	
+		}
+		
+		h3 {
+			margin-bottom: 24px;	
+		}
+	}
+		
+}

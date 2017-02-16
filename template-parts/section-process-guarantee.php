@@ -7,8 +7,8 @@ Section - Process Guarantee
 process_guarantee();
 function process_guarantee() {
 
-	$process_guide = sprintf( '<div class="column"><a href="%s" class="btn cta" data-equalizer-watch><span>%s</span></a></div>', get_permalink( 6313 ), __( 'Request our Renovation Process Guide', '_s' ) );
-	$free_consultation = sprintf( '<div class="column"><a href="%s" class="btn cta" data-equalizer-watch><span>%s</span></a></div>', get_permalink( 1444 ), __( 'Request a free Consultation', '_s' ) );
+	$process_guide = sprintf( '<div class="column"><a href="%s" class="btn medium gray flex" data-equalizer-watch><span>%s</span></a></div>', get_permalink( 6313 ), __( 'Request our Renovation Process Guide', '_s' ) );
+	$free_consultation = sprintf( '<div class="column"><a href="%s" class="btn medium flex" data-equalizer-watch><span>%s</span></a></div>', get_permalink( 1444 ), __( 'Request a free Consultation', '_s' ) );
 	
 	
 	

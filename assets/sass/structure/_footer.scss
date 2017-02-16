@@ -36,6 +36,7 @@
 		
 		h3 {
 			color: #fff;	
+			font-size: 20px;
 			margin-bottom: 5px;
 			text-transform: uppercase;
 		}
@@ -43,6 +44,10 @@
 		p, a {
 			color: #b1adae;
 			font-size: 14px;	
+		}
+		
+		a:hover {
+			color: #fff;
 		}
 	}
 	
@@ -52,8 +57,18 @@
 		 }
 	}
 	
-	.social-icons {
+	.widget {
 		margin-bottom: 24px;	
+	}
+	
+	.gform_confirmation_message {
+		color: #fff!important;
+ 		padding-bottom: 20px;
+		text-align: center;
+		
+		@media #{$medium-up} {
+      		text-align: left;
+		}
 	}
 	
 	.gform_wrapper {
@@ -63,11 +78,95 @@
 			padding: 0;
 			margin: 0;	
 			color: #b1adae;
+			
+			text-align: center;
+		
+			@media #{$medium-up} {
+				text-align: left;
+			}
 		}
 		
 		.gform_body {
 			max-width: 100%;	
 		}
+		
+		.gfield {
+			padding-right: 0!important;	
+		}
+		
+		div.validation_message {
+			color: #FF9494!important;	
+		}
+		
+		.field_description_below .gfield_description {
+			padding: 3px 3px 0!important;
+		}
+		
+		div.validation_error {
+			color: #FF9494;
+			font-size: 1em;
+			font-weight: 700;
+			margin-bottom: 0!important;
+			border: none!important;
+			padding: 16px 0;
+			clear: both;
+			width: 100%;
+			text-align: center;
+			display: none!important;
+		}
+		
+		.ginput_container input {
+			width: 100%!important;	
+			margin: 0 auto!important;
+			padding: 6px 10px!important;
+			color: #000;
+		}
+		
+		.gfield_error .ginput_container input {
+			width: 100%!important;	
+			margin: 0 auto!important;
+			padding: 5px 10px!important;
+			color: #000;
+		}
+		
+		
+		
+		li.gfield.gfield_error, .gform_wrapper li.gfield.gfield_error.gfield_contains_required.gfield_creditcard_warning {
+			background-color: transparent!important;
+			margin-bottom: 6px!important;
+			border: none!important;
+			padding-bottom: 0!important;
+			padding-top: 0!important;
+			box-sizing: border-box;
+		}
+		
+		input {
+			border: none;
+			border-radius: 6px;	
+			outline: none;
+		}
+		
+		.gform_footer {
+			
+			margin-top: 0!important;
+			//padding-right: 15px;
+			
+			input {
+				padding: 6px 5px!important;
+				background: $primary;
+				color: #fff;
+				border: none;
+				outline: none;	
+				width: 100%!important;
+				font-weight: 600;
+				
+				&:hover {
+					background: $anchor-color-hover;	
+					color: $white;
+				}	
+			}
+		}
+		
 		
 	}
 	
@@ -75,21 +174,27 @@
 		@include list-reset;	
 		padding-top: 20px;
 		text-align: center;
+		border-top: 1px solid #4b494a;
+		
+		@media #{$xxlarge-up} {
+			display: flex;
+			flex-direction: row;
+      		justify-content: space-between;
+		}
+		
 		li {
 			display: inline-block;
 			padding: 0 15px 20px;
-			height: 70px;	
 			text-align: center;
-			width: 16.6666666;
- 			
+  			
 			@media #{$large-up} {
       			width: auto;
- 				height: 50px;
 				padding: 0 10px 20px;
 			}
 			
 			@media #{$xxlarge-up} {
-      			padding: 0 15px;
+				flex-grow: 1;
+      			padding: 0 0 20px;
 			}
 			
 			/*
@@ -115,7 +220,7 @@
 		
 		p {
 			font-size: 12px;
-			line-height: 15px;
+			line-height: 17px;
 		}
 		
 		a {

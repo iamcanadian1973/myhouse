@@ -19,8 +19,8 @@ function footer_awards() {
 	$ovation = sprintf('<div class="small-12 large-3 columns"><img src="%s" alt="%s"/></div>', THEME_IMG .'/footer-awards/ovation.png', __( '2016 Ovation Awards Winner', '_s' ) );
 	
 	// Main content gets pulled from homepage
-	
-	$footer_awards = sprintf( '<div class="small-12 large-6 columns footer-awards text-center"><div class="entry-content">%s</div></div>', get_field( 'footer_awards', $homepage_id ) );
+	$cta = sprintf( '<p class="cta"><a class="btn" href="%s" target="_blank">%s</a></p>', get_permalink(1224), __( 'See Full List', '_s' ) );
+	$footer_awards = sprintf( '<div class="small-12 large-6 columns footer-awards text-center"><div class="entry-content">%s%s</div></div>', get_field( 'footer_awards', $homepage_id ), $cta );
 	
 	
 	// Footer text

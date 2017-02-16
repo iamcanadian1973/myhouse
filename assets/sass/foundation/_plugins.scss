@@ -1,0 +1,17 @@
+// We're not loadinf foundation comonent styles, we customize
+.dropdown-pane {
+    position: absolute;
+    z-index: 10;
+    display: block;
+    width: 200px;
+	height: 100px;
+    padding: 10px;
+    visibility: hidden;
+	background: #fff;
+    border: 1px solid #cacaca;
+	overflow: hidden;
+}
+
+.dropdown-pane.is-open {
+    visibility: visible;
+}

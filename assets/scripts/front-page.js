@@ -13,7 +13,7 @@
 		sliderTouch: true,
 		addActiveClass: true,
 		sliderDrag:false,
-		arrowsNavHideOnTouch: false,
+		arrowsNavHideOnTouch: true,
 		fullscreen: false,
 		loop: true,
 		autoScaleSlider: true, 
@@ -36,9 +36,9 @@
 			}
 	  };
 	
-   	$('.royalSlider').royalSlider(custom_opts);
+   	$('#slider').royalSlider(custom_opts);
 		
-	royalSlider = $(".royalSlider");
+	royalSlider = $("#slider");
 	
   
    // hide single slider nav
@@ -47,7 +47,7 @@
 	
 	//nav.appendTo('.slideshow');
 	
-	$('.royalSlider').animate({opacity: 1 }, 200);
+	$('#slider').animate({opacity: 1 }, 200);
 	
 	if (nav.length && royalSlider.data('royalSlider').numSlides > 1 ) { 
 		nav.show();

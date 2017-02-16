@@ -29,6 +29,5 @@ function kr_enqueue_stylesheet() {
 	
 add_image_size( 'hero', 1900, 800 ); // Hero photo
 add_image_size( 'video-thumbnail', 640, 360, true ); // homepage posts
-//add_image_size( 'post-featured', 520, 210, true ); // homepage posts
-//add_image_size( 'post-thumbnail', 276, 276 ); // blog/News
-//add_image_size( 'team-thumbnail', 172, 210, true ); // Team section
+add_image_size( 'gallery-cat-thumbnail', 400, 300, true );
+add_image_size( 'gallery-thumbnail', 400, 250, true );
