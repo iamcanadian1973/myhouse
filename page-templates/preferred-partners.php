@@ -45,9 +45,14 @@ get_header(); ?>
 		global $post;
 				
  		$prefix = 'preferred_partners';
-	
+		$args = array(
+			'prefix' => 'preferred_partners',
+ 			'title_position' => 'after',
+			'title_tag' => 'h3',
+			'show_link' => true
+		);
 		$grid = '';
-		$grid_items = _kr_get_grid_items( $prefix );
+		$grid_items = _kr_get_grid_items( $args );
 		if( empty( $grid_items ) ) {
 			return;
 		}

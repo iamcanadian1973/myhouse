@@ -89,7 +89,7 @@ get_header(); ?>
 				$description = isset(  $item['description'] ) ? $item['description']: '';
 				
 				if( !empty( $photo ) && !empty( $description ) ) {
-					$out .= sprintf( '<div class="column">%s%s</div>', $photo, $description );
+					$out .= sprintf( '<div class="column">%s<div class="entry-content">%s</div></div>', $photo, $description );
 				}
 			}
 			
@@ -97,7 +97,7 @@ get_header(); ?>
 				continue;
 			}
 			
-			$groups .= sprintf( '<h1>%s</h1><div class="row small-up-1">%s</div>', $title, $out );
+			$groups .= sprintf( '<h1>%s</h1><div class="row small-up-1 grid">%s</div>', $title, $out );
 			
 		}
 	

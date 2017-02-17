@@ -36,7 +36,9 @@ function _kr_get_grid_items( $args = '' ) {
 		'ret' => 'string',
 		'image_size' => 'large',
 		'title_position' => 'before',
-		'title_tag' => 'h3'
+		'title_tag' => 'h3',
+		'show_link' => false,
+		'target' => 'target="_blank"'
 	);
 	
 	$args = wp_parse_args( $args, $defaults );
@@ -63,12 +65,12 @@ function _kr_get_grid_items( $args = '' ) {
 	foreach( $rows as $row ) {
 		
 		$photo = isset(  $row['photo'] ) ? $row['photo']: '';
-		
+				
 		if( $photo ) {
 			$photo = wp_get_attachment_image( $photo, $image_size );
 		}
 		
-		$title = isset(  $row['grid_title'] ) ? sprintf( '<%1$s>%2$s</%1$s>', $title_tag, $row['grid_title'] ) : '';
+		$title = !empty(  $row['grid_title'] ) ? sprintf( '<%1$s>%2$s</%1$s>', $title_tag, $row['grid_title'] ) : '';
 		$title_before = $title_after = $title;
  		if( $title_position == 'before' ) {
 			$title_after = '';
@@ -78,7 +80,15 @@ function _kr_get_grid_items( $args = '' ) {
 		
 		$description = isset(  $row['grid_description'] ) ? $row['grid_description']: '';
 		
-		$list_items[] = sprintf( '<div class="column">%s%s%s%s</div>', $title_before, $photo, $title_after, $description );
+		$anchor_open = $anchor_close = '';
+		$url = isset(  $row['url'] ) ? $row['url']: '';
+		
+		if( !empty( $url ) && $show_link ) {
+			$anchor_open = sprintf( '<a href="%s" %s>', $url, $target );
+			$anchor_close = '</a>';
+		}
+		
+		$list_items[] = sprintf( '<div class="column">%s%s%s%s<div class="entry-content">%s%s</div></div>', $title_before, $anchor_open, $photo, $anchor_close, $title_after, $description );
 	}
 	
 	if( $ret == 'string' ) {

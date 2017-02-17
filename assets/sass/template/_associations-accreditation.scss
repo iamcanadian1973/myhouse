@@ -1,0 +1,36 @@
+/* CSS Document */
+
+.template_associations-accreditation .section-group {
+	
+	padding-top: 30px;
+	
+	.grid {
+		
+		padding-top: 30px;
+		
+		.column {
+			
+			margin-bottom: 24px;
+			
+			img {
+				margin: 0 auto 30px;	
+			}
+			
+			h3 {
+				font-size: 18px;	
+			}
+			
+			@media #{$large-up} {
+				img {
+					float: left;
+					margin: 0 30px auto 0;	
+				}
+				
+				.entry-content {
+					overflow: hidden;	
+				}
+			}	
+		}
+	}
+	
+}
