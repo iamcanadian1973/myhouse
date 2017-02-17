@@ -1,32 +1,40 @@
 /* CSS Document */
 
 
-.post-type-archive-gallery {
+.post-type-archive-gallery,
+.tax-gallery_cat {
+	
+	.site-main {
+		padding-top: 30px;	
+	}
 	
 	article {
 		padding-bottom: 30px;	
 	}
 	
-	a {
-		display: block;
-		position: relative;	
-	}
+	.grid {
 	
-	.entry-content {
-		position: absolute;
-		top: 0;
-		left: 0;
-		width: 100%;
-		height: 100%;
-		display: flex;
-		justify-content: center;
-		align-items: flex-end;
+		a {
+			display: block;
+			position: relative;	
+		}
 		
-		h2 {
-			color: #ffffff;
-			text-align: center;
-			font-size: 38px;
-			padding: 0 10px;
+		.entry-header {
+			position: absolute;
+			top: 0;
+			left: 0;
+			width: 100%;
+			height: 100%;
+			display: flex;
+			justify-content: center;
+			align-items: flex-end;
+			
+			h2 {
+				color: #ffffff;
+				text-align: center;
+				font-size: 38px;
+				padding: 0 10px;
+			}
 		}
 	}
 	

@@ -56,7 +56,7 @@ get_header(); ?>
 						
 						
 						 						
-						printf( '<article class="column"><a href="%s">%s<div class="entry-content">%s</div></a></article>', get_term_link( $term, $tax ), $thumbnail, $title );
+						printf( '<article class="column"><a href="%s">%s<div class="entry-header">%s</div></a></article>', get_term_link( $term, $tax ), $thumbnail, $title );
 					}
 					
 					echo '</div>';
