@@ -7,6 +7,7 @@
 	.grid {
 		
 		padding-top: 30px;
+		padding-bottom: 60px;
 		
 		.column {
 			
@@ -23,7 +24,7 @@
 			@media #{$large-up} {
 				img {
 					float: left;
-					margin: 0 30px auto 0;	
+					margin-right: 30px;
 				}
 				
 				.entry-content {
