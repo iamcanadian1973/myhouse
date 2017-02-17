@@ -2,6 +2,32 @@
 
 .template_about-us {
 	
-	
+	.section-why-work-with-us {
+		
+		background-color: #f4f4f4;
+		padding: 60px 0;
+		
+		img {
+			max-width: 114px;	
+			display: block;
+			margin: 0 auto 20px;
+		}
+		
+		.grid .column {
+			padding-bottom: 15px; 	
+		}
+		
+		@media #{$large-up} {
+      		
+			.featured {
+				padding-right: 30px;	
+			}
+			
+			.grid .column {
+				padding: 0 30px 15px;	
+			}
+		}
+			
+	}
 	
 }

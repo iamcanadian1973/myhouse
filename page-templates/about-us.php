@@ -25,7 +25,7 @@ get_template_part( 'template-parts/section', 'hero' );
 		$right_column = $left_column = '';
 		
 		// Left column
-		$left_column = sprintf( '<div class="small-12 large-7 columns"><div class="entry-content">%s</div></div>', apply_filters( 'pb_the_content', get_the_content() ) );
+		$left_column = sprintf( '<div class="small-12 large-7 columns"><div class="entry-content featured">%s</div></div>', apply_filters( 'pb_the_content', get_the_content() ) );
 		
 		// Right Column
 		$prefix = 'awards';
@@ -59,7 +59,7 @@ get_template_part( 'template-parts/section', 'hero' );
 		$content = get_post_meta( get_the_ID(), sprintf( '%s_content', $prefix ), true );
 		$content = _s_get_textarea( $content );
 		
-		$left_column = sprintf( '<div class="small-12 large-5 columns"><div class="entry-content">%s</div></div>', $content );	
+		$left_column = sprintf( '<div class="small-12 large-5 columns"><div class="entry-content featured">%s</div></div>', $content );	
 		
 		
 		$grid = '';
