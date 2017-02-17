@@ -42,13 +42,19 @@ get_header(); ?>
 					
 					foreach ( $terms as $term ) {
 						
-						$title = sprintf( '<h2>%s</h2>', $term->name );
-						
 						$thumbnail = '';
 						$featured_image_ID = get_field( 'featured_image', $term );
  						if( '' != $featured_image_ID ) {
 							$thumbnail = wp_get_attachment_image( $featured_image_ID, array(400,300), '', '' );
 						}
+						
+						if( '' == $thumbnail ) {
+							continue;
+						}
+						
+						$title = sprintf( '<h2>%s</h2>', $term->name );
+						
+						
 						 						
 						printf( '<article class="column"><a href="%s">%s<div class="entry-content">%s</div></a></article>', get_term_link( $term, $tax ), $thumbnail, $title );
 					}
