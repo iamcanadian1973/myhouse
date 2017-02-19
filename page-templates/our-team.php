@@ -79,7 +79,7 @@ get_header(); ?>
  				$position = isset(  $person['position'] ) ? sprintf( '<p>%s</p>', $person['position'] ) : '';
 				
 				if( !empty( $photo ) && !empty( $name ) ) {
-					$out .= sprintf( '<div class="column">%s%s%s</div>', $photo, $name, $position );
+					$out .= sprintf( '<div class="column">%s<header class="entry-header">%s%s</header></div>', $photo, $name, $position );
 				}
  				
 			}
