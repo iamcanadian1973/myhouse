@@ -1,9 +1,7 @@
 /* CSS Document */
 
 
-.post-type-archive-gallery,
-.tax-gallery_cat {
-	
+.post-type-archive-gallery {	
 	.site-main {
 		padding-top: 30px;	
 	}
@@ -38,6 +36,57 @@
 		}
 	}
 	
+}
+
+.tax-gallery_cat {
+	
+	.site-main {
+		padding-top: 30px;	
+	}
+	
+	article {
+		padding-bottom: 30px;	
+	}
+	
+	.grid {
+	
+		a {
+			display: block;
+			position: relative;	
+			
+			&:hover {
+				opacity: .9;	
+			}
+		}
+		
+		.entry-header {
+			position: absolute;
+			bottom: 0;
+			left: 0;
+			width: 100%;
+			display: flex;
+			justify-content: center;
+			align-items: center;
+			background: rgba( #000, .6);
+			height: auto;
+			min-height: 70px;
+ 				
+ 			
+			h2 {
+				color: #ffffff;
+				text-align: center;
+				font-size: 18px;
+				padding: 10px;
+				margin: 0 auto;
+				font-weight: 400;
+			}
+		}
+	}
+	
+}
+
+.touchevents .grid .entry-header {
+	opacity: 1;	
 }
 
 .single-gallery {

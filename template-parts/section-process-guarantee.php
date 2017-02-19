@@ -26,9 +26,10 @@ function process_guarantee() {
 	$left_column = sprintf( '<div class="small-12 large-6 columns"><div class="entry-content">%s</div></div>', $photo );
 	
 	// right column, buttons & Guarantee
-	$content = sprintf( '<div class=" row small-up-1 medium-up-2 buttons" data-equalizer >%s%s</div>', $process_guide, $free_consultation );
+	$content = '';
 	$content .= get_field( sprintf( '%scontent', $prefix ), $process_page_ID );
-	$right_column = sprintf( '<div class="small-12 large-6 columns"><div class="entry-content">%s</div></div>', $content );
+	$content .= sprintf( '<div class=" row small-up-1 medium-up-2 buttons" data-equalizer >%s%s</div>', $process_guide, $free_consultation );
+	$right_column = sprintf( '<div class="small-12 large-6 columns"><div class="entry-content featured">%s</div></div>', $content );
 	
 	// Build section
 	$attr = array( 'class' => 'section-content section-process-guarantee' );
