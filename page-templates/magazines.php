@@ -25,7 +25,7 @@ get_template_part( 'template-parts/section', 'hero' );
 		if( empty( get_the_content() ) )
 			return false;
 		
-		$attr = array( 'class' => 'section-content section-default' );
+		$attr = array( 'class' => 'section-content section-default featured' );
 		_s_section_open( $attr );		
 			print( '<div class="column row">' );
 		
