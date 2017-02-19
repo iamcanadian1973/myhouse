@@ -107,7 +107,7 @@ h1,
 
 h2,
 .h2 {
-	color: #808080;
+	
 	line-height: (40/36); 
 	margin-bottom: 20px;
 }
@@ -115,24 +115,17 @@ h2,
 h3,
 .h3 {
 	line-height: (43/32);
-	color: #212121;
-}
+ }
 
 h4,
 .h4,
 .featured p {
 	line-height: (34/24);
-	color: #212121;
-	
-	&.grey {
-		color: #727272; 
-	}
 }
 
 h5,
 .h5 {
 	line-height: (28/20);
-	color: #727272; 
 }
 
 h6

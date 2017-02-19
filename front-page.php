@@ -43,7 +43,7 @@ echo kr_module_slideshow( 'slider' );
 		$right_column = $left_column = '';
 		
 		// Left column
-		$left_column = sprintf( '<div class="small-12 medium-7 xxlarge-6 columns"><div class="entry-content">%s</div></div>', apply_filters( 'the_content', get_the_content() ) );
+		$left_column = sprintf( '<div class="small-12 medium-7 xxlarge-6 columns"><div class="entry-content featured">%s</div></div>', apply_filters( 'the_content', get_the_content() ) );
 		
 		// Right Column
 		

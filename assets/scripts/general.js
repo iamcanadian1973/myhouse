@@ -82,7 +82,7 @@
 		globalCaption:false,
 		//imgWidth: 1905,
 		//imgHeight: 450,
-		transitionSpeed: 100,
+		transitionSpeed: 500,
 		usePreloader: false,
 		
 		autoPlay: {
