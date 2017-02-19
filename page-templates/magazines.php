@@ -88,8 +88,9 @@ get_template_part( 'template-parts/section', 'hero' );
 					$anchor_close = '</a>';
 					
 					$thumbnail = sprintf( '%s%s%s', $anchor_open, $thumbnail, $anchor_close );
-					$title = sprintf( '<h3>%s%s%s</h3>', $anchor_open, get_the_title(), $anchor_close );
 				}
+				
+				$title = sprintf( '<header class="entry-header"><h3>%s%s%s</h3></header>', $anchor_open, get_the_title(), $anchor_close );
 				
 				printf( '<div class="column">%s%s</div>', $thumbnail, $title );
 				

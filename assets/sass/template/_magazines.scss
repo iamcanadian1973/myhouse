@@ -1,0 +1,30 @@
+// Magazines page
+
+
+
+.template_magazines {
+
+	.grid {
+	
+		img {
+			margin: 0 auto;	
+		}
+		
+	}
+	
+	.entry-header {
+		
+		padding: 5px 0 30px;
+		
+		h3 {
+			font-size: $paragraph-font-size;	
+			
+			a {
+				color: #000;	
+			}
+		}
+		
+	}
+	
+}
+
