@@ -54,3 +54,18 @@ body {
 	}
 	
 }
+
+
+
+#slider.royalSlider {
+	min-height: 200px;
+	
+	@media #{$large-up} {
+		min-height: 350px;
+	}	
+	
+	@media #{$xxlarge-up} {
+		min-height: 590px;
+	}	
+	
+}

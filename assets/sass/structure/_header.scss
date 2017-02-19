@@ -94,6 +94,10 @@ Header
 				background: rgba($gray, 1);
 			}
 			
+			&.ch {
+				font-family: 'Noto Sans', sans-serif;	
+			}
+			
 			@media #{$large-up} {
       			background: rgba($black, .3);
 				
