@@ -7,7 +7,8 @@ function kr_load_google_fonts() {
 	// change array as needed
 	$font_families = array(
 			'Open+Sans:300i,400i,300,400,600,700',
-			'Crimson+Text'
+			'Crimson+Text',
+			'Noto Sans'
 		);
 	
 	$query_args = array(

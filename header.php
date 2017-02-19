@@ -59,7 +59,7 @@ _s_site_overlay();
  				
   
   				// Language Switcher: coming soon
-				$language_switcher = '<a href="http://cn.myhousedesignbuild.com/">中文</a>';
+				$language_switcher = '<a href="http://cn.myhousedesignbuild.com/" class="ch">中文</a>';
 				
 				$mobile_toggle = _s_get_off_canvas_menu_button();
 				
