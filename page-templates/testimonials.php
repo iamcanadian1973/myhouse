@@ -67,10 +67,15 @@ get_header(); ?>
 			while ( $loop->have_posts() ) : $loop->the_post(); 
 		
 				$title = get_the_title();
+				$photo =  get_the_post_thumbnail_url( get_the_ID(), array(200,200) );
+				$thumbnail = '';
+				if( !empty( $photo ) ) {
+					$thumbnail = sprintf( '<div class="thumbnail" style="background-image: url(%s);"></div>', $photo );
+				}
 				$description = get_post_meta( get_the_ID(), 'testimonial_description', true );
 				$content = apply_filters( 'pb_the_content', get_the_content() );	
 				
-				$items .= sprintf( '<div class="column"><div class="quote">%s</div><div class="details"><strong>%s</strong>%s</div></div>', $content, $description, $title );		
+				$items .= sprintf( '<div class="column"><div class="quote" data-equalizer-watch>%s%s<div class="details"><strong>%s</strong>%s</div></div></div>', $thumbnail, $content, $description, $title );		
 				
 			endwhile;
 		wp_reset_postdata();
@@ -78,7 +83,7 @@ get_header(); ?>
  	
 	endif;
   		
-		$grid = sprintf( '<div class="row small-up-1 large-up-3 grid">%s</div>', $items );	
+		$grid = sprintf( '<div class="row small-up-1 large-up-3 grid" data-equalizer data-equalize-on="medium">%s</div>', $items );	
 					
 		$attr = array( 'class' => 'section-content section-testimonials' );
 		_s_section_open( $attr );		
