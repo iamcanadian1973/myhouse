@@ -34,10 +34,10 @@ $white: #ffffff;
 
 $primary: #cab684;
 
-$orange: #f1592a;
+$orange: #b33b1d; // old #f1592a
 
 $body-background: $white;
-$body-font-color: #999;
+$body-font-color: #707070;
 $body-font-family: 'Open Sans', sans-serif;
 
 $global-margin: 21px;
@@ -116,5 +116,5 @@ $paragraph-line-height: 1.67;
 $paragraph-font-color: #999;
 $paragraph-margin-bottom: 21px;
 
-$anchor-color: $orange;
-$anchor-color-hover: scale-color($orange, $lightness: 15%);
+$anchor-color: #b33b1d;
+$anchor-color-hover: scale-color($anchor-color, $lightness: 15%);
