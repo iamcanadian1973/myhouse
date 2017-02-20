@@ -40,54 +40,28 @@ class Gallery_CPT extends CPT_Core {
 
         );
 		
-		
+		//add_filter('pre_get_posts', array( $this, 'query_filter' ) );
 		
 		
      }
 	 
 	 
-	  /**
-     * Registers admin columns to display. Hooked in via _s.
-     * @since  0.1.0
-     * @param  array  $columns Array of registered column names/labels
-     * @return array           Modified array
-     */
-    public function columns( $columns ) {
-        
-		$current_screen = get_current_screen();
-	   
-	    if( $this->post_type != $current_screen->post_type )
-			return;
-		
-		$new_column = array(
-            'thumbnail' => __( 'Thumbnail', '_s' )
-         );
-		
-		//unset( $columns['date'] ); 
-        return array_slice( $columns, 0, 3, true ) + $new_column + array_slice( $columns, 1, null, true );
-    }
-
-    /**
-     * Handles admin column display. Hooked in via _s.
-     * @since  0.1.0
-     * @param  array  $column Array of registered column names
-     */
-    public function columns_display( $column, $post_id ) {
-        
-		$current_screen = get_current_screen();
-	   
-	   if( $this->post_type != $current_screen->post_type )
-			return;
-		
-		switch ( $column ) {
-            case 'event_start_date':
-			echo get_field( 'event_start_date');
-			break; 
-			case 'event_end_date':
-			echo get_field( 'event_end_date' );
-			break;
-        }
-    }
+	  function query_filter($query) {
+						
+ 		
+		if ( $query->is_main_query() && !is_admin() && is_tax( 'gallery_cat' ) ) {
+			
+			// get_option( 'posts_per_page' )
+			$query->set('posts_per_page', 24 );
+			
+			// Order By
+			$query->set( 'orderby', 'menu_order' );
+			$query->set( 'order', 'ASC' );
+			
+		}
+			
+		return $query;
+	}
  
 }
 
