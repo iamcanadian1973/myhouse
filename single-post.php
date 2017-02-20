@@ -11,7 +11,7 @@ get_header(); ?>
 
 <div class="row">
 
-	<div class="medium-8 large-8 columns">
+	<div class="medium-7 large-7 columns">
 
 		<div id="primary" class="content-area">
 

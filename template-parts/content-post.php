@@ -11,7 +11,14 @@
 <article id="post-<?php the_ID(); ?>" <?php post_class(); ?>>
 	
 	<header class="entry-header">
-		<?php the_title( '<h3 class="entry-title">', '</h3>' ); ?>
+		<?php 
+		if( is_single() ) {
+			the_title( '<h1 class="entry-title">', '</h1>' );
+		}
+		else {
+			printf( '<h2 class="entry-title"><a hre="%s">%s</a></h2>', get_permalink(), get_the_title() );
+		}
+		?>
 		<div class="entry-meta">
 			<?php _s_posted_on(); ?>
 		</div><!-- .entry-meta -->

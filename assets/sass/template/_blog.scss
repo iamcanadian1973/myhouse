@@ -1,62 +1,92 @@
 /* CSS Document */
 
-.blog {
+.blog,
+.single-post {
 	
 	
 	.site-main {
-		padding-top: 0;
+		padding-top: 30px;
+		
+		@media #{$large-up} {
+      		padding-top: 48px;
+		}
+		
 		padding-bottom: 90px;	
 	}
 	
 	
 	
-	.hentry {
+	.site-main article {
 		@include clearfix;	
-		margin-top: 30px;
+		
+		
+		h2 {
+			margin-bottom: 0;	
+		}
 		
 		.entry-meta {
-			color: $primary;	
-			font-weight: 700;
+			color: $light-gray;	
+			font-weight: 600;
 			margin-bottom: 10px;	
 		}
-	}
-	
-	.hentry.sticky {
 		
-		margin-top: 0;
-		padding: 60px 40px 0 40px;	
-		
-		.thumbnail-box {
-			position: relative;	
-			float: left;
-			margin-right: 60px;	
-			
-			span {
-				position: absolute;
-				top: -4px;
-				right: -20px;
-				z-index: 2;
-				font-size: 20px;
-				padding: 4px 8px;
-				background: $primary;
-				color: $white;
-				text-transform: uppercase;	
-				box-shadow: 0px 3px 4px rgba(100,100,100, .4);
-			}
+		img {
+			margin-bottom: 30px;	
 		}
-	
 	}
 	
+	
+}
+
+.blog {
+
+	.site-main article {
+	
+		margin-top: 30px;
+		padding-top: 30px;
+		border-top: 1px solid $light-gray;
+		
+		&:first-child {
+			margin-top: 10px;
+			border: none;	
+		}
+		
+	}
 	
 }
 
 
 .single-post {
 
-	
-	.section-content {
-		padding-top: 60px;
-		padding-bottom: 30px;	
+	.site-main {
+		padding-top: 30px;
+		
+		@media #{$large-up} {
+      		padding-top: 48px;
+		}
+		
+		padding-bottom: 90px;	
 	}
 	
+}
+
+
+#secondary {
+	
+	padding-top: 30px;
+		
+		@media #{$large-up} {
+      		padding-top: 48px;
+		}
+		
+	.widget-area {
+		@media #{$large-up} {
+      		padding-left: 60px;
+		}	
+	}
+	
+	.widget {
+		background: #eee;
+		padding: 15px;
+	}
 }

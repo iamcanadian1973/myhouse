@@ -13,12 +13,13 @@
 
 	margin: 0;
 	padding: 20px 0;
+	vertical-align: middle;
 	
 
 	&:before {
 		content: 'Share';	
 		display: inline-block;
-		vertical-align: top;
+		vertical-align: middle;
 		font-size: 14px;
 		color: #9b9b9b;
 		font-weight: 700;
@@ -33,7 +34,8 @@
 	li {
 		list-style-type: none;
 		display: inline-block;
-		margin: 0 0 0 15px;
+		margin: 0 0 0 10px;
+		vertical-align: middle;
 		
 		&:first-child {
 			margin-left: 0;	

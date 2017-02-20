@@ -8,6 +8,10 @@
 	textarea, select, input,  {
 		border: 2px solid rgb(238,238,238);	
 	}
+	
+	input[type="radio"]:focus {
+		outline:none;
+	}
 }
 
 body img.gform_ajax_spinner {
@@ -49,4 +53,23 @@ li.gfield.gfield_error {
 	@include placeholder {
 		color: #790000;
 	}
+}
+
+
+
+.gform_footer {
+	input {
+		padding: 6px 30px!important;
+		background: $anchor-color;
+		color: #fff;
+		border: none;
+		outline: none;	
+ 		font-weight: 600;
+		border-radius: 6px;
+		
+		&:hover {
+			background: $anchor-color-hover;	
+			color: $white;
+		}	
+	}	
 }

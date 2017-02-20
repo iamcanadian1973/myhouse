@@ -24,6 +24,10 @@ body {
 
 .section-default {
 	padding-top: 30px;	
+	
+	@media #{$xxlarge-up} {
+    	padding-top: 48px;  
+	}
 }
 
 .featured p {
@@ -58,14 +62,18 @@ body {
 
 
 #slider.royalSlider {
-	min-height: 200px;
+	height: 200px!important;
+	
+	@media only screen and (min-width : 480px) {
+		height: 250px!important;  
+	}
 	
 	@media #{$large-up} {
-		min-height: 350px;
+		height: 350px!important;
 	}	
 	
 	@media #{$xxlarge-up} {
-		min-height: 590px;
+		height: 590px!important;
 	}	
 	
 }

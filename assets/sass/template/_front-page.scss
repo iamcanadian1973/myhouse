@@ -46,9 +46,10 @@
 	
 	.section-default {
 	
-		padding-top: 30px;
+		//padding-top: 30px;
 		
 		.cta {
+			
 			@media #{$large-up} {
       			text-align: right;
 			}	

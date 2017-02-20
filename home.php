@@ -15,7 +15,7 @@ get_header(); ?>
 
 <div class="row">
 
-	<div class="medium-8 large-8 columns">
+	<div class="medium-7 large-7 columns">
 
 		<div id="primary" class="content-area">
 
@@ -38,7 +38,7 @@ get_header(); ?>
 
 					endwhile;
 
-					the_posts_navigation();
+					the_posts_pagination( array( 'mid_size' => 2 ) );
 
 				else :
 
