@@ -16,7 +16,7 @@
 			the_title( '<h1 class="entry-title">', '</h1>' );
 		}
 		else {
-			printf( '<h2 class="entry-title"><a hre="%s">%s</a></h2>', get_permalink(), get_the_title() );
+			printf( '<h3 class="entry-title"><a hre="%s">%s</a></h3>', get_permalink(), get_the_title() );
 		}
 		?>
 		<div class="entry-meta">
@@ -45,11 +45,8 @@
 			
 		} else {
 			
-			_s_the_excerpt( '', '' );
-			
-			printf( '<p class="read-more"><a href="%s" class="more">Continue Reading ></a></p>', get_permalink() ) ;
-			
-			
+			_s_the_excerpt( '', 'Read More' );
+						
 		}
 		?>
 		

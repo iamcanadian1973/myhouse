@@ -20,7 +20,7 @@
 		@include clearfix;	
 		
 		
-		h2 {
+		h3 {
 			margin-bottom: 0;	
 		}
 		
@@ -41,14 +41,10 @@
 .blog {
 
 	.site-main article {
-	
-		margin-top: 30px;
 		padding-top: 30px;
-		border-top: 1px solid $light-gray;
-		
-		&:first-child {
-			margin-top: 10px;
-			border: none;	
+		&:not(.first) {
+ 			margin-top: 30px;
+ 			border-top: 1px solid $light-gray;
 		}
 		
 	}

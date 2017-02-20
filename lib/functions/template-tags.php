@@ -247,23 +247,27 @@ function _s_maybe_get_excerpt( $post_content, $post_excerpt, $more = '<span clas
     if( strstr( $post_content,'<!--more-->') ) {
         $content_arr = get_extended ( $post_content );
 		$excerpt = sprintf( '%s%s', $content_arr['main'], $more );
+		
+		if( $read_more ) {
+			$out =  wpautop( sprintf( '%s <p class="read-more"><a href="%s" class="more">%s</a></p>', $excerpt, get_permalink(), $read_more ) );
+		}	
+		else {
+			$out =  wpautop( $excerpt );
+		}
     }
-    elseif( $post_excerpt ) {
+    elseif( !empty( $post_excerpt ) ) {
         $excerpt = sprintf( '%s%s', $post_excerpt, $more );
+		if( $read_more ) {
+			$out =  wpautop( sprintf( '%s <p class="read-more"><a href="%s" class="more">%s</a></p>', $excerpt, get_permalink(), $read_more ) );
+		}	
+		else {
+			$out =  wpautop( $excerpt );
+		}
     }
     else {
-        $excerpt = wp_trim_words( $post_content, 40, $more );
+        $out = apply_filters( 'the_content', $post_content );
     }
-	
-	                    
-   	if( $read_more ) {
-		$out =  wpautop( sprintf( '%s <a href="%s">%s</a>', $excerpt, get_permalink(), $read_more ) );
-	}	
-	else {
-		$out =  wpautop( $excerpt );
-	}
-	
-	
+		
 	return $out;
 }
 
