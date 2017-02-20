@@ -35,7 +35,7 @@ class Gallery_CPT extends CPT_Core {
 				'show_in_nav_menus'  => false,
 				'exclude_from_search' => false,
 				'rewrite' => array('slug'=> 'photo-gallery' ),
-				'supports' => array( 'title', 'editor', 'excerpt', 'thumbnail', 'revisions' ),
+				'supports' => array( 'title', 'editor', 'excerpt', 'thumbnail', 'page-attributes', 'revisions' ),
 				 )
 
         );
