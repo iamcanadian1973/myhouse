@@ -10,8 +10,9 @@ function section_logos_testimonials() {
 	global $post;
 	
 	$logos = '<div class="award-logos">';
-	$logos .= sprintf( '<a href="http://www.houzz.com/pro/myhousedesignbuildteam/my-house-design-build-team#11" target="_blank"><img src="%sHouzz-Awards-2016.jpg" alt="best custom home builder 2016, best interior design 2016 houzz, vancouver home builder" /></a>', trailingslashit( THEME_IMG ) );
-	$logos .= sprintf( '<img src="%sbaeumler-@2x.png" alt="" /></a>', trailingslashit( THEME_IMG ) );
+	$logos .= sprintf( '<a href="http://www.houzz.com/pro/myhousedesignbuildteam/my-house-design-build-team#11" target="_blank"><img src="%slogos-testimonials/houzz-service.png" alt="best custom home builder 2016, best interior design 2016 houzz, vancouver home builder" class="houzz" /></a>', trailingslashit( THEME_IMG ) );
+	$logos .= sprintf( '<a href="http://www.houzz.com/pro/myhousedesignbuildteam/my-house-design-build-team#11" target="_blank"><img src="%slogos-testimonials/houzz-design.png" alt="best custom home builder 2016, best interior design 2016 houzz, vancouver home builder" class="houzz" /></a>', trailingslashit( THEME_IMG ) );
+	$logos .= sprintf( '<img src="%slogos-testimonials/baeumler.png" alt="" class="baeumler" /></a>', trailingslashit( THEME_IMG ) );
 	$logos .= '</div>';
 	
 	$free_consultation = sprintf( '<p class="cta"><a href="%s" class="btn medium">%s</a></p>', get_permalink( 1444 ), __( 'Request a free Consultation', '_s' ) );
