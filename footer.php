@@ -149,7 +149,7 @@ function _s_footer_copyright() {
 	$trademark = __( 'My House Design Build Team® is a registered trademark.', '_s' );
 	$permissions = __( 'No images or copy on this site may be used without written permission of My House Design Build Team Ltd.', '_s' );
 	$terms = sprintf( '<a href="%s">%s</a>', get_permalink(6001), __( 'Terms & Conditions', '_s' ) );
-	$privacy = sprintf( '<a href="%s">%s</a>', get_permalink(943), __( 'Privacy Policy', '_s' ) );
+	$privacy = sprintf( '<a href="%s">%s</a>', get_permalink(6003), __( 'Privacy Policy', '_s' ) );
 	$swca = 	sprintf( '<a href="%s" target="_blank">%s</a>', 'http://www.swca.ca', __( 'Site by SWCA', '_s' ) );	
  	$out = '';
 	$out .= sprintf( '<p>© 2014-%s %s  &bull; %s</p>', date('Y'), $copyright, $trademark );
