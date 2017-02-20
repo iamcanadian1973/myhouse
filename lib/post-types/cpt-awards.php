@@ -18,8 +18,8 @@ class Awards_CPT extends CPT_Core {
         parent::__construct(
         
         	array(
-				__( 'award', '_s' ), // Singular
-				__( 'awards', '_s' ), // Plural
+				__( 'Award', '_s' ), // Singular
+				__( 'Awards', '_s' ), // Plural
 				$this->post_type // Registered name/slug
 			),
 			array( 
