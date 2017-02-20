@@ -29,7 +29,7 @@ class Gallery_CPT extends CPT_Core {
 				'query_var'          => true,
 				'capability_type'    => 'page',
 				'has_archive'        => true,
-				'hierarchical'       => true,
+				'hierarchical'       => false,
 				'show_ui' 			 => true,
 				'show_in_menu' 		 => true,
 				'show_in_nav_menus'  => false,
@@ -40,7 +40,7 @@ class Gallery_CPT extends CPT_Core {
 
         );
 		
-		//add_filter('pre_get_posts', array( $this, 'query_filter' ) );
+		add_filter('pre_get_posts', array( $this, 'query_filter' ) );
 		
 		
      }
