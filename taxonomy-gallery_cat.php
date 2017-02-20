@@ -23,7 +23,7 @@ get_header(); ?>
 				<header class="page-header">
 					<?php
 					printf( '<h1 class="page-title">%s</h1>', single_term_title( '', false ) );
-					the_archive_description( '<div class="taxonomy-description">', '</div>' );	?>
+					the_archive_description( '<div class="taxonomy-description featured">', '</div>' );	?>
 				</header>
 	
 				<?php
