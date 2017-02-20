@@ -53,9 +53,13 @@ function _s_gallery_slideshow( $prefix= '' ) {
 	   
 	foreach( $slides as $slide ): 
 		
-		if( $slide['before_photo'] ) {
-			$photo = $slide['before_photo'];
-		}
+		$after = '';
+		$after_photo = '';
+		$before_photo = '';
+		
+		if( $slide['after_photo'] ) {
+			$photo = $slide['after_photo'];
+ 		}
 		else {
 			$photo = $slide['single_photo'];
 		}
@@ -67,6 +71,13 @@ function _s_gallery_slideshow( $prefix= '' ) {
 		
 		if( false == $img_attr ) {
 			continue;
+		}
+		
+		$before_photo = $slide['before_photo'];
+		
+		if( !empty( $before_photo ) ) {
+			$before_attr = wp_get_attachment_image_src( $before_photo, $size ); // returns an array
+			$before_photo = sprintf( '<div data-before="%s" data-after="%s"><span class="toggle-photo">%s</span></div>', $before_attr[0], $img_attr[0], __( 'Show Before', '_s' ) );
 		}
 		
 		/*
@@ -86,7 +97,7 @@ function _s_gallery_slideshow( $prefix= '' ) {
 		
 		$thumbnail = sprintf( '<img src="%s" class="rsTmb" />', $thumbnail_attr[0] );
 								
- 		$items .= sprintf('<div><a data-rsw="%s" data-rsh="%s" class="rsImg" href="%s">%s</a>%s</div>', $img_attr[1], $img_attr[2], $img_attr[0], $thumbnail, $caption );
+ 		$items .= sprintf('<div>%s<a data-rsw="%s" data-rsh="%s" class="rsImg" href="%s">%s</a>%s</div>', $before_photo, $img_attr[1], $img_attr[2], $img_attr[0], $thumbnail, $caption );
 	
 	endforeach;
 		

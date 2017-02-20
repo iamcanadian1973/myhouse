@@ -32,11 +32,42 @@
 				// autoplay options go gere
 				enabled: true,
 				pauseOnHover: false,
-				delay: 4000
+				delay: 5000
 			}
 	  };
 	
-   	$('#slider').royalSlider(custom_opts);
+   	$('#slider').royalSlider({
+		transitionType: 'fade',
+		controlNavigation:'bullets',
+		imageScaleMode: 'fill',
+		imageAlignCenter:true,
+		arrowsNav: true,
+		arrowsNavAutoHide: true,
+		sliderTouch: true,
+		addActiveClass: true,
+		sliderDrag:false,
+		arrowsNavHideOnTouch: true,
+		fullscreen: false,
+		loop: true,
+		autoScaleSlider: true, 
+		autoScaleSliderWidth: 1905,     
+		autoScaleSliderHeight: 590,
+		slidesSpacing: 0,
+		keyboardNavEnabled: false,
+		navigateByClick: false,
+		fadeinLoadedSlide: true,
+		globalCaption:false,
+		//imgWidth: 1905,
+		//imgHeight: 450,
+		transitionSpeed: 500,
+		
+		autoPlay: {
+				// autoplay options go gere
+				enabled: true,
+				pauseOnHover: false,
+				delay: 4000
+			}
+	  });
 		
 	royalSlider = $("#slider");
 	

@@ -22,7 +22,7 @@
 		autoScaleSliderHeight: 768,
 		slidesSpacing: 0,
 		keyboardNavEnabled: true,
-		navigateByClick: true,
+		navigateByClick: false,
 		fadeinLoadedSlide: true,
 		globalCaption:false,
 		//imgWidth: 1905,
@@ -32,14 +32,14 @@
 		autoPlay: {
 				// autoplay options go gere
 				enabled: true,
-				pauseOnHover: false,
+				pauseOnHover: true,
 				delay: 4000
 			}
 	  };
 	
-   	$('.royalSlider').royalSlider(custom_opts);
+   	$('#slider').royalSlider(custom_opts);
 		
-	royalSlider = $(".royalSlider");
+	royalSlider = $('#slider');
 	
   
    // hide single slider nav
@@ -55,5 +55,18 @@
 		nav.show();
 	}
 		
+		
+	$('#slider').on('click', '.toggle-photo', function(){
+		var show = '';
+		var button = $(this);
+		var txt = button.text();
+		var before = $(this).parent().data('before');
+		var after = $(this).parent().data('after');
+		var image = $(this).parents( '.rsSlide' ).find('.rsImg');
+ 		show = (image.attr('src') == after) ? before : after;
+ 		image.attr('src', show );
+		button.text( txt == gallery_script_vars.show_after ? gallery_script_vars.show_before : gallery_script_vars.show_after );
+	});
+
 	
 })(jQuery);

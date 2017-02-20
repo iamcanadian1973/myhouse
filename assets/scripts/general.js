@@ -54,13 +54,9 @@
 	
 	$('.equal-height-columns .columns').matchHeight(true);
 	
-	$('.section-helping-advance-dermatology .grid .column div').matchHeight(true);
-	
-	
-	
 	var testimonialSlider, testimonialNav;	
 		  
-	  var testimonial_slider_opts = {
+	var testimonial_slider_opts = {
 		transitionType: 'fade',
 		controlNavigation:'none',
 		imageScaleMode: 'none',
@@ -89,11 +85,42 @@
 				// autoplay options go gere
 				enabled: true,
 				pauseOnHover: false,
-				delay: 4000
+				delay: 1000
 			}
 	  };
 	
-   	$('#testimonial-slider').royalSlider(testimonial_slider_opts);
+   	$('#testimonial-slider').royalSlider({
+		transitionType: 'fade',
+		controlNavigation:'none',
+		imageScaleMode: 'none',
+		imageAlignCenter:false,
+		arrowsNav: true,
+		arrowsNavAutoHide: true,
+		sliderTouch: true,
+		addActiveClass: true,
+		sliderDrag:false,
+		arrowsNavHideOnTouch: false,
+		fullscreen: false,
+		loop: true,
+		autoHeight: true, 
+		autoScaleSlider: false, 
+ 		slidesSpacing: 0,
+		keyboardNavEnabled: false,
+		navigateByClick: false,
+		fadeinLoadedSlide: true,
+		globalCaption:false,
+		//imgWidth: 1905,
+		//imgHeight: 450,
+		transitionSpeed: 500,
+		usePreloader: false,
+		
+		autoPlay: {
+				// autoplay options go gere
+				enabled: true,
+				pauseOnHover: false,
+				delay: 5000
+			}
+	  });
 		
 	testimonialSlider = $("#slider");
 	

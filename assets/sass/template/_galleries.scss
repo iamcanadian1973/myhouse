@@ -91,6 +91,23 @@
 
 .single-gallery {
 
+	article {
+		padding: 30px 0;	
+	}
+	
+	.toggle-photo {
+		position: absolute;
+		bottom: 0;
+		left: 0;
+		z-index: 999;	
+		padding: 5px 10px;
+		text-transform: uppercase;
+		color: #fff;
+		background-color: $anchor-color;
+		cursor: pointer;
+		
+	}
+	
 	// hide thumbnails when lazy loading slides
 	.royalSlider a.rsImg img {
 		display: none;
@@ -105,6 +122,16 @@
 	.rsDefault .rsThumb.rsNavSelected {
 		background: $light-gray;
 	}
+	
+	.grid {
+		
+		padding-top: 30px;
+		
+		.column {
+			padding-bottom: 30px;
+		}
+	}
+	
 	
 	/*
 	// Change thumbnail size
