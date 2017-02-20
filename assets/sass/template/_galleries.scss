@@ -130,6 +130,24 @@
 		.column {
 			padding-bottom: 30px;
 		}
+		
+		&.awards {
+			
+			h3 {
+				@extend .h4;	
+			}
+			
+			@media #{$large-up} {
+      			img {
+					float: left;	
+					margin-right: 30px;
+				}
+				
+				.entry-content {
+					overflow: hidden;	
+				}
+			}
+		}
 	}
 	
 	

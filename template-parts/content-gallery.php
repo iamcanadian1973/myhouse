@@ -42,7 +42,7 @@
 		// Awards
 		$awards = _s_get_awards();
 		if( !empty( $awards ) ) {
-			printf( '<div class="row small-up-1 medium-up-2 grid">%s</div>', $awards );
+			printf( '<div class="row small-up-1 medium-up-2 grid awards">%s</div>', $awards );
 		}
 		
 		
