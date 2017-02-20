@@ -41,9 +41,8 @@ get_header(); ?>
 						<div class="entry-content">
 							<?php
 							$title = sprintf( '<h2>%s</h2>', get_the_title() );
-							
- 							printf( '<a href="%s" class=""><header class="entry-header">%s</header>', get_permalink(), $title );
-							the_post_thumbnail( array(400,250) ); // 'gallery-thumbnail'
+							$thumbnail = get_the_post_thumbnail( get_the_ID(), array(400,250) ); // 'gallery-thumbnail'
+ 							printf( '<a href="%s" class="">%s<header class="entry-header">%s</header>', get_permalink(), $thumbnail, $title );
 							echo '</a>';
 							?>
 							

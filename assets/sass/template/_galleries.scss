@@ -50,6 +50,8 @@
 	
 	.grid {
 	
+		padding-top: 30px;
+	
 		a {
 			display: block;
 			position: relative;	
@@ -60,7 +62,7 @@
 		}
 		
 		.entry-header {
-			position: absolute;
+			/*position: absolute;
 			bottom: 0;
 			left: 0;
 			width: 100%;
@@ -69,11 +71,11 @@
 			align-items: center;
 			background: rgba( #000, .6);
 			height: auto;
-			min-height: 70px;
+			min-height: 70px;*/
  				
  			
 			h2 {
-				color: #ffffff;
+				//color: #ffffff;
 				text-align: center;
 				font-size: 18px;
 				padding: 10px;
