@@ -49,10 +49,11 @@
 
 .buttons {
 	
-	padding-bottom: 24px;
+	
 	
 	a {
 		vertical-align: middle;	
+		margin-bottom: 24px;
 	}
 }
 
@@ -116,6 +117,10 @@
 	&.flex {
 		display: flex;
 		align-items: center;
+		
+		span {
+			width: 100%;	
+		}
 	}
 }
 
