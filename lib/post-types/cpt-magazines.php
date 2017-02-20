@@ -29,7 +29,7 @@ class Magazine_CPT extends CPT_Core {
 				'query_var'          => true,
 				'capability_type'    => 'post',
 				'has_archive'        => false,
-				'hierarchical'       => true,
+				'hierarchical'       => false,
 				'show_ui' 			 => true,
 				'show_in_menu' 		 => true,
 				'show_in_nav_menus'  => false,
