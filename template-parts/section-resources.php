@@ -29,7 +29,7 @@ function section_resources() {
 	
 	$left_column = sprintf( '<div class="small-12 large-4 xlarge-3 columns"><div class="entry-content featured">%s</div></div>', $content );	
 	
-	$args = array( 'prefix' => $prefix , 'post_id' => $process_page_ID );
+	$args = array( 'prefix' => $prefix , 'show_link' => true, 'post_id' => $process_page_ID );
 	$grid = '';
 	$grid_items = _kr_get_grid_items( $args );
 	if( !empty( $grid_items ) ) {
