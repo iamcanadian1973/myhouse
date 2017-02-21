@@ -28,13 +28,13 @@ class Gallery_CPT extends CPT_Core {
 				'show_ui'            => true,
 				'query_var'          => true,
 				'capability_type'    => 'page',
-				'has_archive'        => true,
+				'has_archive'        => 'photo-gallery',
 				'hierarchical'       => false,
 				'show_ui' 			 => true,
 				'show_in_menu' 		 => true,
 				'show_in_nav_menus'  => false,
 				'exclude_from_search' => false,
-				'rewrite' => array('slug'=> 'photo-gallery' ),
+				'rewrite' => array('slug'=> 'photo-gallery/%gallery_cat%', 'with_front' => false ),
 				'supports' => array( 'title', 'editor', 'excerpt', 'thumbnail', 'page-attributes', 'revisions' ),
 				 )
 
@@ -42,8 +42,20 @@ class Gallery_CPT extends CPT_Core {
 		
 		add_filter('pre_get_posts', array( $this, 'query_filter' ) );
 		
-		
+		add_filter( 'post_type_link', array( $this, 'show_permalinks' ), 1, 2 );
+
      }
+	 
+	 
+	 function show_permalinks( $post_link, $post ){
+		if ( is_object( $post ) && $post->post_type == 'gallery' ){
+			$terms = wp_get_object_terms( $post->ID, 'gallery_cat' );
+			if( $terms ){
+				return str_replace( '%gallery_cat%' , $terms[0]->slug , $post_link );
+			}
+		}
+		return $post_link;
+	}
 	 
 	 
 	  function query_filter($query) {
@@ -76,7 +88,7 @@ $gallery_categories = array(
 
 register_via_taxonomy_core( $gallery_categories, 
 	array(
-		'rewrite' => array('slug'=> 'galleries' )
+		'rewrite' => array('slug'=> 'galleries', 'with_front' => false )
 	), 
 	array( 'gallery' ) 
 );
