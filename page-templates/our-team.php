@@ -88,7 +88,7 @@ get_header(); ?>
 				continue;
 			}
 			
-			$groups .= sprintf( '<h2>%s</h2><div class="row small-up-1 medium-up-3 large-up-4 xlarge-up-5 grid">%s</div>', $title, $out );
+			$groups .= sprintf( '<h2>%s</h2><div class="row small-up-2 medium-up-3 large-up-4 xlarge-up-5 grid">%s</div>', $title, $out );
 			
 		}
 		
