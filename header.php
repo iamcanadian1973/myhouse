@@ -24,6 +24,8 @@
 <link rel="manifest" href="<?php echo THEME_URL;?>/favicons/manifest.json">
 <link rel="mask-icon" href="<?php echo THEME_URL;?>/favicons/safari-pinned-tab.svg" color="#666666">
 <meta name="theme-color" content="#ffffff">
+<meta name="google-site-verification" content="k-2a6LvIwrfcUKVDKFmoz0NzmAuFsrx7YQIUW8o9LkI" />
+<meta name="p:domain_verify" content="a4a3d4283889947bafa61d4471ce9b2a"/>
 </head>
 
 <body <?php body_class(); ?>>
