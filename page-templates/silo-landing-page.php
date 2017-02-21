@@ -29,13 +29,11 @@ echo kr_module_slideshow( 'slider' );
 		
 		global $post;
 		
-		$right_column = $left_column = '';
+		$columns = array( 'large-6', 'large-6' );
 		
-		// Left column
-		$left_column = sprintf( '<div class="small-12 large-6 columns"><div class="entry-content">%s</div></div>', apply_filters( 'pb_the_content', get_the_content() ) );
-		
-		// Right Column
 		$photo_gallery = '';
+		
+		$left_column = $right_column = $content = '';
 		
 		// Photo Gallery link?
 		$photo_gallery_link = get_field( 'photo_gallery_link' );
@@ -47,30 +45,36 @@ echo kr_module_slideshow( 'slider' );
 			$photo_gallery = sprintf( '<p><a href="%s" class="btn cta">%s</a></p>', $photo_gallery_link, $photo_gallery_link_title );
 		}
 		
-		// Is there a video?
-		/*
-		$video = get_post_meta( get_the_ID(), 'video', true );
-		if( !empty( $video ) ) {
-			$video = wp_oembed_get( $video );
-		}
-		*/
 		
-		$video = '';
-		$video_id = get_field( 'video' );
+ 		$video_id = get_field( 'video' );
+		$right_column = get_field( 'right_column' );
 		if( !empty( $video_id ) ) {
-			$video = get_youtube_video_foobox_thumbnail( $video_id );
+			$content = get_youtube_video_foobox_thumbnail( $video_id );
 		}
-		
+		else if(!empty( $right_column )  ) {
+			$columns = array( 'large-7 xlarge-8', 'large-5 xlarge-4' );	
+			$content = $right_column;
+		}
+		else {
+			$columns = array( '', '' );	
+		}
+				
 			
-		$right_column = sprintf( '<div class="small-12 large-6 columns">%s%s</div>', $photo_gallery, $video );
+		$right_column = sprintf( '<div class="small-12 %s columns">%s%s</div>', $columns[1], $photo_gallery, $content );
+		
+		// Left column
+		$left_column = sprintf( '<div class="small-12 %s columns"><div class="entry-content">%s</div></div>', $columns[0], apply_filters( 'pb_the_content', get_the_content() ) );
+		
+		// Right Column
+		
+		
 		
 		// Output section
 		
 		$attr = array( 'class' => 'section-content section-default' );
 		_s_section_open( $attr );		
-			printf( '<div class="row">%s%s</div>', $left_column, $right_column );
+		printf( '<div class="row">%s%s</div>', $left_column, $right_column );
 		_s_section_close();	
-		
 	}
 	
 	// Details Grid
