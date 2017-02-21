@@ -47,7 +47,7 @@ get_header(); ?>
 		if( empty( $content ) )
 			return false;
 		
-		$attr = array( 'class' => 'section-content section-steps' );
+		$attr = array( 'class' => 'section-content section-featured-awards' );
 		_s_section_open( $attr );	
 			echo $content;
 		_s_section_close();	
@@ -105,7 +105,20 @@ get_header(); ?>
 				
 				$title = sprintf( '<header class="entry-header"><h3>%s</h3></header>', get_the_title() );
 				$awards_list = apply_filters( 'the_content', get_the_content() );
-				printf( '<div class="column">%s%s%s%s</div>', $thumbnail, $title, $description, $awards_list );
+				
+				$more = sprintf( '<div class="toggle-more"><span class="btn small">%s</span></div>', __('...see more Awards', '_s' ) );
+				$morestring = '<!--more-->';
+
+				$explode_content = explode( $morestring,  $loop->post->post_content );
+				if( !empty( $explode_content ) && ( count( $explode_content ) > 1 ) ) {
+					$content_before = apply_filters( 'the_content', $explode_content[0] );
+					$content_after = apply_filters( 'the_content', $explode_content[1] );
+					$awards_list = $content_before;
+					$awards_list .= sprintf( '<div class="toggle-content"><div class="text">%s</div>%s</div>', $content_after, $more );
+				}
+				
+				
+				printf( '<div class="column">%s<div class="entry-content">%s%s%s</div></div>', $thumbnail, $title, $description, $awards_list );
 				
 			endwhile;
 			wp_reset_postdata();

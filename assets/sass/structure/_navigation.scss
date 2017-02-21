@@ -82,6 +82,10 @@
 		color: $white!important;
 	}
 	
+	&.small {
+		font-size: 12px;
+	}
+	
 	&.medium {
 		padding: 8px 24px;	
 		@media #{$large-up} {

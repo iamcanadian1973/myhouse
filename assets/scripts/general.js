@@ -138,6 +138,14 @@
 	}
 	
 	
+	
+	$('.toggle-content').on('click', '.toggle-more span', function(){
+		var text = $(this).parent().prev('.text');
+		var more = $(this).parent();
+ 		text.toggle();
+		more.toggle();
+	});
+	
 
 })(jQuery);
 

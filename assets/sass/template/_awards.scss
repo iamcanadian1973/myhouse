@@ -1,0 +1,50 @@
+/* CSS Document */
+
+.template_awards {
+	
+	.section-featured-awards {
+		
+		.grid {
+			
+			img {
+				display: block;
+				margin: 0 auto 20px;
+				border-radius: 50%;	
+				max-width: 150px;
+			}
+			
+			.entry-content {
+				text-align: center;	
+				padding-bottom: 30px;
+			}
+		}
+		
+		
+	}
+	
+	
+	.section-awards {
+		
+		.entry-content {
+			padding-bottom: 30px;	
+		}
+	}
+	
+	.toggle-content {
+		
+		margin-bottom: 24px;	
+		
+		.text {
+			display: none;	
+		}
+		
+		.toggle-more {
+			
+			
+			span {
+				cursor: pointer;
+			}
+		}
+	}
+
+}
