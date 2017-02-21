@@ -5,7 +5,7 @@
 	.section-why-work-with-us {
 		
 		background-color: #f4f4f4;
-		padding: 60px 0;
+		padding: 60px 0 30px;
 		
 		img {
 			max-width: 114px;	
@@ -15,6 +15,10 @@
 		
 		.grid .column {
 			padding-bottom: 15px; 	
+		}
+		
+		.featured {
+			padding-bottom: 30px;	
 		}
 		
 		@media #{$large-up} {
