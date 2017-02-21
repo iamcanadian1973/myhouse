@@ -55,8 +55,9 @@ get_template_part( 'template-parts/section', 'hero' );
 		$right_column = $left_column = '';
 		
  		$prefix = 'why_work_with_us';
+		$prefix = set_field_prefix( $prefix );	
 						
-		$content = get_post_meta( get_the_ID(), sprintf( '%s_content', $prefix ), true );
+		$content = get_post_meta( get_the_ID(), sprintf( '%scontent', $prefix ), true );
 		$content = _s_get_textarea( $content );
 		
 		$left_column = sprintf( '<div class="small-12 large-5 columns"><div class="entry-content featured">%s</div></div>', $content );	

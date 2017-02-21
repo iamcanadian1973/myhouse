@@ -37,7 +37,6 @@ get_header(); ?>
 	}
 	
 	
-	
 	// Preferred Partners
 	section_partners();
 	function section_partners() {

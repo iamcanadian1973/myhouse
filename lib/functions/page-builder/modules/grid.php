@@ -8,19 +8,17 @@
  *
  * @return formatted list
  */
-function kr_module_get_grid( $prefix = '', $columns ) {
+function kr_module_get_grid( $prefix = '', $post_id = false ) {
 	
 	$prefix = set_field_prefix( $prefix );
-	
-	$rows = get_field( sprintf( '%slist', $prefix ) );
 		
-	if( empty( $rows ) ) {
-		return;
+	$grid = _kr_get_grid_items( $prefix );
+	
+	if( empty( $grid ) ) {
+		return false;
 	}
 	
-	$list_items = _kr_get_grid_items( $prefix );
-	
-	return sprintf( '<ul class="list">%s</ul>', $list_items );
+	return sprintf( '<ul class="list">%s</ul>', $grid );
 }
 
 //* get list items
@@ -38,7 +36,8 @@ function _kr_get_grid_items( $args = '' ) {
 		'title_position' => 'before',
 		'title_tag' => 'h3',
 		'show_link' => false,
-		'target' => 'target="_blank"'
+		'target' => 'target="_blank"',
+		'post_id' => false
 	);
 	
 	$args = wp_parse_args( $args, $defaults );
@@ -47,7 +46,7 @@ function _kr_get_grid_items( $args = '' ) {
 	
 	$prefix = set_field_prefix( $prefix );
 	
-	$rows = get_field( sprintf( '%sgrid', $prefix ) );
+	$rows = get_field( sprintf( '%sgrid', $prefix ), $post_id );
 		
 	if( empty( $rows ) ) {
 		return;
@@ -67,7 +66,7 @@ function _kr_get_grid_items( $args = '' ) {
 		$photo = isset(  $row['photo'] ) ? $row['photo']: '';
 				
 		if( $photo ) {
-			$photo = wp_get_attachment_image( $photo, $image_size );
+			$photo = sprintf( '<div class="thumbnail">%s</div>', wp_get_attachment_image( $photo, $image_size ) );
 		}
 		
 		$title = !empty(  $row['grid_title'] ) ? sprintf( '<%1$s>%2$s</%1$s>', $title_tag, $row['grid_title'] ) : '';

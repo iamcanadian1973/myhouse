@@ -54,6 +54,7 @@ get_header(); ?>
 		$args = array( 
 			'prefix' => 'steps',
 			'title_position' => 'after',
+			'title_tag' => 'h4',
 		);
 		$grid_items = _kr_get_grid_items( $args );
 		if( !empty( $grid_items ) ) {
@@ -70,6 +71,9 @@ get_header(); ?>
 	
 	// Process Guarantee
 	get_template_part( 'template-parts/section', 'process-guarantee' );
+	
+	// Resources
+	get_template_part( 'template-parts/section', 'resources' );
 	
 	?>
 	</main>

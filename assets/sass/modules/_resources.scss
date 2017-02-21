@@ -1,0 +1,44 @@
+/* CSS Document */
+
+.section-resources {
+	
+	margin-bottom: 0!important;
+	padding: 60px 0 30px;
+	
+	@media #{$large-up} {
+    	h2 {
+			margin-bottom: 40px;	
+		}  
+	}
+	
+	.grid {
+		h3 {
+			display: none;	
+		}
+		
+		.thumbnail {
+			height: 130px;
+			display: flex;
+			align-items: center;	
+			
+			img {
+				max-width: 150px;
+				display: block;
+				margin: 0 auto 24px;	
+			}
+		}
+		
+		
+		.column {
+			padding-bottom: 24px;	
+		}
+		
+		
+		> div:last-child .thumbnail img {
+			max-width: 125px;	
+		}
+		
+		
+	}
+	
+}

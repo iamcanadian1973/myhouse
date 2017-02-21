@@ -6,16 +6,19 @@
 	
 		background-color: #f3f3f5;
 		padding: 45px 0 30px;
+		margin-bottom: 0;
 		
-		h3 {
+		h3, h4 {
 			background-color: #4d778f;
 			color: $white;
-			margin: 7px auto 15px;
+			margin: 7px 0 15px;
 			text-align: center;
 			padding: 14px 5px;
 			text-transform: uppercase;
+			max-width: 494px;
 			
 			position: relative;
+		
 			
 			@media #{$large-up} {
       			&:after {
@@ -48,7 +51,7 @@
 				
 				&:nth-child(2) {
 					
-					h3 {
+					h3, h4 {
  						background-color: #5c596c;
  						&:after {
 							border-color: transparent transparent transparent #5c596c;	
@@ -58,7 +61,7 @@
 				
 				&:nth-child(3) {
 					
-					h3 {
+					h3, h4 {
  						background-color: #b47b4e;
  						&:after {
 							border-color: transparent transparent transparent #b47b4e;	
@@ -68,15 +71,24 @@
 				
 				&:nth-child(4) {
 					
-					h3 {
+					h3, h4 {
  						background-color: #6a8d6d;
+						
+						&:after {
+							border-color: transparent transparent transparent #6a8d6d;	
+						}
 					}
 				}
 					
 			}
 			
 		}
-		
+	
+	}
+	
+	
+	.section-resources {
+		background: #f3f3f5;	
 	}
 	
 }

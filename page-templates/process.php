@@ -123,6 +123,8 @@ get_header(); ?>
 	// Process Guarantee
 	get_template_part( 'template-parts/section', 'process-guarantee' );
 	
+	// Resources
+	get_template_part( 'template-parts/section', 'resources' );
 	?>
 	</main>
 
