@@ -85,7 +85,7 @@
 				// autoplay options go gere
 				enabled: true,
 				pauseOnHover: false,
-				delay: 1000
+				delay: 6000
 			}
 	  };
 	
@@ -117,12 +117,12 @@
 		autoPlay: {
 				// autoplay options go gere
 				enabled: true,
-				pauseOnHover: false,
-				delay: 5000
+				pauseOnHover: true,
+				delay: 6000
 			}
 	  });
 		
-	testimonialSlider = $("#slider");
+	testimonialSlider = $("#testimonial-slider");
 	
   
    // hide single slider nav

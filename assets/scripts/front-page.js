@@ -32,7 +32,7 @@
 				// autoplay options go gere
 				enabled: true,
 				pauseOnHover: false,
-				delay: 5000
+				delay: 6000
 			}
 	  };
 	
@@ -65,7 +65,7 @@
 				// autoplay options go gere
 				enabled: true,
 				pauseOnHover: false,
-				delay: 4000
+				delay: 6000
 			}
 	  });
 		

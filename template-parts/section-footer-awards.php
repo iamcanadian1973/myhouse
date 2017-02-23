@@ -24,7 +24,8 @@ function footer_awards() {
 	
 	
 	// Footer text
-	$footer_text = sprintf( '<div class="column row footer-text text-center"><div class="entry-content"><p>%s</p></div></div>', __( 'For Renovations, Custom Homes & Home Improvements, My House Design/Build Team is a multi-award winning licensed builder serving Greater Vancouver & the Gulf Islands. For over 20 years Graeme Huguet and his team have been creating “Great Living Spaces”. From a small single room improvement to a full renovation of a condo or house, to building a new custom home, residential or commercial; our “in house” group of professionals allows us to put together the right team – specific to your project.', '_s' ) );
+	$footer_text = sprintf( '<div class="column row footer-text text-center"><div class="entry-content"><h1>%s</h1></div></div>', __( 'We Create  
+Great Living Spaces', '_s' ) );
 	
 	// Build  section
 	$attr = array( 'class' => 'section-content section-footer-awards' );

@@ -27,11 +27,20 @@
 		
 		.entry-content {
 			padding-bottom: 30px;	
+			
+			p {
+				margin-bottom: 5px;	
+				
+				strong, b {
+					font-weight: 400;	
+				}
+			}
 		}
 	}
 	
 	.toggle-content {
 		
+		margin-top: 15px;
 		margin-bottom: 24px;	
 		
 		.text {
