@@ -17,6 +17,27 @@ function is_silo_page() {
 	return true;
 }
 
+function silo_category() {
+	
+	// Map categories to CSS class. This is a hack for now
+	$silos = array(
+		17 => 'silo-custom-homes',
+		16 => 'silo-renovations',
+		18 => 'silo-kitchen-bath',
+		19 => 'silo-kitchen-bath',
+		17 => 'silo-home-improvements',
+		17 => 'mechanical-plus'
+	);
+	
+	if( function_exists( 'icl_object_id' ) && $submenu_object ) {
+			$translation = icl_object_id( $submenu_object->ID, 'megamenu', false );
+			if( $translation ) {
+				$submenu_object = get_post( $translation );
+			}
+		}
+	
+}
+
 
 // get logo based on Silo or not
 function _s_site_logo() {

@@ -36,10 +36,14 @@ body.silo-mechanical-plus .site-header  {
 
 
  	
-.silo-page .header-buttons > * {
-	background: rgba($black, .3);
-	&:hover {
-		background: rgba($black, .5);
+.silo-page .header-buttons {
+	
+	> button,
+	> a {
+		background: rgba($black, .3);
+		&:hover {
+			background: rgba($black, .5);
+		}
 	}
 }
 

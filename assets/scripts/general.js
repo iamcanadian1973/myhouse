@@ -140,10 +140,13 @@
 	
 	
 	$('.toggle-content').on('click', '.toggle-more span', function(){
-		var text = $(this).parent().prev('.text');
+		var content = $(this).parent().prev('.text');
 		var more = $(this).parent();
- 		text.toggle();
-		more.toggle();
+		var button = $(this);
+		var txt = button.text();
+ 		content.toggle();
+		//more.toggle();
+		button.text( txt === general_script_vars.see_more_awards ? general_script_vars.see_less_awards : general_script_vars.see_more_awards );
 	});
 	
 

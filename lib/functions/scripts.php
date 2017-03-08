@@ -35,6 +35,11 @@ function _s_register_scripts() {
 					'project'
 					), 
 				NULL, TRUE );
+	wp_localize_script( 'general', 'general_script_vars', array(
+				'see_more_awards' => __( '...see more Awards', '_s' ),
+				'see_less_awards' => __( '...see less Awards', '_s' )
+			)
+		);
 }
 
 

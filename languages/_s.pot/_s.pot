@@ -137,6 +137,14 @@ msgstr ""
 msgid "Show After"
 msgstr ""
 
+#: lib/functions/scripts.php:39, page-templates/awards.php:109
+msgid "...see more Awards"
+msgstr ""
+
+#: lib/functions/scripts.php:40
+msgid "...see less Awards"
+msgstr ""
+
 #: lib/functions/template-tags.php:40
 msgctxt "post date"
 msgid "%s"
@@ -290,10 +298,6 @@ msgstr ""
 msgid "Videos"
 msgstr ""
 
-#: page-templates/awards.php:109
-msgid "...see more Awards"
-msgstr ""
-
 #: page-templates/reference-letters.php:83
 msgid "Click here to view project details"
 msgstr ""
@@ -341,7 +345,9 @@ msgid "See Full List"
 msgstr ""
 
 #: template-parts/section-footer-awards.php:27
-msgid "For Renovations, Custom Homes & Home Improvements, My House Design/Build Team is a multi-award winning licensed builder serving Greater Vancouver & the Gulf Islands. For over 20 years Graeme Huguet and his team have been creating “Great Living Spaces”. From a small single room improvement to a full renovation of a condo or house, to building a new custom home, residential or commercial; our “in house” group of professionals allows us to put together the right team – specific to your project."
+msgid ""
+"We Create  \n"
+"Great Living Spaces"
 msgstr ""
 
 #: template-parts/section-logos-testimonials.php:18, template-parts/section-process-guarantee.php:12
