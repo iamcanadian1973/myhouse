@@ -16,7 +16,7 @@
 			the_title( '<h1 class="entry-title">', '</h1>' );
 		}
 		else {
-			printf( '<h3 class="entry-title"><a hre="%s">%s</a></h3>', get_permalink(), get_the_title() );
+			printf( '<h3 class="entry-title"><a href="%s">%s</a></h3>', get_permalink(), get_the_title() );
 		}
 		?>
 		<div class="entry-meta">

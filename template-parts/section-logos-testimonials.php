@@ -10,8 +10,8 @@ function section_logos_testimonials() {
 	global $post;
 	
 	$logos = '<div class="award-logos">';
-	$logos .= sprintf( '<a href="http://www.houzz.com/pro/myhousedesignbuildteam/my-house-design-build-team#11" target="_blank"><img src="%slogos-testimonials/houzz-service.png" alt="best custom home builder 2016, best interior design 2016 houzz, vancouver home builder" class="houzz" /></a>', trailingslashit( THEME_IMG ) );
-	$logos .= sprintf( '<a href="http://www.houzz.com/pro/myhousedesignbuildteam/my-house-design-build-team#11" target="_blank"><img src="%slogos-testimonials/houzz-design.png" alt="best custom home builder 2016, best interior design 2016 houzz, vancouver home builder" class="houzz" /></a>', trailingslashit( THEME_IMG ) );
+	$logos .= sprintf( '<a href="http://www.houzz.com/pro/myhousedesignbuildteam/my-house-design-build-team#11" target="_blank"><img src="%slogos-testimonials/my-house-service-2017.png" alt="best custom home builder 2016, best interior design 2016 houzz, vancouver home builder" class="houzz" /></a>', trailingslashit( THEME_IMG ) );
+	$logos .= sprintf( '<a href="http://www.houzz.com/pro/myhousedesignbuildteam/my-house-design-build-team#11" target="_blank"><img src="%slogos-testimonials/my-house-design-2017.png" alt="best custom home builder 2016, best interior design 2016 houzz, vancouver home builder" class="houzz" /></a>', trailingslashit( THEME_IMG ) );
 	$logos .= sprintf( '<img src="%slogos-testimonials/baeumler.png" alt="" class="baeumler" /></a>', trailingslashit( THEME_IMG ) );
 	$logos .= '</div>';
 	

@@ -207,13 +207,13 @@ function _s_get_share_icons() {
 	$email = sprintf( '<li><a href="mailto:?subject=%s&body=%s">Email</a></li>', $email_subject, $email_body );
  	
 	// Twitter
-	$twitter = sprintf( '<li><a href="http://twitter.com/share?text=%s&url=%s" target="_blank" title="Tweet" ><i class="icon icon-twitter" aria-hidden="true"></i><span class="screen-reader-text">Twitter</span></a></li>', $post_title, $post_link );
+	$twitter = sprintf( '<li><a href="http://twitter.com/share?text=%s&url=%s" target="_blank" title="Tweet" ><i class="fa fa-twitter" aria-hidden="true"></i><span class="screen-reader-text">Twitter</span></a></li>', $post_title, $post_link );
 	
 	// Facebook
-	$facebook = sprintf( '<li><a href="http://www.facebook.com/sharer.php?u=%s&t=%s" target="_blank" title="Share on Facebook"><i class="icon icon-facebook" aria-hidden="true"></i><span class="screen-reader-text">Facebook</span></a></li>', $post_link, $post_title );
+	$facebook = sprintf( '<li><a href="http://www.facebook.com/sharer.php?u=%s&t=%s" target="_blank" title="Share on Facebook"><i class="fa fa-facebook" aria-hidden="true"></i><span class="screen-reader-text">Facebook</span></a></li>', $post_link, $post_title );
 	
 	// Google+
-	$google_plus = sprintf( '<li><a href="https://plus.google.com/share?url=%s" target="_blank" title="Share on Google+"><i class="icon icon-googleplus" aria-hidden="true"></i><span class="screen-reader-text">Google+</span></a></li>', $post_link );
+	$google_plus = sprintf( '<li><a href="https://plus.google.com/share?url=%s" target="_blank" title="Share on Google+"><i class="fa fa-google-plus" aria-hidden="true"></i><span class="screen-reader-text">Google+</span></a></li>', $post_link );
 	
 	return sprintf( '<ul class="share-icons">%s%s%s</ul>', $facebook, $twitter, $google_plus );
 	

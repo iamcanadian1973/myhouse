@@ -14,7 +14,8 @@ function process_guarantee() {
 	
 	
 	// Main content gets pulled from page, defaults to "Default Process page" Guarantee
-	$process_page_ID = 44;
+	//$process_page_ID = 44;
+	$process_page_ID = icl_object_id(44, 'page', false);
 	
 	$prefix = 'guarantee';
 	$prefix = set_field_prefix( $prefix );		

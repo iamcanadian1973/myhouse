@@ -52,8 +52,17 @@ get_header(); ?>
 					<?php
 	
 				endwhile;
-				
+								
 				echo '</div>';
+				
+				$queried_object = get_queried_object(); 
+				$taxonomy = $queried_object->taxonomy;
+				$term_id = $queried_object->term_id;  
+				$category_footer_text = get_field( 'category_footer_text', $taxonomy . '_' . $term_id );
+				
+				if( !empty( $category_footer_text ) ) {
+					echo $category_footer_text;
+				}
 	
 				the_posts_pagination( array( 'mid_size' => 2 ) );
 	
