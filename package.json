@@ -6,7 +6,7 @@
   "browserslist": [
     "> 1%",
     "last 2 versions",
-	"iOS > 7"
+    "iOS > 7"
   ],
   "dependencies": {
     "foundation-sites": "^6.2.3"
@@ -39,7 +39,8 @@
     "gulp-uglify": "latest",
     "gulp-util": "latest",
     "gulp-wp-pot": "latest",
-    "gulp.spritesmith": "latest"
+    "gulp.spritesmith": "latest",
+    "mixitup": "^3.2.1"
   },
   "scripts": {
     "test": "echo \"No test specified\""
