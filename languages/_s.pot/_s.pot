@@ -77,8 +77,12 @@ msgstr ""
 msgid "Site by SWCA"
 msgstr ""
 
-#: front-page - Copy.php:50, front-page.php:50
+#: front-page - Copy.php:50
 msgid "See Our Galleries"
+msgstr ""
+
+#: front-page.php:52
+msgid "View Our Galleries"
 msgstr ""
 
 #: functions.php:70
@@ -298,6 +302,18 @@ msgstr ""
 msgid "Videos"
 msgstr ""
 
+#: lib/post-types/cpt-videos.php:71
+msgid "Video Category"
+msgstr ""
+
+#: lib/post-types/cpt-videos.php:72
+msgid "Video Categories"
+msgstr ""
+
+#: lib/post-types/cpt-videos.php:103
+msgid "All"
+msgstr ""
+
 #: page-templates/reference-letters.php:83
 msgid "Click here to view project details"
 msgstr ""
@@ -350,7 +366,7 @@ msgid ""
 "Great Living Spaces"
 msgstr ""
 
-#: template-parts/section-logos-testimonials.php:18, template-parts/section-process-guarantee.php:12
+#: template-parts/section-logos-testimonials.php:19, template-parts/section-process-guarantee.php:12
 msgid "Request a free Consultation"
 msgstr ""
 

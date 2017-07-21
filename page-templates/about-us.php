@@ -60,7 +60,7 @@ get_template_part( 'template-parts/section', 'hero' );
 		$content = get_post_meta( get_the_ID(), sprintf( '%scontent', $prefix ), true );
 		$content = _s_get_textarea( $content );
 		
-		$left_column = sprintf( '<div class="small-12 large-5 columns"><div class="entry-content featured">%s</div></div>', $content );	
+		$left_column = sprintf( '<div class="small-12 large-4 columns"><div class="entry-content featured">%s</div></div>', $content );	
 		
 		
 		$grid = '';
@@ -69,7 +69,7 @@ get_template_part( 'template-parts/section', 'hero' );
 			$grid = sprintf( '<div class="row small-up-1 medium-up-4 large-up-2 grid">%s</div>', $grid_items );
 		}	
 			
-		$right_column = sprintf( '<div class="small-12 large-7 columns"><div class="entry-content">%s</div></div>', $grid );
+		$right_column = sprintf( '<div class="small-12 large-8 columns"><div class="entry-content">%s</div></div>', $grid );
 		
 		
 		$attr = array( 'class' => 'section-content section-why-work-with-us' );

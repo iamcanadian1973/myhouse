@@ -154,14 +154,17 @@
     //$('#posts-list .entry').hide();
 	
 	// Instantiate MixItUp
-	var mixer = mixitup( '.video-grid', {
-		selectors: {
-			target: '.hentry'
-		},
-		layout: {
-			//display: 'inline-block'
-		}
-	});
+    if( $('.video-grid').length ) {
+        var mixer = mixitup( '.video-grid', {
+            selectors: {
+                target: '.hentry'
+            },
+            layout: {
+                //display: 'inline-block'
+            }
+        });
+    }
+	
 
 })(jQuery);
 

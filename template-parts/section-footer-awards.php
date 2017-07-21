@@ -30,7 +30,7 @@ Great Living Spaces', '_s' ) );
 	// Build  section
 	$attr = array( 'class' => 'section-content section-footer-awards' );
 	_s_section_open( $attr );		
-		printf( '<div class="row">%s%s%s</div>%s', $georgie_statue, $footer_awards, $ovation, $footer_text );
+		printf( '<div class="row">%s%s%s</div>', $georgie_statue, $footer_awards, $ovation );
 	_s_section_close();	
  	
 }
