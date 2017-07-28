@@ -22,7 +22,7 @@ msgstr ""
 msgid "It looks like nothing was found at this location."
 msgstr ""
 
-#: archive-gallery.php:23, page-templates/silo-landing-page.php:43
+#: archive-gallery.php:23, page-templates/silo-landing-page - Copy.php:43
 msgid "Photo Gallery"
 msgstr ""
 
@@ -125,7 +125,7 @@ msgstr ""
 msgid "Client Login"
 msgstr ""
 
-#: lib/functions/gallery.php:80, lib/functions/scripts.php:10
+#: lib/functions/gallery.php:82, lib/functions/scripts.php:10
 msgid "Show Before"
 msgstr ""
 
@@ -316,6 +316,10 @@ msgstr ""
 
 #: page-templates/reference-letters.php:83
 msgid "Click here to view project details"
+msgstr ""
+
+#: page-templates/silo-landing-page.php:54
+msgid "View Our Gallery"
 msgstr ""
 
 #: search.php:22

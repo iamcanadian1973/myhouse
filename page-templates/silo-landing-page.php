@@ -22,60 +22,66 @@ echo kr_module_slideshow( 'slider' );
 	<main id="main" class="site-main" role="main">
 	<?php
 	global $post;
-	
-	// Default
-	section_default();
+    
+    section_default();
 	function section_default() {
 		
 		global $post;
 		
-		$columns = array( 'large-6', 'large-6' );
+		$right_column = $video = $buttons = '';
+        
+        // Heading
+        $heading = the_title( '<h1>', '</h1>', false );
 		
-		$photo_gallery = '';
-		
-		$left_column = $right_column = $content = '';
-		
+        // Content
+ 		$content = sprintf( '<div class="entry-content featured">%s</div>', apply_filters( 'the_content', get_the_content() ) );
+        
+        
+        // Silo Process button
+        $silo_process_title = get_field( 'silo_process_title' );
+        $silo_process_link = get_field( 'silo_process_link' );
+        
+        if( !empty( $silo_process_title ) && !empty( $silo_process_link ) ) {
+             $buttons .= sprintf( '<div class="column"><a href="%s" class="btn medium flex" data-equalizer-watch><span>%s</span></a></div>', $silo_process_link, $silo_process_title  );
+        }
+  		
+ 		// Gallery button
 		// Photo Gallery link?
 		$photo_gallery_link = get_field( 'photo_gallery_link' );
 		if( !empty( $photo_gallery_link ) ) {
 			$photo_gallery_link_title = get_post_meta( get_the_ID(), 'photo_gallery_link_title', true );
 			if( empty( $photo_gallery_link_title ) ) {
-				$photo_gallery_link_title = __( 'Photo Gallery', '_s' );
+				$photo_gallery_link_title = __( 'View Our Gallery', '_s' );
 			}
-			$photo_gallery = sprintf( '<p><a href="%s" class="btn cta">%s</a></p>', $photo_gallery_link, $photo_gallery_link_title );
+			$buttons .= sprintf( '<div class="column"><a href="%s" class="btn medium flex" data-equalizer-watch><span>%s</span></a></div>', $photo_gallery_link, $photo_gallery_link_title );
 		}
-		
-		
+        
+        if( !empty( $buttons ) ) {
+            $buttons = sprintf( '<div class="row small-up-1 medium-up-2 buttons" data-equalizer >%s</div>', $buttons );
+        }
+        
+        // Video
  		$video_id = get_field( 'video' );
-		$right_column = get_field( 'right_column' );
+        $right_column = get_field( 'right_column' );
 		if( !empty( $video_id ) ) {
-			$content = get_youtube_video_foobox_thumbnail( $video_id );
-		}
-		else if(!empty( $right_column )  ) {
-			$columns = array( 'large-7 xlarge-8', 'large-5 xlarge-4' );	
-			$content = $right_column;
-		}
-		else {
-			$columns = array( '', '' );	
-		}
+			$right_column = get_youtube_video_foobox_thumbnail( $video_id );
+        }
 				
-			
-		$right_column = sprintf( '<div class="small-12 %s columns">%s%s</div>', $columns[1], $photo_gallery, $content );
-		
-		// Left column
-		$left_column = sprintf( '<div class="small-12 %s columns"><div class="entry-content">%s</div></div>', $columns[0], apply_filters( 'pb_the_content', get_the_content() ) );
-		
-		// Right Column
-		
-		
-		
+  		
 		// Output section
 		
 		$attr = array( 'class' => 'section-content section-default' );
 		_s_section_open( $attr );		
-		printf( '<div class="row">%s%s</div>', $left_column, $right_column );
+			 printf( '<div class="row"><div class="small-12 large-6 columns">%s</div><div class="small-12 large-6 columns show-for-large">%s</div></div>', 
+                     $heading, $buttons );
+            
+            printf( '<div class="row"><div class="small-12 large-6 columns">%s</div><div class="small-12 large-6 columns">%s<div class="hide-for-large">%s</div></div></div>', 
+                    $content, $right_column, $buttons );
 		_s_section_close();	
+		
 	}
+	
+	
 	
 	// Details Grid
 	section_details();

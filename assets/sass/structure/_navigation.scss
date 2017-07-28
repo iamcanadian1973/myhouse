@@ -57,6 +57,16 @@
 	}
 }
 
+ul.buttons {
+    @include list-reset;
+    margin: 0 -15px;
+    
+    li {
+        display: inline-block;
+        padding: 0 15px;   
+    }
+}
+
 
 .cta {
 	padding-bottom: 15px;	
