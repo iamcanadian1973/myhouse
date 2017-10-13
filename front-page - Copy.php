@@ -40,33 +40,30 @@ echo kr_module_slideshow( 'slider' );
 		
 		global $post;
 		
-		$right_column = $left_column = $video = '';
-        
-        // Heading
-        $heading = the_title( '<h1>', '</h1>', false );
+		$right_column = $left_column = '';
 		
-        // Content
- 		$content = sprintf( '<div class="entry-content featured">%s</div>', apply_filters( 'the_content', get_the_content() ) );
+		// Left column
+		$left_column = sprintf( '<div class="small-12 medium-7 xxlarge-6 columns"><div class="entry-content featured">%s</div></div>', apply_filters( 'the_content', get_the_content() ) );
 		
- 		// Gallery button
-		$button = sprintf( '<p class="cta"><a href="%s" class="btn large">%s</a></p>', get_post_type_archive_link( 'gallery' ), __( 'View Our Galleries', '_s' ) );
-        
-        // Video
- 		$video_id = get_field( 'video' );
+		// Right Column
+		
+		$galleries = sprintf( '<p class="cta"><a href="%s" class="btn large">%s</a></p>', get_post_type_archive_link( 'gallery' ), __( 'See Our Galleries', '_s' ) );
+		//$video = wp_oembed_get( 'https://www.youtube.com/watch?v=L2KbXuXWt6Q' );
+		$video = '';
+		$video_id = get_field( 'video' );
 		if( !empty( $video_id ) ) {
 			$video = get_youtube_video_foobox_thumbnail( $video_id );
 		}
 				
-  		
+		$content = $galleries . $video;
+			
+		$right_column = sprintf( '<div class="small-12 medium-5 xxlarge-6 columns">%s</div>', $content );
+		
 		// Output section
 		
 		$attr = array( 'class' => 'section-content section-default' );
 		_s_section_open( $attr );		
-			 printf( '<div class="row"><div class="small-12 medium-6 columns">%s</div><div class="small-12 medium-6 columns show-for-medium">%s</div></div>', 
-                     $heading, $button );
-            
-            printf( '<div class="row"><div class="small-12 medium-6 columns">%s</div><div class="small-12 medium-6 columns">%s<div class="hide-for-medium">%s</div></div></div>', 
-                    $content, $video, $button );
+			printf( '<div class="row">%s%s</div>', $left_column, $right_column );
 		_s_section_close();	
 		
 	}

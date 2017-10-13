@@ -149,6 +149,22 @@
 		button.text( txt === general_script_vars.see_more_awards ? general_script_vars.see_less_awards : general_script_vars.see_more_awards );
 	});
 	
+    
+    
+    //$('#posts-list .entry').hide();
+	
+	// Instantiate MixItUp
+    if( $('.video-grid').length ) {
+        var mixer = mixitup( '.video-grid', {
+            selectors: {
+                target: '.hentry'
+            },
+            layout: {
+                //display: 'inline-block'
+            }
+        });
+    }
+	
 
 })(jQuery);
 

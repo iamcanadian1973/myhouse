@@ -58,6 +58,7 @@ Header
 	padding-top: 30px;
 	padding-bottom: 20px;
 	text-align: right;
+    position: relative;
 	
 	@media #{$xlarge-up} {
       padding-top: 20px;

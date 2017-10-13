@@ -2,14 +2,27 @@
 
 .section-footer-awards {
 	
-	background-image: url( assets/images/bg-footer-awards.jpg);
+	background-image: url( assets/images/footer-awards/bg-footer-awards.jpg);
 	background-repeat: no-repeat;
 	background-position: center top;
 	background-attachment: fixed;
 	background-size: cover;
+    position: relative;
+    
+    &:after {
+        content: '';
+        background-color: rgba(#fff,.5);
+        width: 100%;
+        height: 100%;
+        top: 0;
+        left: 0;
+        position: absolute;   
+    }
 	
 	.wrap {
-		padding: 90px 0 60px;	
+		padding: 90px 0 60px;
+        position: relative;	
+        z-index: 3;
 	}
 	
 	img {

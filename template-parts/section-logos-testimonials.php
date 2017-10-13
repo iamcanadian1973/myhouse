@@ -10,18 +10,19 @@ function section_logos_testimonials() {
 	global $post;
 	
 	$logos = '<div class="award-logos">';
-	$logos .= sprintf( '<a href="http://www.houzz.com/pro/myhousedesignbuildteam/my-house-design-build-team#11" target="_blank"><img src="%slogos-testimonials/my-house-service-2017.png" alt="best custom home builder 2016, best interior design 2016 houzz, vancouver home builder" class="houzz" /></a>', trailingslashit( THEME_IMG ) );
-	$logos .= sprintf( '<a href="http://www.houzz.com/pro/myhousedesignbuildteam/my-house-design-build-team#11" target="_blank"><img src="%slogos-testimonials/my-house-design-2017.png" alt="best custom home builder 2016, best interior design 2016 houzz, vancouver home builder" class="houzz" /></a>', trailingslashit( THEME_IMG ) );
-	$logos .= sprintf( '<img src="%slogos-testimonials/baeumler.png" alt="" class="baeumler" /></a>', trailingslashit( THEME_IMG ) );
+	
+	$logos .= sprintf( '<a href="http://www.houzz.com/pro/myhousedesignbuildteam/my-house-design-build-team#11" target="_blank"><img src="%slogos-testimonials/houzz-design.png" alt="best custom home builder 2016, best interior design 2016 houzz, vancouver home builder" class="houzz" /></a>', trailingslashit( THEME_IMG ) );
+    $logos .= sprintf( '<a href="http://www.houzz.com/pro/myhousedesignbuildteam/my-house-design-build-team#11" target="_blank"><img src="%slogos-testimonials/houzz-service.png" alt="best custom home builder 2016, best interior design 2016 houzz, vancouver home builder" class="houzz" /></a>', trailingslashit( THEME_IMG ) );
+	$logos .= sprintf( '<a href="http://www.baeumlerapproved.ca/contractors/1932/My-House-DesignBuild-Team.aspx" target="_blank"><img src="%slogos-testimonials/baeumler.png" alt="" class="baeumler" /></a>', trailingslashit( THEME_IMG ) );
 	$logos .= '</div>';
 	
-	$free_consultation = sprintf( '<p class="cta"><a href="%s" class="btn medium">%s</a></p>', get_permalink( 1444 ), __( 'Request a free Consultation', '_s' ) );
-	$left_column = sprintf( '<div class="small-12 large-4 columns"><div class="entry-content">%s%s</div></div>', $logos, $free_consultation );
+	$free_consultation = sprintf( '<p class="cta"><a href="%s" class="btn xlarge">%s</a></p>', get_permalink( 1444 ), __( 'Request a free Consultation', '_s' ) );
+	$left_column = sprintf( '<div class="small-12 large-6 columns"><div class="entry-content">%s%s</div></div>', $logos, $free_consultation );
 			
 	// Right Column
 	$testimonials = get_testimonials();
 				
-	$right_column = sprintf( '<div class="small-12 large-8 columns">%s</div>', $testimonials );
+	$right_column = sprintf( '<div class="small-12 large-6 columns">%s</div>', $testimonials );
 			
 	// Output section
 			

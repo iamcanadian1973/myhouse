@@ -84,6 +84,14 @@ _s_site_overlay();
 					
 					$silo_title = get_post_meta( get_the_ID(), 'silo_title', true );
 					$headercontent =  sprintf( '<div class="show-for-large"><h5 class="silo-title">%s</h5></div>', $silo_title );
+                    
+                    $silo_message = get_field( 'silo_message' );
+                    if( !empty( $silo_message ) ) {
+                        $headercontent .=  sprintf( '<div class="show-for-large"><p class="silo-pitch">%s</p></div>', $silo_message );
+                    }
+                    
+                    
+                    
 				}
 				
 				echo $headercontent;

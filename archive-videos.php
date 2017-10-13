@@ -24,12 +24,14 @@ get_header(); ?>
 					<?php
 					//the_archive_title( '<h1 class="page-title">', '</h1>' );
 					printf( '<h1 class="page-title">%s</h1>', __( 'Feature Videos', '_s' ) );
-					the_archive_description( '<div class="taxonomy-description">', '</div>' );	?>
+					the_archive_description( '<div class="taxonomy-description">', '</div>' );	
+                    videos_custom_filters();
+                    ?>
 				</header>
 	
 				<?php
 				
-				print( '<div class="row small-up-1 medium-up-2 large-up-3 xlarge-up-4">' );
+				print( '<div class="row small-up-1 medium-up-2 large-up-3 xlarge-up-4 video-grid">' );
 				
 				while ( have_posts() ) :
 	
@@ -38,6 +40,8 @@ get_header(); ?>
 					get_template_part( 'template-parts/content', 'videos' );
 	
 				endwhile;
+                
+                echo '</div>';
 	
 				the_posts_pagination( array( 'mid_size' => 2 ) );
 	
@@ -47,8 +51,7 @@ get_header(); ?>
 	
 			endif; ?>
 			
-			</div>
-		</div>
+ 		</div>
 
 	</main>
 

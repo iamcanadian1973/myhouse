@@ -187,8 +187,11 @@ function _s_get_social_icons() {
 	
 	$houzz = sprintf( '<li><a href="%s" target="_blank"><span><i class="fa fa-houzz" aria-hidden="true"></i></span></a></li>', 	
 	'http://www.houzz.com/pro/myhousedesignbuildteam' );
+    
+    $pinterest = sprintf( '<li><a href="%s" target="_blank"><span><i class="fa fa-pinterest" aria-hidden="true"></i></span></a></li>', 	
+	'https://www.pinterest.com/MyHouseDesignBuild/' );
 	
-	return sprintf( '<ul class="social-icons">%s%s%s%s%s</ul>', $facebook, $twitter, $instagram, $youtube, $houzz );
+	return sprintf( '<ul class="social-icons">%s%s%s%s%s%s</ul>', $facebook, $twitter, $instagram, $youtube, $houzz, $pinterest );
 	
 }
 

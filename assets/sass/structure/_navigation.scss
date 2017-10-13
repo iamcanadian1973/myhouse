@@ -57,6 +57,16 @@
 	}
 }
 
+ul.buttons {
+    @include list-reset;
+    margin: 0 -15px;
+    
+    li {
+        display: inline-block;
+        padding: 0 15px;   
+    }
+}
+
 
 .cta {
 	padding-bottom: 15px;	
@@ -97,6 +107,16 @@
 		padding: 8px 24px;	
 		@media #{$large-up} {
       		padding: 12px 60px;	
+		}
+	}
+    
+    &.xlarge {
+		padding: 8px 24px;	
+        width: 100%;
+		@media #{$large-up} {
+      		padding: 12px 60px;	
+            font-size: 24px;
+            
 		}
 	}
 	

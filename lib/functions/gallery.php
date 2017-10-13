@@ -29,9 +29,8 @@ function _s_gallery_slideshow( $prefix= '' ) {
 	$prefix = set_field_prefix( $prefix );
 	
 	$slides = get_field( sprintf( '%sphoto_slideshow', $prefix ) );
-	
-	
-	
+    
+ 	
 	if( empty( $slides )  ) {
 		return FALSE;		
 	}
@@ -51,31 +50,34 @@ function _s_gallery_slideshow( $prefix= '' ) {
 		
 	$cache = get_posts(array('post_type' => 'attachment', 'numberposts' => -1, 'post__in' => $ids));
 	   
-	foreach( $slides as $slide ): 
+	foreach( $slides as $key => $slide ): 
 		
-		$after = '';
-		$after_photo = '';
-		$before_photo = '';
-		
-		if( $slide['after_photo'] ) {
-			$photo = $slide['after_photo'];
- 		}
-		else {
-			$photo = $slide['single_photo'];
-		}
-		
+        $slide_type = '';
+        $photo = '';
+ 		$before_photo = '';
+        
+        switch( $slide['slide_type'] ) {
+            case 'Single Photo':
+            $photo = $slide['single_photo'];
+            break;
+            case 'Before/After':
+            $photo = $slide['after_photo'];
+            $before_photo = $slide['before_photo'];
+            break;
+        }
+        
+ 		if( empty( $photo ) ) {
+            continue;
+        }
+        
+        $thumbnail = wp_get_attachment_image( $photo, 'thumbnail', '',  array( 'class' => 'rsTmb' ) ); // returns an array
+        
+        //$thumbnail = sprintf( '<div class="rsTmb"><div class="rsTmbBackground" style="background: url(%s)"></div></div>', $thumbnail_attr[0] );
+        
+        
+        $img_attr = wp_get_attachment_image_src( $photo, $size ); // returns an array
  		
-		$thumbnail_attr = wp_get_attachment_image_src( $photo, 'thumbnail' ); // returns an array
-		
-		$img_attr = wp_get_attachment_image_src( $photo, $size ); // returns an array
-		
-		if( false == $img_attr ) {
-			continue;
-		}
-		
-		$before_photo = $slide['before_photo'];
-		
-		if( !empty( $before_photo ) ) {
+  		if( !empty( $before_photo ) ) {
 			$before_attr = wp_get_attachment_image_src( $before_photo, $size ); // returns an array
 			$before_photo = sprintf( '<div data-before="%s" data-after="%s"><span class="toggle-photo">%s</span></div>', $before_attr[0], $img_attr[0], __( 'Show Before', '_s' ) );
 		}
@@ -95,9 +97,10 @@ function _s_gallery_slideshow( $prefix= '' ) {
 		$caption = '';
 		//$caption = '<figure class="caption">%s</figure>;'
 		
-		$thumbnail = sprintf( '<img src="%s" class="rsTmb" />', $thumbnail_attr[0] );
-								
- 		$items .= sprintf('<div>%s<a data-rsw="%s" data-rsh="%s" class="rsImg" href="%s">%s</a>%s</div>', $before_photo, $img_attr[1], $img_attr[2], $img_attr[0], $thumbnail, $caption );
+		//$thumbnail = sprintf( '<img src="%s" class="rsTmb thumb-%s" />', $thumbnail_attr[0], $key );
+  								
+ 		$items .= sprintf('<div id="%s">%s<a data-rsw="%s" data-rsh="%s" class="rsImg" href="%s">%s</a>%s</div>', $key, $before_photo, $img_attr[1], $img_attr[2], $img_attr[0], $thumbnail, $caption );
+        $items .= "\n\n";
 	
 	endforeach;
 		

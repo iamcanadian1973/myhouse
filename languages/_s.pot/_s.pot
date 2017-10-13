@@ -22,7 +22,7 @@ msgstr ""
 msgid "It looks like nothing was found at this location."
 msgstr ""
 
-#: archive-gallery.php:23, page-templates/silo-landing-page.php:43
+#: archive-gallery.php:23
 msgid "Photo Gallery"
 msgstr ""
 
@@ -77,8 +77,12 @@ msgstr ""
 msgid "Site by SWCA"
 msgstr ""
 
-#: front-page.php:50
+#: front-page - Copy.php:50
 msgid "See Our Galleries"
+msgstr ""
+
+#: front-page.php:52
+msgid "View Our Galleries"
 msgstr ""
 
 #: functions.php:70
@@ -121,7 +125,7 @@ msgstr ""
 msgid "Client Login"
 msgstr ""
 
-#: lib/functions/gallery.php:80, lib/functions/scripts.php:10
+#: lib/functions/gallery.php:82, lib/functions/scripts.php:10
 msgid "Show Before"
 msgstr ""
 
@@ -298,8 +302,24 @@ msgstr ""
 msgid "Videos"
 msgstr ""
 
+#: lib/post-types/cpt-videos.php:71
+msgid "Video Category"
+msgstr ""
+
+#: lib/post-types/cpt-videos.php:72
+msgid "Video Categories"
+msgstr ""
+
+#: lib/post-types/cpt-videos.php:103
+msgid "All"
+msgstr ""
+
 #: page-templates/reference-letters.php:83
 msgid "Click here to view project details"
+msgstr ""
+
+#: page-templates/silo-landing-page.php:54
+msgid "View Our Gallery"
 msgstr ""
 
 #: search.php:22
@@ -350,7 +370,7 @@ msgid ""
 "Great Living Spaces"
 msgstr ""
 
-#: template-parts/section-logos-testimonials.php:18, template-parts/section-process-guarantee.php:12
+#: template-parts/section-logos-testimonials.php:19, template-parts/section-process-guarantee.php:12
 msgid "Request a free Consultation"
 msgstr ""
 
