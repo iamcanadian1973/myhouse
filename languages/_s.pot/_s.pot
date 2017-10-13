@@ -22,7 +22,7 @@ msgstr ""
 msgid "It looks like nothing was found at this location."
 msgstr ""
 
-#: archive-gallery.php:23, page-templates/silo-landing-page - Copy.php:43
+#: archive-gallery.php:23
 msgid "Photo Gallery"
 msgstr ""
 

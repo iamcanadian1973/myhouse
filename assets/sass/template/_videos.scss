@@ -77,6 +77,18 @@ a.youtube {
 	#category-names-filter button:focus {
 		outline: 0 none;
 	}
+    
+    .video-grid {
+        font-size: 0;   
+    }
+    
+    .video-grid .column {
+        clear: none!important;
+        float: none;
+        display: inline-block;
+        vertical-align: top;
+        margin: 0!important;
+     }
 	
 }
 

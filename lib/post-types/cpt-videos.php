@@ -51,7 +51,7 @@ class Videos_CPT extends CPT_Core {
 		if ( $query->is_main_query() && !is_admin() && is_post_type_archive( 'videos' ) ) {
 			
 			// get_option( 'posts_per_page' )
-			$query->set('posts_per_page', 24 );
+			$query->set('posts_per_page', 48 );
 			
 			// Order By
 			$query->set( 'orderby', 'menu_order' );
