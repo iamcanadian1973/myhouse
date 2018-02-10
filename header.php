@@ -56,8 +56,10 @@ _s_site_overlay();
 				$social_icons =  _s_get_social_icons();
 				
 				// Client login <a href="javascript:;" id="client-login-btn">Client Login</a>
+                //$client_login = sprintf( '<a href="%s" class="button" target="_blank">%s</a>', 'https://www.buildertrend.net/loginFrame.aspx?builderID=407', __( 'Client Login', '_s' ) );
 				$client_login = sprintf( '<button class="button" type="button" data-toggle="buildertrend">%s</button><div class="dropdown-pane small" id="buildertrend" data-dropdown data-hover="true" data-hover-pane="true">
-  <iframe src="http://www.buildertrend.net/loginFrame.aspx?builderID=407&amp;bgcolor=&amp;fcolor=&amp;uwidth=100&amp;pwidth=100" marginwidth="0" marginheight="0" frameborder="0" scrolling="no"></iframe></div>', __( 'Client Login', '_s' ) );
+  <iframe src="https://www.buildertrend.net/loginFrame.aspx?builderID=407&amp;bgcolor=&amp;fcolor=&amp;uwidth=100&amp;pwidth=100" marginwidth="0" marginheight="0" frameborder="0" scrolling="no"></iframe></div>', __( 'Client Login', '_s' ) );
+
  				
   
   				// Language Switcher: coming soon

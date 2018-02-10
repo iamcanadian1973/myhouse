@@ -261,7 +261,7 @@ gulp.task('foundation-js', () => {
 		paths.foundationJSpath + 'foundation.orbit.js',
 		paths.foundationJSpath + 'foundation.responsiveMenu.js',
 		paths.foundationJSpath + 'foundation.responsiveToggle.js',
-		paths.foundationJSpath + 'foundation.reveal.js',
+		
 		paths.foundationJSpath + 'foundation.slider.js',
 		paths.foundationJSpath + 'foundation.sticky.js',
 		
@@ -269,7 +269,8 @@ gulp.task('foundation-js', () => {
 		paths.foundationJSpath + 'foundation.tooltip.js',
 		
 		*/
-		
+	    
+        paths.foundationJSpath + 'foundation.reveal.js',	
 		paths.foundationJSpath + 'foundation.util.mediaQuery.js',
  		paths.foundationJSpath + 'foundation.util.box.js',
 		paths.foundationJSpath + 'foundation.util.triggers.js',

@@ -180,3 +180,6 @@ if( ! function_exists( 'fix_no_editor_on_posts_page' ) ) {
     add_action( 'edit_form_after_title', 'fix_no_editor_on_posts_page', 0 );
  }
  */
+
+
+add_filter('jpeg_quality', function($arg){return 100;});

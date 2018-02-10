@@ -88,7 +88,8 @@ $gallery_categories = array(
 
 register_via_taxonomy_core( $gallery_categories, 
 	array(
-		'rewrite' => array('slug'=> 'galleries', 'with_front' => false )
+        'hierarchical' => true,
+		'rewrite' => array('hierarchical' => true, 'slug'=> 'galleries', 'with_front' => false )
 	), 
 	array( 'gallery' ) 
 );

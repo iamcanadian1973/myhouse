@@ -1329,7 +1329,11 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
   // default options
   $.fn.smoothScroll.defaults = defaults;
 });
-'use strict';var _typeof=typeof Symbol==="function"&&typeof Symbol.iterator==="symbol"?function(obj){return typeof obj;}:function(obj){return obj&&typeof Symbol==="function"&&obj.constructor===Symbol&&obj!==Symbol.prototype?"symbol":typeof obj;};/**!
+'use strict';
+
+var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
+
+/**!
  * MixItUp v3.2.1
  * A high-performance, dependency-free library for animated filtering, sorting and more
  * Build e686293a-a831-4453-8fff-74c886296ad0
@@ -1343,22 +1347,237 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
  *
  *            Non-commercial use permitted under same terms as CC BY-NC 3.0 license.
  *            http://creativecommons.org/licenses/by-nc/3.0/
- */(function(window){'use strict';var _mixitup=null,h=null;(function(){var VENDORS=['webkit','moz','o','ms'],canary=window.document.createElement('div'),i=-1;// window.requestAnimationFrame
-for(i=0;i<VENDORS.length&&!window.requestAnimationFrame;i++){window.requestAnimationFrame=window[VENDORS[i]+'RequestAnimationFrame'];}// Element.nextElementSibling
-if(typeof canary.nextElementSibling==='undefined'){Object.defineProperty(window.Element.prototype,'nextElementSibling',{get:function get(){var el=this.nextSibling;while(el){if(el.nodeType===1){return el;}el=el.nextSibling;}return null;}});}// Element.matches
-(function(ElementPrototype){ElementPrototype.matches=ElementPrototype.matches||ElementPrototype.machesSelector||ElementPrototype.mozMatchesSelector||ElementPrototype.msMatchesSelector||ElementPrototype.oMatchesSelector||ElementPrototype.webkitMatchesSelector||function(selector){return Array.prototype.indexOf.call(this.parentElement.querySelectorAll(selector),this)>-1;};})(window.Element.prototype);// Object.keys
-// https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/keys
-if(!Object.keys){Object.keys=function(){var hasOwnProperty=Object.prototype.hasOwnProperty,hasDontEnumBug=false,dontEnums=[],dontEnumsLength=-1;hasDontEnumBug=!{toString:null}.propertyIsEnumerable('toString');dontEnums=['toString','toLocaleString','valueOf','hasOwnProperty','isPrototypeOf','propertyIsEnumerable','constructor'];dontEnumsLength=dontEnums.length;return function(obj){var result=[],prop='',i=-1;if((typeof obj==='undefined'?'undefined':_typeof(obj))!=='object'&&(typeof obj!=='function'||obj===null)){throw new TypeError('Object.keys called on non-object');}for(prop in obj){if(hasOwnProperty.call(obj,prop)){result.push(prop);}}if(hasDontEnumBug){for(i=0;i<dontEnumsLength;i++){if(hasOwnProperty.call(obj,dontEnums[i])){result.push(dontEnums[i]);}}}return result;};}();}// Array.isArray
-// https://developer.mozilla.org/en/docs/Web/JavaScript/Reference/Global_Objects/Array/isArray
-if(!Array.isArray){Array.isArray=function(arg){return Object.prototype.toString.call(arg)==='[object Array]';};}// Object.create
-// https://developer.mozilla.org/en/docs/Web/JavaScript/Reference/Global_Objects/Object/create
-if(typeof Object.create!=='function'){Object.create=function(undefined){var Temp=function Temp(){};return function(prototype,propertiesObject){if(prototype!==Object(prototype)&&prototype!==null){throw TypeError('Argument must be an object, or null');}Temp.prototype=prototype||{};var result=new Temp();Temp.prototype=null;if(propertiesObject!==undefined){Object.defineProperties(result,propertiesObject);}if(prototype===null){/* jshint ignore:start */result.__proto__=null;/* jshint ignore:end */}return result;};}();}// String.prototyoe.trim
-if(!String.prototype.trim){String.prototype.trim=function(){return this.replace(/^[\s\uFEFF\xA0]+|[\s\uFEFF\xA0]+$/g,'');};}// Array.prototype.indexOf
-// https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/indexOf
-if(!Array.prototype.indexOf){Array.prototype.indexOf=function(searchElement){var n,k,t,len;if(this===null){throw new TypeError();}t=Object(this);len=t.length>>>0;if(len===0){return-1;}n=0;if(arguments.length>1){n=Number(arguments[1]);if(n!==n){n=0;}else if(n!==0&&n!==Infinity&&n!==-Infinity){n=(n>0||-1)*Math.floor(Math.abs(n));}}if(n>=len){return-1;}for(k=n>=0?n:Math.max(len-Math.abs(n),0);k<len;k++){if(k in t&&t[k]===searchElement){return k;}}return-1;};}// Function.prototype.bind
-// https://developer.mozilla.org/en/docs/Web/JavaScript/Reference/Global_objects/Function/bind
-if(!Function.prototype.bind){Function.prototype.bind=function(oThis){var aArgs,self,FNOP,fBound;if(typeof this!=='function'){throw new TypeError();}aArgs=Array.prototype.slice.call(arguments,1);self=this;FNOP=function FNOP(){};fBound=function fBound(){return self.apply(this instanceof FNOP?this:oThis,aArgs.concat(Array.prototype.slice.call(arguments)));};if(this.prototype){FNOP.prototype=this.prototype;}fBound.prototype=new FNOP();return fBound;};}// Element.prototype.dispatchEvent
-if(!window.Element.prototype.dispatchEvent){window.Element.prototype.dispatchEvent=function(event){try{return this.fireEvent('on'+event.type,event);}catch(err){}};}})();/**
+ */
+
+(function (window) {
+    'use strict';
+
+    var _mixitup = null,
+        h = null;
+
+    (function () {
+        var VENDORS = ['webkit', 'moz', 'o', 'ms'],
+            canary = window.document.createElement('div'),
+            i = -1;
+
+        // window.requestAnimationFrame
+
+        for (i = 0; i < VENDORS.length && !window.requestAnimationFrame; i++) {
+            window.requestAnimationFrame = window[VENDORS[i] + 'RequestAnimationFrame'];
+        }
+
+        // Element.nextElementSibling
+
+        if (typeof canary.nextElementSibling === 'undefined') {
+            Object.defineProperty(window.Element.prototype, 'nextElementSibling', {
+                get: function get() {
+                    var el = this.nextSibling;
+
+                    while (el) {
+                        if (el.nodeType === 1) {
+                            return el;
+                        }
+
+                        el = el.nextSibling;
+                    }
+
+                    return null;
+                }
+            });
+        }
+
+        // Element.matches
+
+        (function (ElementPrototype) {
+            ElementPrototype.matches = ElementPrototype.matches || ElementPrototype.machesSelector || ElementPrototype.mozMatchesSelector || ElementPrototype.msMatchesSelector || ElementPrototype.oMatchesSelector || ElementPrototype.webkitMatchesSelector || function (selector) {
+                return Array.prototype.indexOf.call(this.parentElement.querySelectorAll(selector), this) > -1;
+            };
+        })(window.Element.prototype);
+
+        // Object.keys
+        // https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/keys
+
+        if (!Object.keys) {
+            Object.keys = function () {
+                var hasOwnProperty = Object.prototype.hasOwnProperty,
+                    hasDontEnumBug = false,
+                    dontEnums = [],
+                    dontEnumsLength = -1;
+
+                hasDontEnumBug = !{
+                    toString: null
+                }.propertyIsEnumerable('toString');
+
+                dontEnums = ['toString', 'toLocaleString', 'valueOf', 'hasOwnProperty', 'isPrototypeOf', 'propertyIsEnumerable', 'constructor'];
+
+                dontEnumsLength = dontEnums.length;
+
+                return function (obj) {
+                    var result = [],
+                        prop = '',
+                        i = -1;
+
+                    if ((typeof obj === 'undefined' ? 'undefined' : _typeof(obj)) !== 'object' && (typeof obj !== 'function' || obj === null)) {
+                        throw new TypeError('Object.keys called on non-object');
+                    }
+
+                    for (prop in obj) {
+                        if (hasOwnProperty.call(obj, prop)) {
+                            result.push(prop);
+                        }
+                    }
+
+                    if (hasDontEnumBug) {
+                        for (i = 0; i < dontEnumsLength; i++) {
+                            if (hasOwnProperty.call(obj, dontEnums[i])) {
+                                result.push(dontEnums[i]);
+                            }
+                        }
+                    }
+
+                    return result;
+                };
+            }();
+        }
+
+        // Array.isArray
+        // https://developer.mozilla.org/en/docs/Web/JavaScript/Reference/Global_Objects/Array/isArray
+
+        if (!Array.isArray) {
+            Array.isArray = function (arg) {
+                return Object.prototype.toString.call(arg) === '[object Array]';
+            };
+        }
+
+        // Object.create
+        // https://developer.mozilla.org/en/docs/Web/JavaScript/Reference/Global_Objects/Object/create
+
+        if (typeof Object.create !== 'function') {
+            Object.create = function (undefined) {
+                var Temp = function Temp() {};
+
+                return function (prototype, propertiesObject) {
+                    if (prototype !== Object(prototype) && prototype !== null) {
+                        throw TypeError('Argument must be an object, or null');
+                    }
+
+                    Temp.prototype = prototype || {};
+
+                    var result = new Temp();
+
+                    Temp.prototype = null;
+
+                    if (propertiesObject !== undefined) {
+                        Object.defineProperties(result, propertiesObject);
+                    }
+
+                    if (prototype === null) {
+                        /* jshint ignore:start */
+                        result.__proto__ = null;
+                        /* jshint ignore:end */
+                    }
+
+                    return result;
+                };
+            }();
+        }
+
+        // String.prototyoe.trim
+
+        if (!String.prototype.trim) {
+            String.prototype.trim = function () {
+                return this.replace(/^[\s\uFEFF\xA0]+|[\s\uFEFF\xA0]+$/g, '');
+            };
+        }
+
+        // Array.prototype.indexOf
+        // https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/indexOf
+
+        if (!Array.prototype.indexOf) {
+            Array.prototype.indexOf = function (searchElement) {
+                var n, k, t, len;
+
+                if (this === null) {
+                    throw new TypeError();
+                }
+
+                t = Object(this);
+
+                len = t.length >>> 0;
+
+                if (len === 0) {
+                    return -1;
+                }
+
+                n = 0;
+
+                if (arguments.length > 1) {
+                    n = Number(arguments[1]);
+
+                    if (n !== n) {
+                        n = 0;
+                    } else if (n !== 0 && n !== Infinity && n !== -Infinity) {
+                        n = (n > 0 || -1) * Math.floor(Math.abs(n));
+                    }
+                }
+
+                if (n >= len) {
+                    return -1;
+                }
+
+                for (k = n >= 0 ? n : Math.max(len - Math.abs(n), 0); k < len; k++) {
+                    if (k in t && t[k] === searchElement) {
+                        return k;
+                    }
+                }
+
+                return -1;
+            };
+        }
+
+        // Function.prototype.bind
+        // https://developer.mozilla.org/en/docs/Web/JavaScript/Reference/Global_objects/Function/bind
+
+        if (!Function.prototype.bind) {
+            Function.prototype.bind = function (oThis) {
+                var aArgs, self, FNOP, fBound;
+
+                if (typeof this !== 'function') {
+                    throw new TypeError();
+                }
+
+                aArgs = Array.prototype.slice.call(arguments, 1);
+
+                self = this;
+
+                FNOP = function FNOP() {};
+
+                fBound = function fBound() {
+                    return self.apply(this instanceof FNOP ? this : oThis, aArgs.concat(Array.prototype.slice.call(arguments)));
+                };
+
+                if (this.prototype) {
+                    FNOP.prototype = this.prototype;
+                }
+
+                fBound.prototype = new FNOP();
+
+                return fBound;
+            };
+        }
+
+        // Element.prototype.dispatchEvent
+
+        if (!window.Element.prototype.dispatchEvent) {
+            window.Element.prototype.dispatchEvent = function (event) {
+                try {
+                    return this.fireEvent('on' + event.type, event);
+                } catch (err) {}
+            };
+        }
+    })();
+
+    /**
      * The `mixitup()` "factory" function creates and returns individual instances
      * of MixItUp, known as "mixers", on which API methods can be called.
      *
@@ -1401,11 +1620,91 @@ if(!window.Element.prototype.dispatchEvent){window.Element.prototype.dispatchEve
      *      An optional reference to a `document`, which can be used to control a MixItUp instance in an iframe.
      * @return      {mixitup.Mixer}
      *      A "mixer" object holding the MixItUp instance.
-     */_mixitup=function mixitup(container,config,foreignDoc){var el=null,returnCollection=false,instance=null,facade=null,doc=null,output=null,instances=[],id='',elements=[],i=-1;doc=foreignDoc||window.document;if(returnCollection=arguments[3]){// A non-documented 4th paramater enabling control of multiple instances
-returnCollection=typeof returnCollection==='boolean';}if(typeof container==='string'){elements=doc.querySelectorAll(container);}else if(container&&(typeof container==='undefined'?'undefined':_typeof(container))==='object'&&h.isElement(container,doc)){elements=[container];}else if(container&&(typeof container==='undefined'?'undefined':_typeof(container))==='object'&&container.length){// Although not documented, the container may also be an array-like list of
-// elements such as a NodeList or jQuery collection, is returnCollection is true
-elements=container;}else{throw new Error(_mixitup.messages.errorFactoryInvalidContainer());}if(elements.length<1){throw new Error(_mixitup.messages.errorFactoryContainerNotFound());}for(i=0;el=elements[i];i++){if(i>0&&!returnCollection)break;if(!el.id){id='MixItUp'+h.randomHex();el.id=id;}else{id=el.id;}if(_mixitup.instances[id]instanceof _mixitup.Mixer){instance=_mixitup.instances[id];if(!config||config&&config.debug&&config.debug.showWarnings!==false){console.warn(_mixitup.messages.warningFactoryPreexistingInstance());}}else{instance=new _mixitup.Mixer();instance.attach(el,doc,id,config);_mixitup.instances[id]=instance;}facade=new _mixitup.Facade(instance);if(config&&config.debug&&config.debug.enable){instances.push(instance);}else{instances.push(facade);}}if(returnCollection){output=new _mixitup.Collection(instances);}else{// Return the first instance regardless
-output=instances[0];}return output;};/**
+     */
+
+    _mixitup = function mixitup(container, config, foreignDoc) {
+        var el = null,
+            returnCollection = false,
+            instance = null,
+            facade = null,
+            doc = null,
+            output = null,
+            instances = [],
+            id = '',
+            elements = [],
+            i = -1;
+
+        doc = foreignDoc || window.document;
+
+        if (returnCollection = arguments[3]) {
+            // A non-documented 4th paramater enabling control of multiple instances
+
+            returnCollection = typeof returnCollection === 'boolean';
+        }
+
+        if (typeof container === 'string') {
+            elements = doc.querySelectorAll(container);
+        } else if (container && (typeof container === 'undefined' ? 'undefined' : _typeof(container)) === 'object' && h.isElement(container, doc)) {
+            elements = [container];
+        } else if (container && (typeof container === 'undefined' ? 'undefined' : _typeof(container)) === 'object' && container.length) {
+            // Although not documented, the container may also be an array-like list of
+            // elements such as a NodeList or jQuery collection, is returnCollection is true
+
+            elements = container;
+        } else {
+            throw new Error(_mixitup.messages.errorFactoryInvalidContainer());
+        }
+
+        if (elements.length < 1) {
+            throw new Error(_mixitup.messages.errorFactoryContainerNotFound());
+        }
+
+        for (i = 0; el = elements[i]; i++) {
+            if (i > 0 && !returnCollection) break;
+
+            if (!el.id) {
+                id = 'MixItUp' + h.randomHex();
+
+                el.id = id;
+            } else {
+                id = el.id;
+            }
+
+            if (_mixitup.instances[id] instanceof _mixitup.Mixer) {
+                instance = _mixitup.instances[id];
+
+                if (!config || config && config.debug && config.debug.showWarnings !== false) {
+                    console.warn(_mixitup.messages.warningFactoryPreexistingInstance());
+                }
+            } else {
+                instance = new _mixitup.Mixer();
+
+                instance.attach(el, doc, id, config);
+
+                _mixitup.instances[id] = instance;
+            }
+
+            facade = new _mixitup.Facade(instance);
+
+            if (config && config.debug && config.debug.enable) {
+                instances.push(instance);
+            } else {
+                instances.push(facade);
+            }
+        }
+
+        if (returnCollection) {
+            output = new _mixitup.Collection(instances);
+        } else {
+            // Return the first instance regardless
+
+            output = instances[0];
+        }
+
+        return output;
+    };
+
+    /**
      * The `.use()` static method is used to extend the functionality of mixitup with compatible
      * extensions and libraries in an environment with modular scoping e.g. ES2015, CommonJS, or RequireJS.
      *
@@ -1435,28 +1734,79 @@ output=instances[0];}return output;};/**
      * @since    3.0.0
      * @param    {*}  extension   A reference to the extension or library to be used.
      * @return   {void}
-     */_mixitup.use=function(extension){_mixitup.Base.prototype.callActions.call(_mixitup,'beforeUse',arguments);// Call the extension's factory function, passing
-// the mixitup factory as a paramater
-if(typeof extension==='function'&&extension.TYPE==='mixitup-extension'){// Mixitup extension
-if(typeof _mixitup.extensions[extension.NAME]==='undefined'){extension(_mixitup);_mixitup.extensions[extension.NAME]=extension;}}else if(extension.fn&&extension.fn.jquery){// jQuery
-_mixitup.libraries.$=extension;}_mixitup.Base.prototype.callActions.call(_mixitup,'afterUse',arguments);};_mixitup.instances={};_mixitup.extensions={};_mixitup.libraries={};/**
+     */
+
+    _mixitup.use = function (extension) {
+        _mixitup.Base.prototype.callActions.call(_mixitup, 'beforeUse', arguments);
+
+        // Call the extension's factory function, passing
+        // the mixitup factory as a paramater
+
+        if (typeof extension === 'function' && extension.TYPE === 'mixitup-extension') {
+            // Mixitup extension
+
+            if (typeof _mixitup.extensions[extension.NAME] === 'undefined') {
+                extension(_mixitup);
+
+                _mixitup.extensions[extension.NAME] = extension;
+            }
+        } else if (extension.fn && extension.fn.jquery) {
+            // jQuery
+
+            _mixitup.libraries.$ = extension;
+        }
+
+        _mixitup.Base.prototype.callActions.call(_mixitup, 'afterUse', arguments);
+    };
+
+    _mixitup.instances = {};
+    _mixitup.extensions = {};
+    _mixitup.libraries = {};
+
+    /**
      * @private
-     */h={/**
+     */
+
+    h = {
+
+        /**
          * @private
          * @param   {HTMLElement}   el
          * @param   {string}        cls
          * @return  {boolean}
-         */hasClass:function hasClass(el,cls){return!!el.className.match(new RegExp('(\\s|^)'+cls+'(\\s|$)'));},/**
+         */
+
+        hasClass: function hasClass(el, cls) {
+            return !!el.className.match(new RegExp('(\\s|^)' + cls + '(\\s|$)'));
+        },
+
+        /**
          * @private
          * @param   {HTMLElement}   el
          * @param   {string}        cls
          * @return  {void}
-         */addClass:function addClass(el,cls){if(!this.hasClass(el,cls))el.className+=el.className?' '+cls:cls;},/**
+         */
+
+        addClass: function addClass(el, cls) {
+            if (!this.hasClass(el, cls)) el.className += el.className ? ' ' + cls : cls;
+        },
+
+        /**
          * @private
          * @param   {HTMLElement}   el
          * @param   {string}        cls
          * @return  {void}
-         */removeClass:function removeClass(el,cls){if(this.hasClass(el,cls)){var reg=new RegExp('(\\s|^)'+cls+'(\\s|$)');el.className=el.className.replace(reg,' ').trim();}},/**
+         */
+
+        removeClass: function removeClass(el, cls) {
+            if (this.hasClass(el, cls)) {
+                var reg = new RegExp('(\\s|^)' + cls + '(\\s|$)');
+
+                el.className = el.className.replace(reg, ' ').trim();
+            }
+        },
+
+        /**
          * Merges the properties of the source object onto the
          * target object. Alters the target object.
          *
@@ -1466,113 +1816,523 @@ _mixitup.libraries.$=extension;}_mixitup.Base.prototype.callActions.call(_mixitu
          * @param   {boolean}   [deep=false]
          * @param   {boolean}   [handleErrors=false]
          * @return  {void}
-         */extend:function extend(destination,source,deep,handleErrors){var sourceKeys=[],key='',i=-1;deep=deep||false;handleErrors=handleErrors||false;try{if(Array.isArray(source)){for(i=0;i<source.length;i++){sourceKeys.push(i);}}else if(source){sourceKeys=Object.keys(source);}for(i=0;i<sourceKeys.length;i++){key=sourceKeys[i];if(!deep||_typeof(source[key])!=='object'||this.isElement(source[key])){// All non-object properties, or all properties if shallow extend
-destination[key]=source[key];}else if(Array.isArray(source[key])){// Arrays
-if(!destination[key]){destination[key]=[];}this.extend(destination[key],source[key],deep,handleErrors);}else{// Objects
-if(!destination[key]){destination[key]={};}this.extend(destination[key],source[key],deep,handleErrors);}}}catch(err){if(handleErrors){this.handleExtendError(err,destination);}else{throw err;}}return destination;},/**
+         */
+
+        extend: function extend(destination, source, deep, handleErrors) {
+            var sourceKeys = [],
+                key = '',
+                i = -1;
+
+            deep = deep || false;
+            handleErrors = handleErrors || false;
+
+            try {
+                if (Array.isArray(source)) {
+                    for (i = 0; i < source.length; i++) {
+                        sourceKeys.push(i);
+                    }
+                } else if (source) {
+                    sourceKeys = Object.keys(source);
+                }
+
+                for (i = 0; i < sourceKeys.length; i++) {
+                    key = sourceKeys[i];
+
+                    if (!deep || _typeof(source[key]) !== 'object' || this.isElement(source[key])) {
+                        // All non-object properties, or all properties if shallow extend
+
+                        destination[key] = source[key];
+                    } else if (Array.isArray(source[key])) {
+                        // Arrays
+
+                        if (!destination[key]) {
+                            destination[key] = [];
+                        }
+
+                        this.extend(destination[key], source[key], deep, handleErrors);
+                    } else {
+                        // Objects
+
+                        if (!destination[key]) {
+                            destination[key] = {};
+                        }
+
+                        this.extend(destination[key], source[key], deep, handleErrors);
+                    }
+                }
+            } catch (err) {
+                if (handleErrors) {
+                    this.handleExtendError(err, destination);
+                } else {
+                    throw err;
+                }
+            }
+
+            return destination;
+        },
+
+        /**
          * @private
          * @param   {Error}  err
          * @param   {object} destination
          * @return  {void}
-         */handleExtendError:function handleExtendError(err,destination){var re=/property "?(\w*)"?[,:] object/i,matches=null,erroneous='',message='',suggestion='',probableMatch='',key='',mostMatchingChars=-1,i=-1;if(err instanceof TypeError&&(matches=re.exec(err.message))){erroneous=matches[1];for(key in destination){i=0;while(i<erroneous.length&&erroneous.charAt(i)===key.charAt(i)){i++;}if(i>mostMatchingChars){mostMatchingChars=i;probableMatch=key;}}if(mostMatchingChars>1){suggestion=_mixitup.messages.errorConfigInvalidPropertySuggestion({probableMatch:probableMatch});}message=_mixitup.messages.errorConfigInvalidProperty({erroneous:erroneous,suggestion:suggestion});throw new TypeError(message);}throw err;},/**
+         */
+
+        handleExtendError: function handleExtendError(err, destination) {
+            var re = /property "?(\w*)"?[,:] object/i,
+                matches = null,
+                erroneous = '',
+                message = '',
+                suggestion = '',
+                probableMatch = '',
+                key = '',
+                mostMatchingChars = -1,
+                i = -1;
+
+            if (err instanceof TypeError && (matches = re.exec(err.message))) {
+                erroneous = matches[1];
+
+                for (key in destination) {
+                    i = 0;
+
+                    while (i < erroneous.length && erroneous.charAt(i) === key.charAt(i)) {
+                        i++;
+                    }
+
+                    if (i > mostMatchingChars) {
+                        mostMatchingChars = i;
+                        probableMatch = key;
+                    }
+                }
+
+                if (mostMatchingChars > 1) {
+                    suggestion = _mixitup.messages.errorConfigInvalidPropertySuggestion({
+                        probableMatch: probableMatch
+                    });
+                }
+
+                message = _mixitup.messages.errorConfigInvalidProperty({
+                    erroneous: erroneous,
+                    suggestion: suggestion
+                });
+
+                throw new TypeError(message);
+            }
+
+            throw err;
+        },
+
+        /**
          * @private
          * @param   {string} str
          * @return  {function}
-         */template:function template(str){var re=/\${([\w]*)}/g,dynamics={},matches=null;while(matches=re.exec(str)){dynamics[matches[1]]=new RegExp('\\${'+matches[1]+'}','g');}return function(data){var key='',output=str;data=data||{};for(key in dynamics){output=output.replace(dynamics[key],typeof data[key]!=='undefined'?data[key]:'');}return output;};},/**
+         */
+
+        template: function template(str) {
+            var re = /\${([\w]*)}/g,
+                dynamics = {},
+                matches = null;
+
+            while (matches = re.exec(str)) {
+                dynamics[matches[1]] = new RegExp('\\${' + matches[1] + '}', 'g');
+            }
+
+            return function (data) {
+                var key = '',
+                    output = str;
+
+                data = data || {};
+
+                for (key in dynamics) {
+                    output = output.replace(dynamics[key], typeof data[key] !== 'undefined' ? data[key] : '');
+                }
+
+                return output;
+            };
+        },
+
+        /**
          * @private
          * @param   {HTMLElement}   el
          * @param   {string}        type
          * @param   {function}      fn
          * @param   {boolean}       useCapture
          * @return  {void}
-         */on:function on(el,type,fn,useCapture){if(!el)return;if(el.addEventListener){el.addEventListener(type,fn,useCapture);}else if(el.attachEvent){el['e'+type+fn]=fn;el[type+fn]=function(){el['e'+type+fn](window.event);};el.attachEvent('on'+type,el[type+fn]);}},/**
+         */
+
+        on: function on(el, type, fn, useCapture) {
+            if (!el) return;
+
+            if (el.addEventListener) {
+                el.addEventListener(type, fn, useCapture);
+            } else if (el.attachEvent) {
+                el['e' + type + fn] = fn;
+
+                el[type + fn] = function () {
+                    el['e' + type + fn](window.event);
+                };
+
+                el.attachEvent('on' + type, el[type + fn]);
+            }
+        },
+
+        /**
          * @private
          * @param   {HTMLElement}   el
          * @param   {string}        type
          * @param   {function}      fn
          * @return  {void}
-         */off:function off(el,type,fn){if(!el)return;if(el.removeEventListener){el.removeEventListener(type,fn,false);}else if(el.detachEvent){el.detachEvent('on'+type,el[type+fn]);el[type+fn]=null;}},/**
+         */
+
+        off: function off(el, type, fn) {
+            if (!el) return;
+
+            if (el.removeEventListener) {
+                el.removeEventListener(type, fn, false);
+            } else if (el.detachEvent) {
+                el.detachEvent('on' + type, el[type + fn]);
+                el[type + fn] = null;
+            }
+        },
+
+        /**
          * @private
          * @param   {string}      eventType
          * @param   {object}      detail
          * @param   {Document}    [doc]
          * @return  {CustomEvent}
-         */getCustomEvent:function getCustomEvent(eventType,detail,doc){var event=null;doc=doc||window.document;if(typeof window.CustomEvent==='function'){event=new window.CustomEvent(eventType,{detail:detail,bubbles:true,cancelable:true});}else if(typeof doc.createEvent==='function'){event=doc.createEvent('CustomEvent');event.initCustomEvent(eventType,true,true,detail);}else{event=doc.createEventObject(),event.type=eventType;event.returnValue=false;event.cancelBubble=false;event.detail=detail;}return event;},/**
+         */
+
+        getCustomEvent: function getCustomEvent(eventType, detail, doc) {
+            var event = null;
+
+            doc = doc || window.document;
+
+            if (typeof window.CustomEvent === 'function') {
+                event = new window.CustomEvent(eventType, {
+                    detail: detail,
+                    bubbles: true,
+                    cancelable: true
+                });
+            } else if (typeof doc.createEvent === 'function') {
+                event = doc.createEvent('CustomEvent');
+                event.initCustomEvent(eventType, true, true, detail);
+            } else {
+                event = doc.createEventObject(), event.type = eventType;
+
+                event.returnValue = false;
+                event.cancelBubble = false;
+                event.detail = detail;
+            }
+
+            return event;
+        },
+
+        /**
          * @private
          * @param   {Event} e
          * @return  {Event}
-         */getOriginalEvent:function getOriginalEvent(e){if(e.touches&&e.touches.length){return e.touches[0];}else if(e.changedTouches&&e.changedTouches.length){return e.changedTouches[0];}else{return e;}},/**
+         */
+
+        getOriginalEvent: function getOriginalEvent(e) {
+            if (e.touches && e.touches.length) {
+                return e.touches[0];
+            } else if (e.changedTouches && e.changedTouches.length) {
+                return e.changedTouches[0];
+            } else {
+                return e;
+            }
+        },
+
+        /**
          * @private
          * @param   {HTMLElement}   el
          * @param   {string}        selector
          * @return  {Number}
-         */index:function index(el,selector){var i=0;while((el=el.previousElementSibling)!==null){if(!selector||el.matches(selector)){++i;}}return i;},/**
+         */
+
+        index: function index(el, selector) {
+            var i = 0;
+
+            while ((el = el.previousElementSibling) !== null) {
+                if (!selector || el.matches(selector)) {
+                    ++i;
+                }
+            }
+
+            return i;
+        },
+
+        /**
          * Converts a dash or snake-case string to camel case.
          *
          * @private
          * @param   {string}    str
          * @param   {boolean}   [isPascal]
          * @return  {string}
-         */camelCase:function camelCase(str){return str.toLowerCase().replace(/([_-][a-z])/g,function($1){return $1.toUpperCase().replace(/[_-]/,'');});},/**
+         */
+
+        camelCase: function camelCase(str) {
+            return str.toLowerCase().replace(/([_-][a-z])/g, function ($1) {
+                return $1.toUpperCase().replace(/[_-]/, '');
+            });
+        },
+
+        /**
          * Converts a dash or snake-case string to pascal case.
          *
          * @private
          * @param   {string}    str
          * @param   {boolean}   [isPascal]
          * @return  {string}
-         */pascalCase:function pascalCase(str){return(str=this.camelCase(str)).charAt(0).toUpperCase()+str.slice(1);},/**
+         */
+
+        pascalCase: function pascalCase(str) {
+            return (str = this.camelCase(str)).charAt(0).toUpperCase() + str.slice(1);
+        },
+
+        /**
          * Converts a camel or pascal-case string to dash case.
          *
          * @private
          * @param   {string}    str
          * @return  {string}
-         */dashCase:function dashCase(str){return str.replace(/([A-Z])/g,'-$1').replace(/^-/,'').toLowerCase();},/**
+         */
+
+        dashCase: function dashCase(str) {
+            return str.replace(/([A-Z])/g, '-$1').replace(/^-/, '').toLowerCase();
+        },
+
+        /**
          * @private
          * @param   {HTMLElement}       el
          * @param   {HTMLHtmlElement}   [doc]
          * @return  {boolean}
-         */isElement:function isElement(el,doc){doc=doc||window.document;if(window.HTMLElement&&el instanceof window.HTMLElement){return true;}else if(doc.defaultView&&doc.defaultView.HTMLElement&&el instanceof doc.defaultView.HTMLElement){return true;}else{return el!==null&&el.nodeType===1&&typeof el.nodeName==='string';}},/**
+         */
+
+        isElement: function isElement(el, doc) {
+            doc = doc || window.document;
+
+            if (window.HTMLElement && el instanceof window.HTMLElement) {
+                return true;
+            } else if (doc.defaultView && doc.defaultView.HTMLElement && el instanceof doc.defaultView.HTMLElement) {
+                return true;
+            } else {
+                return el !== null && el.nodeType === 1 && typeof el.nodeName === 'string';
+            }
+        },
+
+        /**
          * @private
          * @param   {string}            htmlString
          * @param   {HTMLHtmlElement}   [doc]
          * @return  {DocumentFragment}
-         */createElement:function createElement(htmlString,doc){var frag=null,temp=null;doc=doc||window.document;frag=doc.createDocumentFragment();temp=doc.createElement('div');temp.innerHTML=htmlString;while(temp.firstChild){frag.appendChild(temp.firstChild);}return frag;},/**
+         */
+
+        createElement: function createElement(htmlString, doc) {
+            var frag = null,
+                temp = null;
+
+            doc = doc || window.document;
+
+            frag = doc.createDocumentFragment();
+            temp = doc.createElement('div');
+
+            temp.innerHTML = htmlString;
+
+            while (temp.firstChild) {
+                frag.appendChild(temp.firstChild);
+            }
+
+            return frag;
+        },
+
+        /**
          * @private
          * @param   {Node} node
          * @return  {void}
-         */removeWhitespace:function removeWhitespace(node){var deleting;while(node&&node.nodeName==='#text'){deleting=node;node=node.previousSibling;deleting.parentElement&&deleting.parentElement.removeChild(deleting);}},/**
+         */
+
+        removeWhitespace: function removeWhitespace(node) {
+            var deleting;
+
+            while (node && node.nodeName === '#text') {
+                deleting = node;
+
+                node = node.previousSibling;
+
+                deleting.parentElement && deleting.parentElement.removeChild(deleting);
+            }
+        },
+
+        /**
          * @private
          * @param   {Array<*>}  a
          * @param   {Array<*>}  b
          * @return  {boolean}
-         */isEqualArray:function isEqualArray(a,b){var i=a.length;if(i!==b.length)return false;while(i--){if(a[i]!==b[i])return false;}return true;},/**
+         */
+
+        isEqualArray: function isEqualArray(a, b) {
+            var i = a.length;
+
+            if (i !== b.length) return false;
+
+            while (i--) {
+                if (a[i] !== b[i]) return false;
+            }
+
+            return true;
+        },
+
+        /**
          * @private
          * @param   {object}  a
          * @param   {object}  b
          * @return  {boolean}
-         */deepEquals:function deepEquals(a,b){var key;if((typeof a==='undefined'?'undefined':_typeof(a))==='object'&&a&&(typeof b==='undefined'?'undefined':_typeof(b))==='object'&&b){if(Object.keys(a).length!==Object.keys(b).length)return false;for(key in a){if(!b.hasOwnProperty(key)||!this.deepEquals(a[key],b[key]))return false;}}else if(a!==b){return false;}return true;},/**
+         */
+
+        deepEquals: function deepEquals(a, b) {
+            var key;
+
+            if ((typeof a === 'undefined' ? 'undefined' : _typeof(a)) === 'object' && a && (typeof b === 'undefined' ? 'undefined' : _typeof(b)) === 'object' && b) {
+                if (Object.keys(a).length !== Object.keys(b).length) return false;
+
+                for (key in a) {
+                    if (!b.hasOwnProperty(key) || !this.deepEquals(a[key], b[key])) return false;
+                }
+            } else if (a !== b) {
+                return false;
+            }
+
+            return true;
+        },
+
+        /**
          * @private
          * @param   {Array<*>}  oldArray
          * @return  {Array<*>}
-         */arrayShuffle:function arrayShuffle(oldArray){var newArray=oldArray.slice(),len=newArray.length,i=len,p=-1,t=[];while(i--){p=~~(Math.random()*len);t=newArray[i];newArray[i]=newArray[p];newArray[p]=t;}return newArray;},/**
+         */
+
+        arrayShuffle: function arrayShuffle(oldArray) {
+            var newArray = oldArray.slice(),
+                len = newArray.length,
+                i = len,
+                p = -1,
+                t = [];
+
+            while (i--) {
+                p = ~~(Math.random() * len);
+                t = newArray[i];
+
+                newArray[i] = newArray[p];
+                newArray[p] = t;
+            }
+
+            return newArray;
+        },
+
+        /**
          * @private
          * @param   {object}    list
-         */arrayFromList:function arrayFromList(list){var output,i;try{return Array.prototype.slice.call(list);}catch(err){output=[];for(i=0;i<list.length;i++){output.push(list[i]);}return output;}},/**
+         */
+
+        arrayFromList: function arrayFromList(list) {
+            var output, i;
+
+            try {
+                return Array.prototype.slice.call(list);
+            } catch (err) {
+                output = [];
+
+                for (i = 0; i < list.length; i++) {
+                    output.push(list[i]);
+                }
+
+                return output;
+            }
+        },
+
+        /**
          * @private
          * @param   {function}  func
          * @param   {Number}    wait
          * @param   {boolean}   immediate
          * @return  {function}
-         */debounce:function debounce(func,wait,immediate){var timeout;return function(){var self=this,args=arguments,callNow=immediate&&!timeout,later=null;later=function later(){timeout=null;if(!immediate){func.apply(self,args);}};clearTimeout(timeout);timeout=setTimeout(later,wait);if(callNow)func.apply(self,args);};},/**
+         */
+
+        debounce: function debounce(func, wait, immediate) {
+            var timeout;
+
+            return function () {
+                var self = this,
+                    args = arguments,
+                    callNow = immediate && !timeout,
+                    later = null;
+
+                later = function later() {
+                    timeout = null;
+
+                    if (!immediate) {
+                        func.apply(self, args);
+                    }
+                };
+
+                clearTimeout(timeout);
+
+                timeout = setTimeout(later, wait);
+
+                if (callNow) func.apply(self, args);
+            };
+        },
+
+        /**
          * @private
          * @param   {HTMLElement}   element
          * @return  {object}
-         */position:function position(element){var xPosition=0,yPosition=0,offsetParent=element;while(element){xPosition-=element.scrollLeft;yPosition-=element.scrollTop;if(element===offsetParent){xPosition+=element.offsetLeft;yPosition+=element.offsetTop;offsetParent=element.offsetParent;}element=element.parentElement;}return{x:xPosition,y:yPosition};},/**
+         */
+
+        position: function position(element) {
+            var xPosition = 0,
+                yPosition = 0,
+                offsetParent = element;
+
+            while (element) {
+                xPosition -= element.scrollLeft;
+                yPosition -= element.scrollTop;
+
+                if (element === offsetParent) {
+                    xPosition += element.offsetLeft;
+                    yPosition += element.offsetTop;
+
+                    offsetParent = element.offsetParent;
+                }
+
+                element = element.parentElement;
+            }
+
+            return {
+                x: xPosition,
+                y: yPosition
+            };
+        },
+
+        /**
          * @private
          * @param   {object}    node1
          * @param   {object}    node2
          * @return  {Number}
-         */getHypotenuse:function getHypotenuse(node1,node2){var distanceX=node1.x-node2.x,distanceY=node1.y-node2.y;distanceX=distanceX<0?distanceX*-1:distanceX,distanceY=distanceY<0?distanceY*-1:distanceY;return Math.sqrt(Math.pow(distanceX,2)+Math.pow(distanceY,2));},/**
+         */
+
+        getHypotenuse: function getHypotenuse(node1, node2) {
+            var distanceX = node1.x - node2.x,
+                distanceY = node1.y - node2.y;
+
+            distanceX = distanceX < 0 ? distanceX * -1 : distanceX, distanceY = distanceY < 0 ? distanceY * -1 : distanceY;
+
+            return Math.sqrt(Math.pow(distanceX, 2) + Math.pow(distanceY, 2));
+        },
+
+        /**
          * Calcuates the area of intersection between two rectangles and expresses it as
          * a ratio in comparison to the area of the first rectangle.
          *
@@ -1580,95 +2340,422 @@ if(!destination[key]){destination[key]={};}this.extend(destination[key],source[k
          * @param   {Rect}  box1
          * @param   {Rect}  box2
          * @return  {number}
-         */getIntersectionRatio:function getIntersectionRatio(box1,box2){var controlArea=box1.width*box1.height,intersectionX=-1,intersectionY=-1,intersectionArea=-1,ratio=-1;intersectionX=Math.max(0,Math.min(box1.left+box1.width,box2.left+box2.width)-Math.max(box1.left,box2.left));intersectionY=Math.max(0,Math.min(box1.top+box1.height,box2.top+box2.height)-Math.max(box1.top,box2.top));intersectionArea=intersectionY*intersectionX;ratio=intersectionArea/controlArea;return ratio;},/**
+         */
+
+        getIntersectionRatio: function getIntersectionRatio(box1, box2) {
+            var controlArea = box1.width * box1.height,
+                intersectionX = -1,
+                intersectionY = -1,
+                intersectionArea = -1,
+                ratio = -1;
+
+            intersectionX = Math.max(0, Math.min(box1.left + box1.width, box2.left + box2.width) - Math.max(box1.left, box2.left));
+
+            intersectionY = Math.max(0, Math.min(box1.top + box1.height, box2.top + box2.height) - Math.max(box1.top, box2.top));
+
+            intersectionArea = intersectionY * intersectionX;
+
+            ratio = intersectionArea / controlArea;
+
+            return ratio;
+        },
+
+        /**
          * @private
          * @param   {object}            el
          * @param   {string}            selector
          * @param   {boolean}           [includeSelf]
          * @param   {HTMLHtmlElement}   [doc]
          * @return  {Element|null}
-         */closestParent:function closestParent(el,selector,includeSelf,doc){var parent=el.parentNode;doc=doc||window.document;if(includeSelf&&el.matches(selector)){return el;}while(parent&&parent!=doc.body){if(parent.matches&&parent.matches(selector)){return parent;}else if(parent.parentNode){parent=parent.parentNode;}else{return null;}}return null;},/**
+         */
+
+        closestParent: function closestParent(el, selector, includeSelf, doc) {
+            var parent = el.parentNode;
+
+            doc = doc || window.document;
+
+            if (includeSelf && el.matches(selector)) {
+                return el;
+            }
+
+            while (parent && parent != doc.body) {
+                if (parent.matches && parent.matches(selector)) {
+                    return parent;
+                } else if (parent.parentNode) {
+                    parent = parent.parentNode;
+                } else {
+                    return null;
+                }
+            }
+
+            return null;
+        },
+
+        /**
          * @private
          * @param   {HTMLElement}       el
          * @param   {string}            selector
          * @param   {HTMLHtmlElement}   [doc]
          * @return  {NodeList}
-         */children:function children(el,selector,doc){var children=[],tempId='';doc=doc||window.doc;if(el){if(!el.id){tempId='Temp'+this.randomHexKey();el.id=tempId;}children=doc.querySelectorAll('#'+el.id+' > '+selector);if(tempId){el.removeAttribute('id');}}return children;},/**
+         */
+
+        children: function children(el, selector, doc) {
+            var children = [],
+                tempId = '';
+
+            doc = doc || window.doc;
+
+            if (el) {
+                if (!el.id) {
+                    tempId = 'Temp' + this.randomHexKey();
+
+                    el.id = tempId;
+                }
+
+                children = doc.querySelectorAll('#' + el.id + ' > ' + selector);
+
+                if (tempId) {
+                    el.removeAttribute('id');
+                }
+            }
+
+            return children;
+        },
+
+        /**
          * Creates a clone of a provided array, with any empty strings removed.
          *
          * @private
          * @param   {Array<*>} originalArray
          * @return  {Array<*>}
-         */clean:function clean(originalArray){var cleanArray=[],i=-1;for(i=0;i<originalArray.length;i++){if(originalArray[i]!==''){cleanArray.push(originalArray[i]);}}return cleanArray;},/**
+         */
+
+        clean: function clean(originalArray) {
+            var cleanArray = [],
+                i = -1;
+
+            for (i = 0; i < originalArray.length; i++) {
+                if (originalArray[i] !== '') {
+                    cleanArray.push(originalArray[i]);
+                }
+            }
+
+            return cleanArray;
+        },
+
+        /**
          * Abstracts an ES6 promise into a q-like deferred interface for storage and deferred resolution.
          *
          * @private
          * @param  {object} libraries
          * @return {h.Deferred}
-         */defer:function defer(libraries){var deferred=null,promiseWrapper=null,$=null;promiseWrapper=new this.Deferred();if(_mixitup.features.has.promises){// ES6 native promise or polyfill
-promiseWrapper.promise=new Promise(function(resolve,reject){promiseWrapper.resolve=resolve;promiseWrapper.reject=reject;});}else if(($=window.jQuery||libraries.$)&&typeof $.Deferred==='function'){// jQuery
-deferred=$.Deferred();promiseWrapper.promise=deferred.promise();promiseWrapper.resolve=deferred.resolve;promiseWrapper.reject=deferred.reject;}else if(window.console){// No implementation
-console.warn(_mixitup.messages.warningNoPromiseImplementation());}return promiseWrapper;},/**
+         */
+
+        defer: function defer(libraries) {
+            var deferred = null,
+                promiseWrapper = null,
+                $ = null;
+
+            promiseWrapper = new this.Deferred();
+
+            if (_mixitup.features.has.promises) {
+                // ES6 native promise or polyfill
+
+                promiseWrapper.promise = new Promise(function (resolve, reject) {
+                    promiseWrapper.resolve = resolve;
+                    promiseWrapper.reject = reject;
+                });
+            } else if (($ = window.jQuery || libraries.$) && typeof $.Deferred === 'function') {
+                // jQuery
+
+                deferred = $.Deferred();
+
+                promiseWrapper.promise = deferred.promise();
+                promiseWrapper.resolve = deferred.resolve;
+                promiseWrapper.reject = deferred.reject;
+            } else if (window.console) {
+                // No implementation
+
+                console.warn(_mixitup.messages.warningNoPromiseImplementation());
+            }
+
+            return promiseWrapper;
+        },
+
+        /**
          * @private
          * @param   {Array<Promise>}    tasks
          * @param   {object}            libraries
          * @return  {Promise<Array>}
-         */all:function all(tasks,libraries){var $=null;if(_mixitup.features.has.promises){return Promise.all(tasks);}else if(($=window.jQuery||libraries.$)&&typeof $.when==='function'){return $.when.apply($,tasks).done(function(){// jQuery when returns spread arguments rather than an array or resolutions
-return arguments;});}// No implementation
-if(window.console){console.warn(_mixitup.messages.warningNoPromiseImplementation());}return[];},/**
+         */
+
+        all: function all(tasks, libraries) {
+            var $ = null;
+
+            if (_mixitup.features.has.promises) {
+                return Promise.all(tasks);
+            } else if (($ = window.jQuery || libraries.$) && typeof $.when === 'function') {
+                return $.when.apply($, tasks).done(function () {
+                    // jQuery when returns spread arguments rather than an array or resolutions
+
+                    return arguments;
+                });
+            }
+
+            // No implementation
+
+            if (window.console) {
+                console.warn(_mixitup.messages.warningNoPromiseImplementation());
+            }
+
+            return [];
+        },
+
+        /**
          * @private
          * @param   {HTMLElement}   el
          * @param   {string}        property
          * @param   {Array<string>} vendors
          * @return  {string}
-         */getPrefix:function getPrefix(el,property,vendors){var i=-1,prefix='';if(h.dashCase(property)in el.style)return'';for(i=0;prefix=vendors[i];i++){if(prefix+property in el.style){return prefix.toLowerCase();}}return'unsupported';},/**
+         */
+
+        getPrefix: function getPrefix(el, property, vendors) {
+            var i = -1,
+                prefix = '';
+
+            if (h.dashCase(property) in el.style) return '';
+
+            for (i = 0; prefix = vendors[i]; i++) {
+                if (prefix + property in el.style) {
+                    return prefix.toLowerCase();
+                }
+            }
+
+            return 'unsupported';
+        },
+
+        /**
          * @private
          * @return  {string}
-         */randomHex:function randomHex(){return('00000'+(Math.random()*16777216<<0).toString(16)).substr(-6).toUpperCase();},/**
+         */
+
+        randomHex: function randomHex() {
+            return ('00000' + (Math.random() * 16777216 << 0).toString(16)).substr(-6).toUpperCase();
+        },
+
+        /**
          * @private
          * @param   {HTMLDocument}  [doc]
          * @return  {object}
-         */getDocumentState:function getDocumentState(doc){doc=_typeof(doc.body)==='object'?doc:window.document;return{scrollTop:window.pageYOffset,scrollLeft:window.pageXOffset,docHeight:doc.documentElement.scrollHeight,docWidth:doc.documentElement.scrollWidth,viewportHeight:doc.documentElement.clientHeight,viewportWidth:doc.documentElement.clientWidth};},/**
+         */
+
+        getDocumentState: function getDocumentState(doc) {
+            doc = _typeof(doc.body) === 'object' ? doc : window.document;
+
+            return {
+                scrollTop: window.pageYOffset,
+                scrollLeft: window.pageXOffset,
+                docHeight: doc.documentElement.scrollHeight,
+                docWidth: doc.documentElement.scrollWidth,
+                viewportHeight: doc.documentElement.clientHeight,
+                viewportWidth: doc.documentElement.clientWidth
+            };
+        },
+
+        /**
          * @private
          * @param   {object}    obj
          * @param   {function}  fn
          * @return  {function}
-         */bind:function bind(obj,fn){return function(){return fn.apply(obj,arguments);};},/**
+         */
+
+        bind: function bind(obj, fn) {
+            return function () {
+                return fn.apply(obj, arguments);
+            };
+        },
+
+        /**
          * @private
          * @param   {HTMLElement}   el
          * @return  {boolean}
-         */isVisible:function isVisible(el){var styles=null;if(el.offsetParent)return true;styles=window.getComputedStyle(el);if(styles.position==='fixed'&&styles.visibility!=='hidden'&&styles.opacity!=='0'){// Fixed elements report no offsetParent,
-// but may still be invisible
-return true;}return false;},/**
+         */
+
+        isVisible: function isVisible(el) {
+            var styles = null;
+
+            if (el.offsetParent) return true;
+
+            styles = window.getComputedStyle(el);
+
+            if (styles.position === 'fixed' && styles.visibility !== 'hidden' && styles.opacity !== '0') {
+                // Fixed elements report no offsetParent,
+                // but may still be invisible
+
+                return true;
+            }
+
+            return false;
+        },
+
+        /**
          * @private
          * @param   {object}    obj
-         */seal:function seal(obj){if(typeof Object.seal==='function'){Object.seal(obj);}},/**
+         */
+
+        seal: function seal(obj) {
+            if (typeof Object.seal === 'function') {
+                Object.seal(obj);
+            }
+        },
+
+        /**
          * @private
          * @param   {object}    obj
-         */freeze:function freeze(obj){if(typeof Object.freeze==='function'){Object.freeze(obj);}},/**
+         */
+
+        freeze: function freeze(obj) {
+            if (typeof Object.freeze === 'function') {
+                Object.freeze(obj);
+            }
+        },
+
+        /**
          * @private
          * @param   {string}    control
          * @param   {string}    specimen
          * @return  {boolean}
-         */compareVersions:function compareVersions(control,specimen){var controlParts=control.split('.'),specimenParts=specimen.split('.'),controlPart=-1,specimenPart=-1,i=-1;for(i=0;i<controlParts.length;i++){controlPart=parseInt(controlParts[i].replace(/[^\d.]/g,''));specimenPart=parseInt(specimenParts[i].replace(/[^\d.]/g,'')||0);if(specimenPart<controlPart){return false;}else if(specimenPart>controlPart){return true;}}return true;},/**
+         */
+
+        compareVersions: function compareVersions(control, specimen) {
+            var controlParts = control.split('.'),
+                specimenParts = specimen.split('.'),
+                controlPart = -1,
+                specimenPart = -1,
+                i = -1;
+
+            for (i = 0; i < controlParts.length; i++) {
+                controlPart = parseInt(controlParts[i].replace(/[^\d.]/g, ''));
+                specimenPart = parseInt(specimenParts[i].replace(/[^\d.]/g, '') || 0);
+
+                if (specimenPart < controlPart) {
+                    return false;
+                } else if (specimenPart > controlPart) {
+                    return true;
+                }
+            }
+
+            return true;
+        },
+
+        /**
          * @private
          * @constructor
-         */Deferred:function Deferred(){this.promise=null;this.resolve=null;this.reject=null;this.id=h.randomHex();},/**
+         */
+
+        Deferred: function Deferred() {
+            this.promise = null;
+            this.resolve = null;
+            this.reject = null;
+            this.id = h.randomHex();
+        },
+
+        /**
          * @private
          * @param   {object}  obj
          * @return  {boolean}
-         */isEmptyObject:function isEmptyObject(obj){var key='';if(typeof Object.keys==='function'){return Object.keys(obj).length===0;}for(key in obj){if(obj.hasOwnProperty(key)){return false;}}return true;},/**
+         */
+
+        isEmptyObject: function isEmptyObject(obj) {
+            var key = '';
+
+            if (typeof Object.keys === 'function') {
+                return Object.keys(obj).length === 0;
+            }
+
+            for (key in obj) {
+                if (obj.hasOwnProperty(key)) {
+                    return false;
+                }
+            }
+
+            return true;
+        },
+
+        /**
          * @param   {mixitup.Config.ClassNames}   classNames
          * @param   {string}                      elementName
          * @param   {string}                      [modifier]
          * @return  {string}
-         */getClassname:function getClassname(classNames,elementName,modifier){var classname='';classname+=classNames.block;if(classname.length){classname+=classNames.delineatorElement;}classname+=classNames['element'+this.pascalCase(elementName)];if(!modifier)return classname;if(classname.length){classname+=classNames.delineatorModifier;}classname+=modifier;return classname;},/**
+         */
+
+        getClassname: function getClassname(classNames, elementName, modifier) {
+            var classname = '';
+
+            classname += classNames.block;
+
+            if (classname.length) {
+                classname += classNames.delineatorElement;
+            }
+
+            classname += classNames['element' + this.pascalCase(elementName)];
+
+            if (!modifier) return classname;
+
+            if (classname.length) {
+                classname += classNames.delineatorModifier;
+            }
+
+            classname += modifier;
+
+            return classname;
+        },
+
+        /**
          * Returns the value of a property on a given object via its string key.
          *
          * @param   {object}    obj
          * @param   {string}    stringKey
          * @return  {*} value
-         */getProperty:function getProperty(obj,stringKey){var parts=stringKey.split('.'),returnCurrent=null,current='',i=0;if(!stringKey){return obj;}returnCurrent=function returnCurrent(obj){if(!obj){return null;}else{return obj[current];}};while(i<parts.length){current=parts[i];obj=returnCurrent(obj);i++;}if(typeof obj!=='undefined'){return obj;}else{return null;}}};_mixitup.h=h;/**
+         */
+
+        getProperty: function getProperty(obj, stringKey) {
+            var parts = stringKey.split('.'),
+                returnCurrent = null,
+                current = '',
+                i = 0;
+
+            if (!stringKey) {
+                return obj;
+            }
+
+            returnCurrent = function returnCurrent(obj) {
+                if (!obj) {
+                    return null;
+                } else {
+                    return obj[current];
+                }
+            };
+
+            while (i < parts.length) {
+                current = parts[i];
+
+                obj = returnCurrent(obj);
+
+                i++;
+            }
+
+            if (typeof obj !== 'undefined') {
+                return obj;
+            } else {
+                return null;
+            }
+        }
+    };
+
+    _mixitup.h = h;
+
+    /**
      * The Base class adds instance methods to all other extensible MixItUp classes,
      * enabling the calling of any registered hooks.
      *
@@ -1677,7 +2764,14 @@ return true;}return false;},/**
      * @memberof    mixitup
      * @private
      * @since       3.0.0
-     */_mixitup.Base=function(){};_mixitup.Base.prototype={constructor:_mixitup.Base,/**
+     */
+
+    _mixitup.Base = function () {};
+
+    _mixitup.Base.prototype = {
+        constructor: _mixitup.Base,
+
+        /**
          * Calls any registered hooks for the provided action.
          *
          * @memberof    mixitup.Base
@@ -1687,7 +2781,21 @@ return true;}return false;},/**
          * @param       {string}    actionName
          * @param       {Array<*>}  args
          * @return      {void}
-         */callActions:function callActions(actionName,args){var self=this,hooks=self.constructor.actions[actionName],extensionName='';if(!hooks||h.isEmptyObject(hooks))return;for(extensionName in hooks){hooks[extensionName].apply(self,args);}},/**
+         */
+
+        callActions: function callActions(actionName, args) {
+            var self = this,
+                hooks = self.constructor.actions[actionName],
+                extensionName = '';
+
+            if (!hooks || h.isEmptyObject(hooks)) return;
+
+            for (extensionName in hooks) {
+                hooks[extensionName].apply(self, args);
+            }
+        },
+
+        /**
          * Calls any registered hooks for the provided filter.
          *
          * @memberof    mixitup.Base
@@ -1698,7 +2806,31 @@ return true;}return false;},/**
          * @param       {*}         input
          * @param       {Array<*>}  args
          * @return      {*}
-         */callFilters:function callFilters(filterName,input,args){var self=this,hooks=self.constructor.filters[filterName],output=input,extensionName='';if(!hooks||h.isEmptyObject(hooks))return output;args=args||[];for(extensionName in hooks){args=h.arrayFromList(args);args.unshift(output);output=hooks[extensionName].apply(self,args);}return output;}};/**
+         */
+
+        callFilters: function callFilters(filterName, input, args) {
+            var self = this,
+                hooks = self.constructor.filters[filterName],
+                output = input,
+                extensionName = '';
+
+            if (!hooks || h.isEmptyObject(hooks)) return output;
+
+            args = args || [];
+
+            for (extensionName in hooks) {
+                args = h.arrayFromList(args);
+
+                args.unshift(output);
+
+                output = hooks[extensionName].apply(self, args);
+            }
+
+            return output;
+        }
+    };
+
+    /**
      * The BaseStatic class holds a set of static methods which are then added to all other
      * extensible MixItUp classes as a means of integrating extensions via the addition of new
      * methods and/or actions and hooks.
@@ -1708,7 +2840,13 @@ return true;}return false;},/**
      * @memberof    mixitup
      * @private
      * @since       3.0.0
-     */_mixitup.BaseStatic=function(){this.actions={};this.filters={};/**
+     */
+
+    _mixitup.BaseStatic = function () {
+        this.actions = {};
+        this.filters = {};
+
+        /**
          * Performs a shallow extend on the class's prototype, adding one or more new members to
          * the class in a single operation.
          *
@@ -1718,7 +2856,13 @@ return true;}return false;},/**
          * @since       2.1.0
          * @param       {object} extension
          * @return      {void}
-         */this.extend=function(extension){h.extend(this.prototype,extension);};/**
+         */
+
+        this.extend = function (extension) {
+            h.extend(this.prototype, extension);
+        };
+
+        /**
          * Registers a function to be called on the action hook of the provided name.
          *
          * @memberof    mixitup.BaseStatic
@@ -1729,7 +2873,13 @@ return true;}return false;},/**
          * @param       {string}    extensionName
          * @param       {function}  func
          * @return      {void}
-         */this.registerAction=function(hookName,extensionName,func){(this.actions[hookName]=this.actions[hookName]||{})[extensionName]=func;};/**
+         */
+
+        this.registerAction = function (hookName, extensionName, func) {
+            (this.actions[hookName] = this.actions[hookName] || {})[extensionName] = func;
+        };
+
+        /**
          * Registers a function to be called on the filter of the provided name.
          *
          * @memberof    mixitup.BaseStatic
@@ -1740,7 +2890,14 @@ return true;}return false;},/**
          * @param       {string}    extensionName
          * @param       {function}  func
          * @return      {void}
-         */this.registerFilter=function(hookName,extensionName,func){(this.filters[hookName]=this.filters[hookName]||{})[extensionName]=func;};};/**
+         */
+
+        this.registerFilter = function (hookName, extensionName, func) {
+            (this.filters[hookName] = this.filters[hookName] || {})[extensionName] = func;
+        };
+    };
+
+    /**
      * The `mixitup.Features` class performs all feature and CSS prefix detection
      * neccessary for MixItUp to function correctly, as well as storing various
      * string and array constants. All feature decection is on evaluation of the
@@ -1751,22 +2908,136 @@ return true;}return false;},/**
      * @memberof    mixitup
      * @private
      * @since       3.0.0
-     */_mixitup.Features=function(){_mixitup.Base.call(this);this.callActions('beforeConstruct');this.boxSizingPrefix='';this.transformPrefix='';this.transitionPrefix='';this.boxSizingPrefix='';this.transformProp='';this.transformRule='';this.transitionProp='';this.perspectiveProp='';this.perspectiveOriginProp='';this.has=new _mixitup.Has();this.canary=null;this.BOX_SIZING_PROP='boxSizing';this.TRANSITION_PROP='transition';this.TRANSFORM_PROP='transform';this.PERSPECTIVE_PROP='perspective';this.PERSPECTIVE_ORIGIN_PROP='perspectiveOrigin';this.VENDORS=['Webkit','moz','O','ms'];this.TWEENABLE=['opacity','width','height','marginRight','marginBottom','x','y','scale','translateX','translateY','translateZ','rotateX','rotateY','rotateZ'];this.callActions('afterConstruct');};_mixitup.BaseStatic.call(_mixitup.Features);_mixitup.Features.prototype=Object.create(_mixitup.Base.prototype);h.extend(_mixitup.Features.prototype,/** @lends mixitup.Features */{constructor:_mixitup.Features,/**
+     */
+
+    _mixitup.Features = function () {
+        _mixitup.Base.call(this);
+
+        this.callActions('beforeConstruct');
+
+        this.boxSizingPrefix = '';
+        this.transformPrefix = '';
+        this.transitionPrefix = '';
+
+        this.boxSizingPrefix = '';
+        this.transformProp = '';
+        this.transformRule = '';
+        this.transitionProp = '';
+        this.perspectiveProp = '';
+        this.perspectiveOriginProp = '';
+
+        this.has = new _mixitup.Has();
+
+        this.canary = null;
+
+        this.BOX_SIZING_PROP = 'boxSizing';
+        this.TRANSITION_PROP = 'transition';
+        this.TRANSFORM_PROP = 'transform';
+        this.PERSPECTIVE_PROP = 'perspective';
+        this.PERSPECTIVE_ORIGIN_PROP = 'perspectiveOrigin';
+        this.VENDORS = ['Webkit', 'moz', 'O', 'ms'];
+
+        this.TWEENABLE = ['opacity', 'width', 'height', 'marginRight', 'marginBottom', 'x', 'y', 'scale', 'translateX', 'translateY', 'translateZ', 'rotateX', 'rotateY', 'rotateZ'];
+
+        this.callActions('afterConstruct');
+    };
+
+    _mixitup.BaseStatic.call(_mixitup.Features);
+
+    _mixitup.Features.prototype = Object.create(_mixitup.Base.prototype);
+
+    h.extend(_mixitup.Features.prototype,
+    /** @lends mixitup.Features */
+    {
+        constructor: _mixitup.Features,
+
+        /**
          * @private
          * @return  {void}
-         */init:function init(){var self=this;self.callActions('beforeInit',arguments);self.canary=document.createElement('div');self.setPrefixes();self.runTests();self.callActions('beforeInit',arguments);},/**
+         */
+
+        init: function init() {
+            var self = this;
+
+            self.callActions('beforeInit', arguments);
+
+            self.canary = document.createElement('div');
+
+            self.setPrefixes();
+            self.runTests();
+
+            self.callActions('beforeInit', arguments);
+        },
+
+        /**
          * @private
          * @return  {void}
-         */runTests:function runTests(){var self=this;self.callActions('beforeRunTests',arguments);self.has.promises=typeof window.Promise==='function';self.has.transitions=self.transitionPrefix!=='unsupported';self.callActions('afterRunTests',arguments);h.freeze(self.has);},/**
+         */
+
+        runTests: function runTests() {
+            var self = this;
+
+            self.callActions('beforeRunTests', arguments);
+
+            self.has.promises = typeof window.Promise === 'function';
+            self.has.transitions = self.transitionPrefix !== 'unsupported';
+
+            self.callActions('afterRunTests', arguments);
+
+            h.freeze(self.has);
+        },
+
+        /**
          * @private
          * @return  {void}
-         */setPrefixes:function setPrefixes(){var self=this;self.callActions('beforeSetPrefixes',arguments);self.transitionPrefix=h.getPrefix(self.canary,'Transition',self.VENDORS);self.transformPrefix=h.getPrefix(self.canary,'Transform',self.VENDORS);self.boxSizingPrefix=h.getPrefix(self.canary,'BoxSizing',self.VENDORS);self.boxSizingProp=self.boxSizingPrefix?self.boxSizingPrefix+h.pascalCase(self.BOX_SIZING_PROP):self.BOX_SIZING_PROP;self.transitionProp=self.transitionPrefix?self.transitionPrefix+h.pascalCase(self.TRANSITION_PROP):self.TRANSITION_PROP;self.transformProp=self.transformPrefix?self.transformPrefix+h.pascalCase(self.TRANSFORM_PROP):self.TRANSFORM_PROP;self.transformRule=self.transformPrefix?'-'+self.transformPrefix+'-'+self.TRANSFORM_PROP:self.TRANSFORM_PROP;self.perspectiveProp=self.transformPrefix?self.transformPrefix+h.pascalCase(self.PERSPECTIVE_PROP):self.PERSPECTIVE_PROP;self.perspectiveOriginProp=self.transformPrefix?self.transformPrefix+h.pascalCase(self.PERSPECTIVE_ORIGIN_PROP):self.PERSPECTIVE_ORIGIN_PROP;self.callActions('afterSetPrefixes',arguments);}});/**
+         */
+
+        setPrefixes: function setPrefixes() {
+            var self = this;
+
+            self.callActions('beforeSetPrefixes', arguments);
+
+            self.transitionPrefix = h.getPrefix(self.canary, 'Transition', self.VENDORS);
+            self.transformPrefix = h.getPrefix(self.canary, 'Transform', self.VENDORS);
+            self.boxSizingPrefix = h.getPrefix(self.canary, 'BoxSizing', self.VENDORS);
+
+            self.boxSizingProp = self.boxSizingPrefix ? self.boxSizingPrefix + h.pascalCase(self.BOX_SIZING_PROP) : self.BOX_SIZING_PROP;
+
+            self.transitionProp = self.transitionPrefix ? self.transitionPrefix + h.pascalCase(self.TRANSITION_PROP) : self.TRANSITION_PROP;
+
+            self.transformProp = self.transformPrefix ? self.transformPrefix + h.pascalCase(self.TRANSFORM_PROP) : self.TRANSFORM_PROP;
+
+            self.transformRule = self.transformPrefix ? '-' + self.transformPrefix + '-' + self.TRANSFORM_PROP : self.TRANSFORM_PROP;
+
+            self.perspectiveProp = self.transformPrefix ? self.transformPrefix + h.pascalCase(self.PERSPECTIVE_PROP) : self.PERSPECTIVE_PROP;
+
+            self.perspectiveOriginProp = self.transformPrefix ? self.transformPrefix + h.pascalCase(self.PERSPECTIVE_ORIGIN_PROP) : self.PERSPECTIVE_ORIGIN_PROP;
+
+            self.callActions('afterSetPrefixes', arguments);
+        }
+    });
+
+    /**
      * @constructor
      * @memberof    mixitup
      * @private
      * @since       3.0.0
-     */_mixitup.Has=function(){this.transitions=false;this.promises=false;h.seal(this);};// Assign a singleton instance to `mixitup.features` and initialise:
-_mixitup.features=new _mixitup.Features();_mixitup.features.init();/**
+     */
+
+    _mixitup.Has = function () {
+        this.transitions = false;
+        this.promises = false;
+
+        h.seal(this);
+    };
+
+    // Assign a singleton instance to `mixitup.features` and initialise:
+
+    _mixitup.features = new _mixitup.Features();
+
+    _mixitup.features.init();
+
+    /**
      * A group of properties defining the mixer's animation and effects settings.
      *
      * @constructor
@@ -1775,7 +3046,14 @@ _mixitup.features=new _mixitup.Features();_mixitup.features.init();/**
      * @namespace
      * @public
      * @since       2.0.0
-     */_mixitup.ConfigAnimation=function(){_mixitup.Base.call(this);this.callActions('beforeConstruct');/**
+     */
+
+    _mixitup.ConfigAnimation = function () {
+        _mixitup.Base.call(this);
+
+        this.callActions('beforeConstruct');
+
+        /**
          * A boolean dictating whether or not animation should be enabled for the MixItUp instance.
          * If `false`, all operations will occur instantly and syncronously, although callback
          * functions and any returned promises will still be fulfilled.
@@ -1792,7 +3070,11 @@ _mixitup.features=new _mixitup.Features();_mixitup.features.init();/**
          * @instance
          * @type        {boolean}
          * @default     true
-         */this.enable=true;/**
+         */
+
+        this.enable = true;
+
+        /**
          * A string of one or more space-seperated properties to which transitions will be
          * applied for all filtering animations.
          *
@@ -1818,7 +3100,11 @@ _mixitup.features=new _mixitup.Features();_mixitup.features.init();/**
          * @instance
          * @type        {string}
          * @default     'fade scale'
-         */this.effects='fade scale';/**
+         */
+
+        this.effects = 'fade scale';
+
+        /**
          * A string of one or more space-seperated effects to be applied only to filter-in
          * animations, overriding `config.animation.effects` if set.
          *
@@ -1835,7 +3121,11 @@ _mixitup.features=new _mixitup.Features();_mixitup.features.init();/**
          * @instance
          * @type        {string}
          * @default     ''
-         */this.effectsIn='';/**
+         */
+
+        this.effectsIn = '';
+
+        /**
          * A string of one or more space-seperated effects to be applied only to filter-out
          * animations, overriding `config.animation.effects` if set.
          *
@@ -1852,7 +3142,11 @@ _mixitup.features=new _mixitup.Features();_mixitup.features.init();/**
          * @instance
          * @type        {string}
          * @default     ''
-         */this.effectsOut='';/**
+         */
+
+        this.effectsOut = '';
+
+        /**
          * An integer dictating the duration of all MixItUp animations in milliseconds, not
          * including any additional delay apllied via the `'stagger'` effect.
          *
@@ -1869,7 +3163,11 @@ _mixitup.features=new _mixitup.Features();_mixitup.features.init();/**
          * @instance
          * @type        {number}
          * @default     600
-         */this.duration=600;/**
+         */
+
+        this.duration = 600;
+
+        /**
          * A valid CSS3 transition-timing function or shorthand. For a full list of accepted
          * values, visit <a href="http://easings.net" target="_blank">easings.net</a>.
          *
@@ -1893,7 +3191,11 @@ _mixitup.features=new _mixitup.Features();_mixitup.features.init();/**
          * @instance
          * @type        {string}
          * @default     'ease'
-         */this.easing='ease';/**
+         */
+
+        this.easing = 'ease';
+
+        /**
          * A boolean dictating whether or not to apply perspective to the MixItUp container
          * during animations. By default, perspective is always applied and creates the
          * illusion of three-dimensional space for effects such as `translateZ`, `rotateX`,
@@ -1913,7 +3215,11 @@ _mixitup.features=new _mixitup.Features();_mixitup.features.init();/**
          * @instance
          * @type        {bolean}
          * @default     true
-         */this.applyPerspective=true;/**
+         */
+
+        this.applyPerspective = true;
+
+        /**
          * The perspective distance value to be applied to the container during animations,
          * affecting any 3D-transform-based effects.
          *
@@ -1930,7 +3236,11 @@ _mixitup.features=new _mixitup.Features();_mixitup.features.init();/**
          * @instance
          * @type        {string}
          * @default     '3000px'
-         */this.perspectiveDistance='3000px';/**
+         */
+
+        this.perspectiveDistance = '3000px';
+
+        /**
          * The perspective-origin value to be applied to the container during animations,
          * affecting any 3D-transform-based effects.
          *
@@ -1947,7 +3257,11 @@ _mixitup.features=new _mixitup.Features();_mixitup.features.init();/**
          * @instance
          * @type        {string}
          * @default     '50% 50%'
-         */this.perspectiveOrigin='50% 50%';/**
+         */
+
+        this.perspectiveOrigin = '50% 50%';
+
+        /**
          * A boolean dictating whether or not to enable the queuing of operations.
          *
          * If `true` (default), and a control is clicked or an API call is made while another
@@ -1969,7 +3283,11 @@ _mixitup.features=new _mixitup.Features();_mixitup.features.init();/**
          * @instance
          * @type        {boolean}
          * @default     true
-         */this.queue=true;/**
+         */
+
+        this.queue = true;
+
+        /**
          * An integer dictacting the maximum number of operations allowed in the queue at
          * any time, when queuing is enabled.
          *
@@ -1985,7 +3303,11 @@ _mixitup.features=new _mixitup.Features();_mixitup.features.init();/**
          * @instance
          * @type        {number}
          * @default     3
-         */this.queueLimit=3;/**
+         */
+
+        this.queueLimit = 3;
+
+        /**
          * A boolean dictating whether or not to transition the height and width of the
          * container as elements are filtered in and out. If disabled, the container height
          * will change abruptly.
@@ -2012,7 +3334,11 @@ _mixitup.features=new _mixitup.Features();_mixitup.features.init();/**
          * @instance
          * @type        {boolean}
          * @default     true
-         */this.animateResizeContainer=true;/**
+         */
+
+        this.animateResizeContainer = true;
+
+        /**
          * A boolean dictating whether or not to transition the height and width of target
          * elements as they change throughout the course of an animation.
          *
@@ -2036,7 +3362,11 @@ _mixitup.features=new _mixitup.Features();_mixitup.features.init();/**
          * @instance
          * @type        {boolean}
          * @default     false
-         */this.animateResizeTargets=false;/**
+         */
+
+        this.animateResizeTargets = false;
+
+        /**
          * A custom function used to manipulate the order in which the stagger delay is
          * incremented when using the ‘stagger’ effect.
          *
@@ -2072,7 +3402,11 @@ _mixitup.features=new _mixitup.Features();_mixitup.features.init();/**
          * @instance
          * @type        {function}
          * @default     null
-         */this.staggerSequence=null;/**
+         */
+
+        this.staggerSequence = null;
+
+        /**
          * A boolean dictating whether or not to reverse the direction of `translate`
          * and `rotate` transforms for elements being filtered out.
          *
@@ -2100,7 +3434,11 @@ _mixitup.features=new _mixitup.Features();_mixitup.features.init();/**
          * @instance
          * @type        {boolean}
          * @default     false
-         */this.reverseOut=false;/**
+         */
+
+        this.reverseOut = false;
+
+        /**
          * A boolean dictating whether or not to "nudge" the animation path of targets
          * when they are being filtered in and out simulatenously.
          *
@@ -2122,7 +3460,11 @@ _mixitup.features=new _mixitup.Features();_mixitup.features.init();/**
          * @instance
          * @type        {boolean}
          * @default     true
-         */this.nudge=true;/**
+         */
+
+        this.nudge = true;
+
+        /**
          * A boolean dictating whether or not to clamp the height of the container while MixItUp's
          * geometry tests are carried out before an operation.
          *
@@ -2144,7 +3486,11 @@ _mixitup.features=new _mixitup.Features();_mixitup.features.init();/**
          * @instance
          * @type        {boolean}
          * @default     true
-         */this.clampHeight=true;/**
+         */
+
+        this.clampHeight = true;
+
+        /**
          * A boolean dictating whether or not to clamp the width of the container while MixItUp's
          * geometry tests are carried out before an operation.
          *
@@ -2166,7 +3512,22 @@ _mixitup.features=new _mixitup.Features();_mixitup.features.init();/**
          * @instance
          * @type        {boolean}
          * @default     true
-         */this.clampWidth=true;this.callActions('afterConstruct');h.seal(this);};_mixitup.BaseStatic.call(_mixitup.ConfigAnimation);_mixitup.ConfigAnimation.prototype=Object.create(_mixitup.Base.prototype);_mixitup.ConfigAnimation.prototype.constructor=_mixitup.ConfigAnimation;/**
+         */
+
+        this.clampWidth = true;
+
+        this.callActions('afterConstruct');
+
+        h.seal(this);
+    };
+
+    _mixitup.BaseStatic.call(_mixitup.ConfigAnimation);
+
+    _mixitup.ConfigAnimation.prototype = Object.create(_mixitup.Base.prototype);
+
+    _mixitup.ConfigAnimation.prototype.constructor = _mixitup.ConfigAnimation;
+
+    /**
      * A group of properties relating to the behavior of the Mixer.
      *
      * @constructor
@@ -2175,7 +3536,14 @@ _mixitup.features=new _mixitup.Features();_mixitup.features.init();/**
      * @namespace
      * @public
      * @since       3.1.12
-     */_mixitup.ConfigBehavior=function(){_mixitup.Base.call(this);this.callActions('beforeConstruct');/**
+     */
+
+    _mixitup.ConfigBehavior = function () {
+        _mixitup.Base.call(this);
+
+        this.callActions('beforeConstruct');
+
+        /**
          * A boolean dictating whether to allow "live" sorting of the mixer.
          *
          * Because of the expensive nature of sorting, MixItUp makes use of several
@@ -2216,7 +3584,22 @@ _mixitup.features=new _mixitup.Features();_mixitup.features.init();/**
          * @instance
          * @type        {boolean}
          * @default     false
-         */this.liveSort=false;this.callActions('afterConstruct');h.seal(this);};_mixitup.BaseStatic.call(_mixitup.ConfigBehavior);_mixitup.ConfigBehavior.prototype=Object.create(_mixitup.Base.prototype);_mixitup.ConfigBehavior.prototype.constructor=_mixitup.ConfigBehavior;/**
+         */
+
+        this.liveSort = false;
+
+        this.callActions('afterConstruct');
+
+        h.seal(this);
+    };
+
+    _mixitup.BaseStatic.call(_mixitup.ConfigBehavior);
+
+    _mixitup.ConfigBehavior.prototype = Object.create(_mixitup.Base.prototype);
+
+    _mixitup.ConfigBehavior.prototype.constructor = _mixitup.ConfigBehavior;
+
+    /**
      * A group of optional callback functions to be invoked at various
      * points within the lifecycle of a mixer operation.
      *
@@ -2232,7 +3615,14 @@ _mixitup.features=new _mixitup.Features();_mixitup.features.init();/**
      * @namespace
      * @public
      * @since       2.0.0
-     */_mixitup.ConfigCallbacks=function(){_mixitup.Base.call(this);this.callActions('beforeConstruct');/**
+     */
+
+    _mixitup.ConfigCallbacks = function () {
+        _mixitup.Base.call(this);
+
+        this.callActions('beforeConstruct');
+
+        /**
          * A callback function invoked immediately after any MixItUp operation is requested
          * and before animations have begun.
          *
@@ -2253,7 +3643,11 @@ _mixitup.features=new _mixitup.Features();_mixitup.features.init();/**
          * @instance
          * @type        {function}
          * @default     null
-         */this.onMixStart=null;/**
+         */
+
+        this.onMixStart = null;
+
+        /**
          * A callback function invoked when a MixItUp operation is requested while another
          * operation is in progress, and the animation queue is full, or queueing
          * is disabled.
@@ -2272,7 +3666,11 @@ _mixitup.features=new _mixitup.Features();_mixitup.features.init();/**
          * @instance
          * @type        {function}
          * @default     null
-         */this.onMixBusy=null;/**
+         */
+
+        this.onMixBusy = null;
+
+        /**
          * A callback function invoked after any MixItUp operation has completed, and the
          * state has been updated.
          *
@@ -2290,7 +3688,11 @@ _mixitup.features=new _mixitup.Features();_mixitup.features.init();/**
          * @instance
          * @type        {function}
          * @default     null
-         */this.onMixEnd=null;/**
+         */
+
+        this.onMixEnd = null;
+
+        /**
          * A callback function invoked whenever an operation "fails", i.e. no targets
          * could be found matching the requested filter.
          *
@@ -2308,7 +3710,11 @@ _mixitup.features=new _mixitup.Features();_mixitup.features.init();/**
          * @instance
          * @type        {function}
          * @default     null
-         */this.onMixFail=null;/**
+         */
+
+        this.onMixFail = null;
+
+        /**
          * A callback function invoked whenever a MixItUp control is clicked, and before its
          * respective operation is requested.
          *
@@ -2361,7 +3767,22 @@ _mixitup.features=new _mixitup.Features();_mixitup.features.init();/**
          * @instance
          * @type        {function}
          * @default     null
-         */this.onMixClick=null;this.callActions('afterConstruct');h.seal(this);};_mixitup.BaseStatic.call(_mixitup.ConfigCallbacks);_mixitup.ConfigCallbacks.prototype=Object.create(_mixitup.Base.prototype);_mixitup.ConfigCallbacks.prototype.constructor=_mixitup.ConfigCallbacks;/**
+         */
+
+        this.onMixClick = null;
+
+        this.callActions('afterConstruct');
+
+        h.seal(this);
+    };
+
+    _mixitup.BaseStatic.call(_mixitup.ConfigCallbacks);
+
+    _mixitup.ConfigCallbacks.prototype = Object.create(_mixitup.Base.prototype);
+
+    _mixitup.ConfigCallbacks.prototype.constructor = _mixitup.ConfigCallbacks;
+
+    /**
      * A group of properties relating to clickable control elements.
      *
      * @constructor
@@ -2370,7 +3791,14 @@ _mixitup.features=new _mixitup.Features();_mixitup.features.init();/**
      * @namespace
      * @public
      * @since       2.0.0
-     */_mixitup.ConfigControls=function(){_mixitup.Base.call(this);this.callActions('beforeConstruct');/**
+     */
+
+    _mixitup.ConfigControls = function () {
+        _mixitup.Base.call(this);
+
+        this.callActions('beforeConstruct');
+
+        /**
          * A boolean dictating whether or not controls should be enabled for the mixer instance.
          *
          * If `true` (default behavior), MixItUp will search the DOM for any clickable elements with
@@ -2400,7 +3828,11 @@ _mixitup.features=new _mixitup.Features();_mixitup.features.init();/**
          * @instance
          * @type        {boolean}
          * @default     true
-         */this.enable=true;/**
+         */
+
+        this.enable = true;
+
+        /**
          * A boolean dictating whether or not to use event delegation when binding click events
          * to the default controls.
          *
@@ -2432,7 +3864,11 @@ _mixitup.features=new _mixitup.Features();_mixitup.features.init();/**
          * @instance
          * @type        {boolean}
          * @default     true
-         */this.live=false;/**
+         */
+
+        this.live = false;
+
+        /**
          * A string dictating the "scope" to use when binding or querying the default controls. The available
          * values are `'global'` or `'local'`.
          *
@@ -2467,8 +3903,11 @@ _mixitup.features=new _mixitup.Features();_mixitup.features.init();/**
          * @instance
          * @type        {string}
          * @default     'global'
-         */this.scope='global';// enum: ['local' ,'global']
-/**
+         */
+
+        this.scope = 'global'; // enum: ['local' ,'global']
+
+        /**
          * A string dictating the type of logic to apply when concatenating the filter selectors of
          * active toggle buttons (i.e. any clickable element with a `data-toggle` attribute).
          *
@@ -2493,8 +3932,11 @@ _mixitup.features=new _mixitup.Features();_mixitup.features.init();/**
          * @instance
          * @type        {string}
          * @default     'or'
-         */this.toggleLogic='or';// enum: ['or', 'and']
-/**
+         */
+
+        this.toggleLogic = 'or'; // enum: ['or', 'and']
+
+        /**
          * A string dictating the filter behavior when all toggles are inactive.
          *
          * When set to `'all'` (default behavior), *all* targets will be shown by default
@@ -2544,8 +3986,22 @@ _mixitup.features=new _mixitup.Features();_mixitup.features.init();/**
          * @instance
          * @type        {string}
          * @default     'all'
-         */this.toggleDefault='all';// enum: ['all', 'none']
-this.callActions('afterConstruct');h.seal(this);};_mixitup.BaseStatic.call(_mixitup.ConfigControls);_mixitup.ConfigControls.prototype=Object.create(_mixitup.Base.prototype);_mixitup.ConfigControls.prototype.constructor=_mixitup.ConfigControls;/**
+         */
+
+        this.toggleDefault = 'all'; // enum: ['all', 'none']
+
+        this.callActions('afterConstruct');
+
+        h.seal(this);
+    };
+
+    _mixitup.BaseStatic.call(_mixitup.ConfigControls);
+
+    _mixitup.ConfigControls.prototype = Object.create(_mixitup.Base.prototype);
+
+    _mixitup.ConfigControls.prototype.constructor = _mixitup.ConfigControls;
+
+    /**
      * A group of properties defining the output and structure of class names programmatically
      * added to controls and containers to reflect the state of the mixer.
      *
@@ -2566,7 +4022,14 @@ this.callActions('afterConstruct');h.seal(this);};_mixitup.BaseStatic.call(_mixi
      * @namespace
      * @public
      * @since       3.0.0
-     */_mixitup.ConfigClassNames=function(){_mixitup.Base.call(this);this.callActions('beforeConstruct');/**
+     */
+
+    _mixitup.ConfigClassNames = function () {
+        _mixitup.Base.call(this);
+
+        this.callActions('beforeConstruct');
+
+        /**
          * The "block" portion, or top-level namespace added to the start of any class names created by MixItUp.
          *
          * @example <caption>Example 1: changing the `config.classNames.block` value</caption>
@@ -2592,7 +4055,11 @@ this.callActions('afterConstruct');h.seal(this);};_mixitup.BaseStatic.call(_mixi
          * @instance
          * @type        {string}
          * @default     'mixitup'
-         */this.block='mixitup';/**
+         */
+
+        this.block = 'mixitup';
+
+        /**
          * The "element" portion of the class name added to container.
          *
          * @name        elementContainer
@@ -2600,7 +4067,11 @@ this.callActions('afterConstruct');h.seal(this);};_mixitup.BaseStatic.call(_mixi
          * @instance
          * @type        {string}
          * @default     'container'
-         */this.elementContainer='container';/**
+         */
+
+        this.elementContainer = 'container';
+
+        /**
          * The "element" portion of the class name added to filter controls.
          *
          * By default, all filter, sort, multimix and toggle controls take the same element value of `'control'`, but
@@ -2630,7 +4101,11 @@ this.callActions('afterConstruct');h.seal(this);};_mixitup.BaseStatic.call(_mixi
          * @instance
          * @type        {string}
          * @default     'control'
-         */this.elementFilter='control';/**
+         */
+
+        this.elementFilter = 'control';
+
+        /**
          * The "element" portion of the class name added to sort controls.
          *
          * By default, all filter, sort, multimix and toggle controls take the same element value of `'control'`, but
@@ -2660,7 +4135,11 @@ this.callActions('afterConstruct');h.seal(this);};_mixitup.BaseStatic.call(_mixi
          * @instance
          * @type        {string}
          * @default     'control'
-         */this.elementSort='control';/**
+         */
+
+        this.elementSort = 'control';
+
+        /**
          * The "element" portion of the class name added to multimix controls.
          *
          * By default, all filter, sort, multimix and toggle controls take the same element value of `'control'`, but
@@ -2690,7 +4169,11 @@ this.callActions('afterConstruct');h.seal(this);};_mixitup.BaseStatic.call(_mixi
          * @instance
          * @type        {string}
          * @default     'control'
-         */this.elementMultimix='control';/**
+         */
+
+        this.elementMultimix = 'control';
+
+        /**
          * The "element" portion of the class name added to toggle controls.
          *
          * By default, all filter, sort, multimix and toggle controls take the same element value of `'control'`, but
@@ -2720,14 +4203,22 @@ this.callActions('afterConstruct');h.seal(this);};_mixitup.BaseStatic.call(_mixi
          * @instance
          * @type        {string}
          * @default     'control'
-         */this.elementToggle='control';/**
+         */
+
+        this.elementToggle = 'control';
+
+        /**
          * The "modifier" portion of the class name added to active controls.
          * @name        modifierActive
          * @memberof    mixitup.Config.classNames
          * @instance
          * @type        {string}
          * @default     'active'
-         */this.modifierActive='active';/**
+         */
+
+        this.modifierActive = 'active';
+
+        /**
          * The "modifier" portion of the class name added to disabled controls.
          *
          * @name        modifierDisabled
@@ -2735,7 +4226,11 @@ this.callActions('afterConstruct');h.seal(this);};_mixitup.BaseStatic.call(_mixi
          * @instance
          * @type        {string}
          * @default     'disabled'
-         */this.modifierDisabled='disabled';/**
+         */
+
+        this.modifierDisabled = 'disabled';
+
+        /**
          * The "modifier" portion of the class name added to the container when in a "failed" state.
          *
          * @name        modifierFailed
@@ -2743,7 +4238,11 @@ this.callActions('afterConstruct');h.seal(this);};_mixitup.BaseStatic.call(_mixi
          * @instance
          * @type        {string}
          * @default     'failed'
-         */this.modifierFailed='failed';/**
+         */
+
+        this.modifierFailed = 'failed';
+
+        /**
          * The delineator used between the "block" and "element" portions of any class name added by MixItUp.
          *
          * If the block portion is ommited by setting it to an empty string, no delineator will be added.
@@ -2762,7 +4261,11 @@ this.callActions('afterConstruct');h.seal(this);};_mixitup.BaseStatic.call(_mixi
          * @instance
          * @type        {string}
          * @default     '-'
-         */this.delineatorElement='-';/**
+         */
+
+        this.delineatorElement = '-';
+
+        /**
          * The delineator used between the "element" and "modifier" portions of any class name added by MixItUp.
          *
          * If the element portion is ommited by setting it to an empty string, no delineator will be added.
@@ -2782,7 +4285,22 @@ this.callActions('afterConstruct');h.seal(this);};_mixitup.BaseStatic.call(_mixi
          * @instance
          * @type        {string}
          * @default     '-'
-         */this.delineatorModifier='-';this.callActions('afterConstruct');h.seal(this);};_mixitup.BaseStatic.call(_mixitup.ConfigClassNames);_mixitup.ConfigClassNames.prototype=Object.create(_mixitup.Base.prototype);_mixitup.ConfigClassNames.prototype.constructor=_mixitup.ConfigClassNames;/**
+         */
+
+        this.delineatorModifier = '-';
+
+        this.callActions('afterConstruct');
+
+        h.seal(this);
+    };
+
+    _mixitup.BaseStatic.call(_mixitup.ConfigClassNames);
+
+    _mixitup.ConfigClassNames.prototype = Object.create(_mixitup.Base.prototype);
+
+    _mixitup.ConfigClassNames.prototype.constructor = _mixitup.ConfigClassNames;
+
+    /**
      * A group of properties relating to MixItUp's dataset API.
      *
      * @constructor
@@ -2791,7 +4309,14 @@ this.callActions('afterConstruct');h.seal(this);};_mixitup.BaseStatic.call(_mixi
      * @namespace
      * @public
      * @since       3.0.0
-     */_mixitup.ConfigData=function(){_mixitup.Base.call(this);this.callActions('beforeConstruct');/**
+     */
+
+    _mixitup.ConfigData = function () {
+        _mixitup.Base.call(this);
+
+        this.callActions('beforeConstruct');
+
+        /**
          * A string specifying the name of the key containing your data model's unique
          * identifier (UID). To use the dataset API, a UID key must be specified and
          * be present and unique on all objects in the dataset you provide to MixItUp.
@@ -2811,7 +4336,11 @@ this.callActions('afterConstruct');h.seal(this);};_mixitup.BaseStatic.call(_mixi
          * @instance
          * @type        {string}
          * @default     ''
-         */this.uidKey='';/**
+         */
+
+        this.uidKey = '';
+
+        /**
          * A boolean dictating whether or not MixItUp should "dirty check" each object in
          * your dataset for changes whenever `.dataset()` is called, and re-render any targets
          * for which a change is found.
@@ -2873,7 +4402,22 @@ this.callActions('afterConstruct');h.seal(this);};_mixitup.BaseStatic.call(_mixi
          * @instance
          * @type        {boolean}
          * @default     false
-         */this.dirtyCheck=false;this.callActions('afterConstruct');h.seal(this);};_mixitup.BaseStatic.call(_mixitup.ConfigData);_mixitup.ConfigData.prototype=Object.create(_mixitup.Base.prototype);_mixitup.ConfigData.prototype.constructor=_mixitup.ConfigData;/**
+         */
+
+        this.dirtyCheck = false;
+
+        this.callActions('afterConstruct');
+
+        h.seal(this);
+    };
+
+    _mixitup.BaseStatic.call(_mixitup.ConfigData);
+
+    _mixitup.ConfigData.prototype = Object.create(_mixitup.Base.prototype);
+
+    _mixitup.ConfigData.prototype.constructor = _mixitup.ConfigData;
+
+    /**
      * A group of properties allowing the toggling of various debug features.
      *
      * @constructor
@@ -2882,7 +4426,14 @@ this.callActions('afterConstruct');h.seal(this);};_mixitup.BaseStatic.call(_mixi
      * @namespace
      * @public
      * @since       3.0.0
-     */_mixitup.ConfigDebug=function(){_mixitup.Base.call(this);this.callActions('beforeConstruct');/**
+     */
+
+    _mixitup.ConfigDebug = function () {
+        _mixitup.Base.call(this);
+
+        this.callActions('beforeConstruct');
+
+        /**
          * A boolean dictating whether or not the mixer instance returned by the
          * `mixitup()` factory function should expose private properties and methods.
          *
@@ -2907,7 +4458,11 @@ this.callActions('afterConstruct');h.seal(this);};_mixitup.BaseStatic.call(_mixi
          * @instance
          * @type        {boolean}
          * @default     false
-         */this.enable=false;/**
+         */
+
+        this.enable = false;
+
+        /**
          * A boolean dictating whether or not warnings should be shown when various
          * common gotchas occur.
          *
@@ -2939,7 +4494,11 @@ this.callActions('afterConstruct');h.seal(this);};_mixitup.BaseStatic.call(_mixi
          * @instance
          * @type        {boolean}
          * @default     true
-         */this.showWarnings=true;/**
+         */
+
+        this.showWarnings = true;
+
+        /**
          * Used for server-side testing only.
          *
          * @private
@@ -2948,7 +4507,22 @@ this.callActions('afterConstruct');h.seal(this);};_mixitup.BaseStatic.call(_mixi
          * @instance
          * @type        {boolean}
          * @default     false
-         */this.fauxAsync=false;this.callActions('afterConstruct');h.seal(this);};_mixitup.BaseStatic.call(_mixitup.ConfigDebug);_mixitup.ConfigDebug.prototype=Object.create(_mixitup.Base.prototype);_mixitup.ConfigDebug.prototype.constructor=_mixitup.ConfigDebug;/**
+         */
+
+        this.fauxAsync = false;
+
+        this.callActions('afterConstruct');
+
+        h.seal(this);
+    };
+
+    _mixitup.BaseStatic.call(_mixitup.ConfigDebug);
+
+    _mixitup.ConfigDebug.prototype = Object.create(_mixitup.Base.prototype);
+
+    _mixitup.ConfigDebug.prototype.constructor = _mixitup.ConfigDebug;
+
+    /**
      * A group of properties relating to the layout of the container.
      *
      * @constructor
@@ -2957,7 +4531,14 @@ this.callActions('afterConstruct');h.seal(this);};_mixitup.BaseStatic.call(_mixi
      * @namespace
      * @public
      * @since       3.0.0
-     */_mixitup.ConfigLayout=function(){_mixitup.Base.call(this);this.callActions('beforeConstruct');/**
+     */
+
+    _mixitup.ConfigLayout = function () {
+        _mixitup.Base.call(this);
+
+        this.callActions('beforeConstruct');
+
+        /**
          * A boolean dictating whether or not mixitup should query all descendants
          * of the container for targets, or only immediate children.
          *
@@ -2984,7 +4565,11 @@ this.callActions('afterConstruct');h.seal(this);};_mixitup.BaseStatic.call(_mixi
          * @instance
          * @type        {boolean}
          * @default     true
-         */this.allowNestedTargets=true;/**
+         */
+
+        this.allowNestedTargets = true;
+
+        /**
          * A string specifying an optional class name to apply to the container when in
          * its default state.
          *
@@ -3019,7 +4604,11 @@ this.callActions('afterConstruct');h.seal(this);};_mixitup.BaseStatic.call(_mixi
          * @instance
          * @type        {string}
          * @default     ''
-         */this.containerClassName='';/**
+         */
+
+        this.containerClassName = '';
+
+        /**
          * A reference to a non-target sibling element after which to insert targets
          * when there are no targets in the container.
          *
@@ -3038,7 +4627,11 @@ this.callActions('afterConstruct');h.seal(this);};_mixitup.BaseStatic.call(_mixi
          * @instance
          * @type        {HTMLElement}
          * @default     null
-         */this.siblingBefore=null;/**
+         */
+
+        this.siblingBefore = null;
+
+        /**
          * A reference to a non-target sibling element before which to insert targets
          * when there are no targets in the container.
          *
@@ -3057,7 +4650,22 @@ this.callActions('afterConstruct');h.seal(this);};_mixitup.BaseStatic.call(_mixi
          * @instance
          * @type        {HTMLElement}
          * @default     null
-         */this.siblingAfter=null;this.callActions('afterConstruct');h.seal(this);};_mixitup.BaseStatic.call(_mixitup.ConfigLayout);_mixitup.ConfigLayout.prototype=Object.create(_mixitup.Base.prototype);_mixitup.ConfigLayout.prototype.constructor=_mixitup.ConfigLayout;/**
+         */
+
+        this.siblingAfter = null;
+
+        this.callActions('afterConstruct');
+
+        h.seal(this);
+    };
+
+    _mixitup.BaseStatic.call(_mixitup.ConfigLayout);
+
+    _mixitup.ConfigLayout.prototype = Object.create(_mixitup.Base.prototype);
+
+    _mixitup.ConfigLayout.prototype.constructor = _mixitup.ConfigLayout;
+
+    /**
      * A group of properties defining the initial state of the mixer on load (instantiation).
      *
      * @constructor
@@ -3066,7 +4674,14 @@ this.callActions('afterConstruct');h.seal(this);};_mixitup.BaseStatic.call(_mixi
      * @namespace
      * @public
      * @since       2.0.0
-     */_mixitup.ConfigLoad=function(){_mixitup.Base.call(this);this.callActions('beforeConstruct');/**
+     */
+
+    _mixitup.ConfigLoad = function () {
+        _mixitup.Base.call(this);
+
+        this.callActions('beforeConstruct');
+
+        /**
          * A string defining any filtering to be statically applied to the mixer on load.
          * As per the `.filter()` API, this can be any valid selector string, or the
          * values `'all'` or `'none'`.
@@ -3096,7 +4711,11 @@ this.callActions('afterConstruct');h.seal(this);};_mixitup.BaseStatic.call(_mixi
          * @instance
          * @type        {string}
          * @default     'all'
-         */this.filter='all';/**
+         */
+
+        this.filter = 'all';
+
+        /**
          * A string defining any sorting to be statically applied to the mixer on load.
          * As per the `.sort()` API, this should be a valid "sort string" made up of
          * an attribute to sort by (or `'default'`) followed by an optional sorting
@@ -3118,7 +4737,11 @@ this.callActions('afterConstruct');h.seal(this);};_mixitup.BaseStatic.call(_mixi
          * @instance
          * @type        {string}
          * @default     'default:asc'
-         */this.sort='default:asc';/**
+         */
+
+        this.sort = 'default:asc';
+
+        /**
          * An array of objects representing the underlying data of any pre-rendered targets,
          * when using the `.dataset()` API.
          *
@@ -3153,7 +4776,22 @@ this.callActions('afterConstruct');h.seal(this);};_mixitup.BaseStatic.call(_mixi
          * @instance
          * @type        {Array.<object>}
          * @default     null
-         */this.dataset=null;this.callActions('afterConstruct');h.seal(this);};_mixitup.BaseStatic.call(_mixitup.ConfigLoad);_mixitup.ConfigLoad.prototype=Object.create(_mixitup.Base.prototype);_mixitup.ConfigLoad.prototype.constructor=_mixitup.ConfigLoad;/**
+         */
+
+        this.dataset = null;
+
+        this.callActions('afterConstruct');
+
+        h.seal(this);
+    };
+
+    _mixitup.BaseStatic.call(_mixitup.ConfigLoad);
+
+    _mixitup.ConfigLoad.prototype = Object.create(_mixitup.Base.prototype);
+
+    _mixitup.ConfigLoad.prototype.constructor = _mixitup.ConfigLoad;
+
+    /**
      * A group of properties defining the selectors used to query elements within a mixitup container.
      *
      * @constructor
@@ -3162,7 +4800,14 @@ this.callActions('afterConstruct');h.seal(this);};_mixitup.BaseStatic.call(_mixi
      * @namespace
      * @public
      * @since       3.0.0
-     */_mixitup.ConfigSelectors=function(){_mixitup.Base.call(this);this.callActions('beforeConstruct');/**
+     */
+
+    _mixitup.ConfigSelectors = function () {
+        _mixitup.Base.call(this);
+
+        this.callActions('beforeConstruct');
+
+        /**
          * A selector string used to query and index target elements within the container.
          *
          * By default, the class selector `'.mix'` is used, but this can be changed to an
@@ -3191,7 +4836,11 @@ this.callActions('afterConstruct');h.seal(this);};_mixitup.BaseStatic.call(_mixi
          * @instance
          * @type        {string}
          * @default     '.mix'
-         */this.target='.mix';/**
+         */
+
+        this.target = '.mix';
+
+        /**
          * A optional selector string used to add further specificity to the querying of control elements,
          * in addition to their mandatory data attribute (e.g. `data-filter`, `data-toggle`, `data-sort`).
          *
@@ -3219,7 +4868,22 @@ this.callActions('afterConstruct');h.seal(this);};_mixitup.BaseStatic.call(_mixi
          *
          * // Will be handled:
          * // <button class="mixitup-control" data-filter=".category-a"></button>
-         */this.control='';this.callActions('afterConstruct');h.seal(this);};_mixitup.BaseStatic.call(_mixitup.ConfigSelectors);_mixitup.ConfigSelectors.prototype=Object.create(_mixitup.Base.prototype);_mixitup.ConfigSelectors.prototype.constructor=_mixitup.ConfigSelectors;/**
+         */
+
+        this.control = '';
+
+        this.callActions('afterConstruct');
+
+        h.seal(this);
+    };
+
+    _mixitup.BaseStatic.call(_mixitup.ConfigSelectors);
+
+    _mixitup.ConfigSelectors.prototype = Object.create(_mixitup.Base.prototype);
+
+    _mixitup.ConfigSelectors.prototype.constructor = _mixitup.ConfigSelectors;
+
+    /**
      * A group of optional render functions for creating and updating elements.
      *
      * All render functions receive a data object, and should return a valid HTML string.
@@ -3230,7 +4894,14 @@ this.callActions('afterConstruct');h.seal(this);};_mixitup.BaseStatic.call(_mixi
      * @namespace
      * @public
      * @since       3.0.0
-     */_mixitup.ConfigRender=function(){_mixitup.Base.call(this);this.callActions('beforeConstruct');/**
+     */
+
+    _mixitup.ConfigRender = function () {
+        _mixitup.Base.call(this);
+
+        this.callActions('beforeConstruct');
+
+        /**
          * A function returning an HTML string representing a target element, or a reference to a
          * single DOM element.
          *
@@ -3296,12 +4967,45 @@ this.callActions('afterConstruct');h.seal(this);};_mixitup.BaseStatic.call(_mixi
          * @instance
          * @type        {function}
          * @default     'null'
-         */this.target=null;this.callActions('afterConstruct');h.seal(this);};_mixitup.BaseStatic.call(_mixitup.ConfigRender);_mixitup.ConfigRender.prototype=Object.create(_mixitup.Base.prototype);_mixitup.ConfigRender.prototype.constructor=_mixitup.ConfigRender;/**
+         */
+
+        this.target = null;
+
+        this.callActions('afterConstruct');
+
+        h.seal(this);
+    };
+
+    _mixitup.BaseStatic.call(_mixitup.ConfigRender);
+
+    _mixitup.ConfigRender.prototype = Object.create(_mixitup.Base.prototype);
+
+    _mixitup.ConfigRender.prototype.constructor = _mixitup.ConfigRender;
+
+    /**
      * @constructor
      * @memberof    mixitup
      * @private
      * @since       3.0.0
-     */_mixitup.ConfigTemplates=function(){_mixitup.Base.call(this);this.callActions('beforeConstruct');this.callActions('afterConstruct');h.seal(this);};_mixitup.BaseStatic.call(_mixitup.ConfigTemplates);_mixitup.ConfigTemplates.prototype=Object.create(_mixitup.Base.prototype);_mixitup.ConfigTemplates.prototype.constructor=_mixitup.ConfigTemplates;/**
+     */
+
+    _mixitup.ConfigTemplates = function () {
+        _mixitup.Base.call(this);
+
+        this.callActions('beforeConstruct');
+
+        this.callActions('afterConstruct');
+
+        h.seal(this);
+    };
+
+    _mixitup.BaseStatic.call(_mixitup.ConfigTemplates);
+
+    _mixitup.ConfigTemplates.prototype = Object.create(_mixitup.Base.prototype);
+
+    _mixitup.ConfigTemplates.prototype.constructor = _mixitup.ConfigTemplates;
+
+    /**
      * `mixitup.Config` is an interface used for customising the functionality of a
      * mixer instance. It is organised into several semantically distinct sub-objects,
      * each one pertaining to a particular aspect of MixItUp functionality.
@@ -3346,68 +5050,297 @@ this.callActions('afterConstruct');h.seal(this);};_mixitup.BaseStatic.call(_mixi
      * @namespace
      * @public
      * @since       2.0.0
-     */_mixitup.Config=function(){_mixitup.Base.call(this);this.callActions('beforeConstruct');this.animation=new _mixitup.ConfigAnimation();this.behavior=new _mixitup.ConfigBehavior();this.callbacks=new _mixitup.ConfigCallbacks();this.controls=new _mixitup.ConfigControls();this.classNames=new _mixitup.ConfigClassNames();this.data=new _mixitup.ConfigData();this.debug=new _mixitup.ConfigDebug();this.layout=new _mixitup.ConfigLayout();this.load=new _mixitup.ConfigLoad();this.selectors=new _mixitup.ConfigSelectors();this.render=new _mixitup.ConfigRender();this.templates=new _mixitup.ConfigTemplates();this.callActions('afterConstruct');h.seal(this);};_mixitup.BaseStatic.call(_mixitup.Config);_mixitup.Config.prototype=Object.create(_mixitup.Base.prototype);_mixitup.Config.prototype.constructor=_mixitup.Config;/**
+     */
+
+    _mixitup.Config = function () {
+        _mixitup.Base.call(this);
+
+        this.callActions('beforeConstruct');
+
+        this.animation = new _mixitup.ConfigAnimation();
+        this.behavior = new _mixitup.ConfigBehavior();
+        this.callbacks = new _mixitup.ConfigCallbacks();
+        this.controls = new _mixitup.ConfigControls();
+        this.classNames = new _mixitup.ConfigClassNames();
+        this.data = new _mixitup.ConfigData();
+        this.debug = new _mixitup.ConfigDebug();
+        this.layout = new _mixitup.ConfigLayout();
+        this.load = new _mixitup.ConfigLoad();
+        this.selectors = new _mixitup.ConfigSelectors();
+        this.render = new _mixitup.ConfigRender();
+        this.templates = new _mixitup.ConfigTemplates();
+
+        this.callActions('afterConstruct');
+
+        h.seal(this);
+    };
+
+    _mixitup.BaseStatic.call(_mixitup.Config);
+
+    _mixitup.Config.prototype = Object.create(_mixitup.Base.prototype);
+
+    _mixitup.Config.prototype.constructor = _mixitup.Config;
+
+    /**
      * @constructor
      * @memberof    mixitup
      * @private
      * @since       3.0.0
-     */_mixitup.MixerDom=function(){_mixitup.Base.call(this);this.callActions('beforeConstruct');this.document=null;this.body=null;this.container=null;this.parent=null;this.targets=[];this.callActions('afterConstruct');h.seal(this);};_mixitup.BaseStatic.call(_mixitup.MixerDom);_mixitup.MixerDom.prototype=Object.create(_mixitup.Base.prototype);_mixitup.MixerDom.prototype.constructor=_mixitup.MixerDom;/**
+     */
+
+    _mixitup.MixerDom = function () {
+        _mixitup.Base.call(this);
+
+        this.callActions('beforeConstruct');
+
+        this.document = null;
+        this.body = null;
+        this.container = null;
+        this.parent = null;
+        this.targets = [];
+
+        this.callActions('afterConstruct');
+
+        h.seal(this);
+    };
+
+    _mixitup.BaseStatic.call(_mixitup.MixerDom);
+
+    _mixitup.MixerDom.prototype = Object.create(_mixitup.Base.prototype);
+
+    _mixitup.MixerDom.prototype.constructor = _mixitup.MixerDom;
+
+    /**
      * @constructor
      * @memberof    mixitup
      * @private
      * @since       3.0.0
-     */_mixitup.UiClassNames=function(){_mixitup.Base.call(this);this.callActions('beforeConstruct');this.base='';this.active='';this.disabled='';this.callActions('afterConstruct');h.seal(this);};_mixitup.BaseStatic.call(_mixitup.UiClassNames);_mixitup.UiClassNames.prototype=Object.create(_mixitup.Base.prototype);_mixitup.UiClassNames.prototype.constructor=_mixitup.UiClassNames;/**
+     */
+
+    _mixitup.UiClassNames = function () {
+        _mixitup.Base.call(this);
+
+        this.callActions('beforeConstruct');
+
+        this.base = '';
+        this.active = '';
+        this.disabled = '';
+
+        this.callActions('afterConstruct');
+
+        h.seal(this);
+    };
+
+    _mixitup.BaseStatic.call(_mixitup.UiClassNames);
+
+    _mixitup.UiClassNames.prototype = Object.create(_mixitup.Base.prototype);
+
+    _mixitup.UiClassNames.prototype.constructor = _mixitup.UiClassNames;
+
+    /**
      * An object into which all arbitrary arguments sent to '.dataset()' are mapped.
      *
      * @constructor
      * @memberof    mixitup
      * @private
      * @since       3.0.0
-     */_mixitup.CommandDataset=function(){_mixitup.Base.call(this);this.callActions('beforeConstruct');this.dataset=null;this.callActions('afterConstruct');h.seal(this);};_mixitup.BaseStatic.call(_mixitup.CommandDataset);_mixitup.CommandDataset.prototype=Object.create(_mixitup.Base.prototype);_mixitup.CommandDataset.prototype.constructor=_mixitup.CommandDataset;/**
+     */
+
+    _mixitup.CommandDataset = function () {
+        _mixitup.Base.call(this);
+
+        this.callActions('beforeConstruct');
+
+        this.dataset = null;
+
+        this.callActions('afterConstruct');
+
+        h.seal(this);
+    };
+
+    _mixitup.BaseStatic.call(_mixitup.CommandDataset);
+
+    _mixitup.CommandDataset.prototype = Object.create(_mixitup.Base.prototype);
+
+    _mixitup.CommandDataset.prototype.constructor = _mixitup.CommandDataset;
+
+    /**
      * An object into which all arbitrary arguments sent to '.multimix()' are mapped.
      *
      * @constructor
      * @memberof    mixitup
      * @private
      * @since       3.0.0
-     */_mixitup.CommandMultimix=function(){_mixitup.Base.call(this);this.callActions('beforeConstruct');this.filter=null;this.sort=null;this.insert=null;this.remove=null;this.changeLayout=null;this.callActions('afterConstruct');h.seal(this);};_mixitup.BaseStatic.call(_mixitup.CommandMultimix);_mixitup.CommandMultimix.prototype=Object.create(_mixitup.Base.prototype);_mixitup.CommandMultimix.prototype.constructor=_mixitup.CommandMultimix;/**
+     */
+
+    _mixitup.CommandMultimix = function () {
+        _mixitup.Base.call(this);
+
+        this.callActions('beforeConstruct');
+
+        this.filter = null;
+        this.sort = null;
+        this.insert = null;
+        this.remove = null;
+        this.changeLayout = null;
+
+        this.callActions('afterConstruct');
+
+        h.seal(this);
+    };
+
+    _mixitup.BaseStatic.call(_mixitup.CommandMultimix);
+
+    _mixitup.CommandMultimix.prototype = Object.create(_mixitup.Base.prototype);
+
+    _mixitup.CommandMultimix.prototype.constructor = _mixitup.CommandMultimix;
+
+    /**
      * An object into which all arbitrary arguments sent to '.filter()' are mapped.
      *
      * @constructor
      * @memberof    mixitup
      * @private
      * @since       3.0.0
-     */_mixitup.CommandFilter=function(){_mixitup.Base.call(this);this.callActions('beforeConstruct');this.selector='';this.collection=null;this.action='show';// enum: ['show', 'hide']
-this.callActions('afterConstruct');h.seal(this);};_mixitup.BaseStatic.call(_mixitup.CommandFilter);_mixitup.CommandFilter.prototype=Object.create(_mixitup.Base.prototype);_mixitup.CommandFilter.prototype.constructor=_mixitup.CommandFilter;/**
+     */
+
+    _mixitup.CommandFilter = function () {
+        _mixitup.Base.call(this);
+
+        this.callActions('beforeConstruct');
+
+        this.selector = '';
+        this.collection = null;
+        this.action = 'show'; // enum: ['show', 'hide']
+
+        this.callActions('afterConstruct');
+
+        h.seal(this);
+    };
+
+    _mixitup.BaseStatic.call(_mixitup.CommandFilter);
+
+    _mixitup.CommandFilter.prototype = Object.create(_mixitup.Base.prototype);
+
+    _mixitup.CommandFilter.prototype.constructor = _mixitup.CommandFilter;
+
+    /**
      * An object into which all arbitrary arguments sent to '.sort()' are mapped.
      *
      * @constructor
      * @memberof    mixitup
      * @private
      * @since       3.0.0
-     */_mixitup.CommandSort=function(){_mixitup.Base.call(this);this.callActions('beforeConstruct');this.sortString='';this.attribute='';this.order='asc';this.collection=null;this.next=null;this.callActions('afterConstruct');h.seal(this);};_mixitup.BaseStatic.call(_mixitup.CommandSort);_mixitup.CommandSort.prototype=Object.create(_mixitup.Base.prototype);_mixitup.CommandSort.prototype.constructor=_mixitup.CommandSort;/**
+     */
+
+    _mixitup.CommandSort = function () {
+        _mixitup.Base.call(this);
+
+        this.callActions('beforeConstruct');
+
+        this.sortString = '';
+        this.attribute = '';
+        this.order = 'asc';
+        this.collection = null;
+        this.next = null;
+
+        this.callActions('afterConstruct');
+
+        h.seal(this);
+    };
+
+    _mixitup.BaseStatic.call(_mixitup.CommandSort);
+
+    _mixitup.CommandSort.prototype = Object.create(_mixitup.Base.prototype);
+
+    _mixitup.CommandSort.prototype.constructor = _mixitup.CommandSort;
+
+    /**
      * An object into which all arbitrary arguments sent to '.insert()' are mapped.
      *
      * @constructor
      * @memberof    mixitup
      * @private
      * @since       3.0.0
-     */_mixitup.CommandInsert=function(){_mixitup.Base.call(this);this.callActions('beforeConstruct');this.index=0;this.collection=[];this.position='before';// enum: ['before', 'after']
-this.sibling=null;this.callActions('afterConstruct');h.seal(this);};_mixitup.BaseStatic.call(_mixitup.CommandInsert);_mixitup.CommandInsert.prototype=Object.create(_mixitup.Base.prototype);_mixitup.CommandInsert.prototype.constructor=_mixitup.CommandInsert;/**
+     */
+
+    _mixitup.CommandInsert = function () {
+        _mixitup.Base.call(this);
+
+        this.callActions('beforeConstruct');
+
+        this.index = 0;
+        this.collection = [];
+        this.position = 'before'; // enum: ['before', 'after']
+        this.sibling = null;
+
+        this.callActions('afterConstruct');
+
+        h.seal(this);
+    };
+
+    _mixitup.BaseStatic.call(_mixitup.CommandInsert);
+
+    _mixitup.CommandInsert.prototype = Object.create(_mixitup.Base.prototype);
+
+    _mixitup.CommandInsert.prototype.constructor = _mixitup.CommandInsert;
+
+    /**
      * An object into which all arbitrary arguments sent to '.remove()' are mapped.
      *
      * @constructor
      * @memberof    mixitup
      * @private
      * @since       3.0.0
-     */_mixitup.CommandRemove=function(){_mixitup.Base.call(this);this.callActions('beforeConstruct');this.targets=[];this.collection=[];this.callActions('afterConstruct');h.seal(this);};_mixitup.BaseStatic.call(_mixitup.CommandRemove);_mixitup.CommandRemove.prototype=Object.create(_mixitup.Base.prototype);_mixitup.CommandRemove.prototype.constructor=_mixitup.CommandRemove;/**
+     */
+
+    _mixitup.CommandRemove = function () {
+        _mixitup.Base.call(this);
+
+        this.callActions('beforeConstruct');
+
+        this.targets = [];
+        this.collection = [];
+
+        this.callActions('afterConstruct');
+
+        h.seal(this);
+    };
+
+    _mixitup.BaseStatic.call(_mixitup.CommandRemove);
+
+    _mixitup.CommandRemove.prototype = Object.create(_mixitup.Base.prototype);
+
+    _mixitup.CommandRemove.prototype.constructor = _mixitup.CommandRemove;
+
+    /**
      * An object into which all arbitrary arguments sent to '.changeLayout()' are mapped.
      *
      * @constructor
      * @memberof    mixitup
      * @private
      * @since       3.0.0
-     */_mixitup.CommandChangeLayout=function(){_mixitup.Base.call(this);this.callActions('beforeConstruct');this.containerClassName='';this.callActions('afterConstruct');h.seal(this);};_mixitup.BaseStatic.call(_mixitup.CommandChangeLayout);_mixitup.CommandChangeLayout.prototype=Object.create(_mixitup.Base.prototype);_mixitup.CommandChangeLayout.prototype.constructor=_mixitup.CommandChangeLayout;/**
+     */
+
+    _mixitup.CommandChangeLayout = function () {
+        _mixitup.Base.call(this);
+
+        this.callActions('beforeConstruct');
+
+        this.containerClassName = '';
+
+        this.callActions('afterConstruct');
+
+        h.seal(this);
+    };
+
+    _mixitup.BaseStatic.call(_mixitup.CommandChangeLayout);
+
+    _mixitup.CommandChangeLayout.prototype = Object.create(_mixitup.Base.prototype);
+
+    _mixitup.CommandChangeLayout.prototype.constructor = _mixitup.CommandChangeLayout;
+
+    /**
      * @constructor
      * @memberof    mixitup
      * @private
@@ -3417,92 +5350,689 @@ this.sibling=null;this.callActions('afterConstruct');h.seal(this);};_mixitup.Bas
      * @param       {boolean}       [live]
      * @param       {string}        [parent]
      *     An optional string representing the name of the mixer.dom property containing a reference to a parent element.
-     */_mixitup.ControlDefinition=function(type,selector,live,parent){_mixitup.Base.call(this);this.callActions('beforeConstruct');this.type=type;this.selector=selector;this.live=live||false;this.parent=parent||'';this.callActions('afterConstruct');h.freeze(this);h.seal(this);};_mixitup.BaseStatic.call(_mixitup.ControlDefinition);_mixitup.ControlDefinition.prototype=Object.create(_mixitup.Base.prototype);_mixitup.ControlDefinition.prototype.constructor=_mixitup.ControlDefinition;_mixitup.controlDefinitions=[];_mixitup.controlDefinitions.push(new _mixitup.ControlDefinition('multimix','[data-filter][data-sort]'));_mixitup.controlDefinitions.push(new _mixitup.ControlDefinition('filter','[data-filter]'));_mixitup.controlDefinitions.push(new _mixitup.ControlDefinition('sort','[data-sort]'));_mixitup.controlDefinitions.push(new _mixitup.ControlDefinition('toggle','[data-toggle]'));/**
+     */
+
+    _mixitup.ControlDefinition = function (type, selector, live, parent) {
+        _mixitup.Base.call(this);
+
+        this.callActions('beforeConstruct');
+
+        this.type = type;
+        this.selector = selector;
+        this.live = live || false;
+        this.parent = parent || '';
+
+        this.callActions('afterConstruct');
+
+        h.freeze(this);
+        h.seal(this);
+    };
+
+    _mixitup.BaseStatic.call(_mixitup.ControlDefinition);
+
+    _mixitup.ControlDefinition.prototype = Object.create(_mixitup.Base.prototype);
+
+    _mixitup.ControlDefinition.prototype.constructor = _mixitup.ControlDefinition;
+
+    _mixitup.controlDefinitions = [];
+
+    _mixitup.controlDefinitions.push(new _mixitup.ControlDefinition('multimix', '[data-filter][data-sort]'));
+    _mixitup.controlDefinitions.push(new _mixitup.ControlDefinition('filter', '[data-filter]'));
+    _mixitup.controlDefinitions.push(new _mixitup.ControlDefinition('sort', '[data-sort]'));
+    _mixitup.controlDefinitions.push(new _mixitup.ControlDefinition('toggle', '[data-toggle]'));
+
+    /**
      * @constructor
      * @memberof    mixitup
      * @private
      * @since       3.0.0
-     */_mixitup.Control=function(){_mixitup.Base.call(this);this.callActions('beforeConstruct');this.el=null;this.selector='';this.bound=[];this.pending=-1;this.type='';this.status='inactive';// enum: ['inactive', 'active', 'disabled', 'live']
-this.filter='';this.sort='';this.canDisable=false;this.handler=null;this.classNames=new _mixitup.UiClassNames();this.callActions('afterConstruct');h.seal(this);};_mixitup.BaseStatic.call(_mixitup.Control);_mixitup.Control.prototype=Object.create(_mixitup.Base.prototype);h.extend(_mixitup.Control.prototype,/** @lends mixitup.Control */{constructor:_mixitup.Control,/**
+     */
+
+    _mixitup.Control = function () {
+        _mixitup.Base.call(this);
+
+        this.callActions('beforeConstruct');
+
+        this.el = null;
+        this.selector = '';
+        this.bound = [];
+        this.pending = -1;
+        this.type = '';
+        this.status = 'inactive'; // enum: ['inactive', 'active', 'disabled', 'live']
+        this.filter = '';
+        this.sort = '';
+        this.canDisable = false;
+        this.handler = null;
+        this.classNames = new _mixitup.UiClassNames();
+
+        this.callActions('afterConstruct');
+
+        h.seal(this);
+    };
+
+    _mixitup.BaseStatic.call(_mixitup.Control);
+
+    _mixitup.Control.prototype = Object.create(_mixitup.Base.prototype);
+
+    h.extend(_mixitup.Control.prototype,
+    /** @lends mixitup.Control */
+    {
+        constructor: _mixitup.Control,
+
+        /**
          * @private
          * @param {HTMLElement} el
          * @param {string}      type
          * @param {string}      selector
-         */init:function init(el,type,selector){var self=this;this.callActions('beforeInit',arguments);self.el=el;self.type=type;self.selector=selector;if(self.selector){self.status='live';}else{self.canDisable=typeof self.el.disable==='boolean';switch(self.type){case'filter':self.filter=self.el.getAttribute('data-filter');break;case'toggle':self.filter=self.el.getAttribute('data-toggle');break;case'sort':self.sort=self.el.getAttribute('data-sort');break;case'multimix':self.filter=self.el.getAttribute('data-filter');self.sort=self.el.getAttribute('data-sort');break;}}self.bindClick();_mixitup.controls.push(self);this.callActions('afterInit',arguments);},/**
+         */
+
+        init: function init(el, type, selector) {
+            var self = this;
+
+            this.callActions('beforeInit', arguments);
+
+            self.el = el;
+            self.type = type;
+            self.selector = selector;
+
+            if (self.selector) {
+                self.status = 'live';
+            } else {
+                self.canDisable = typeof self.el.disable === 'boolean';
+
+                switch (self.type) {
+                    case 'filter':
+                        self.filter = self.el.getAttribute('data-filter');
+
+                        break;
+                    case 'toggle':
+                        self.filter = self.el.getAttribute('data-toggle');
+
+                        break;
+                    case 'sort':
+                        self.sort = self.el.getAttribute('data-sort');
+
+                        break;
+                    case 'multimix':
+                        self.filter = self.el.getAttribute('data-filter');
+                        self.sort = self.el.getAttribute('data-sort');
+
+                        break;
+                }
+            }
+
+            self.bindClick();
+
+            _mixitup.controls.push(self);
+
+            this.callActions('afterInit', arguments);
+        },
+
+        /**
          * @private
          * @param  {mixitup.Mixer} mixer
          * @return {boolean}
-         */isBound:function isBound(mixer){var self=this,isBound=false;this.callActions('beforeIsBound',arguments);isBound=self.bound.indexOf(mixer)>-1;return self.callFilters('afterIsBound',isBound,arguments);},/**
+         */
+
+        isBound: function isBound(mixer) {
+            var self = this,
+                isBound = false;
+
+            this.callActions('beforeIsBound', arguments);
+
+            isBound = self.bound.indexOf(mixer) > -1;
+
+            return self.callFilters('afterIsBound', isBound, arguments);
+        },
+
+        /**
          * @private
          * @param  {mixitup.Mixer} mixer
          * @return {void}
-         */addBinding:function addBinding(mixer){var self=this;this.callActions('beforeAddBinding',arguments);if(!self.isBound()){self.bound.push(mixer);}this.callActions('afterAddBinding',arguments);},/**
+         */
+
+        addBinding: function addBinding(mixer) {
+            var self = this;
+
+            this.callActions('beforeAddBinding', arguments);
+
+            if (!self.isBound()) {
+                self.bound.push(mixer);
+            }
+
+            this.callActions('afterAddBinding', arguments);
+        },
+
+        /**
          * @private
          * @param  {mixitup.Mixer} mixer
          * @return {void}
-         */removeBinding:function removeBinding(mixer){var self=this,removeIndex=-1;this.callActions('beforeRemoveBinding',arguments);if((removeIndex=self.bound.indexOf(mixer))>-1){self.bound.splice(removeIndex,1);}if(self.bound.length<1){// No bindings exist, unbind event click handlers
-self.unbindClick();// Remove from `mixitup.controls` list
-removeIndex=_mixitup.controls.indexOf(self);_mixitup.controls.splice(removeIndex,1);if(self.status==='active'){self.renderStatus(self.el,'inactive');}}this.callActions('afterRemoveBinding',arguments);},/**
+         */
+
+        removeBinding: function removeBinding(mixer) {
+            var self = this,
+                removeIndex = -1;
+
+            this.callActions('beforeRemoveBinding', arguments);
+
+            if ((removeIndex = self.bound.indexOf(mixer)) > -1) {
+                self.bound.splice(removeIndex, 1);
+            }
+
+            if (self.bound.length < 1) {
+                // No bindings exist, unbind event click handlers
+
+                self.unbindClick();
+
+                // Remove from `mixitup.controls` list
+
+                removeIndex = _mixitup.controls.indexOf(self);
+
+                _mixitup.controls.splice(removeIndex, 1);
+
+                if (self.status === 'active') {
+                    self.renderStatus(self.el, 'inactive');
+                }
+            }
+
+            this.callActions('afterRemoveBinding', arguments);
+        },
+
+        /**
          * @private
          * @return {void}
-         */bindClick:function bindClick(){var self=this;this.callActions('beforeBindClick',arguments);self.handler=function(e){self.handleClick(e);};h.on(self.el,'click',self.handler);this.callActions('afterBindClick',arguments);},/**
+         */
+
+        bindClick: function bindClick() {
+            var self = this;
+
+            this.callActions('beforeBindClick', arguments);
+
+            self.handler = function (e) {
+                self.handleClick(e);
+            };
+
+            h.on(self.el, 'click', self.handler);
+
+            this.callActions('afterBindClick', arguments);
+        },
+
+        /**
          * @private
          * @return {void}
-         */unbindClick:function unbindClick(){var self=this;this.callActions('beforeUnbindClick',arguments);h.off(self.el,'click',self.handler);self.handler=null;this.callActions('afterUnbindClick',arguments);},/**
+         */
+
+        unbindClick: function unbindClick() {
+            var self = this;
+
+            this.callActions('beforeUnbindClick', arguments);
+
+            h.off(self.el, 'click', self.handler);
+
+            self.handler = null;
+
+            this.callActions('afterUnbindClick', arguments);
+        },
+
+        /**
          * @private
          * @param   {MouseEvent} e
          * @return  {void}
-         */handleClick:function handleClick(e){var self=this,button=null,mixer=null,isActive=false,returnValue=void 0,command={},clone=null,commands=[],i=-1;this.callActions('beforeHandleClick',arguments);this.pending=0;mixer=self.bound[0];if(!self.selector){button=self.el;}else{button=h.closestParent(e.target,mixer.config.selectors.control+self.selector,true,mixer.dom.document);}if(!button){self.callActions('afterHandleClick',arguments);return;}switch(self.type){case'filter':command.filter=self.filter||button.getAttribute('data-filter');break;case'sort':command.sort=self.sort||button.getAttribute('data-sort');break;case'multimix':command.filter=self.filter||button.getAttribute('data-filter');command.sort=self.sort||button.getAttribute('data-sort');break;case'toggle':command.filter=self.filter||button.getAttribute('data-toggle');if(self.status==='live'){isActive=h.hasClass(button,self.classNames.active);}else{isActive=self.status==='active';}break;}for(i=0;i<self.bound.length;i++){// Create a clone of the command for each bound mixer instance
-clone=new _mixitup.CommandMultimix();h.extend(clone,command);commands.push(clone);}commands=self.callFilters('commandsHandleClick',commands,arguments);self.pending=self.bound.length;for(i=0;mixer=self.bound[i];i++){command=commands[i];if(!command){// An extension may set a command null to indicate that the click should not be handled
-continue;}if(!mixer.lastClicked){mixer.lastClicked=button;}_mixitup.events.fire('mixClick',mixer.dom.container,{state:mixer.state,instance:mixer,originalEvent:e,control:mixer.lastClicked},mixer.dom.document);if(typeof mixer.config.callbacks.onMixClick==='function'){returnValue=mixer.config.callbacks.onMixClick.call(mixer.lastClicked,mixer.state,e,mixer);if(returnValue===false){// User has returned `false` from the callback, so do not handle click
-continue;}}if(self.type==='toggle'){isActive?mixer.toggleOff(command.filter):mixer.toggleOn(command.filter);}else{mixer.multimix(command);}}this.callActions('afterHandleClick',arguments);},/**
+         */
+
+        handleClick: function handleClick(e) {
+            var self = this,
+                button = null,
+                mixer = null,
+                isActive = false,
+                returnValue = void 0,
+                command = {},
+                clone = null,
+                commands = [],
+                i = -1;
+
+            this.callActions('beforeHandleClick', arguments);
+
+            this.pending = 0;
+
+            mixer = self.bound[0];
+
+            if (!self.selector) {
+                button = self.el;
+            } else {
+                button = h.closestParent(e.target, mixer.config.selectors.control + self.selector, true, mixer.dom.document);
+            }
+
+            if (!button) {
+                self.callActions('afterHandleClick', arguments);
+
+                return;
+            }
+
+            switch (self.type) {
+                case 'filter':
+                    command.filter = self.filter || button.getAttribute('data-filter');
+
+                    break;
+                case 'sort':
+                    command.sort = self.sort || button.getAttribute('data-sort');
+
+                    break;
+                case 'multimix':
+                    command.filter = self.filter || button.getAttribute('data-filter');
+                    command.sort = self.sort || button.getAttribute('data-sort');
+
+                    break;
+                case 'toggle':
+                    command.filter = self.filter || button.getAttribute('data-toggle');
+
+                    if (self.status === 'live') {
+                        isActive = h.hasClass(button, self.classNames.active);
+                    } else {
+                        isActive = self.status === 'active';
+                    }
+
+                    break;
+            }
+
+            for (i = 0; i < self.bound.length; i++) {
+                // Create a clone of the command for each bound mixer instance
+
+                clone = new _mixitup.CommandMultimix();
+
+                h.extend(clone, command);
+
+                commands.push(clone);
+            }
+
+            commands = self.callFilters('commandsHandleClick', commands, arguments);
+
+            self.pending = self.bound.length;
+
+            for (i = 0; mixer = self.bound[i]; i++) {
+                command = commands[i];
+
+                if (!command) {
+                    // An extension may set a command null to indicate that the click should not be handled
+
+                    continue;
+                }
+
+                if (!mixer.lastClicked) {
+                    mixer.lastClicked = button;
+                }
+
+                _mixitup.events.fire('mixClick', mixer.dom.container, {
+                    state: mixer.state,
+                    instance: mixer,
+                    originalEvent: e,
+                    control: mixer.lastClicked
+                }, mixer.dom.document);
+
+                if (typeof mixer.config.callbacks.onMixClick === 'function') {
+                    returnValue = mixer.config.callbacks.onMixClick.call(mixer.lastClicked, mixer.state, e, mixer);
+
+                    if (returnValue === false) {
+                        // User has returned `false` from the callback, so do not handle click
+
+                        continue;
+                    }
+                }
+
+                if (self.type === 'toggle') {
+                    isActive ? mixer.toggleOff(command.filter) : mixer.toggleOn(command.filter);
+                } else {
+                    mixer.multimix(command);
+                }
+            }
+
+            this.callActions('afterHandleClick', arguments);
+        },
+
+        /**
          * @param   {object}          command
          * @param   {Array<string>}   toggleArray
          * @return  {void}
-         */update:function update(command,toggleArray){var self=this,actions=new _mixitup.CommandMultimix();self.callActions('beforeUpdate',arguments);self.pending--;self.pending=Math.max(0,self.pending);if(self.pending>0)return;if(self.status==='live'){// Live control (status unknown)
-self.updateLive(command,toggleArray);}else{// Static control
-actions.sort=self.sort;actions.filter=self.filter;self.callFilters('actionsUpdate',actions,arguments);self.parseStatusChange(self.el,command,actions,toggleArray);}self.callActions('afterUpdate',arguments);},/**
+         */
+
+        update: function update(command, toggleArray) {
+            var self = this,
+                actions = new _mixitup.CommandMultimix();
+
+            self.callActions('beforeUpdate', arguments);
+
+            self.pending--;
+
+            self.pending = Math.max(0, self.pending);
+
+            if (self.pending > 0) return;
+
+            if (self.status === 'live') {
+                // Live control (status unknown)
+
+                self.updateLive(command, toggleArray);
+            } else {
+                // Static control
+
+                actions.sort = self.sort;
+                actions.filter = self.filter;
+
+                self.callFilters('actionsUpdate', actions, arguments);
+
+                self.parseStatusChange(self.el, command, actions, toggleArray);
+            }
+
+            self.callActions('afterUpdate', arguments);
+        },
+
+        /**
          * @param   {mixitup.CommandMultimix} command
          * @param   {Array<string>}           toggleArray
          * @return  {void}
-         */updateLive:function updateLive(command,toggleArray){var self=this,controlButtons=null,actions=null,button=null,i=-1;self.callActions('beforeUpdateLive',arguments);if(!self.el)return;controlButtons=self.el.querySelectorAll(self.selector);for(i=0;button=controlButtons[i];i++){actions=new _mixitup.CommandMultimix();switch(self.type){case'filter':actions.filter=button.getAttribute('data-filter');break;case'sort':actions.sort=button.getAttribute('data-sort');break;case'multimix':actions.filter=button.getAttribute('data-filter');actions.sort=button.getAttribute('data-sort');break;case'toggle':actions.filter=button.getAttribute('data-toggle');break;}actions=self.callFilters('actionsUpdateLive',actions,arguments);self.parseStatusChange(button,command,actions,toggleArray);}self.callActions('afterUpdateLive',arguments);},/**
+         */
+
+        updateLive: function updateLive(command, toggleArray) {
+            var self = this,
+                controlButtons = null,
+                actions = null,
+                button = null,
+                i = -1;
+
+            self.callActions('beforeUpdateLive', arguments);
+
+            if (!self.el) return;
+
+            controlButtons = self.el.querySelectorAll(self.selector);
+
+            for (i = 0; button = controlButtons[i]; i++) {
+                actions = new _mixitup.CommandMultimix();
+
+                switch (self.type) {
+                    case 'filter':
+                        actions.filter = button.getAttribute('data-filter');
+
+                        break;
+                    case 'sort':
+                        actions.sort = button.getAttribute('data-sort');
+
+                        break;
+                    case 'multimix':
+                        actions.filter = button.getAttribute('data-filter');
+                        actions.sort = button.getAttribute('data-sort');
+
+                        break;
+                    case 'toggle':
+                        actions.filter = button.getAttribute('data-toggle');
+
+                        break;
+                }
+
+                actions = self.callFilters('actionsUpdateLive', actions, arguments);
+
+                self.parseStatusChange(button, command, actions, toggleArray);
+            }
+
+            self.callActions('afterUpdateLive', arguments);
+        },
+
+        /**
          * @param   {HTMLElement}             button
          * @param   {mixitup.CommandMultimix} command
          * @param   {mixitup.CommandMultimix} actions
          * @param   {Array<string>}           toggleArray
          * @return  {void}
-         */parseStatusChange:function parseStatusChange(button,command,actions,toggleArray){var self=this,alias='',toggle='',i=-1;self.callActions('beforeParseStatusChange',arguments);switch(self.type){case'filter':if(command.filter===actions.filter){self.renderStatus(button,'active');}else{self.renderStatus(button,'inactive');}break;case'multimix':if(command.sort===actions.sort&&command.filter===actions.filter){self.renderStatus(button,'active');}else{self.renderStatus(button,'inactive');}break;case'sort':if(command.sort.match(/:asc/g)){alias=command.sort.replace(/:asc/g,'');}if(command.sort===actions.sort||alias===actions.sort){self.renderStatus(button,'active');}else{self.renderStatus(button,'inactive');}break;case'toggle':if(toggleArray.length<1)self.renderStatus(button,'inactive');if(command.filter===actions.filter){self.renderStatus(button,'active');}for(i=0;i<toggleArray.length;i++){toggle=toggleArray[i];if(toggle===actions.filter){// Button matches one active toggle
-self.renderStatus(button,'active');break;}self.renderStatus(button,'inactive');}break;}self.callActions('afterParseStatusChange',arguments);},/**
+         */
+
+        parseStatusChange: function parseStatusChange(button, command, actions, toggleArray) {
+            var self = this,
+                alias = '',
+                toggle = '',
+                i = -1;
+
+            self.callActions('beforeParseStatusChange', arguments);
+
+            switch (self.type) {
+                case 'filter':
+                    if (command.filter === actions.filter) {
+                        self.renderStatus(button, 'active');
+                    } else {
+                        self.renderStatus(button, 'inactive');
+                    }
+
+                    break;
+                case 'multimix':
+                    if (command.sort === actions.sort && command.filter === actions.filter) {
+                        self.renderStatus(button, 'active');
+                    } else {
+                        self.renderStatus(button, 'inactive');
+                    }
+
+                    break;
+                case 'sort':
+                    if (command.sort.match(/:asc/g)) {
+                        alias = command.sort.replace(/:asc/g, '');
+                    }
+
+                    if (command.sort === actions.sort || alias === actions.sort) {
+                        self.renderStatus(button, 'active');
+                    } else {
+                        self.renderStatus(button, 'inactive');
+                    }
+
+                    break;
+                case 'toggle':
+                    if (toggleArray.length < 1) self.renderStatus(button, 'inactive');
+
+                    if (command.filter === actions.filter) {
+                        self.renderStatus(button, 'active');
+                    }
+
+                    for (i = 0; i < toggleArray.length; i++) {
+                        toggle = toggleArray[i];
+
+                        if (toggle === actions.filter) {
+                            // Button matches one active toggle
+
+                            self.renderStatus(button, 'active');
+
+                            break;
+                        }
+
+                        self.renderStatus(button, 'inactive');
+                    }
+
+                    break;
+            }
+
+            self.callActions('afterParseStatusChange', arguments);
+        },
+
+        /**
          * @param   {HTMLElement}   button
          * @param   {string}        status
          * @return  {void}
-         */renderStatus:function renderStatus(button,status){var self=this;self.callActions('beforeRenderStatus',arguments);switch(status){case'active':h.addClass(button,self.classNames.active);h.removeClass(button,self.classNames.disabled);if(self.canDisable)self.el.disabled=false;break;case'inactive':h.removeClass(button,self.classNames.active);h.removeClass(button,self.classNames.disabled);if(self.canDisable)self.el.disabled=false;break;case'disabled':if(self.canDisable)self.el.disabled=true;h.addClass(button,self.classNames.disabled);h.removeClass(button,self.classNames.active);break;}if(self.status!=='live'){// Update the control's status propery if not live
-self.status=status;}self.callActions('afterRenderStatus',arguments);}});_mixitup.controls=[];/**
+         */
+
+        renderStatus: function renderStatus(button, status) {
+            var self = this;
+
+            self.callActions('beforeRenderStatus', arguments);
+
+            switch (status) {
+                case 'active':
+                    h.addClass(button, self.classNames.active);
+                    h.removeClass(button, self.classNames.disabled);
+
+                    if (self.canDisable) self.el.disabled = false;
+
+                    break;
+                case 'inactive':
+                    h.removeClass(button, self.classNames.active);
+                    h.removeClass(button, self.classNames.disabled);
+
+                    if (self.canDisable) self.el.disabled = false;
+
+                    break;
+                case 'disabled':
+                    if (self.canDisable) self.el.disabled = true;
+
+                    h.addClass(button, self.classNames.disabled);
+                    h.removeClass(button, self.classNames.active);
+
+                    break;
+            }
+
+            if (self.status !== 'live') {
+                // Update the control's status propery if not live
+
+                self.status = status;
+            }
+
+            self.callActions('afterRenderStatus', arguments);
+        }
+    });
+
+    _mixitup.controls = [];
+
+    /**
      * @constructor
      * @memberof    mixitup
      * @private
      * @since       3.0.0
-     */_mixitup.StyleData=function(){_mixitup.Base.call(this);this.callActions('beforeConstruct');this.x=0;this.y=0;this.top=0;this.right=0;this.bottom=0;this.left=0;this.width=0;this.height=0;this.marginRight=0;this.marginBottom=0;this.opacity=0;this.scale=new _mixitup.TransformData();this.translateX=new _mixitup.TransformData();this.translateY=new _mixitup.TransformData();this.translateZ=new _mixitup.TransformData();this.rotateX=new _mixitup.TransformData();this.rotateY=new _mixitup.TransformData();this.rotateZ=new _mixitup.TransformData();this.callActions('afterConstruct');h.seal(this);};_mixitup.BaseStatic.call(_mixitup.StyleData);_mixitup.StyleData.prototype=Object.create(_mixitup.Base.prototype);_mixitup.StyleData.prototype.constructor=_mixitup.StyleData;/**
+     */
+
+    _mixitup.StyleData = function () {
+        _mixitup.Base.call(this);
+
+        this.callActions('beforeConstruct');
+
+        this.x = 0;
+        this.y = 0;
+        this.top = 0;
+        this.right = 0;
+        this.bottom = 0;
+        this.left = 0;
+        this.width = 0;
+        this.height = 0;
+        this.marginRight = 0;
+        this.marginBottom = 0;
+        this.opacity = 0;
+        this.scale = new _mixitup.TransformData();
+        this.translateX = new _mixitup.TransformData();
+        this.translateY = new _mixitup.TransformData();
+        this.translateZ = new _mixitup.TransformData();
+        this.rotateX = new _mixitup.TransformData();
+        this.rotateY = new _mixitup.TransformData();
+        this.rotateZ = new _mixitup.TransformData();
+
+        this.callActions('afterConstruct');
+
+        h.seal(this);
+    };
+
+    _mixitup.BaseStatic.call(_mixitup.StyleData);
+
+    _mixitup.StyleData.prototype = Object.create(_mixitup.Base.prototype);
+
+    _mixitup.StyleData.prototype.constructor = _mixitup.StyleData;
+
+    /**
      * @constructor
      * @memberof    mixitup
      * @private
      * @since       3.0.0
-     */_mixitup.TransformData=function(){_mixitup.Base.call(this);this.callActions('beforeConstruct');this.value=0;this.unit='';this.callActions('afterConstruct');h.seal(this);};_mixitup.BaseStatic.call(_mixitup.TransformData);_mixitup.TransformData.prototype=Object.create(_mixitup.Base.prototype);_mixitup.TransformData.prototype.constructor=_mixitup.TransformData;/**
+     */
+
+    _mixitup.TransformData = function () {
+        _mixitup.Base.call(this);
+
+        this.callActions('beforeConstruct');
+
+        this.value = 0;
+        this.unit = '';
+
+        this.callActions('afterConstruct');
+
+        h.seal(this);
+    };
+
+    _mixitup.BaseStatic.call(_mixitup.TransformData);
+
+    _mixitup.TransformData.prototype = Object.create(_mixitup.Base.prototype);
+
+    _mixitup.TransformData.prototype.constructor = _mixitup.TransformData;
+
+    /**
      * @constructor
      * @memberof    mixitup
      * @private
      * @since       3.0.0
-     */_mixitup.TransformDefaults=function(){_mixitup.StyleData.apply(this);this.callActions('beforeConstruct');this.scale.value=0.01;this.scale.unit='';this.translateX.value=20;this.translateX.unit='px';this.translateY.value=20;this.translateY.unit='px';this.translateZ.value=20;this.translateZ.unit='px';this.rotateX.value=90;this.rotateX.unit='deg';this.rotateY.value=90;this.rotateY.unit='deg';this.rotateX.value=90;this.rotateX.unit='deg';this.rotateZ.value=180;this.rotateZ.unit='deg';this.callActions('afterConstruct');h.seal(this);};_mixitup.BaseStatic.call(_mixitup.TransformDefaults);_mixitup.TransformDefaults.prototype=Object.create(_mixitup.StyleData.prototype);_mixitup.TransformDefaults.prototype.constructor=_mixitup.TransformDefaults;/**
+     */
+
+    _mixitup.TransformDefaults = function () {
+        _mixitup.StyleData.apply(this);
+
+        this.callActions('beforeConstruct');
+
+        this.scale.value = 0.01;
+        this.scale.unit = '';
+
+        this.translateX.value = 20;
+        this.translateX.unit = 'px';
+
+        this.translateY.value = 20;
+        this.translateY.unit = 'px';
+
+        this.translateZ.value = 20;
+        this.translateZ.unit = 'px';
+
+        this.rotateX.value = 90;
+        this.rotateX.unit = 'deg';
+
+        this.rotateY.value = 90;
+        this.rotateY.unit = 'deg';
+
+        this.rotateX.value = 90;
+        this.rotateX.unit = 'deg';
+
+        this.rotateZ.value = 180;
+        this.rotateZ.unit = 'deg';
+
+        this.callActions('afterConstruct');
+
+        h.seal(this);
+    };
+
+    _mixitup.BaseStatic.call(_mixitup.TransformDefaults);
+
+    _mixitup.TransformDefaults.prototype = Object.create(_mixitup.StyleData.prototype);
+
+    _mixitup.TransformDefaults.prototype.constructor = _mixitup.TransformDefaults;
+
+    /**
      * @private
      * @static
      * @since   3.0.0
      * @type    {mixitup.TransformDefaults}
-     */_mixitup.transformDefaults=new _mixitup.TransformDefaults();/**
+     */
+
+    _mixitup.transformDefaults = new _mixitup.TransformDefaults();
+
+    /**
      * @constructor
      * @memberof    mixitup
      * @private
      * @since       3.0.0
-     */_mixitup.EventDetail=function(){this.state=null;this.futureState=null;this.instance=null;this.originalEvent=null;};/**
+     */
+
+    _mixitup.EventDetail = function () {
+        this.state = null;
+        this.futureState = null;
+        this.instance = null;
+        this.originalEvent = null;
+    };
+
+    /**
      * The `mixitup.Events` class contains all custom events dispatched by MixItUp at various
      * points within the lifecycle of a mixer operation.
      *
@@ -3521,7 +6051,14 @@ self.status=status;}self.callActions('afterRenderStatus',arguments);}});_mixitup
      * @memberof    mixitup
      * @public
      * @since       3.0.0
-     */_mixitup.Events=function(){_mixitup.Base.call(this);this.callActions('beforeConstruct');/**
+     */
+
+    _mixitup.Events = function () {
+        _mixitup.Base.call(this);
+
+        this.callActions('beforeConstruct');
+
+        /**
          * A custom event triggered immediately after any MixItUp operation is requested
          * and before animations have begun.
          *
@@ -3533,7 +6070,11 @@ self.status=status;}self.callActions('afterRenderStatus',arguments);}});_mixitup
          * @memberof    mixitup.Events
          * @static
          * @type        {CustomEvent}
-         */this.mixStart=null;/**
+         */
+
+        this.mixStart = null;
+
+        /**
          * A custom event triggered when a MixItUp operation is requested while another
          * operation is in progress, and the animation queue is full, or queueing
          * is disabled.
@@ -3542,7 +6083,11 @@ self.status=status;}self.callActions('afterRenderStatus',arguments);}});_mixitup
          * @memberof    mixitup.Events
          * @static
          * @type        {CustomEvent}
-         */this.mixBusy=null;/**
+         */
+
+        this.mixBusy = null;
+
+        /**
          * A custom event triggered after any MixItUp operation has completed, and the
          * state has been updated.
          *
@@ -3550,7 +6095,11 @@ self.status=status;}self.callActions('afterRenderStatus',arguments);}});_mixitup
          * @memberof    mixitup.Events
          * @static
          * @type        {CustomEvent}
-         */this.mixEnd=null;/**
+         */
+
+        this.mixEnd = null;
+
+        /**
          * A custom event triggered whenever a filter operation "fails", i.e. no targets
          * could be found matching the requested filter.
          *
@@ -3558,7 +6107,11 @@ self.status=status;}self.callActions('afterRenderStatus',arguments);}});_mixitup
          * @memberof    mixitup.Events
          * @static
          * @type        {CustomEvent}
-         */this.mixFail=null;/**
+         */
+
+        this.mixFail = null;
+
+        /**
          * A custom event triggered whenever a MixItUp control is clicked, and before its
          * respective operation is requested.
          *
@@ -3569,19 +6122,97 @@ self.status=status;}self.callActions('afterRenderStatus',arguments);}});_mixitup
          * @memberof    mixitup.Events
          * @static
          * @type        {CustomEvent}
-         */this.mixClick=null;this.callActions('afterConstruct');h.seal(this);};_mixitup.BaseStatic.call(_mixitup.Events);_mixitup.Events.prototype=Object.create(_mixitup.Base.prototype);_mixitup.Events.prototype.constructor=_mixitup.Events;/**
+         */
+
+        this.mixClick = null;
+
+        this.callActions('afterConstruct');
+
+        h.seal(this);
+    };
+
+    _mixitup.BaseStatic.call(_mixitup.Events);
+
+    _mixitup.Events.prototype = Object.create(_mixitup.Base.prototype);
+
+    _mixitup.Events.prototype.constructor = _mixitup.Events;
+
+    /**
      * @private
      * @param   {string}      eventType
      * @param   {Element}     el
      * @param   {object}      detail
      * @param   {Document}    [doc]
-     */_mixitup.Events.prototype.fire=function(eventType,el,detail,doc){var self=this,event=null,eventDetail=new _mixitup.EventDetail();self.callActions('beforeFire',arguments);if(typeof self[eventType]==='undefined'){throw new Error('Event type "'+eventType+'" not found.');}eventDetail.state=new _mixitup.State();h.extend(eventDetail.state,detail.state);if(detail.futureState){eventDetail.futureState=new _mixitup.State();h.extend(eventDetail.futureState,detail.futureState);}eventDetail.instance=detail.instance;if(detail.originalEvent){eventDetail.originalEvent=detail.originalEvent;}event=h.getCustomEvent(eventType,eventDetail,doc);self.callFilters('eventFire',event,arguments);el.dispatchEvent(event);};// Asign a singleton instance to `mixitup.events`:
-_mixitup.events=new _mixitup.Events();/**
+     */
+
+    _mixitup.Events.prototype.fire = function (eventType, el, detail, doc) {
+        var self = this,
+            event = null,
+            eventDetail = new _mixitup.EventDetail();
+
+        self.callActions('beforeFire', arguments);
+
+        if (typeof self[eventType] === 'undefined') {
+            throw new Error('Event type "' + eventType + '" not found.');
+        }
+
+        eventDetail.state = new _mixitup.State();
+
+        h.extend(eventDetail.state, detail.state);
+
+        if (detail.futureState) {
+            eventDetail.futureState = new _mixitup.State();
+
+            h.extend(eventDetail.futureState, detail.futureState);
+        }
+
+        eventDetail.instance = detail.instance;
+
+        if (detail.originalEvent) {
+            eventDetail.originalEvent = detail.originalEvent;
+        }
+
+        event = h.getCustomEvent(eventType, eventDetail, doc);
+
+        self.callFilters('eventFire', event, arguments);
+
+        el.dispatchEvent(event);
+    };
+
+    // Asign a singleton instance to `mixitup.events`:
+
+    _mixitup.events = new _mixitup.Events();
+
+    /**
      * @constructor
      * @memberof    mixitup
      * @private
      * @since       3.0.0
-     */_mixitup.QueueItem=function(){_mixitup.Base.call(this);this.callActions('beforeConstruct');this.args=[];this.instruction=null;this.triggerElement=null;this.deferred=null;this.isToggling=false;this.callActions('afterConstruct');h.seal(this);};_mixitup.BaseStatic.call(_mixitup.QueueItem);_mixitup.QueueItem.prototype=Object.create(_mixitup.Base.prototype);_mixitup.QueueItem.prototype.constructor=_mixitup.QueueItem;/**
+     */
+
+    _mixitup.QueueItem = function () {
+        _mixitup.Base.call(this);
+
+        this.callActions('beforeConstruct');
+
+        this.args = [];
+        this.instruction = null;
+        this.triggerElement = null;
+        this.deferred = null;
+        this.isToggling = false;
+
+        this.callActions('afterConstruct');
+
+        h.seal(this);
+    };
+
+    _mixitup.BaseStatic.call(_mixitup.QueueItem);
+
+    _mixitup.QueueItem.prototype = Object.create(_mixitup.Base.prototype);
+
+    _mixitup.QueueItem.prototype.constructor = _mixitup.QueueItem;
+
+    /**
      * The `mixitup.Mixer` class is used to hold discreet, user-configured
      * instances of MixItUp on a provided container element.
      *
@@ -3594,7 +6225,63 @@ _mixitup.events=new _mixitup.Events();/**
      * @memberof    mixitup
      * @public
      * @since       3.0.0
-     */_mixitup.Mixer=function(){_mixitup.Base.call(this);this.callActions('beforeConstruct');this.config=new _mixitup.Config();this.id='';this.isBusy=false;this.isToggling=false;this.incPadding=true;this.controls=[];this.targets=[];this.origOrder=[];this.cache={};this.toggleArray=[];this.targetsMoved=0;this.targetsImmovable=0;this.targetsBound=0;this.targetsDone=0;this.staggerDuration=0;this.effectsIn=null;this.effectsOut=null;this.transformIn=[];this.transformOut=[];this.queue=[];this.state=null;this.lastOperation=null;this.lastClicked=null;this.userCallback=null;this.userDeferred=null;this.dom=new _mixitup.MixerDom();this.callActions('afterConstruct');h.seal(this);};_mixitup.BaseStatic.call(_mixitup.Mixer);_mixitup.Mixer.prototype=Object.create(_mixitup.Base.prototype);h.extend(_mixitup.Mixer.prototype,/** @lends mixitup.Mixer */{constructor:_mixitup.Mixer,/**
+     */
+
+    _mixitup.Mixer = function () {
+        _mixitup.Base.call(this);
+
+        this.callActions('beforeConstruct');
+
+        this.config = new _mixitup.Config();
+
+        this.id = '';
+
+        this.isBusy = false;
+        this.isToggling = false;
+        this.incPadding = true;
+
+        this.controls = [];
+        this.targets = [];
+        this.origOrder = [];
+        this.cache = {};
+
+        this.toggleArray = [];
+
+        this.targetsMoved = 0;
+        this.targetsImmovable = 0;
+        this.targetsBound = 0;
+        this.targetsDone = 0;
+
+        this.staggerDuration = 0;
+        this.effectsIn = null;
+        this.effectsOut = null;
+        this.transformIn = [];
+        this.transformOut = [];
+        this.queue = [];
+
+        this.state = null;
+        this.lastOperation = null;
+        this.lastClicked = null;
+        this.userCallback = null;
+        this.userDeferred = null;
+
+        this.dom = new _mixitup.MixerDom();
+
+        this.callActions('afterConstruct');
+
+        h.seal(this);
+    };
+
+    _mixitup.BaseStatic.call(_mixitup.Mixer);
+
+    _mixitup.Mixer.prototype = Object.create(_mixitup.Base.prototype);
+
+    h.extend(_mixitup.Mixer.prototype,
+    /** @lends mixitup.Mixer */
+    {
+        constructor: _mixitup.Mixer,
+
+        /**
          * @private
          * @instance
          * @since 3.0.0
@@ -3602,23 +6289,168 @@ _mixitup.events=new _mixitup.Events();/**
          * @param {HTMLElement} document
          * @param {string}      id
          * @param {object}      [config]
-         */attach:function attach(container,document,id,config){var self=this,target=null,i=-1;self.callActions('beforeAttach',arguments);self.id=id;if(config){h.extend(self.config,config,true,true);}self.sanitizeConfig();self.cacheDom(container,document);if(self.config.layout.containerClassName){h.addClass(self.dom.container,self.config.layout.containerClassName);}if(!_mixitup.features.has.transitions){self.config.animation.enable=false;}if(typeof window.console==='undefined'){self.config.debug.showWarnings=false;}if(self.config.data.uidKey){// If the dataset API is in use, force disable controls
-self.config.controls.enable=false;}self.indexTargets();self.state=self.getInitialState();for(i=0;target=self.lastOperation.toHide[i];i++){target.hide();}if(self.config.controls.enable){self.initControls();self.updateControls({filter:self.state.activeFilter,sort:self.state.activeSort});self.buildToggleArray(null,self.state);}self.parseEffects();self.callActions('afterAttach',arguments);},/**
+         */
+
+        attach: function attach(container, document, id, config) {
+            var self = this,
+                target = null,
+                i = -1;
+
+            self.callActions('beforeAttach', arguments);
+
+            self.id = id;
+
+            if (config) {
+                h.extend(self.config, config, true, true);
+            }
+
+            self.sanitizeConfig();
+
+            self.cacheDom(container, document);
+
+            if (self.config.layout.containerClassName) {
+                h.addClass(self.dom.container, self.config.layout.containerClassName);
+            }
+
+            if (!_mixitup.features.has.transitions) {
+                self.config.animation.enable = false;
+            }
+
+            if (typeof window.console === 'undefined') {
+                self.config.debug.showWarnings = false;
+            }
+
+            if (self.config.data.uidKey) {
+                // If the dataset API is in use, force disable controls
+
+                self.config.controls.enable = false;
+            }
+
+            self.indexTargets();
+
+            self.state = self.getInitialState();
+
+            for (i = 0; target = self.lastOperation.toHide[i]; i++) {
+                target.hide();
+            }
+
+            if (self.config.controls.enable) {
+                self.initControls();
+
+                self.updateControls({
+                    filter: self.state.activeFilter,
+                    sort: self.state.activeSort
+                });
+
+                self.buildToggleArray(null, self.state);
+            }
+
+            self.parseEffects();
+
+            self.callActions('afterAttach', arguments);
+        },
+
+        /**
          * @private
          * @instance
          * @since 3.0.0
          * @return {void}
-         */sanitizeConfig:function sanitizeConfig(){var self=this;self.callActions('beforeSanitizeConfig',arguments);// Sanitize enum/string config options
-self.config.controls.scope=self.config.controls.scope.toLowerCase().trim();self.config.controls.toggleLogic=self.config.controls.toggleLogic.toLowerCase().trim();self.config.controls.toggleDefault=self.config.controls.toggleDefault.toLowerCase().trim();self.config.animation.effects=self.config.animation.effects.trim();self.callActions('afterSanitizeConfig',arguments);},/**
+         */
+
+        sanitizeConfig: function sanitizeConfig() {
+            var self = this;
+
+            self.callActions('beforeSanitizeConfig', arguments);
+
+            // Sanitize enum/string config options
+
+            self.config.controls.scope = self.config.controls.scope.toLowerCase().trim();
+            self.config.controls.toggleLogic = self.config.controls.toggleLogic.toLowerCase().trim();
+            self.config.controls.toggleDefault = self.config.controls.toggleDefault.toLowerCase().trim();
+
+            self.config.animation.effects = self.config.animation.effects.trim();
+
+            self.callActions('afterSanitizeConfig', arguments);
+        },
+
+        /**
          * @private
          * @instance
          * @since   3.0.0
          * @return  {mixitup.State}
-         */getInitialState:function getInitialState(){var self=this,state=new _mixitup.State(),operation=new _mixitup.Operation();self.callActions('beforeGetInitialState',arguments);// Map initial values into a mock state object in order to construct an operation
-state.activeContainerClassName=self.config.layout.containerClassName;if(self.config.load.dataset){// Dataset API
-if(!self.config.data.uidKey||typeof self.config.data.uidKey!=='string'){throw new TypeError(_mixitup.messages.errorConfigDataUidKeyNotSet());}operation.startDataset=operation.newDataset=state.activeDataset=self.config.load.dataset.slice();operation.startContainerClassName=operation.newContainerClassName=state.activeContainerClassName;operation.show=self.targets.slice();state=self.callFilters('stateGetInitialState',state,arguments);}else{// DOM API
-state.activeFilter=self.parseFilterArgs([self.config.load.filter]).command;state.activeSort=self.parseSortArgs([self.config.load.sort]).command;state.totalTargets=self.targets.length;state=self.callFilters('stateGetInitialState',state,arguments);if(state.activeSort.collection||state.activeSort.attribute||state.activeSort.order==='random'||state.activeSort.order==='desc'){// Sorting on load
-operation.newSort=state.activeSort;self.sortOperation(operation);self.printSort(false,operation);self.targets=operation.newOrder;}else{operation.startOrder=operation.newOrder=self.targets;}operation.startFilter=operation.newFilter=state.activeFilter;operation.startSort=operation.newSort=state.activeSort;operation.startContainerClassName=operation.newContainerClassName=state.activeContainerClassName;if(operation.newFilter.selector==='all'){operation.newFilter.selector=self.config.selectors.target;}else if(operation.newFilter.selector==='none'){operation.newFilter.selector='';}}operation=self.callFilters('operationGetInitialState',operation,[state]);self.lastOperation=operation;if(operation.newFilter){self.filterOperation(operation);}state=self.buildState(operation);return state;},/**
+         */
+
+        getInitialState: function getInitialState() {
+            var self = this,
+                state = new _mixitup.State(),
+                operation = new _mixitup.Operation();
+
+            self.callActions('beforeGetInitialState', arguments);
+
+            // Map initial values into a mock state object in order to construct an operation
+
+            state.activeContainerClassName = self.config.layout.containerClassName;
+
+            if (self.config.load.dataset) {
+                // Dataset API
+
+                if (!self.config.data.uidKey || typeof self.config.data.uidKey !== 'string') {
+                    throw new TypeError(_mixitup.messages.errorConfigDataUidKeyNotSet());
+                }
+
+                operation.startDataset = operation.newDataset = state.activeDataset = self.config.load.dataset.slice();
+                operation.startContainerClassName = operation.newContainerClassName = state.activeContainerClassName;
+                operation.show = self.targets.slice();
+
+                state = self.callFilters('stateGetInitialState', state, arguments);
+            } else {
+                // DOM API
+
+                state.activeFilter = self.parseFilterArgs([self.config.load.filter]).command;
+                state.activeSort = self.parseSortArgs([self.config.load.sort]).command;
+                state.totalTargets = self.targets.length;
+
+                state = self.callFilters('stateGetInitialState', state, arguments);
+
+                if (state.activeSort.collection || state.activeSort.attribute || state.activeSort.order === 'random' || state.activeSort.order === 'desc') {
+                    // Sorting on load
+
+                    operation.newSort = state.activeSort;
+
+                    self.sortOperation(operation);
+
+                    self.printSort(false, operation);
+
+                    self.targets = operation.newOrder;
+                } else {
+                    operation.startOrder = operation.newOrder = self.targets;
+                }
+
+                operation.startFilter = operation.newFilter = state.activeFilter;
+                operation.startSort = operation.newSort = state.activeSort;
+                operation.startContainerClassName = operation.newContainerClassName = state.activeContainerClassName;
+
+                if (operation.newFilter.selector === 'all') {
+                    operation.newFilter.selector = self.config.selectors.target;
+                } else if (operation.newFilter.selector === 'none') {
+                    operation.newFilter.selector = '';
+                }
+            }
+
+            operation = self.callFilters('operationGetInitialState', operation, [state]);
+
+            self.lastOperation = operation;
+
+            if (operation.newFilter) {
+                self.filterOperation(operation);
+            }
+
+            state = self.buildState(operation);
+
+            return state;
+        },
+
+        /**
          * Caches references of DOM elements neccessary for the mixer's functionality.
          *
          * @private
@@ -3627,7 +6459,22 @@ operation.newSort=state.activeSort;self.sortOperation(operation);self.printSort(
          * @param   {HTMLElement}       el
          * @param   {HTMLHtmlElement}   document
          * @return  {void}
-         */cacheDom:function cacheDom(el,document){var self=this;self.callActions('beforeCacheDom',arguments);self.dom.document=document;self.dom.body=self.dom.document.querySelector('body');self.dom.container=el;self.dom.parent=el;self.callActions('afterCacheDom',arguments);},/**
+         */
+
+        cacheDom: function cacheDom(el, document) {
+            var self = this;
+
+            self.callActions('beforeCacheDom', arguments);
+
+            self.dom.document = document;
+            self.dom.body = self.dom.document.querySelector('body');
+            self.dom.container = el;
+            self.dom.parent = el;
+
+            self.callActions('afterCacheDom', arguments);
+        },
+
+        /**
          * Indexes all child elements of the mixer matching the `selectors.target`
          * selector, instantiating a mixitup.Target for each one.
          *
@@ -3635,7 +6482,108 @@ operation.newSort=state.activeSort;self.sortOperation(operation);self.printSort(
          * @instance
          * @since   3.0.0
          * @return  {void}
-         */indexTargets:function indexTargets(){var self=this,target=null,el=null,dataset=null,i=-1;self.callActions('beforeIndexTargets',arguments);self.dom.targets=self.config.layout.allowNestedTargets?self.dom.container.querySelectorAll(self.config.selectors.target):h.children(self.dom.container,self.config.selectors.target,self.dom.document);self.dom.targets=h.arrayFromList(self.dom.targets);self.targets=[];if((dataset=self.config.load.dataset)&&dataset.length!==self.dom.targets.length){throw new Error(_mixitup.messages.errorDatasetPrerenderedMismatch());}if(self.dom.targets.length){for(i=0;el=self.dom.targets[i];i++){target=new _mixitup.Target();target.init(el,self,dataset?dataset[i]:void 0);target.isInDom=true;self.targets.push(target);}self.dom.parent=self.dom.targets[0].parentElement===self.dom.container?self.dom.container:self.dom.targets[0].parentElement;}self.origOrder=self.targets;self.callActions('afterIndexTargets',arguments);},initControls:function initControls(){var self=this,definition='',controlElements=null,el=null,parent=null,delagators=null,control=null,i=-1,j=-1;self.callActions('beforeInitControls',arguments);switch(self.config.controls.scope){case'local':parent=self.dom.container;break;case'global':parent=self.dom.document;break;default:throw new Error(_mixitup.messages.errorConfigInvalidControlsScope());}for(i=0;definition=_mixitup.controlDefinitions[i];i++){if(self.config.controls.live||definition.live){if(definition.parent){delagators=self.dom[definition.parent];if(!delagators||delagators.length<0)continue;if(typeof delagators.length!=='number'){delagators=[delagators];}}else{delagators=[parent];}for(j=0;el=delagators[j];j++){control=self.getControl(el,definition.type,definition.selector);self.controls.push(control);}}else{controlElements=parent.querySelectorAll(self.config.selectors.control+definition.selector);for(j=0;el=controlElements[j];j++){control=self.getControl(el,definition.type,'');if(!control)continue;self.controls.push(control);}}}self.callActions('afterInitControls',arguments);},/**
+         */
+
+        indexTargets: function indexTargets() {
+            var self = this,
+                target = null,
+                el = null,
+                dataset = null,
+                i = -1;
+
+            self.callActions('beforeIndexTargets', arguments);
+
+            self.dom.targets = self.config.layout.allowNestedTargets ? self.dom.container.querySelectorAll(self.config.selectors.target) : h.children(self.dom.container, self.config.selectors.target, self.dom.document);
+
+            self.dom.targets = h.arrayFromList(self.dom.targets);
+
+            self.targets = [];
+
+            if ((dataset = self.config.load.dataset) && dataset.length !== self.dom.targets.length) {
+                throw new Error(_mixitup.messages.errorDatasetPrerenderedMismatch());
+            }
+
+            if (self.dom.targets.length) {
+                for (i = 0; el = self.dom.targets[i]; i++) {
+                    target = new _mixitup.Target();
+
+                    target.init(el, self, dataset ? dataset[i] : void 0);
+
+                    target.isInDom = true;
+
+                    self.targets.push(target);
+                }
+
+                self.dom.parent = self.dom.targets[0].parentElement === self.dom.container ? self.dom.container : self.dom.targets[0].parentElement;
+            }
+
+            self.origOrder = self.targets;
+
+            self.callActions('afterIndexTargets', arguments);
+        },
+
+        initControls: function initControls() {
+            var self = this,
+                definition = '',
+                controlElements = null,
+                el = null,
+                parent = null,
+                delagators = null,
+                control = null,
+                i = -1,
+                j = -1;
+
+            self.callActions('beforeInitControls', arguments);
+
+            switch (self.config.controls.scope) {
+                case 'local':
+                    parent = self.dom.container;
+
+                    break;
+                case 'global':
+                    parent = self.dom.document;
+
+                    break;
+                default:
+                    throw new Error(_mixitup.messages.errorConfigInvalidControlsScope());
+            }
+
+            for (i = 0; definition = _mixitup.controlDefinitions[i]; i++) {
+                if (self.config.controls.live || definition.live) {
+                    if (definition.parent) {
+                        delagators = self.dom[definition.parent];
+
+                        if (!delagators || delagators.length < 0) continue;
+
+                        if (typeof delagators.length !== 'number') {
+                            delagators = [delagators];
+                        }
+                    } else {
+                        delagators = [parent];
+                    }
+
+                    for (j = 0; el = delagators[j]; j++) {
+                        control = self.getControl(el, definition.type, definition.selector);
+
+                        self.controls.push(control);
+                    }
+                } else {
+                    controlElements = parent.querySelectorAll(self.config.selectors.control + definition.selector);
+
+                    for (j = 0; el = controlElements[j]; j++) {
+                        control = self.getControl(el, definition.type, '');
+
+                        if (!control) continue;
+
+                        self.controls.push(control);
+                    }
+                }
+            }
+
+            self.callActions('afterInitControls', arguments);
+        },
+
+        /**
          * @private
          * @instance
          * @since   3.0.0
@@ -3643,14 +6591,54 @@ operation.newSort=state.activeSort;self.sortOperation(operation);self.printSort(
          * @param   {string}      type
          * @param   {string}      selector
          * @return  {mixitup.Control|null}
-         */getControl:function getControl(el,type,selector){var self=this,control=null,i=-1;self.callActions('beforeGetControl',arguments);if(!selector){// Static controls only
-for(i=0;control=_mixitup.controls[i];i++){if(control.el===el&&control.isBound(self)){// Control already bound to this mixer (as another type).
-// NB: This prevents duplicate controls from being registered where a selector
-// might collide, eg: "[data-filter]" and "[data-filter][data-sort]"
-return self.callFilters('controlGetControl',null,arguments);}else if(control.el===el&&control.type===type&&control.selector===selector){// Another mixer is already using this control, add this mixer as a binding
-control.addBinding(self);return self.callFilters('controlGetControl',control,arguments);}}}// Create new control
-control=new _mixitup.Control();control.init(el,type,selector);control.classNames.base=h.getClassname(self.config.classNames,type);control.classNames.active=h.getClassname(self.config.classNames,type,self.config.classNames.modifierActive);control.classNames.disabled=h.getClassname(self.config.classNames,type,self.config.classNames.modifierDisabled);// Add a reference to this mixer as a binding
-control.addBinding(self);return self.callFilters('controlGetControl',control,arguments);},/**
+         */
+
+        getControl: function getControl(el, type, selector) {
+            var self = this,
+                control = null,
+                i = -1;
+
+            self.callActions('beforeGetControl', arguments);
+
+            if (!selector) {
+                // Static controls only
+
+                for (i = 0; control = _mixitup.controls[i]; i++) {
+                    if (control.el === el && control.isBound(self)) {
+                        // Control already bound to this mixer (as another type).
+
+                        // NB: This prevents duplicate controls from being registered where a selector
+                        // might collide, eg: "[data-filter]" and "[data-filter][data-sort]"
+
+                        return self.callFilters('controlGetControl', null, arguments);
+                    } else if (control.el === el && control.type === type && control.selector === selector) {
+                        // Another mixer is already using this control, add this mixer as a binding
+
+                        control.addBinding(self);
+
+                        return self.callFilters('controlGetControl', control, arguments);
+                    }
+                }
+            }
+
+            // Create new control
+
+            control = new _mixitup.Control();
+
+            control.init(el, type, selector);
+
+            control.classNames.base = h.getClassname(self.config.classNames, type);
+            control.classNames.active = h.getClassname(self.config.classNames, type, self.config.classNames.modifierActive);
+            control.classNames.disabled = h.getClassname(self.config.classNames, type, self.config.classNames.modifierDisabled);
+
+            // Add a reference to this mixer as a binding
+
+            control.addBinding(self);
+
+            return self.callFilters('controlGetControl', control, arguments);
+        },
+
+        /**
          * Creates a compound selector by joining the `toggleArray` value as per the
          * defined toggle logic.
          *
@@ -3658,7 +6646,27 @@ control.addBinding(self);return self.callFilters('controlGetControl',control,arg
          * @instance
          * @since   3.0.0
          * @return  {string}
-         */getToggleSelector:function getToggleSelector(){var self=this,delineator=self.config.controls.toggleLogic==='or'?', ':'',toggleSelector='';self.callActions('beforeGetToggleSelector',arguments);self.toggleArray=h.clean(self.toggleArray);toggleSelector=self.toggleArray.join(delineator);if(toggleSelector===''){toggleSelector=self.config.controls.toggleDefault;}return self.callFilters('selectorGetToggleSelector',toggleSelector,arguments);},/**
+         */
+
+        getToggleSelector: function getToggleSelector() {
+            var self = this,
+                delineator = self.config.controls.toggleLogic === 'or' ? ', ' : '',
+                toggleSelector = '';
+
+            self.callActions('beforeGetToggleSelector', arguments);
+
+            self.toggleArray = h.clean(self.toggleArray);
+
+            toggleSelector = self.toggleArray.join(delineator);
+
+            if (toggleSelector === '') {
+                toggleSelector = self.config.controls.toggleDefault;
+            }
+
+            return self.callFilters('selectorGetToggleSelector', toggleSelector, arguments);
+        },
+
+        /**
          * Breaks compound selector strings in an array of discreet selectors,
          * as per the active `controls.toggleLogic` configuration option. Accepts
          * either a dynamic command object, or a state object.
@@ -3669,7 +6677,38 @@ control.addBinding(self);return self.callFilters('controlGetControl',control,arg
          * @param   {object}        [command]
          * @param   {mixitup.State} [state]
          * @return  {void}
-         */buildToggleArray:function buildToggleArray(command,state){var self=this,activeFilterSelector='';self.callActions('beforeBuildToggleArray',arguments);if(command&&command.filter){activeFilterSelector=command.filter.selector.replace(/\s/g,'');}else if(state){activeFilterSelector=state.activeFilter.selector.replace(/\s/g,'');}else{return;}if(activeFilterSelector===self.config.selectors.target||activeFilterSelector==='all'){activeFilterSelector='';}if(self.config.controls.toggleLogic==='or'){self.toggleArray=activeFilterSelector.split(',');}else{self.toggleArray=self.splitCompoundSelector(activeFilterSelector);}self.toggleArray=h.clean(self.toggleArray);self.callActions('afterBuildToggleArray',arguments);},/**
+         */
+
+        buildToggleArray: function buildToggleArray(command, state) {
+            var self = this,
+                activeFilterSelector = '';
+
+            self.callActions('beforeBuildToggleArray', arguments);
+
+            if (command && command.filter) {
+                activeFilterSelector = command.filter.selector.replace(/\s/g, '');
+            } else if (state) {
+                activeFilterSelector = state.activeFilter.selector.replace(/\s/g, '');
+            } else {
+                return;
+            }
+
+            if (activeFilterSelector === self.config.selectors.target || activeFilterSelector === 'all') {
+                activeFilterSelector = '';
+            }
+
+            if (self.config.controls.toggleLogic === 'or') {
+                self.toggleArray = activeFilterSelector.split(',');
+            } else {
+                self.toggleArray = self.splitCompoundSelector(activeFilterSelector);
+            }
+
+            self.toggleArray = h.clean(self.toggleArray);
+
+            self.callActions('afterBuildToggleArray', arguments);
+        },
+
+        /**
          * Takes a compound selector (e.g. `.cat-1.cat-2`, `[data-cat="1"][data-cat="2"]`)
          * and breaks into its individual selectors.
          *
@@ -3678,8 +6717,36 @@ control.addBinding(self);return self.callFilters('controlGetControl',control,arg
          * @since   3.0.0
          * @param   {string} compoundSelector
          * @return  {string[]}
-         */splitCompoundSelector:function splitCompoundSelector(compoundSelector){// Break at a `.` or `[`, capturing the delineator
-var partials=compoundSelector.split(/([\.\[])/g),toggleArray=[],selector='',i=-1;if(partials[0]===''){partials.shift();}for(i=0;i<partials.length;i++){if(i%2===0){selector='';}selector+=partials[i];if(i%2!==0){toggleArray.push(selector);}}return toggleArray;},/**
+         */
+
+        splitCompoundSelector: function splitCompoundSelector(compoundSelector) {
+            // Break at a `.` or `[`, capturing the delineator
+
+            var partials = compoundSelector.split(/([\.\[])/g),
+                toggleArray = [],
+                selector = '',
+                i = -1;
+
+            if (partials[0] === '') {
+                partials.shift();
+            }
+
+            for (i = 0; i < partials.length; i++) {
+                if (i % 2 === 0) {
+                    selector = '';
+                }
+
+                selector += partials[i];
+
+                if (i % 2 !== 0) {
+                    toggleArray.push(selector);
+                }
+            }
+
+            return toggleArray;
+        },
+
+        /**
          * Updates controls to their active/inactive state based on the command or
          * current state of the mixer.
          *
@@ -3688,24 +6755,137 @@ var partials=compoundSelector.split(/([\.\[])/g),toggleArray=[],selector='',i=-1
          * @since   2.0.0
          * @param   {object} command
          * @return  {void}
-         */updateControls:function updateControls(command){var self=this,control=null,output=new _mixitup.CommandMultimix(),i=-1;self.callActions('beforeUpdateControls',arguments);// Sanitise to defaults
-if(command.filter){output.filter=command.filter.selector;}else{output.filter=self.state.activeFilter.selector;}if(command.sort){output.sort=self.buildSortString(command.sort);}else{output.sort=self.buildSortString(self.state.activeSort);}if(output.filter===self.config.selectors.target){output.filter='all';}if(output.filter===''){output.filter='none';}h.freeze(output);for(i=0;control=self.controls[i];i++){control.update(output,self.toggleArray);}self.callActions('afterUpdateControls',arguments);},/**
+         */
+
+        updateControls: function updateControls(command) {
+            var self = this,
+                control = null,
+                output = new _mixitup.CommandMultimix(),
+                i = -1;
+
+            self.callActions('beforeUpdateControls', arguments);
+
+            // Sanitise to defaults
+
+            if (command.filter) {
+                output.filter = command.filter.selector;
+            } else {
+                output.filter = self.state.activeFilter.selector;
+            }
+
+            if (command.sort) {
+                output.sort = self.buildSortString(command.sort);
+            } else {
+                output.sort = self.buildSortString(self.state.activeSort);
+            }
+
+            if (output.filter === self.config.selectors.target) {
+                output.filter = 'all';
+            }
+
+            if (output.filter === '') {
+                output.filter = 'none';
+            }
+
+            h.freeze(output);
+
+            for (i = 0; control = self.controls[i]; i++) {
+                control.update(output, self.toggleArray);
+            }
+
+            self.callActions('afterUpdateControls', arguments);
+        },
+
+        /**
          * @private
          * @instance
          * @since   3.0.0
          * @param   {mixitup.CommandSort}   command
          * @return  {string}
-         */buildSortString:function buildSortString(command){var self=this;var output='';output+=command.sortString;if(command.next){output+=' '+self.buildSortString(command.next);}return output;},/**
+         */
+
+        buildSortString: function buildSortString(command) {
+            var self = this;
+            var output = '';
+
+            output += command.sortString;
+
+            if (command.next) {
+                output += ' ' + self.buildSortString(command.next);
+            }
+
+            return output;
+        },
+
+        /**
          * @private
          * @instance
          * @since   3.0.0
          * @param   {object}        command
          * @param   {Operation}     operation
          * @return  {Promise.<mixitup.State>}
-         */insertTargets:function insertTargets(command,operation){var self=this,nextSibling=null,insertionIndex=-1,frag=null,target=null,el=null,i=-1;self.callActions('beforeInsertTargets',arguments);if(typeof command.index==='undefined')command.index=0;nextSibling=self.getNextSibling(command.index,command.sibling,command.position);frag=self.dom.document.createDocumentFragment();if(nextSibling){insertionIndex=h.index(nextSibling,self.config.selectors.target);}else{insertionIndex=self.targets.length;}if(command.collection){for(i=0;el=command.collection[i];i++){if(self.dom.targets.indexOf(el)>-1){throw new Error(_mixitup.messages.errorInsertPreexistingElement());}// Ensure elements are hidden when they are added to the DOM, so they can
-// be animated in gracefully
-el.style.display='none';frag.appendChild(el);frag.appendChild(self.dom.document.createTextNode(' '));if(!h.isElement(el,self.dom.document)||!el.matches(self.config.selectors.target))continue;target=new _mixitup.Target();target.init(el,self);target.isInDom=true;self.targets.splice(insertionIndex,0,target);insertionIndex++;}self.dom.parent.insertBefore(frag,nextSibling);}// Since targets have been added, the original order must be updated
-operation.startOrder=self.origOrder=self.targets;self.callActions('afterInsertTargets',arguments);},/**
+         */
+
+        insertTargets: function insertTargets(command, operation) {
+            var self = this,
+                nextSibling = null,
+                insertionIndex = -1,
+                frag = null,
+                target = null,
+                el = null,
+                i = -1;
+
+            self.callActions('beforeInsertTargets', arguments);
+
+            if (typeof command.index === 'undefined') command.index = 0;
+
+            nextSibling = self.getNextSibling(command.index, command.sibling, command.position);
+            frag = self.dom.document.createDocumentFragment();
+
+            if (nextSibling) {
+                insertionIndex = h.index(nextSibling, self.config.selectors.target);
+            } else {
+                insertionIndex = self.targets.length;
+            }
+
+            if (command.collection) {
+                for (i = 0; el = command.collection[i]; i++) {
+                    if (self.dom.targets.indexOf(el) > -1) {
+                        throw new Error(_mixitup.messages.errorInsertPreexistingElement());
+                    }
+
+                    // Ensure elements are hidden when they are added to the DOM, so they can
+                    // be animated in gracefully
+
+                    el.style.display = 'none';
+
+                    frag.appendChild(el);
+                    frag.appendChild(self.dom.document.createTextNode(' '));
+
+                    if (!h.isElement(el, self.dom.document) || !el.matches(self.config.selectors.target)) continue;
+
+                    target = new _mixitup.Target();
+
+                    target.init(el, self);
+
+                    target.isInDom = true;
+
+                    self.targets.splice(insertionIndex, 0, target);
+
+                    insertionIndex++;
+                }
+
+                self.dom.parent.insertBefore(frag, nextSibling);
+            }
+
+            // Since targets have been added, the original order must be updated
+
+            operation.startOrder = self.origOrder = self.targets;
+
+            self.callActions('afterInsertTargets', arguments);
+        },
+
+        /**
          * @private
          * @instance
          * @since   3.0.0
@@ -3713,20 +6893,110 @@ operation.startOrder=self.origOrder=self.targets;self.callActions('afterInsertTa
          * @param   {Element}     [sibling]
          * @param   {string}      [position]
          * @return  {Element}
-         */getNextSibling:function getNextSibling(index,sibling,position){var self=this,element=null;index=Math.max(index,0);if(sibling&&position==='before'){// Explicit sibling
-element=sibling;}else if(sibling&&position==='after'){// Explicit sibling
-element=sibling.nextElementSibling||null;}else if(self.targets.length>0&&typeof index!=='undefined'){// Index and targets exist
-element=index<self.targets.length||!self.targets.length?self.targets[index].dom.el:self.targets[self.targets.length-1].dom.el.nextElementSibling;}else if(self.targets.length===0&&self.dom.parent.children.length>0){// No targets but other siblings
-if(self.config.layout.siblingAfter){element=self.config.layout.siblingAfter;}else if(self.config.layout.siblingBefore){element=self.config.layout.siblingBefore.nextElementSibling;}else{self.dom.parent.children[0];}}else{element===null;}return self.callFilters('elementGetNextSibling',element,arguments);},/**
+         */
+
+        getNextSibling: function getNextSibling(index, sibling, position) {
+            var self = this,
+                element = null;
+
+            index = Math.max(index, 0);
+
+            if (sibling && position === 'before') {
+                // Explicit sibling
+
+                element = sibling;
+            } else if (sibling && position === 'after') {
+                // Explicit sibling
+
+                element = sibling.nextElementSibling || null;
+            } else if (self.targets.length > 0 && typeof index !== 'undefined') {
+                // Index and targets exist
+
+                element = index < self.targets.length || !self.targets.length ? self.targets[index].dom.el : self.targets[self.targets.length - 1].dom.el.nextElementSibling;
+            } else if (self.targets.length === 0 && self.dom.parent.children.length > 0) {
+                // No targets but other siblings
+
+                if (self.config.layout.siblingAfter) {
+                    element = self.config.layout.siblingAfter;
+                } else if (self.config.layout.siblingBefore) {
+                    element = self.config.layout.siblingBefore.nextElementSibling;
+                } else {
+                    self.dom.parent.children[0];
+                }
+            } else {
+                element === null;
+            }
+
+            return self.callFilters('elementGetNextSibling', element, arguments);
+        },
+
+        /**
          * @private
          * @instance
          * @since   2.0.0
          * @param   {Operation}     operation
          * @return  {void}
-         */filterOperation:function filterOperation(operation){var self=this,testResult=false,index=-1,action='',target=null,i=-1;self.callActions('beforeFilterOperation',arguments);action=operation.newFilter.action;for(i=0;target=operation.newOrder[i];i++){if(operation.newFilter.collection){// show via collection
-testResult=operation.newFilter.collection.indexOf(target.dom.el)>-1;}else{// show via selector
-if(operation.newFilter.selector===''){testResult=false;}else{testResult=target.dom.el.matches(operation.newFilter.selector);}}self.evaluateHideShow(testResult,target,action,operation);}if(operation.toRemove.length){for(i=0;target=operation.show[i];i++){if(operation.toRemove.indexOf(target)>-1){// If any shown targets should be removed, move them into the toHide array
-operation.show.splice(i,1);if((index=operation.toShow.indexOf(target))>-1){operation.toShow.splice(index,1);}operation.toHide.push(target);operation.hide.push(target);i--;}}}operation.matching=operation.show.slice();if(operation.show.length===0&&operation.newFilter.selector!==''&&self.targets.length!==0){operation.hasFailed=true;}self.callActions('afterFilterOperation',arguments);},/**
+         */
+
+        filterOperation: function filterOperation(operation) {
+            var self = this,
+                testResult = false,
+                index = -1,
+                action = '',
+                target = null,
+                i = -1;
+
+            self.callActions('beforeFilterOperation', arguments);
+
+            action = operation.newFilter.action;
+
+            for (i = 0; target = operation.newOrder[i]; i++) {
+                if (operation.newFilter.collection) {
+                    // show via collection
+
+                    testResult = operation.newFilter.collection.indexOf(target.dom.el) > -1;
+                } else {
+                    // show via selector
+
+                    if (operation.newFilter.selector === '') {
+                        testResult = false;
+                    } else {
+                        testResult = target.dom.el.matches(operation.newFilter.selector);
+                    }
+                }
+
+                self.evaluateHideShow(testResult, target, action, operation);
+            }
+
+            if (operation.toRemove.length) {
+                for (i = 0; target = operation.show[i]; i++) {
+                    if (operation.toRemove.indexOf(target) > -1) {
+                        // If any shown targets should be removed, move them into the toHide array
+
+                        operation.show.splice(i, 1);
+
+                        if ((index = operation.toShow.indexOf(target)) > -1) {
+                            operation.toShow.splice(index, 1);
+                        }
+
+                        operation.toHide.push(target);
+                        operation.hide.push(target);
+
+                        i--;
+                    }
+                }
+            }
+
+            operation.matching = operation.show.slice();
+
+            if (operation.show.length === 0 && operation.newFilter.selector !== '' && self.targets.length !== 0) {
+                operation.hasFailed = true;
+            }
+
+            self.callActions('afterFilterOperation', arguments);
+        },
+
+        /**
          * @private
          * @instance
          * @since   3.0.0
@@ -3735,17 +7005,75 @@ operation.show.splice(i,1);if((index=operation.toShow.indexOf(target))>-1){opera
          * @param   {string}    action
          * @param   {Operation} operation
          * @return  {void}
-         */evaluateHideShow:function evaluateHideShow(testResult,target,action,operation){var self=this;self.callActions('beforeEvaluateHideShow',arguments);if(testResult===true&&action==='show'||testResult===false&&action==='hide'){operation.show.push(target);!target.isShown&&operation.toShow.push(target);}else{operation.hide.push(target);target.isShown&&operation.toHide.push(target);}self.callActions('afterEvaluateHideShow',arguments);},/**
+         */
+
+        evaluateHideShow: function evaluateHideShow(testResult, target, action, operation) {
+            var self = this;
+
+            self.callActions('beforeEvaluateHideShow', arguments);
+
+            if (testResult === true && action === 'show' || testResult === false && action === 'hide') {
+                operation.show.push(target);
+
+                !target.isShown && operation.toShow.push(target);
+            } else {
+                operation.hide.push(target);
+
+                target.isShown && operation.toHide.push(target);
+            }
+
+            self.callActions('afterEvaluateHideShow', arguments);
+        },
+
+        /**
          * @private
          * @instance
          * @since   2.0.0
          * @param   {Operation}     operation
          * @return  {void}
-         */sortOperation:function sortOperation(operation){var self=this;self.callActions('beforeSortOperation',arguments);operation.startOrder=self.targets;if(operation.newSort.collection){// Sort by collection
-operation.newOrder=operation.newSort.collection;}else if(operation.newSort.order==='random'){// Sort random
-operation.newOrder=h.arrayShuffle(operation.startOrder);}else if(operation.newSort.attribute===''){// Sort by default
-operation.newOrder=self.origOrder.slice();if(operation.newSort.order==='desc'){operation.newOrder.reverse();}}else{// Sort by attribute
-operation.newOrder=operation.startOrder.slice();operation.newOrder.sort(function(a,b){return self.compare(a,b,operation.newSort);});}if(h.isEqualArray(operation.newOrder,operation.startOrder)){operation.willSort=false;}self.callActions('afterSortOperation',arguments);},/**
+         */
+
+        sortOperation: function sortOperation(operation) {
+            var self = this;
+
+            self.callActions('beforeSortOperation', arguments);
+
+            operation.startOrder = self.targets;
+
+            if (operation.newSort.collection) {
+                // Sort by collection
+
+                operation.newOrder = operation.newSort.collection;
+            } else if (operation.newSort.order === 'random') {
+                // Sort random
+
+                operation.newOrder = h.arrayShuffle(operation.startOrder);
+            } else if (operation.newSort.attribute === '') {
+                // Sort by default
+
+                operation.newOrder = self.origOrder.slice();
+
+                if (operation.newSort.order === 'desc') {
+                    operation.newOrder.reverse();
+                }
+            } else {
+                // Sort by attribute
+
+                operation.newOrder = operation.startOrder.slice();
+
+                operation.newOrder.sort(function (a, b) {
+                    return self.compare(a, b, operation.newSort);
+                });
+            }
+
+            if (h.isEqualArray(operation.newOrder, operation.startOrder)) {
+                operation.willSort = false;
+            }
+
+            self.callActions('afterSortOperation', arguments);
+        },
+
+        /**
          * @private
          * @instance
          * @since   2.0.0
@@ -3753,7 +7081,38 @@ operation.newOrder=operation.startOrder.slice();operation.newOrder.sort(function
          * @param   {mixitup.Target}        b
          * @param   {mixitup.CommandSort}   command
          * @return  {Number}
-         */compare:function compare(a,b,command){var self=this,order=command.order,attrA=self.getAttributeValue(a,command.attribute),attrB=self.getAttributeValue(b,command.attribute);if(isNaN(attrA*1)||isNaN(attrB*1)){attrA=attrA.toLowerCase();attrB=attrB.toLowerCase();}else{attrA=attrA*1;attrB=attrB*1;}if(attrA<attrB){return order==='asc'?-1:1;}if(attrA>attrB){return order==='asc'?1:-1;}if(attrA===attrB&&command.next){return self.compare(a,b,command.next);}return 0;},/**
+         */
+
+        compare: function compare(a, b, command) {
+            var self = this,
+                order = command.order,
+                attrA = self.getAttributeValue(a, command.attribute),
+                attrB = self.getAttributeValue(b, command.attribute);
+
+            if (isNaN(attrA * 1) || isNaN(attrB * 1)) {
+                attrA = attrA.toLowerCase();
+                attrB = attrB.toLowerCase();
+            } else {
+                attrA = attrA * 1;
+                attrB = attrB * 1;
+            }
+
+            if (attrA < attrB) {
+                return order === 'asc' ? -1 : 1;
+            }
+
+            if (attrA > attrB) {
+                return order === 'asc' ? 1 : -1;
+            }
+
+            if (attrA === attrB && command.next) {
+                return self.compare(a, b, command.next);
+            }
+
+            return 0;
+        },
+
+        /**
          * Reads the values of any data attributes present the provided target element
          * which match the current sort command.
          *
@@ -3763,10 +7122,31 @@ operation.newOrder=operation.startOrder.slice();operation.newOrder.sort(function
          * @param   {mixitup.Target}    target
          * @param   {string}            [attribute]
          * @return  {(String|Number)}
-         */getAttributeValue:function getAttributeValue(target,attribute){var self=this,value='';value=target.dom.el.getAttribute('data-'+attribute);if(value===null){if(self.config.debug.showWarnings){// Encourage users to assign values to all targets to avoid erroneous sorting
-// when types are mixed
-console.warn(_mixitup.messages.warningInconsistentSortingAttributes({attribute:'data-'+attribute}));}}// If an attribute is not present, return 0 as a safety value
-return self.callFilters('valueGetAttributeValue',value||0,arguments);},/**
+         */
+
+        getAttributeValue: function getAttributeValue(target, attribute) {
+            var self = this,
+                value = '';
+
+            value = target.dom.el.getAttribute('data-' + attribute);
+
+            if (value === null) {
+                if (self.config.debug.showWarnings) {
+                    // Encourage users to assign values to all targets to avoid erroneous sorting
+                    // when types are mixed
+
+                    console.warn(_mixitup.messages.warningInconsistentSortingAttributes({
+                        attribute: 'data-' + attribute
+                    }));
+                }
+            }
+
+            // If an attribute is not present, return 0 as a safety value
+
+            return self.callFilters('valueGetAttributeValue', value || 0, arguments);
+        },
+
+        /**
          * Inserts elements into the DOM in the appropriate
          * order using a document fragment for minimal
          * DOM thrashing
@@ -3777,11 +7157,70 @@ return self.callFilters('valueGetAttributeValue',value||0,arguments);},/**
          * @param   {boolean}   isResetting
          * @param   {Operation} operation
          * @return  {void}
-         */printSort:function printSort(isResetting,operation){var self=this,startOrder=isResetting?operation.newOrder:operation.startOrder,newOrder=isResetting?operation.startOrder:operation.newOrder,nextSibling=startOrder.length?startOrder[startOrder.length-1].dom.el.nextElementSibling:null,frag=window.document.createDocumentFragment(),whitespace=null,target=null,el=null,i=-1;self.callActions('beforePrintSort',arguments);// Empty the container
-for(i=0;target=startOrder[i];i++){el=target.dom.el;if(el.style.position==='absolute')continue;h.removeWhitespace(el.previousSibling);el.parentElement.removeChild(el);}whitespace=nextSibling?nextSibling.previousSibling:self.dom.parent.lastChild;if(whitespace&&whitespace.nodeName==='#text'){h.removeWhitespace(whitespace);}for(i=0;target=newOrder[i];i++){// Add targets into a document fragment
-el=target.dom.el;if(h.isElement(frag.lastChild)){frag.appendChild(window.document.createTextNode(' '));}frag.appendChild(el);}// Insert the document fragment into the container
-// before any other non-target elements
-if(self.dom.parent.firstChild&&self.dom.parent.firstChild!==nextSibling){frag.insertBefore(window.document.createTextNode(' '),frag.childNodes[0]);}if(nextSibling){frag.appendChild(window.document.createTextNode(' '));self.dom.parent.insertBefore(frag,nextSibling);}else{self.dom.parent.appendChild(frag);}self.callActions('afterPrintSort',arguments);},/**
+         */
+
+        printSort: function printSort(isResetting, operation) {
+            var self = this,
+                startOrder = isResetting ? operation.newOrder : operation.startOrder,
+                newOrder = isResetting ? operation.startOrder : operation.newOrder,
+                nextSibling = startOrder.length ? startOrder[startOrder.length - 1].dom.el.nextElementSibling : null,
+                frag = window.document.createDocumentFragment(),
+                whitespace = null,
+                target = null,
+                el = null,
+                i = -1;
+
+            self.callActions('beforePrintSort', arguments);
+
+            // Empty the container
+
+            for (i = 0; target = startOrder[i]; i++) {
+                el = target.dom.el;
+
+                if (el.style.position === 'absolute') continue;
+
+                h.removeWhitespace(el.previousSibling);
+
+                el.parentElement.removeChild(el);
+            }
+
+            whitespace = nextSibling ? nextSibling.previousSibling : self.dom.parent.lastChild;
+
+            if (whitespace && whitespace.nodeName === '#text') {
+                h.removeWhitespace(whitespace);
+            }
+
+            for (i = 0; target = newOrder[i]; i++) {
+                // Add targets into a document fragment
+
+                el = target.dom.el;
+
+                if (h.isElement(frag.lastChild)) {
+                    frag.appendChild(window.document.createTextNode(' '));
+                }
+
+                frag.appendChild(el);
+            }
+
+            // Insert the document fragment into the container
+            // before any other non-target elements
+
+            if (self.dom.parent.firstChild && self.dom.parent.firstChild !== nextSibling) {
+                frag.insertBefore(window.document.createTextNode(' '), frag.childNodes[0]);
+            }
+
+            if (nextSibling) {
+                frag.appendChild(window.document.createTextNode(' '));
+
+                self.dom.parent.insertBefore(frag, nextSibling);
+            } else {
+                self.dom.parent.appendChild(frag);
+            }
+
+            self.callActions('afterPrintSort', arguments);
+        },
+
+        /**
          * Parses user-defined sort strings (i.e. `default:asc`) into sort commands objects.
          *
          * @private
@@ -3790,11 +7229,57 @@ if(self.dom.parent.firstChild&&self.dom.parent.firstChild!==nextSibling){frag.in
          * @param   {string}                sortString
          * @param   {mixitup.CommandSort}   command
          * @return  {mixitup.CommandSort}
-         */parseSortString:function parseSortString(sortString,command){var self=this,rules=sortString.split(' '),current=command,rule=[],i=-1;// command.sortString = sortString;
-for(i=0;i<rules.length;i++){rule=rules[i].split(':');current.sortString=rules[i];current.attribute=h.dashCase(rule[0]);current.order=rule[1]||'asc';switch(current.attribute){case'default':// treat "default" as sorting by no attribute
-current.attribute='';break;case'random':// treat "random" as an order not an attribute
-current.attribute='';current.order='random';break;}if(!current.attribute||current.order==='random')break;if(i<rules.length-1){// Embed reference to the next command
-current.next=new _mixitup.CommandSort();h.freeze(current);current=current.next;}}return self.callFilters('commandsParseSort',command,arguments);},/**
+         */
+
+        parseSortString: function parseSortString(sortString, command) {
+            var self = this,
+                rules = sortString.split(' '),
+                current = command,
+                rule = [],
+                i = -1;
+
+            // command.sortString = sortString;
+
+            for (i = 0; i < rules.length; i++) {
+                rule = rules[i].split(':');
+
+                current.sortString = rules[i];
+                current.attribute = h.dashCase(rule[0]);
+                current.order = rule[1] || 'asc';
+
+                switch (current.attribute) {
+                    case 'default':
+                        // treat "default" as sorting by no attribute
+
+                        current.attribute = '';
+
+                        break;
+                    case 'random':
+                        // treat "random" as an order not an attribute
+
+                        current.attribute = '';
+                        current.order = 'random';
+
+                        break;
+                }
+
+                if (!current.attribute || current.order === 'random') break;
+
+                if (i < rules.length - 1) {
+                    // Embed reference to the next command
+
+                    current.next = new _mixitup.CommandSort();
+
+                    h.freeze(current);
+
+                    current = current.next;
+                }
+            }
+
+            return self.callFilters('commandsParseSort', command, arguments);
+        },
+
+        /**
          * Parses all effects out of the user-defined `animation.effects` string into
          * their respective properties and units.
          *
@@ -3802,7 +7287,42 @@ current.next=new _mixitup.CommandSort();h.freeze(current);current=current.next;}
          * @instance
          * @since   2.0.0
          * @return  {void}
-         */parseEffects:function parseEffects(){var self=this,transformName='',effectsIn=self.config.animation.effectsIn||self.config.animation.effects,effectsOut=self.config.animation.effectsOut||self.config.animation.effects;self.callActions('beforeParseEffects',arguments);self.effectsIn=new _mixitup.StyleData();self.effectsOut=new _mixitup.StyleData();self.transformIn=[];self.transformOut=[];self.effectsIn.opacity=self.effectsOut.opacity=1;self.parseEffect('fade',effectsIn,self.effectsIn,self.transformIn);self.parseEffect('fade',effectsOut,self.effectsOut,self.transformOut,true);for(transformName in _mixitup.transformDefaults){if(!(_mixitup.transformDefaults[transformName]instanceof _mixitup.TransformData)){continue;}self.parseEffect(transformName,effectsIn,self.effectsIn,self.transformIn);self.parseEffect(transformName,effectsOut,self.effectsOut,self.transformOut,true);}self.parseEffect('stagger',effectsIn,self.effectsIn,self.transformIn);self.parseEffect('stagger',effectsOut,self.effectsOut,self.transformOut,true);self.callActions('afterParseEffects',arguments);},/**
+         */
+
+        parseEffects: function parseEffects() {
+            var self = this,
+                transformName = '',
+                effectsIn = self.config.animation.effectsIn || self.config.animation.effects,
+                effectsOut = self.config.animation.effectsOut || self.config.animation.effects;
+
+            self.callActions('beforeParseEffects', arguments);
+
+            self.effectsIn = new _mixitup.StyleData();
+            self.effectsOut = new _mixitup.StyleData();
+            self.transformIn = [];
+            self.transformOut = [];
+
+            self.effectsIn.opacity = self.effectsOut.opacity = 1;
+
+            self.parseEffect('fade', effectsIn, self.effectsIn, self.transformIn);
+            self.parseEffect('fade', effectsOut, self.effectsOut, self.transformOut, true);
+
+            for (transformName in _mixitup.transformDefaults) {
+                if (!(_mixitup.transformDefaults[transformName] instanceof _mixitup.TransformData)) {
+                    continue;
+                }
+
+                self.parseEffect(transformName, effectsIn, self.effectsIn, self.transformIn);
+                self.parseEffect(transformName, effectsOut, self.effectsOut, self.transformOut, true);
+            }
+
+            self.parseEffect('stagger', effectsIn, self.effectsIn, self.transformIn);
+            self.parseEffect('stagger', effectsOut, self.effectsOut, self.transformOut, true);
+
+            self.callActions('afterParseEffects', arguments);
+        },
+
+        /**
          * @private
          * @instance
          * @since   2.0.0
@@ -3811,103 +7331,750 @@ current.next=new _mixitup.CommandSort();h.freeze(current);current=current.next;}
          * @param   {StyleData} effects
          * @param   {String[]}  transform
          * @param   {boolean}   [isOut]
-         */parseEffect:function parseEffect(effectName,effectString,effects,transform,isOut){var self=this,re=/\(([^)]+)\)/,propIndex=-1,str='',match=[],val='',units=['%','px','em','rem','vh','vw','deg'],unit='',i=-1;self.callActions('beforeParseEffect',arguments);if(typeof effectString!=='string'){throw new TypeError(_mixitup.messages.errorConfigInvalidAnimationEffects());}if(effectString.indexOf(effectName)<0){// The effect is not present in the effects string
-if(effectName==='stagger'){// Reset stagger to 0
-self.staggerDuration=0;}return;}// The effect is present
-propIndex=effectString.indexOf(effectName+'(');if(propIndex>-1){// The effect has a user defined value in parentheses
-// Extract from the first parenthesis to the end of string
-str=effectString.substring(propIndex);// Match any number of characters between "(" and ")"
-match=re.exec(str);val=match[1];}switch(effectName){case'fade':effects.opacity=val?parseFloat(val):0;break;case'stagger':self.staggerDuration=val?parseFloat(val):100;// TODO: Currently stagger must be applied globally, but
-// if seperate values are specified for in/out, this should
-// be respected
-break;default:// All other effects are transforms following the same structure
-if(isOut&&self.config.animation.reverseOut&&effectName!=='scale'){effects[effectName].value=(val?parseFloat(val):_mixitup.transformDefaults[effectName].value)*-1;}else{effects[effectName].value=val?parseFloat(val):_mixitup.transformDefaults[effectName].value;}if(val){for(i=0;unit=units[i];i++){if(val.indexOf(unit)>-1){effects[effectName].unit=unit;break;}}}else{effects[effectName].unit=_mixitup.transformDefaults[effectName].unit;}transform.push(effectName+'('+effects[effectName].value+effects[effectName].unit+')');}self.callActions('afterParseEffect',arguments);},/**
+         */
+
+        parseEffect: function parseEffect(effectName, effectString, effects, transform, isOut) {
+            var self = this,
+                re = /\(([^)]+)\)/,
+                propIndex = -1,
+                str = '',
+                match = [],
+                val = '',
+                units = ['%', 'px', 'em', 'rem', 'vh', 'vw', 'deg'],
+                unit = '',
+                i = -1;
+
+            self.callActions('beforeParseEffect', arguments);
+
+            if (typeof effectString !== 'string') {
+                throw new TypeError(_mixitup.messages.errorConfigInvalidAnimationEffects());
+            }
+
+            if (effectString.indexOf(effectName) < 0) {
+                // The effect is not present in the effects string
+
+                if (effectName === 'stagger') {
+                    // Reset stagger to 0
+
+                    self.staggerDuration = 0;
+                }
+
+                return;
+            }
+
+            // The effect is present
+
+            propIndex = effectString.indexOf(effectName + '(');
+
+            if (propIndex > -1) {
+                // The effect has a user defined value in parentheses
+
+                // Extract from the first parenthesis to the end of string
+
+                str = effectString.substring(propIndex);
+
+                // Match any number of characters between "(" and ")"
+
+                match = re.exec(str);
+
+                val = match[1];
+            }
+
+            switch (effectName) {
+                case 'fade':
+                    effects.opacity = val ? parseFloat(val) : 0;
+
+                    break;
+                case 'stagger':
+                    self.staggerDuration = val ? parseFloat(val) : 100;
+
+                    // TODO: Currently stagger must be applied globally, but
+                    // if seperate values are specified for in/out, this should
+                    // be respected
+
+                    break;
+                default:
+                    // All other effects are transforms following the same structure
+
+                    if (isOut && self.config.animation.reverseOut && effectName !== 'scale') {
+                        effects[effectName].value = (val ? parseFloat(val) : _mixitup.transformDefaults[effectName].value) * -1;
+                    } else {
+                        effects[effectName].value = val ? parseFloat(val) : _mixitup.transformDefaults[effectName].value;
+                    }
+
+                    if (val) {
+                        for (i = 0; unit = units[i]; i++) {
+                            if (val.indexOf(unit) > -1) {
+                                effects[effectName].unit = unit;
+
+                                break;
+                            }
+                        }
+                    } else {
+                        effects[effectName].unit = _mixitup.transformDefaults[effectName].unit;
+                    }
+
+                    transform.push(effectName + '(' + effects[effectName].value + effects[effectName].unit + ')');
+            }
+
+            self.callActions('afterParseEffect', arguments);
+        },
+
+        /**
          * @private
          * @instance
          * @since   2.0.0
          * @param   {Operation}     operation
          * @return  {State}
-         */buildState:function buildState(operation){var self=this,state=new _mixitup.State(),target=null,i=-1;self.callActions('beforeBuildState',arguments);// Map target elements into state arrays.
-// the real target objects should never be exposed
-for(i=0;target=self.targets[i];i++){if(!operation.toRemove.length||operation.toRemove.indexOf(target)<0){state.targets.push(target.dom.el);}}for(i=0;target=operation.matching[i];i++){state.matching.push(target.dom.el);}for(i=0;target=operation.show[i];i++){state.show.push(target.dom.el);}for(i=0;target=operation.hide[i];i++){if(!operation.toRemove.length||operation.toRemove.indexOf(target)<0){state.hide.push(target.dom.el);}}state.id=self.id;state.container=self.dom.container;state.activeFilter=operation.newFilter;state.activeSort=operation.newSort;state.activeDataset=operation.newDataset;state.activeContainerClassName=operation.newContainerClassName;state.hasFailed=operation.hasFailed;state.totalTargets=self.targets.length;state.totalShow=operation.show.length;state.totalHide=operation.hide.length;state.totalMatching=operation.matching.length;state.triggerElement=operation.triggerElement;return self.callFilters('stateBuildState',state,arguments);},/**
+         */
+
+        buildState: function buildState(operation) {
+            var self = this,
+                state = new _mixitup.State(),
+                target = null,
+                i = -1;
+
+            self.callActions('beforeBuildState', arguments);
+
+            // Map target elements into state arrays.
+            // the real target objects should never be exposed
+
+            for (i = 0; target = self.targets[i]; i++) {
+                if (!operation.toRemove.length || operation.toRemove.indexOf(target) < 0) {
+                    state.targets.push(target.dom.el);
+                }
+            }
+
+            for (i = 0; target = operation.matching[i]; i++) {
+                state.matching.push(target.dom.el);
+            }
+
+            for (i = 0; target = operation.show[i]; i++) {
+                state.show.push(target.dom.el);
+            }
+
+            for (i = 0; target = operation.hide[i]; i++) {
+                if (!operation.toRemove.length || operation.toRemove.indexOf(target) < 0) {
+                    state.hide.push(target.dom.el);
+                }
+            }
+
+            state.id = self.id;
+            state.container = self.dom.container;
+            state.activeFilter = operation.newFilter;
+            state.activeSort = operation.newSort;
+            state.activeDataset = operation.newDataset;
+            state.activeContainerClassName = operation.newContainerClassName;
+            state.hasFailed = operation.hasFailed;
+            state.totalTargets = self.targets.length;
+            state.totalShow = operation.show.length;
+            state.totalHide = operation.hide.length;
+            state.totalMatching = operation.matching.length;
+            state.triggerElement = operation.triggerElement;
+
+            return self.callFilters('stateBuildState', state, arguments);
+        },
+
+        /**
          * @private
          * @instance
          * @since   2.0.0
          * @param   {boolean}   shouldAnimate
          * @param   {Operation} operation
          * @return  {void}
-         */goMix:function goMix(shouldAnimate,operation){var self=this,deferred=null;self.callActions('beforeGoMix',arguments);// If the animation duration is set to 0ms,
-// or no effects specified,
-// or the container is hidden
-// then abort animation
-if(!self.config.animation.duration||!self.config.animation.effects||!h.isVisible(self.dom.container)){shouldAnimate=false;}if(!operation.toShow.length&&!operation.toHide.length&&!operation.willSort&&!operation.willChangeLayout){// If nothing to show or hide, and not sorting or
-// changing layout
-shouldAnimate=false;}if(!operation.startState.show.length&&!operation.show.length){// If nothing currently shown, nothing to show
-shouldAnimate=false;}_mixitup.events.fire('mixStart',self.dom.container,{state:operation.startState,futureState:operation.newState,instance:self},self.dom.document);if(typeof self.config.callbacks.onMixStart==='function'){self.config.callbacks.onMixStart.call(self.dom.container,operation.startState,operation.newState,self);}h.removeClass(self.dom.container,h.getClassname(self.config.classNames,'container',self.config.classNames.modifierFailed));if(!self.userDeferred){// Queue empty, no pending operations
-deferred=self.userDeferred=h.defer(_mixitup.libraries);}else{// Use existing deferred
-deferred=self.userDeferred;}self.isBusy=true;if(!shouldAnimate||!_mixitup.features.has.transitions){// Abort
-if(self.config.debug.fauxAsync){setTimeout(function(){self.cleanUp(operation);},self.config.animation.duration);}else{self.cleanUp(operation);}return self.callFilters('promiseGoMix',deferred.promise,arguments);}// If we should animate and the platform supports transitions, go for it
-if(window.pageYOffset!==operation.docState.scrollTop){window.scrollTo(operation.docState.scrollLeft,operation.docState.scrollTop);}if(self.config.animation.applyPerspective){self.dom.parent.style[_mixitup.features.perspectiveProp]=self.config.animation.perspectiveDistance;self.dom.parent.style[_mixitup.features.perspectiveOriginProp]=self.config.animation.perspectiveOrigin;}if(self.config.animation.animateResizeContainer&&operation.startHeight!==operation.newHeight&&operation.viewportDeltaY!==operation.startHeight-operation.newHeight){self.dom.parent.style.height=operation.startHeight+'px';}if(self.config.animation.animateResizeContainer&&operation.startWidth!==operation.newWidth&&operation.viewportDeltaX!==operation.startWidth-operation.newWidth){self.dom.parent.style.width=operation.startWidth+'px';}if(operation.startHeight===operation.newHeight){self.dom.parent.style.height=operation.startHeight+'px';}if(operation.startWidth===operation.newWidth){self.dom.parent.style.width=operation.startWidth+'px';}if(operation.startHeight===operation.newHeight&&operation.startWidth===operation.newWidth){self.dom.parent.style.overflow='hidden';}requestAnimationFrame(function(){self.moveTargets(operation);});return self.callFilters('promiseGoMix',deferred.promise,arguments);},/**
+         */
+
+        goMix: function goMix(shouldAnimate, operation) {
+            var self = this,
+                deferred = null;
+
+            self.callActions('beforeGoMix', arguments);
+
+            // If the animation duration is set to 0ms,
+            // or no effects specified,
+            // or the container is hidden
+            // then abort animation
+
+            if (!self.config.animation.duration || !self.config.animation.effects || !h.isVisible(self.dom.container)) {
+                shouldAnimate = false;
+            }
+
+            if (!operation.toShow.length && !operation.toHide.length && !operation.willSort && !operation.willChangeLayout) {
+                // If nothing to show or hide, and not sorting or
+                // changing layout
+
+                shouldAnimate = false;
+            }
+
+            if (!operation.startState.show.length && !operation.show.length) {
+                // If nothing currently shown, nothing to show
+
+                shouldAnimate = false;
+            }
+
+            _mixitup.events.fire('mixStart', self.dom.container, {
+                state: operation.startState,
+                futureState: operation.newState,
+                instance: self
+            }, self.dom.document);
+
+            if (typeof self.config.callbacks.onMixStart === 'function') {
+                self.config.callbacks.onMixStart.call(self.dom.container, operation.startState, operation.newState, self);
+            }
+
+            h.removeClass(self.dom.container, h.getClassname(self.config.classNames, 'container', self.config.classNames.modifierFailed));
+
+            if (!self.userDeferred) {
+                // Queue empty, no pending operations
+
+                deferred = self.userDeferred = h.defer(_mixitup.libraries);
+            } else {
+                // Use existing deferred
+
+                deferred = self.userDeferred;
+            }
+
+            self.isBusy = true;
+
+            if (!shouldAnimate || !_mixitup.features.has.transitions) {
+                // Abort
+
+                if (self.config.debug.fauxAsync) {
+                    setTimeout(function () {
+                        self.cleanUp(operation);
+                    }, self.config.animation.duration);
+                } else {
+                    self.cleanUp(operation);
+                }
+
+                return self.callFilters('promiseGoMix', deferred.promise, arguments);
+            }
+
+            // If we should animate and the platform supports transitions, go for it
+
+            if (window.pageYOffset !== operation.docState.scrollTop) {
+                window.scrollTo(operation.docState.scrollLeft, operation.docState.scrollTop);
+            }
+
+            if (self.config.animation.applyPerspective) {
+                self.dom.parent.style[_mixitup.features.perspectiveProp] = self.config.animation.perspectiveDistance;
+
+                self.dom.parent.style[_mixitup.features.perspectiveOriginProp] = self.config.animation.perspectiveOrigin;
+            }
+
+            if (self.config.animation.animateResizeContainer && operation.startHeight !== operation.newHeight && operation.viewportDeltaY !== operation.startHeight - operation.newHeight) {
+                self.dom.parent.style.height = operation.startHeight + 'px';
+            }
+
+            if (self.config.animation.animateResizeContainer && operation.startWidth !== operation.newWidth && operation.viewportDeltaX !== operation.startWidth - operation.newWidth) {
+                self.dom.parent.style.width = operation.startWidth + 'px';
+            }
+
+            if (operation.startHeight === operation.newHeight) {
+                self.dom.parent.style.height = operation.startHeight + 'px';
+            }
+
+            if (operation.startWidth === operation.newWidth) {
+                self.dom.parent.style.width = operation.startWidth + 'px';
+            }
+
+            if (operation.startHeight === operation.newHeight && operation.startWidth === operation.newWidth) {
+                self.dom.parent.style.overflow = 'hidden';
+            }
+
+            requestAnimationFrame(function () {
+                self.moveTargets(operation);
+            });
+
+            return self.callFilters('promiseGoMix', deferred.promise, arguments);
+        },
+
+        /**
          * @private
          * @instance
          * @since   2.0.0
          * @param   {Operation}     operation
          * @return  {void}
-         */getStartMixData:function getStartMixData(operation){var self=this,parentStyle=window.getComputedStyle(self.dom.parent),parentRect=self.dom.parent.getBoundingClientRect(),target=null,data={},i=-1,boxSizing=parentStyle[_mixitup.features.boxSizingProp];self.incPadding=boxSizing==='border-box';self.callActions('beforeGetStartMixData',arguments);for(i=0;target=operation.show[i];i++){data=target.getPosData();operation.showPosData[i]={startPosData:data};}for(i=0;target=operation.toHide[i];i++){data=target.getPosData();operation.toHidePosData[i]={startPosData:data};}operation.startX=parentRect.left;operation.startY=parentRect.top;operation.startHeight=self.incPadding?parentRect.height:parentRect.height-parseFloat(parentStyle.paddingTop)-parseFloat(parentStyle.paddingBottom)-parseFloat(parentStyle.borderTop)-parseFloat(parentStyle.borderBottom);operation.startWidth=self.incPadding?parentRect.width:parentRect.width-parseFloat(parentStyle.paddingLeft)-parseFloat(parentStyle.paddingRight)-parseFloat(parentStyle.borderLeft)-parseFloat(parentStyle.borderRight);self.callActions('afterGetStartMixData',arguments);},/**
+         */
+
+        getStartMixData: function getStartMixData(operation) {
+            var self = this,
+                parentStyle = window.getComputedStyle(self.dom.parent),
+                parentRect = self.dom.parent.getBoundingClientRect(),
+                target = null,
+                data = {},
+                i = -1,
+                boxSizing = parentStyle[_mixitup.features.boxSizingProp];
+
+            self.incPadding = boxSizing === 'border-box';
+
+            self.callActions('beforeGetStartMixData', arguments);
+
+            for (i = 0; target = operation.show[i]; i++) {
+                data = target.getPosData();
+
+                operation.showPosData[i] = {
+                    startPosData: data
+                };
+            }
+
+            for (i = 0; target = operation.toHide[i]; i++) {
+                data = target.getPosData();
+
+                operation.toHidePosData[i] = {
+                    startPosData: data
+                };
+            }
+
+            operation.startX = parentRect.left;
+            operation.startY = parentRect.top;
+
+            operation.startHeight = self.incPadding ? parentRect.height : parentRect.height - parseFloat(parentStyle.paddingTop) - parseFloat(parentStyle.paddingBottom) - parseFloat(parentStyle.borderTop) - parseFloat(parentStyle.borderBottom);
+
+            operation.startWidth = self.incPadding ? parentRect.width : parentRect.width - parseFloat(parentStyle.paddingLeft) - parseFloat(parentStyle.paddingRight) - parseFloat(parentStyle.borderLeft) - parseFloat(parentStyle.borderRight);
+
+            self.callActions('afterGetStartMixData', arguments);
+        },
+
+        /**
          * @private
          * @instance
          * @since   2.0.0
          * @param   {Operation}     operation
          * @return  {void}
-         */setInter:function setInter(operation){var self=this,target=null,i=-1;self.callActions('beforeSetInter',arguments);// Prevent scrollbar flicker on non-inertial scroll platforms by clamping height/width
-if(self.config.animation.clampHeight){self.dom.parent.style.height=operation.startHeight+'px';self.dom.parent.style.overflow='hidden';}if(self.config.animation.clampWidth){self.dom.parent.style.width=operation.startWidth+'px';self.dom.parent.style.overflow='hidden';}for(i=0;target=operation.toShow[i];i++){target.show();}if(operation.willChangeLayout){h.removeClass(self.dom.container,operation.startContainerClassName);h.addClass(self.dom.container,operation.newContainerClassName);}self.callActions('afterSetInter',arguments);},/**
+         */
+
+        setInter: function setInter(operation) {
+            var self = this,
+                target = null,
+                i = -1;
+
+            self.callActions('beforeSetInter', arguments);
+
+            // Prevent scrollbar flicker on non-inertial scroll platforms by clamping height/width
+
+            if (self.config.animation.clampHeight) {
+                self.dom.parent.style.height = operation.startHeight + 'px';
+                self.dom.parent.style.overflow = 'hidden';
+            }
+
+            if (self.config.animation.clampWidth) {
+                self.dom.parent.style.width = operation.startWidth + 'px';
+                self.dom.parent.style.overflow = 'hidden';
+            }
+
+            for (i = 0; target = operation.toShow[i]; i++) {
+                target.show();
+            }
+
+            if (operation.willChangeLayout) {
+                h.removeClass(self.dom.container, operation.startContainerClassName);
+                h.addClass(self.dom.container, operation.newContainerClassName);
+            }
+
+            self.callActions('afterSetInter', arguments);
+        },
+
+        /**
          * @private
          * @instance
          * @since   2.0.0
          * @param   {Operation}     operation
          * @return  {void}
-         */getInterMixData:function getInterMixData(operation){var self=this,target=null,i=-1;self.callActions('beforeGetInterMixData',arguments);for(i=0;target=operation.show[i];i++){operation.showPosData[i].interPosData=target.getPosData();}for(i=0;target=operation.toHide[i];i++){operation.toHidePosData[i].interPosData=target.getPosData();}self.callActions('afterGetInterMixData',arguments);},/**
+         */
+
+        getInterMixData: function getInterMixData(operation) {
+            var self = this,
+                target = null,
+                i = -1;
+
+            self.callActions('beforeGetInterMixData', arguments);
+
+            for (i = 0; target = operation.show[i]; i++) {
+                operation.showPosData[i].interPosData = target.getPosData();
+            }
+
+            for (i = 0; target = operation.toHide[i]; i++) {
+                operation.toHidePosData[i].interPosData = target.getPosData();
+            }
+
+            self.callActions('afterGetInterMixData', arguments);
+        },
+
+        /**
          * @private
          * @instance
          * @since   2.0.0
          * @param   {Operation}     operation
          * @return  {void}
-         */setFinal:function setFinal(operation){var self=this,target=null,i=-1;self.callActions('beforeSetFinal',arguments);operation.willSort&&self.printSort(false,operation);for(i=0;target=operation.toHide[i];i++){target.hide();}self.callActions('afterSetFinal',arguments);},/**
+         */
+
+        setFinal: function setFinal(operation) {
+            var self = this,
+                target = null,
+                i = -1;
+
+            self.callActions('beforeSetFinal', arguments);
+
+            operation.willSort && self.printSort(false, operation);
+
+            for (i = 0; target = operation.toHide[i]; i++) {
+                target.hide();
+            }
+
+            self.callActions('afterSetFinal', arguments);
+        },
+
+        /**
          * @private
          * @instance
          * @since   2.0.0
          * @param   {Operation}     operation
          * @return  {void}
-         */getFinalMixData:function getFinalMixData(operation){var self=this,parentStyle=null,parentRect=null,target=null,i=-1;self.callActions('beforeGetFinalMixData',arguments);for(i=0;target=operation.show[i];i++){operation.showPosData[i].finalPosData=target.getPosData();}for(i=0;target=operation.toHide[i];i++){operation.toHidePosData[i].finalPosData=target.getPosData();}// Remove clamping
-if(self.config.animation.clampHeight||self.config.animation.clampWidth){self.dom.parent.style.height=self.dom.parent.style.width=self.dom.parent.style.overflow='';}if(!self.incPadding){parentStyle=window.getComputedStyle(self.dom.parent);}parentRect=self.dom.parent.getBoundingClientRect();operation.newX=parentRect.left;operation.newY=parentRect.top;operation.newHeight=self.incPadding?parentRect.height:parentRect.height-parseFloat(parentStyle.paddingTop)-parseFloat(parentStyle.paddingBottom)-parseFloat(parentStyle.borderTop)-parseFloat(parentStyle.borderBottom);operation.newWidth=self.incPadding?parentRect.width:parentRect.width-parseFloat(parentStyle.paddingLeft)-parseFloat(parentStyle.paddingRight)-parseFloat(parentStyle.borderLeft)-parseFloat(parentStyle.borderRight);operation.viewportDeltaX=operation.docState.viewportWidth-this.dom.document.documentElement.clientWidth;operation.viewportDeltaY=operation.docState.viewportHeight-this.dom.document.documentElement.clientHeight;if(operation.willSort){self.printSort(true,operation);}for(i=0;target=operation.toShow[i];i++){target.hide();}for(i=0;target=operation.toHide[i];i++){target.show();}if(operation.willChangeLayout){h.removeClass(self.dom.container,operation.newContainerClassName);h.addClass(self.dom.container,self.config.layout.containerClassName);}self.callActions('afterGetFinalMixData',arguments);},/**
+         */
+
+        getFinalMixData: function getFinalMixData(operation) {
+            var self = this,
+                parentStyle = null,
+                parentRect = null,
+                target = null,
+                i = -1;
+
+            self.callActions('beforeGetFinalMixData', arguments);
+
+            for (i = 0; target = operation.show[i]; i++) {
+                operation.showPosData[i].finalPosData = target.getPosData();
+            }
+
+            for (i = 0; target = operation.toHide[i]; i++) {
+                operation.toHidePosData[i].finalPosData = target.getPosData();
+            }
+
+            // Remove clamping
+
+            if (self.config.animation.clampHeight || self.config.animation.clampWidth) {
+                self.dom.parent.style.height = self.dom.parent.style.width = self.dom.parent.style.overflow = '';
+            }
+
+            if (!self.incPadding) {
+                parentStyle = window.getComputedStyle(self.dom.parent);
+            }
+
+            parentRect = self.dom.parent.getBoundingClientRect();
+
+            operation.newX = parentRect.left;
+            operation.newY = parentRect.top;
+
+            operation.newHeight = self.incPadding ? parentRect.height : parentRect.height - parseFloat(parentStyle.paddingTop) - parseFloat(parentStyle.paddingBottom) - parseFloat(parentStyle.borderTop) - parseFloat(parentStyle.borderBottom);
+
+            operation.newWidth = self.incPadding ? parentRect.width : parentRect.width - parseFloat(parentStyle.paddingLeft) - parseFloat(parentStyle.paddingRight) - parseFloat(parentStyle.borderLeft) - parseFloat(parentStyle.borderRight);
+
+            operation.viewportDeltaX = operation.docState.viewportWidth - this.dom.document.documentElement.clientWidth;
+            operation.viewportDeltaY = operation.docState.viewportHeight - this.dom.document.documentElement.clientHeight;
+
+            if (operation.willSort) {
+                self.printSort(true, operation);
+            }
+
+            for (i = 0; target = operation.toShow[i]; i++) {
+                target.hide();
+            }
+
+            for (i = 0; target = operation.toHide[i]; i++) {
+                target.show();
+            }
+
+            if (operation.willChangeLayout) {
+                h.removeClass(self.dom.container, operation.newContainerClassName);
+                h.addClass(self.dom.container, self.config.layout.containerClassName);
+            }
+
+            self.callActions('afterGetFinalMixData', arguments);
+        },
+
+        /**
          * @private
          * @instance
          * @since    3.0.0
          * @param    {Operation}     operation
-         */getTweenData:function getTweenData(operation){var self=this,target=null,posData=null,effectNames=Object.getOwnPropertyNames(self.effectsIn),effectName='',effect=null,widthChange=-1,heightChange=-1,i=-1,j=-1;self.callActions('beforeGetTweenData',arguments);for(i=0;target=operation.show[i];i++){posData=operation.showPosData[i];posData.posIn=new _mixitup.StyleData();posData.posOut=new _mixitup.StyleData();posData.tweenData=new _mixitup.StyleData();// Process x and y
-if(target.isShown){posData.posIn.x=posData.startPosData.x-posData.interPosData.x;posData.posIn.y=posData.startPosData.y-posData.interPosData.y;}else{posData.posIn.x=posData.posIn.y=0;}posData.posOut.x=posData.finalPosData.x-posData.interPosData.x;posData.posOut.y=posData.finalPosData.y-posData.interPosData.y;// Process opacity
-posData.posIn.opacity=target.isShown?1:self.effectsIn.opacity;posData.posOut.opacity=1;posData.tweenData.opacity=posData.posOut.opacity-posData.posIn.opacity;// Adjust x and y if not nudging
-if(!target.isShown&&!self.config.animation.nudge){posData.posIn.x=posData.posOut.x;posData.posIn.y=posData.posOut.y;}posData.tweenData.x=posData.posOut.x-posData.posIn.x;posData.tweenData.y=posData.posOut.y-posData.posIn.y;// Process width, height, and margins
-if(self.config.animation.animateResizeTargets){posData.posIn.width=posData.startPosData.width;posData.posIn.height=posData.startPosData.height;// "||" Prevents width/height change from including 0 width/height if hiding or showing
-widthChange=(posData.startPosData.width||posData.finalPosData.width)-posData.interPosData.width;posData.posIn.marginRight=posData.startPosData.marginRight-widthChange;heightChange=(posData.startPosData.height||posData.finalPosData.height)-posData.interPosData.height;posData.posIn.marginBottom=posData.startPosData.marginBottom-heightChange;posData.posOut.width=posData.finalPosData.width;posData.posOut.height=posData.finalPosData.height;widthChange=(posData.finalPosData.width||posData.startPosData.width)-posData.interPosData.width;posData.posOut.marginRight=posData.finalPosData.marginRight-widthChange;heightChange=(posData.finalPosData.height||posData.startPosData.height)-posData.interPosData.height;posData.posOut.marginBottom=posData.finalPosData.marginBottom-heightChange;posData.tweenData.width=posData.posOut.width-posData.posIn.width;posData.tweenData.height=posData.posOut.height-posData.posIn.height;posData.tweenData.marginRight=posData.posOut.marginRight-posData.posIn.marginRight;posData.tweenData.marginBottom=posData.posOut.marginBottom-posData.posIn.marginBottom;}// Process transforms
-for(j=0;effectName=effectNames[j];j++){effect=self.effectsIn[effectName];if(!(effect instanceof _mixitup.TransformData)||!effect.value)continue;posData.posIn[effectName].value=effect.value;posData.posOut[effectName].value=0;posData.tweenData[effectName].value=posData.posOut[effectName].value-posData.posIn[effectName].value;posData.posIn[effectName].unit=posData.posOut[effectName].unit=posData.tweenData[effectName].unit=effect.unit;}}for(i=0;target=operation.toHide[i];i++){posData=operation.toHidePosData[i];posData.posIn=new _mixitup.StyleData();posData.posOut=new _mixitup.StyleData();posData.tweenData=new _mixitup.StyleData();// Process x and y
-posData.posIn.x=target.isShown?posData.startPosData.x-posData.interPosData.x:0;posData.posIn.y=target.isShown?posData.startPosData.y-posData.interPosData.y:0;posData.posOut.x=self.config.animation.nudge?0:posData.posIn.x;posData.posOut.y=self.config.animation.nudge?0:posData.posIn.y;posData.tweenData.x=posData.posOut.x-posData.posIn.x;posData.tweenData.y=posData.posOut.y-posData.posIn.y;// Process width, height, and margins
-if(self.config.animation.animateResizeTargets){posData.posIn.width=posData.startPosData.width;posData.posIn.height=posData.startPosData.height;widthChange=posData.startPosData.width-posData.interPosData.width;posData.posIn.marginRight=posData.startPosData.marginRight-widthChange;heightChange=posData.startPosData.height-posData.interPosData.height;posData.posIn.marginBottom=posData.startPosData.marginBottom-heightChange;}// Process opacity
-posData.posIn.opacity=1;posData.posOut.opacity=self.effectsOut.opacity;posData.tweenData.opacity=posData.posOut.opacity-posData.posIn.opacity;// Process transforms
-for(j=0;effectName=effectNames[j];j++){effect=self.effectsOut[effectName];if(!(effect instanceof _mixitup.TransformData)||!effect.value)continue;posData.posIn[effectName].value=0;posData.posOut[effectName].value=effect.value;posData.tweenData[effectName].value=posData.posOut[effectName].value-posData.posIn[effectName].value;posData.posIn[effectName].unit=posData.posOut[effectName].unit=posData.tweenData[effectName].unit=effect.unit;}}self.callActions('afterGetTweenData',arguments);},/**
+         */
+
+        getTweenData: function getTweenData(operation) {
+            var self = this,
+                target = null,
+                posData = null,
+                effectNames = Object.getOwnPropertyNames(self.effectsIn),
+                effectName = '',
+                effect = null,
+                widthChange = -1,
+                heightChange = -1,
+                i = -1,
+                j = -1;
+
+            self.callActions('beforeGetTweenData', arguments);
+
+            for (i = 0; target = operation.show[i]; i++) {
+                posData = operation.showPosData[i];
+                posData.posIn = new _mixitup.StyleData();
+                posData.posOut = new _mixitup.StyleData();
+                posData.tweenData = new _mixitup.StyleData();
+
+                // Process x and y
+
+                if (target.isShown) {
+                    posData.posIn.x = posData.startPosData.x - posData.interPosData.x;
+                    posData.posIn.y = posData.startPosData.y - posData.interPosData.y;
+                } else {
+                    posData.posIn.x = posData.posIn.y = 0;
+                }
+
+                posData.posOut.x = posData.finalPosData.x - posData.interPosData.x;
+                posData.posOut.y = posData.finalPosData.y - posData.interPosData.y;
+
+                // Process opacity
+
+                posData.posIn.opacity = target.isShown ? 1 : self.effectsIn.opacity;
+                posData.posOut.opacity = 1;
+                posData.tweenData.opacity = posData.posOut.opacity - posData.posIn.opacity;
+
+                // Adjust x and y if not nudging
+
+                if (!target.isShown && !self.config.animation.nudge) {
+                    posData.posIn.x = posData.posOut.x;
+                    posData.posIn.y = posData.posOut.y;
+                }
+
+                posData.tweenData.x = posData.posOut.x - posData.posIn.x;
+                posData.tweenData.y = posData.posOut.y - posData.posIn.y;
+
+                // Process width, height, and margins
+
+                if (self.config.animation.animateResizeTargets) {
+                    posData.posIn.width = posData.startPosData.width;
+                    posData.posIn.height = posData.startPosData.height;
+
+                    // "||" Prevents width/height change from including 0 width/height if hiding or showing
+
+                    widthChange = (posData.startPosData.width || posData.finalPosData.width) - posData.interPosData.width;
+
+                    posData.posIn.marginRight = posData.startPosData.marginRight - widthChange;
+
+                    heightChange = (posData.startPosData.height || posData.finalPosData.height) - posData.interPosData.height;
+
+                    posData.posIn.marginBottom = posData.startPosData.marginBottom - heightChange;
+
+                    posData.posOut.width = posData.finalPosData.width;
+                    posData.posOut.height = posData.finalPosData.height;
+
+                    widthChange = (posData.finalPosData.width || posData.startPosData.width) - posData.interPosData.width;
+
+                    posData.posOut.marginRight = posData.finalPosData.marginRight - widthChange;
+
+                    heightChange = (posData.finalPosData.height || posData.startPosData.height) - posData.interPosData.height;
+
+                    posData.posOut.marginBottom = posData.finalPosData.marginBottom - heightChange;
+
+                    posData.tweenData.width = posData.posOut.width - posData.posIn.width;
+                    posData.tweenData.height = posData.posOut.height - posData.posIn.height;
+                    posData.tweenData.marginRight = posData.posOut.marginRight - posData.posIn.marginRight;
+                    posData.tweenData.marginBottom = posData.posOut.marginBottom - posData.posIn.marginBottom;
+                }
+
+                // Process transforms
+
+                for (j = 0; effectName = effectNames[j]; j++) {
+                    effect = self.effectsIn[effectName];
+
+                    if (!(effect instanceof _mixitup.TransformData) || !effect.value) continue;
+
+                    posData.posIn[effectName].value = effect.value;
+                    posData.posOut[effectName].value = 0;
+
+                    posData.tweenData[effectName].value = posData.posOut[effectName].value - posData.posIn[effectName].value;
+
+                    posData.posIn[effectName].unit = posData.posOut[effectName].unit = posData.tweenData[effectName].unit = effect.unit;
+                }
+            }
+
+            for (i = 0; target = operation.toHide[i]; i++) {
+                posData = operation.toHidePosData[i];
+                posData.posIn = new _mixitup.StyleData();
+                posData.posOut = new _mixitup.StyleData();
+                posData.tweenData = new _mixitup.StyleData();
+
+                // Process x and y
+
+                posData.posIn.x = target.isShown ? posData.startPosData.x - posData.interPosData.x : 0;
+                posData.posIn.y = target.isShown ? posData.startPosData.y - posData.interPosData.y : 0;
+                posData.posOut.x = self.config.animation.nudge ? 0 : posData.posIn.x;
+                posData.posOut.y = self.config.animation.nudge ? 0 : posData.posIn.y;
+                posData.tweenData.x = posData.posOut.x - posData.posIn.x;
+                posData.tweenData.y = posData.posOut.y - posData.posIn.y;
+
+                // Process width, height, and margins
+
+                if (self.config.animation.animateResizeTargets) {
+                    posData.posIn.width = posData.startPosData.width;
+                    posData.posIn.height = posData.startPosData.height;
+
+                    widthChange = posData.startPosData.width - posData.interPosData.width;
+
+                    posData.posIn.marginRight = posData.startPosData.marginRight - widthChange;
+
+                    heightChange = posData.startPosData.height - posData.interPosData.height;
+
+                    posData.posIn.marginBottom = posData.startPosData.marginBottom - heightChange;
+                }
+
+                // Process opacity
+
+                posData.posIn.opacity = 1;
+                posData.posOut.opacity = self.effectsOut.opacity;
+                posData.tweenData.opacity = posData.posOut.opacity - posData.posIn.opacity;
+
+                // Process transforms
+
+                for (j = 0; effectName = effectNames[j]; j++) {
+                    effect = self.effectsOut[effectName];
+
+                    if (!(effect instanceof _mixitup.TransformData) || !effect.value) continue;
+
+                    posData.posIn[effectName].value = 0;
+                    posData.posOut[effectName].value = effect.value;
+
+                    posData.tweenData[effectName].value = posData.posOut[effectName].value - posData.posIn[effectName].value;
+
+                    posData.posIn[effectName].unit = posData.posOut[effectName].unit = posData.tweenData[effectName].unit = effect.unit;
+                }
+            }
+
+            self.callActions('afterGetTweenData', arguments);
+        },
+
+        /**
          * @private
          * @instance
          * @since   3.0.0
          * @param   {Operation}     operation
          * @return  {void}
-         */moveTargets:function moveTargets(operation){var self=this,target=null,moveData=null,posData=null,statusChange='',willTransition=false,staggerIndex=-1,i=-1,checkProgress=self.checkProgress.bind(self);self.callActions('beforeMoveTargets',arguments);// TODO: this is an extra loop in addition to the calcs
-// done in getOperation, could some of this be done there?
-for(i=0;target=operation.show[i];i++){moveData=new _mixitup.IMoveData();posData=operation.showPosData[i];statusChange=target.isShown?'none':'show';willTransition=self.willTransition(statusChange,operation.hasEffect,posData.posIn,posData.posOut);if(willTransition){// Prevent non-transitioning targets from incrementing the staggerIndex
-staggerIndex++;}target.show();moveData.posIn=posData.posIn;moveData.posOut=posData.posOut;moveData.statusChange=statusChange;moveData.staggerIndex=staggerIndex;moveData.operation=operation;moveData.callback=willTransition?checkProgress:null;target.move(moveData);}for(i=0;target=operation.toHide[i];i++){posData=operation.toHidePosData[i];moveData=new _mixitup.IMoveData();statusChange='hide';willTransition=self.willTransition(statusChange,posData.posIn,posData.posOut);moveData.posIn=posData.posIn;moveData.posOut=posData.posOut;moveData.statusChange=statusChange;moveData.staggerIndex=i;moveData.operation=operation;moveData.callback=willTransition?checkProgress:null;target.move(moveData);}if(self.config.animation.animateResizeContainer){self.dom.parent.style[_mixitup.features.transitionProp]='height '+self.config.animation.duration+'ms ease, '+'width '+self.config.animation.duration+'ms ease ';requestAnimationFrame(function(){if(operation.startHeight!==operation.newHeight&&operation.viewportDeltaY!==operation.startHeight-operation.newHeight){self.dom.parent.style.height=operation.newHeight+'px';}if(operation.startWidth!==operation.newWidth&&operation.viewportDeltaX!==operation.startWidth-operation.newWidth){self.dom.parent.style.width=operation.newWidth+'px';}});}if(operation.willChangeLayout){h.removeClass(self.dom.container,self.config.layout.ContainerClassName);h.addClass(self.dom.container,operation.newContainerClassName);}self.callActions('afterMoveTargets',arguments);},/**
+         */
+
+        moveTargets: function moveTargets(operation) {
+            var self = this,
+                target = null,
+                moveData = null,
+                posData = null,
+                statusChange = '',
+                willTransition = false,
+                staggerIndex = -1,
+                i = -1,
+                checkProgress = self.checkProgress.bind(self);
+
+            self.callActions('beforeMoveTargets', arguments);
+
+            // TODO: this is an extra loop in addition to the calcs
+            // done in getOperation, could some of this be done there?
+
+            for (i = 0; target = operation.show[i]; i++) {
+                moveData = new _mixitup.IMoveData();
+                posData = operation.showPosData[i];
+
+                statusChange = target.isShown ? 'none' : 'show';
+
+                willTransition = self.willTransition(statusChange, operation.hasEffect, posData.posIn, posData.posOut);
+
+                if (willTransition) {
+                    // Prevent non-transitioning targets from incrementing the staggerIndex
+
+                    staggerIndex++;
+                }
+
+                target.show();
+
+                moveData.posIn = posData.posIn;
+                moveData.posOut = posData.posOut;
+                moveData.statusChange = statusChange;
+                moveData.staggerIndex = staggerIndex;
+                moveData.operation = operation;
+                moveData.callback = willTransition ? checkProgress : null;
+
+                target.move(moveData);
+            }
+
+            for (i = 0; target = operation.toHide[i]; i++) {
+                posData = operation.toHidePosData[i];
+                moveData = new _mixitup.IMoveData();
+
+                statusChange = 'hide';
+
+                willTransition = self.willTransition(statusChange, posData.posIn, posData.posOut);
+
+                moveData.posIn = posData.posIn;
+                moveData.posOut = posData.posOut;
+                moveData.statusChange = statusChange;
+                moveData.staggerIndex = i;
+                moveData.operation = operation;
+                moveData.callback = willTransition ? checkProgress : null;
+
+                target.move(moveData);
+            }
+
+            if (self.config.animation.animateResizeContainer) {
+                self.dom.parent.style[_mixitup.features.transitionProp] = 'height ' + self.config.animation.duration + 'ms ease, ' + 'width ' + self.config.animation.duration + 'ms ease ';
+
+                requestAnimationFrame(function () {
+                    if (operation.startHeight !== operation.newHeight && operation.viewportDeltaY !== operation.startHeight - operation.newHeight) {
+                        self.dom.parent.style.height = operation.newHeight + 'px';
+                    }
+
+                    if (operation.startWidth !== operation.newWidth && operation.viewportDeltaX !== operation.startWidth - operation.newWidth) {
+                        self.dom.parent.style.width = operation.newWidth + 'px';
+                    }
+                });
+            }
+
+            if (operation.willChangeLayout) {
+                h.removeClass(self.dom.container, self.config.layout.ContainerClassName);
+                h.addClass(self.dom.container, operation.newContainerClassName);
+            }
+
+            self.callActions('afterMoveTargets', arguments);
+        },
+
+        /**
          * @private
          * @instance
          * @return  {boolean}
-         */hasEffect:function hasEffect(){var self=this,EFFECTABLES=['scale','translateX','translateY','translateZ','rotateX','rotateY','rotateZ'],effectName='',effect=null,result=false,value=-1,i=-1;if(self.effectsIn.opacity!==1){return self.callFilters('resultHasEffect',true,arguments);}for(i=0;effectName=EFFECTABLES[i];i++){effect=self.effectsIn[effectName];value=(typeof effect==='undefined'?'undefined':_typeof(effect))&&effect.value!=='undefined'?effect.value:effect;if(value!==0){result=true;break;}}return self.callFilters('resultHasEffect',result,arguments);},/**
+         */
+
+        hasEffect: function hasEffect() {
+            var self = this,
+                EFFECTABLES = ['scale', 'translateX', 'translateY', 'translateZ', 'rotateX', 'rotateY', 'rotateZ'],
+                effectName = '',
+                effect = null,
+                result = false,
+                value = -1,
+                i = -1;
+
+            if (self.effectsIn.opacity !== 1) {
+                return self.callFilters('resultHasEffect', true, arguments);
+            }
+
+            for (i = 0; effectName = EFFECTABLES[i]; i++) {
+                effect = self.effectsIn[effectName];
+                value = (typeof effect === 'undefined' ? 'undefined' : _typeof(effect)) && effect.value !== 'undefined' ? effect.value : effect;
+
+                if (value !== 0) {
+                    result = true;
+
+                    break;
+                }
+            }
+
+            return self.callFilters('resultHasEffect', result, arguments);
+        },
+
+        /**
          * Determines if a target element will transition in
          * some fasion and therefore requires binding of
          * transitionEnd
@@ -3920,114 +8087,888 @@ staggerIndex++;}target.show();moveData.posIn=posData.posIn;moveData.posOut=posDa
          * @param   {StyleData}     posIn
          * @param   {StyleData}     posOut
          * @return  {boolean}
-         */willTransition:function willTransition(statusChange,hasEffect,posIn,posOut){var self=this,result=false;if(!h.isVisible(self.dom.container)){// If the container is not visible, the transitionEnd
-// event will not occur and MixItUp will hang
-result=false;}else if(statusChange!=='none'&&hasEffect||posIn.x!==posOut.x||posIn.y!==posOut.y){// If opacity and/or translate will change
-result=true;}else if(self.config.animation.animateResizeTargets){// Check if width, height or margins will change
-result=posIn.width!==posOut.width||posIn.height!==posOut.height||posIn.marginRight!==posOut.marginRight||posIn.marginTop!==posOut.marginTop;}else{result=false;}return self.callFilters('resultWillTransition',result,arguments);},/**
+         */
+
+        willTransition: function willTransition(statusChange, hasEffect, posIn, posOut) {
+            var self = this,
+                result = false;
+
+            if (!h.isVisible(self.dom.container)) {
+                // If the container is not visible, the transitionEnd
+                // event will not occur and MixItUp will hang
+
+                result = false;
+            } else if (statusChange !== 'none' && hasEffect || posIn.x !== posOut.x || posIn.y !== posOut.y) {
+                // If opacity and/or translate will change
+
+                result = true;
+            } else if (self.config.animation.animateResizeTargets) {
+                // Check if width, height or margins will change
+
+                result = posIn.width !== posOut.width || posIn.height !== posOut.height || posIn.marginRight !== posOut.marginRight || posIn.marginTop !== posOut.marginTop;
+            } else {
+                result = false;
+            }
+
+            return self.callFilters('resultWillTransition', result, arguments);
+        },
+
+        /**
          * @private
          * @instance
          * @since   2.0.0
          * @param   {Operation}     operation
          * @return  {void}
-         */checkProgress:function checkProgress(operation){var self=this;self.targetsDone++;if(self.targetsBound===self.targetsDone){self.cleanUp(operation);}},/**
+         */
+
+        checkProgress: function checkProgress(operation) {
+            var self = this;
+
+            self.targetsDone++;
+
+            if (self.targetsBound === self.targetsDone) {
+                self.cleanUp(operation);
+            }
+        },
+
+        /**
          * @private
          * @instance
          * @since   2.0.0
          * @param   {Operation}     operation
          * @return  {void}
-         */cleanUp:function cleanUp(operation){var self=this,target=null,whitespaceBefore=null,whitespaceAfter=null,nextInQueue=null,i=-1;self.callActions('beforeCleanUp',arguments);self.targetsMoved=self.targetsImmovable=self.targetsBound=self.targetsDone=0;for(i=0;target=operation.show[i];i++){target.cleanUp();target.show();}for(i=0;target=operation.toHide[i];i++){target.cleanUp();target.hide();}if(operation.willSort){self.printSort(false,operation);}// Remove any styles applied to the parent container
-self.dom.parent.style[_mixitup.features.transitionProp]=self.dom.parent.style.height=self.dom.parent.style.width=self.dom.parent.style.overflow=self.dom.parent.style[_mixitup.features.perspectiveProp]=self.dom.parent.style[_mixitup.features.perspectiveOriginProp]='';if(operation.willChangeLayout){h.removeClass(self.dom.container,operation.startContainerClassName);h.addClass(self.dom.container,operation.newContainerClassName);}if(operation.toRemove.length){for(i=0;target=self.targets[i];i++){if(operation.toRemove.indexOf(target)>-1){if((whitespaceBefore=target.dom.el.previousSibling)&&whitespaceBefore.nodeName==='#text'&&(whitespaceAfter=target.dom.el.nextSibling)&&whitespaceAfter.nodeName==='#text'){h.removeWhitespace(whitespaceBefore);}if(!operation.willSort){// NB: Sorting will remove targets as a bi-product of `printSort()`
-self.dom.parent.removeChild(target.dom.el);}self.targets.splice(i,1);target.isInDom=false;i--;}}// Since targets have been removed, the original order must be updated
-self.origOrder=self.targets;}if(operation.willSort){self.targets=operation.newOrder;}self.state=operation.newState;self.lastOperation=operation;self.dom.targets=self.state.targets;// mixEnd
-_mixitup.events.fire('mixEnd',self.dom.container,{state:self.state,instance:self},self.dom.document);if(typeof self.config.callbacks.onMixEnd==='function'){self.config.callbacks.onMixEnd.call(self.dom.container,self.state,self);}if(operation.hasFailed){// mixFail
-_mixitup.events.fire('mixFail',self.dom.container,{state:self.state,instance:self},self.dom.document);if(typeof self.config.callbacks.onMixFail==='function'){self.config.callbacks.onMixFail.call(self.dom.container,self.state,self);}h.addClass(self.dom.container,h.getClassname(self.config.classNames,'container',self.config.classNames.modifierFailed));}// User-defined callback function
-if(typeof self.userCallback==='function'){self.userCallback.call(self.dom.container,self.state,self);}if(typeof self.userDeferred.resolve==='function'){self.userDeferred.resolve(self.state);}self.userCallback=null;self.userDeferred=null;self.lastClicked=null;self.isToggling=false;self.isBusy=false;if(self.queue.length){self.callActions('beforeReadQueueCleanUp',arguments);nextInQueue=self.queue.shift();// Update non-public API properties stored in queue
-self.userDeferred=nextInQueue.deferred;self.isToggling=nextInQueue.isToggling;self.lastClicked=nextInQueue.triggerElement;if(nextInQueue.instruction.command instanceof _mixitup.CommandMultimix){self.multimix.apply(self,nextInQueue.args);}else{self.dataset.apply(self,nextInQueue.args);}}self.callActions('afterCleanUp',arguments);},/**
+         */
+
+        cleanUp: function cleanUp(operation) {
+            var self = this,
+                target = null,
+                whitespaceBefore = null,
+                whitespaceAfter = null,
+                nextInQueue = null,
+                i = -1;
+
+            self.callActions('beforeCleanUp', arguments);
+
+            self.targetsMoved = self.targetsImmovable = self.targetsBound = self.targetsDone = 0;
+
+            for (i = 0; target = operation.show[i]; i++) {
+                target.cleanUp();
+
+                target.show();
+            }
+
+            for (i = 0; target = operation.toHide[i]; i++) {
+                target.cleanUp();
+
+                target.hide();
+            }
+
+            if (operation.willSort) {
+                self.printSort(false, operation);
+            }
+
+            // Remove any styles applied to the parent container
+
+            self.dom.parent.style[_mixitup.features.transitionProp] = self.dom.parent.style.height = self.dom.parent.style.width = self.dom.parent.style.overflow = self.dom.parent.style[_mixitup.features.perspectiveProp] = self.dom.parent.style[_mixitup.features.perspectiveOriginProp] = '';
+
+            if (operation.willChangeLayout) {
+                h.removeClass(self.dom.container, operation.startContainerClassName);
+                h.addClass(self.dom.container, operation.newContainerClassName);
+            }
+
+            if (operation.toRemove.length) {
+                for (i = 0; target = self.targets[i]; i++) {
+                    if (operation.toRemove.indexOf(target) > -1) {
+                        if ((whitespaceBefore = target.dom.el.previousSibling) && whitespaceBefore.nodeName === '#text' && (whitespaceAfter = target.dom.el.nextSibling) && whitespaceAfter.nodeName === '#text') {
+                            h.removeWhitespace(whitespaceBefore);
+                        }
+
+                        if (!operation.willSort) {
+                            // NB: Sorting will remove targets as a bi-product of `printSort()`
+
+                            self.dom.parent.removeChild(target.dom.el);
+                        }
+
+                        self.targets.splice(i, 1);
+
+                        target.isInDom = false;
+
+                        i--;
+                    }
+                }
+
+                // Since targets have been removed, the original order must be updated
+
+                self.origOrder = self.targets;
+            }
+
+            if (operation.willSort) {
+                self.targets = operation.newOrder;
+            }
+
+            self.state = operation.newState;
+            self.lastOperation = operation;
+
+            self.dom.targets = self.state.targets;
+
+            // mixEnd
+
+            _mixitup.events.fire('mixEnd', self.dom.container, {
+                state: self.state,
+                instance: self
+            }, self.dom.document);
+
+            if (typeof self.config.callbacks.onMixEnd === 'function') {
+                self.config.callbacks.onMixEnd.call(self.dom.container, self.state, self);
+            }
+
+            if (operation.hasFailed) {
+                // mixFail
+
+                _mixitup.events.fire('mixFail', self.dom.container, {
+                    state: self.state,
+                    instance: self
+                }, self.dom.document);
+
+                if (typeof self.config.callbacks.onMixFail === 'function') {
+                    self.config.callbacks.onMixFail.call(self.dom.container, self.state, self);
+                }
+
+                h.addClass(self.dom.container, h.getClassname(self.config.classNames, 'container', self.config.classNames.modifierFailed));
+            }
+
+            // User-defined callback function
+
+            if (typeof self.userCallback === 'function') {
+                self.userCallback.call(self.dom.container, self.state, self);
+            }
+
+            if (typeof self.userDeferred.resolve === 'function') {
+                self.userDeferred.resolve(self.state);
+            }
+
+            self.userCallback = null;
+            self.userDeferred = null;
+            self.lastClicked = null;
+            self.isToggling = false;
+            self.isBusy = false;
+
+            if (self.queue.length) {
+                self.callActions('beforeReadQueueCleanUp', arguments);
+
+                nextInQueue = self.queue.shift();
+
+                // Update non-public API properties stored in queue
+
+                self.userDeferred = nextInQueue.deferred;
+                self.isToggling = nextInQueue.isToggling;
+                self.lastClicked = nextInQueue.triggerElement;
+
+                if (nextInQueue.instruction.command instanceof _mixitup.CommandMultimix) {
+                    self.multimix.apply(self, nextInQueue.args);
+                } else {
+                    self.dataset.apply(self, nextInQueue.args);
+                }
+            }
+
+            self.callActions('afterCleanUp', arguments);
+        },
+
+        /**
          * @private
          * @instance
          * @since   2.0.0
          * @param   {Array<*>}  args
          * @return  {mixitup.UserInstruction}
-         */parseMultimixArgs:function parseMultimixArgs(args){var self=this,instruction=new _mixitup.UserInstruction(),arg=null,i=-1;instruction.animate=self.config.animation.enable;instruction.command=new _mixitup.CommandMultimix();for(i=0;i<args.length;i++){arg=args[i];if(arg===null)continue;if((typeof arg==='undefined'?'undefined':_typeof(arg))==='object'){h.extend(instruction.command,arg);}else if(typeof arg==='boolean'){instruction.animate=arg;}else if(typeof arg==='function'){instruction.callback=arg;}}// Coerce arbitrary command arguments into typed command objects
-if(instruction.command.insert&&!(instruction.command.insert instanceof _mixitup.CommandInsert)){instruction.command.insert=self.parseInsertArgs([instruction.command.insert]).command;}if(instruction.command.remove&&!(instruction.command.remove instanceof _mixitup.CommandRemove)){instruction.command.remove=self.parseRemoveArgs([instruction.command.remove]).command;}if(instruction.command.filter&&!(instruction.command.filter instanceof _mixitup.CommandFilter)){instruction.command.filter=self.parseFilterArgs([instruction.command.filter]).command;}if(instruction.command.sort&&!(instruction.command.sort instanceof _mixitup.CommandSort)){instruction.command.sort=self.parseSortArgs([instruction.command.sort]).command;}if(instruction.command.changeLayout&&!(instruction.command.changeLayout instanceof _mixitup.CommandChangeLayout)){instruction.command.changeLayout=self.parseChangeLayoutArgs([instruction.command.changeLayout]).command;}instruction=self.callFilters('instructionParseMultimixArgs',instruction,arguments);h.freeze(instruction);return instruction;},/**
+         */
+
+        parseMultimixArgs: function parseMultimixArgs(args) {
+            var self = this,
+                instruction = new _mixitup.UserInstruction(),
+                arg = null,
+                i = -1;
+
+            instruction.animate = self.config.animation.enable;
+            instruction.command = new _mixitup.CommandMultimix();
+
+            for (i = 0; i < args.length; i++) {
+                arg = args[i];
+
+                if (arg === null) continue;
+
+                if ((typeof arg === 'undefined' ? 'undefined' : _typeof(arg)) === 'object') {
+                    h.extend(instruction.command, arg);
+                } else if (typeof arg === 'boolean') {
+                    instruction.animate = arg;
+                } else if (typeof arg === 'function') {
+                    instruction.callback = arg;
+                }
+            }
+
+            // Coerce arbitrary command arguments into typed command objects
+
+            if (instruction.command.insert && !(instruction.command.insert instanceof _mixitup.CommandInsert)) {
+                instruction.command.insert = self.parseInsertArgs([instruction.command.insert]).command;
+            }
+
+            if (instruction.command.remove && !(instruction.command.remove instanceof _mixitup.CommandRemove)) {
+                instruction.command.remove = self.parseRemoveArgs([instruction.command.remove]).command;
+            }
+
+            if (instruction.command.filter && !(instruction.command.filter instanceof _mixitup.CommandFilter)) {
+                instruction.command.filter = self.parseFilterArgs([instruction.command.filter]).command;
+            }
+
+            if (instruction.command.sort && !(instruction.command.sort instanceof _mixitup.CommandSort)) {
+                instruction.command.sort = self.parseSortArgs([instruction.command.sort]).command;
+            }
+
+            if (instruction.command.changeLayout && !(instruction.command.changeLayout instanceof _mixitup.CommandChangeLayout)) {
+                instruction.command.changeLayout = self.parseChangeLayoutArgs([instruction.command.changeLayout]).command;
+            }
+
+            instruction = self.callFilters('instructionParseMultimixArgs', instruction, arguments);
+
+            h.freeze(instruction);
+
+            return instruction;
+        },
+
+        /**
          * @private
          * @instance
          * @since   2.0.0
          * @param   {Array<*>}  args
          * @return  {mixitup.UserInstruction}
-         */parseFilterArgs:function parseFilterArgs(args){var self=this,instruction=new _mixitup.UserInstruction(),arg=null,i=-1;instruction.animate=self.config.animation.enable;instruction.command=new _mixitup.CommandFilter();for(i=0;i<args.length;i++){arg=args[i];if(typeof arg==='string'){// Selector
-instruction.command.selector=arg;}else if(arg===null){instruction.command.collection=[];}else if((typeof arg==='undefined'?'undefined':_typeof(arg))==='object'&&h.isElement(arg,self.dom.document)){// Single element
-instruction.command.collection=[arg];}else if((typeof arg==='undefined'?'undefined':_typeof(arg))==='object'&&typeof arg.length!=='undefined'){// Multiple elements in array, NodeList or jQuery collection
-instruction.command.collection=h.arrayFromList(arg);}else if((typeof arg==='undefined'?'undefined':_typeof(arg))==='object'){// Filter command
-h.extend(instruction.command,arg);}else if(typeof arg==='boolean'){instruction.animate=arg;}else if(typeof arg==='function'){instruction.callback=arg;}}if(instruction.command.selector&&instruction.command.collection){throw new Error(_mixitup.messages.errorFilterInvalidArguments());}instruction=self.callFilters('instructionParseFilterArgs',instruction,arguments);h.freeze(instruction);return instruction;},parseSortArgs:function parseSortArgs(args){var self=this,instruction=new _mixitup.UserInstruction(),arg=null,sortString='',i=-1;instruction.animate=self.config.animation.enable;instruction.command=new _mixitup.CommandSort();for(i=0;i<args.length;i++){arg=args[i];if(arg===null)continue;switch(typeof arg==='undefined'?'undefined':_typeof(arg)){case'string':// Sort string
-sortString=arg;break;case'object':// Array of element references
-if(arg.length){instruction.command.collection=h.arrayFromList(arg);}break;case'boolean':instruction.animate=arg;break;case'function':instruction.callback=arg;break;}}if(sortString){instruction.command=self.parseSortString(sortString,instruction.command);}instruction=self.callFilters('instructionParseSortArgs',instruction,arguments);h.freeze(instruction);return instruction;},/**
+         */
+
+        parseFilterArgs: function parseFilterArgs(args) {
+            var self = this,
+                instruction = new _mixitup.UserInstruction(),
+                arg = null,
+                i = -1;
+
+            instruction.animate = self.config.animation.enable;
+            instruction.command = new _mixitup.CommandFilter();
+
+            for (i = 0; i < args.length; i++) {
+                arg = args[i];
+
+                if (typeof arg === 'string') {
+                    // Selector
+
+                    instruction.command.selector = arg;
+                } else if (arg === null) {
+                    instruction.command.collection = [];
+                } else if ((typeof arg === 'undefined' ? 'undefined' : _typeof(arg)) === 'object' && h.isElement(arg, self.dom.document)) {
+                    // Single element
+
+                    instruction.command.collection = [arg];
+                } else if ((typeof arg === 'undefined' ? 'undefined' : _typeof(arg)) === 'object' && typeof arg.length !== 'undefined') {
+                    // Multiple elements in array, NodeList or jQuery collection
+
+                    instruction.command.collection = h.arrayFromList(arg);
+                } else if ((typeof arg === 'undefined' ? 'undefined' : _typeof(arg)) === 'object') {
+                    // Filter command
+
+                    h.extend(instruction.command, arg);
+                } else if (typeof arg === 'boolean') {
+                    instruction.animate = arg;
+                } else if (typeof arg === 'function') {
+                    instruction.callback = arg;
+                }
+            }
+
+            if (instruction.command.selector && instruction.command.collection) {
+                throw new Error(_mixitup.messages.errorFilterInvalidArguments());
+            }
+
+            instruction = self.callFilters('instructionParseFilterArgs', instruction, arguments);
+
+            h.freeze(instruction);
+
+            return instruction;
+        },
+
+        parseSortArgs: function parseSortArgs(args) {
+            var self = this,
+                instruction = new _mixitup.UserInstruction(),
+                arg = null,
+                sortString = '',
+                i = -1;
+
+            instruction.animate = self.config.animation.enable;
+            instruction.command = new _mixitup.CommandSort();
+
+            for (i = 0; i < args.length; i++) {
+                arg = args[i];
+
+                if (arg === null) continue;
+
+                switch (typeof arg === 'undefined' ? 'undefined' : _typeof(arg)) {
+                    case 'string':
+                        // Sort string
+
+                        sortString = arg;
+
+                        break;
+                    case 'object':
+                        // Array of element references
+
+                        if (arg.length) {
+                            instruction.command.collection = h.arrayFromList(arg);
+                        }
+
+                        break;
+                    case 'boolean':
+                        instruction.animate = arg;
+
+                        break;
+                    case 'function':
+                        instruction.callback = arg;
+
+                        break;
+                }
+            }
+
+            if (sortString) {
+                instruction.command = self.parseSortString(sortString, instruction.command);
+            }
+
+            instruction = self.callFilters('instructionParseSortArgs', instruction, arguments);
+
+            h.freeze(instruction);
+
+            return instruction;
+        },
+
+        /**
          * @private
          * @instance
          * @since   2.0.0
          * @param   {Array<*>}  args
          * @return  {mixitup.UserInstruction}
-         */parseInsertArgs:function parseInsertArgs(args){var self=this,instruction=new _mixitup.UserInstruction(),arg=null,i=-1;instruction.animate=self.config.animation.enable;instruction.command=new _mixitup.CommandInsert();for(i=0;i<args.length;i++){arg=args[i];if(arg===null)continue;if(typeof arg==='number'){// Insert index
-instruction.command.index=arg;}else if(typeof arg==='string'&&['before','after'].indexOf(arg)>-1){// 'before'/'after'
-instruction.command.position=arg;}else if(typeof arg==='string'){// Markup
-instruction.command.collection=h.arrayFromList(h.createElement(arg).childNodes);}else if((typeof arg==='undefined'?'undefined':_typeof(arg))==='object'&&h.isElement(arg,self.dom.document)){// Single element
-!instruction.command.collection.length?instruction.command.collection=[arg]:instruction.command.sibling=arg;}else if((typeof arg==='undefined'?'undefined':_typeof(arg))==='object'&&arg.length){// Multiple elements in array or jQuery collection
-!instruction.command.collection.length?instruction.command.collection=arg:instruction.command.sibling=arg[0];}else if((typeof arg==='undefined'?'undefined':_typeof(arg))==='object'&&arg.childNodes&&arg.childNodes.length){// Document fragment
-!instruction.command.collection.length?instruction.command.collection=h.arrayFromList(arg.childNodes):instruction.command.sibling=arg.childNodes[0];}else if((typeof arg==='undefined'?'undefined':_typeof(arg))==='object'){// Insert command
-h.extend(instruction.command,arg);}else if(typeof arg==='boolean'){instruction.animate=arg;}else if(typeof arg==='function'){instruction.callback=arg;}}if(instruction.command.index&&instruction.command.sibling){throw new Error(_mixitup.messages.errorInsertInvalidArguments());}if(!instruction.command.collection.length&&self.config.debug.showWarnings){console.warn(_mixitup.messages.warningInsertNoElements());}instruction=self.callFilters('instructionParseInsertArgs',instruction,arguments);h.freeze(instruction);return instruction;},/**
+         */
+
+        parseInsertArgs: function parseInsertArgs(args) {
+            var self = this,
+                instruction = new _mixitup.UserInstruction(),
+                arg = null,
+                i = -1;
+
+            instruction.animate = self.config.animation.enable;
+            instruction.command = new _mixitup.CommandInsert();
+
+            for (i = 0; i < args.length; i++) {
+                arg = args[i];
+
+                if (arg === null) continue;
+
+                if (typeof arg === 'number') {
+                    // Insert index
+
+                    instruction.command.index = arg;
+                } else if (typeof arg === 'string' && ['before', 'after'].indexOf(arg) > -1) {
+                    // 'before'/'after'
+
+                    instruction.command.position = arg;
+                } else if (typeof arg === 'string') {
+                    // Markup
+
+                    instruction.command.collection = h.arrayFromList(h.createElement(arg).childNodes);
+                } else if ((typeof arg === 'undefined' ? 'undefined' : _typeof(arg)) === 'object' && h.isElement(arg, self.dom.document)) {
+                    // Single element
+
+                    !instruction.command.collection.length ? instruction.command.collection = [arg] : instruction.command.sibling = arg;
+                } else if ((typeof arg === 'undefined' ? 'undefined' : _typeof(arg)) === 'object' && arg.length) {
+                    // Multiple elements in array or jQuery collection
+
+                    !instruction.command.collection.length ? instruction.command.collection = arg : instruction.command.sibling = arg[0];
+                } else if ((typeof arg === 'undefined' ? 'undefined' : _typeof(arg)) === 'object' && arg.childNodes && arg.childNodes.length) {
+                    // Document fragment
+
+                    !instruction.command.collection.length ? instruction.command.collection = h.arrayFromList(arg.childNodes) : instruction.command.sibling = arg.childNodes[0];
+                } else if ((typeof arg === 'undefined' ? 'undefined' : _typeof(arg)) === 'object') {
+                    // Insert command
+
+                    h.extend(instruction.command, arg);
+                } else if (typeof arg === 'boolean') {
+                    instruction.animate = arg;
+                } else if (typeof arg === 'function') {
+                    instruction.callback = arg;
+                }
+            }
+
+            if (instruction.command.index && instruction.command.sibling) {
+                throw new Error(_mixitup.messages.errorInsertInvalidArguments());
+            }
+
+            if (!instruction.command.collection.length && self.config.debug.showWarnings) {
+                console.warn(_mixitup.messages.warningInsertNoElements());
+            }
+
+            instruction = self.callFilters('instructionParseInsertArgs', instruction, arguments);
+
+            h.freeze(instruction);
+
+            return instruction;
+        },
+
+        /**
          * @private
          * @instance
          * @since   3.0.0
          * @param   {Array<*>}  args
          * @return  {mixitup.UserInstruction}
-         */parseRemoveArgs:function parseRemoveArgs(args){var self=this,instruction=new _mixitup.UserInstruction(),target=null,arg=null,i=-1;instruction.animate=self.config.animation.enable;instruction.command=new _mixitup.CommandRemove();for(i=0;i<args.length;i++){arg=args[i];if(arg===null)continue;switch(typeof arg==='undefined'?'undefined':_typeof(arg)){case'number':if(self.targets[arg]){instruction.command.targets[0]=self.targets[arg];}break;case'string':instruction.command.collection=h.arrayFromList(self.dom.parent.querySelectorAll(arg));break;case'object':if(arg&&arg.length){instruction.command.collection=arg;}else if(h.isElement(arg,self.dom.document)){instruction.command.collection=[arg];}else{// Remove command
-h.extend(instruction.command,arg);}break;case'boolean':instruction.animate=arg;break;case'function':instruction.callback=arg;break;}}if(instruction.command.collection.length){for(i=0;target=self.targets[i];i++){if(instruction.command.collection.indexOf(target.dom.el)>-1){instruction.command.targets.push(target);}}}if(!instruction.command.targets.length&&self.config.debug.showWarnings){console.warn(_mixitup.messages.warningRemoveNoElements());}h.freeze(instruction);return instruction;},/**
+         */
+
+        parseRemoveArgs: function parseRemoveArgs(args) {
+            var self = this,
+                instruction = new _mixitup.UserInstruction(),
+                target = null,
+                arg = null,
+                i = -1;
+
+            instruction.animate = self.config.animation.enable;
+            instruction.command = new _mixitup.CommandRemove();
+
+            for (i = 0; i < args.length; i++) {
+                arg = args[i];
+
+                if (arg === null) continue;
+
+                switch (typeof arg === 'undefined' ? 'undefined' : _typeof(arg)) {
+                    case 'number':
+                        if (self.targets[arg]) {
+                            instruction.command.targets[0] = self.targets[arg];
+                        }
+
+                        break;
+                    case 'string':
+                        instruction.command.collection = h.arrayFromList(self.dom.parent.querySelectorAll(arg));
+
+                        break;
+                    case 'object':
+                        if (arg && arg.length) {
+                            instruction.command.collection = arg;
+                        } else if (h.isElement(arg, self.dom.document)) {
+                            instruction.command.collection = [arg];
+                        } else {
+                            // Remove command
+
+                            h.extend(instruction.command, arg);
+                        }
+
+                        break;
+                    case 'boolean':
+                        instruction.animate = arg;
+
+                        break;
+                    case 'function':
+                        instruction.callback = arg;
+
+                        break;
+                }
+            }
+
+            if (instruction.command.collection.length) {
+                for (i = 0; target = self.targets[i]; i++) {
+                    if (instruction.command.collection.indexOf(target.dom.el) > -1) {
+                        instruction.command.targets.push(target);
+                    }
+                }
+            }
+
+            if (!instruction.command.targets.length && self.config.debug.showWarnings) {
+                console.warn(_mixitup.messages.warningRemoveNoElements());
+            }
+
+            h.freeze(instruction);
+
+            return instruction;
+        },
+
+        /**
          * @private
          * @instance
          * @since   3.0.0
          * @param   {Array<*>}  args
          * @return  {mixitup.UserInstruction}
-         */parseDatasetArgs:function parseDatasetArgs(args){var self=this,instruction=new _mixitup.UserInstruction(),arg=null,i=-1;instruction.animate=self.config.animation.enable;instruction.command=new _mixitup.CommandDataset();for(i=0;i<args.length;i++){arg=args[i];if(arg===null)continue;switch(typeof arg==='undefined'?'undefined':_typeof(arg)){case'object':if(Array.isArray(arg)||typeof arg.length==='number'){instruction.command.dataset=arg;}else{// Change layout command
-h.extend(instruction.command,arg);}break;case'boolean':instruction.animate=arg;break;case'function':instruction.callback=arg;break;}}h.freeze(instruction);return instruction;},/**
+         */
+
+        parseDatasetArgs: function parseDatasetArgs(args) {
+            var self = this,
+                instruction = new _mixitup.UserInstruction(),
+                arg = null,
+                i = -1;
+
+            instruction.animate = self.config.animation.enable;
+            instruction.command = new _mixitup.CommandDataset();
+
+            for (i = 0; i < args.length; i++) {
+                arg = args[i];
+
+                if (arg === null) continue;
+
+                switch (typeof arg === 'undefined' ? 'undefined' : _typeof(arg)) {
+                    case 'object':
+                        if (Array.isArray(arg) || typeof arg.length === 'number') {
+                            instruction.command.dataset = arg;
+                        } else {
+                            // Change layout command
+
+                            h.extend(instruction.command, arg);
+                        }
+
+                        break;
+                    case 'boolean':
+                        instruction.animate = arg;
+
+                        break;
+                    case 'function':
+                        instruction.callback = arg;
+
+                        break;
+                }
+            }
+
+            h.freeze(instruction);
+
+            return instruction;
+        },
+
+        /**
          * @private
          * @instance
          * @since   3.0.0
          * @param   {Array<*>}  args
          * @return  {mixitup.UserInstruction}
-         */parseChangeLayoutArgs:function parseChangeLayoutArgs(args){var self=this,instruction=new _mixitup.UserInstruction(),arg=null,i=-1;instruction.animate=self.config.animation.enable;instruction.command=new _mixitup.CommandChangeLayout();for(i=0;i<args.length;i++){arg=args[i];if(arg===null)continue;switch(typeof arg==='undefined'?'undefined':_typeof(arg)){case'string':instruction.command.containerClassName=arg;break;case'object':// Change layout command
-h.extend(instruction.command,arg);break;case'boolean':instruction.animate=arg;break;case'function':instruction.callback=arg;break;}}h.freeze(instruction);return instruction;},/**
+         */
+
+        parseChangeLayoutArgs: function parseChangeLayoutArgs(args) {
+            var self = this,
+                instruction = new _mixitup.UserInstruction(),
+                arg = null,
+                i = -1;
+
+            instruction.animate = self.config.animation.enable;
+            instruction.command = new _mixitup.CommandChangeLayout();
+
+            for (i = 0; i < args.length; i++) {
+                arg = args[i];
+
+                if (arg === null) continue;
+
+                switch (typeof arg === 'undefined' ? 'undefined' : _typeof(arg)) {
+                    case 'string':
+                        instruction.command.containerClassName = arg;
+
+                        break;
+                    case 'object':
+                        // Change layout command
+
+                        h.extend(instruction.command, arg);
+
+                        break;
+                    case 'boolean':
+                        instruction.animate = arg;
+
+                        break;
+                    case 'function':
+                        instruction.callback = arg;
+
+                        break;
+                }
+            }
+
+            h.freeze(instruction);
+
+            return instruction;
+        },
+
+        /**
          * @private
          * @instance
          * @since       3.0.0
          * @param       {mixitup.QueueItem}         queueItem
          * @return      {Promise.<mixitup.State>}
-         */queueMix:function queueMix(queueItem){var self=this,deferred=null,toggleSelector='';self.callActions('beforeQueueMix',arguments);deferred=h.defer(_mixitup.libraries);if(self.config.animation.queue&&self.queue.length<self.config.animation.queueLimit){queueItem.deferred=deferred;self.queue.push(queueItem);// Keep controls in sync with user interactions. Mixer will catch up as it drains the queue.
-if(self.config.controls.enable){if(self.isToggling){self.buildToggleArray(queueItem.instruction.command);toggleSelector=self.getToggleSelector();self.updateControls({filter:{selector:toggleSelector}});}else{self.updateControls(queueItem.instruction.command);}}}else{if(self.config.debug.showWarnings){console.warn(_mixitup.messages.warningMultimixInstanceQueueFull());}deferred.resolve(self.state);_mixitup.events.fire('mixBusy',self.dom.container,{state:self.state,instance:self},self.dom.document);if(typeof self.config.callbacks.onMixBusy==='function'){self.config.callbacks.onMixBusy.call(self.dom.container,self.state,self);}}return self.callFilters('promiseQueueMix',deferred.promise,arguments);},/**
+         */
+
+        queueMix: function queueMix(queueItem) {
+            var self = this,
+                deferred = null,
+                toggleSelector = '';
+
+            self.callActions('beforeQueueMix', arguments);
+
+            deferred = h.defer(_mixitup.libraries);
+
+            if (self.config.animation.queue && self.queue.length < self.config.animation.queueLimit) {
+                queueItem.deferred = deferred;
+
+                self.queue.push(queueItem);
+
+                // Keep controls in sync with user interactions. Mixer will catch up as it drains the queue.
+
+                if (self.config.controls.enable) {
+                    if (self.isToggling) {
+                        self.buildToggleArray(queueItem.instruction.command);
+
+                        toggleSelector = self.getToggleSelector();
+
+                        self.updateControls({
+                            filter: {
+                                selector: toggleSelector
+                            }
+                        });
+                    } else {
+                        self.updateControls(queueItem.instruction.command);
+                    }
+                }
+            } else {
+                if (self.config.debug.showWarnings) {
+                    console.warn(_mixitup.messages.warningMultimixInstanceQueueFull());
+                }
+
+                deferred.resolve(self.state);
+
+                _mixitup.events.fire('mixBusy', self.dom.container, {
+                    state: self.state,
+                    instance: self
+                }, self.dom.document);
+
+                if (typeof self.config.callbacks.onMixBusy === 'function') {
+                    self.config.callbacks.onMixBusy.call(self.dom.container, self.state, self);
+                }
+            }
+
+            return self.callFilters('promiseQueueMix', deferred.promise, arguments);
+        },
+
+        /**
          * @private
          * @instance
          * @since   3.0.0
          * @param   {Array.<object>}    newDataset
          * @return  {Operation}
-         */getDataOperation:function getDataOperation(newDataset){var self=this,operation=new _mixitup.Operation(),startDataset=[];operation=self.callFilters('operationUnmappedGetDataOperation',operation,arguments);if(self.dom.targets.length&&!(startDataset=self.state.activeDataset||[]).length){throw new Error(_mixitup.messages.errorDatasetNotSet());}operation.id=h.randomHex();operation.startState=self.state;operation.startDataset=startDataset;operation.newDataset=newDataset.slice();self.diffDatasets(operation);operation.startOrder=self.targets;operation.newOrder=operation.show;if(self.config.animation.enable){self.getStartMixData(operation);self.setInter(operation);operation.docState=h.getDocumentState(self.dom.document);self.getInterMixData(operation);self.setFinal(operation);self.getFinalMixData(operation);self.parseEffects();operation.hasEffect=self.hasEffect();self.getTweenData(operation);}self.targets=operation.show.slice();operation.newState=self.buildState(operation);// NB: Targets to be removed must be included in `self.targets` for removal during clean up,
-// but are added after state is built so that state is accurate
-Array.prototype.push.apply(self.targets,operation.toRemove);operation=self.callFilters('operationMappedGetDataOperation',operation,arguments);return operation;},/**
+         */
+
+        getDataOperation: function getDataOperation(newDataset) {
+            var self = this,
+                operation = new _mixitup.Operation(),
+                startDataset = [];
+
+            operation = self.callFilters('operationUnmappedGetDataOperation', operation, arguments);
+
+            if (self.dom.targets.length && !(startDataset = self.state.activeDataset || []).length) {
+                throw new Error(_mixitup.messages.errorDatasetNotSet());
+            }
+
+            operation.id = h.randomHex();
+            operation.startState = self.state;
+            operation.startDataset = startDataset;
+            operation.newDataset = newDataset.slice();
+
+            self.diffDatasets(operation);
+
+            operation.startOrder = self.targets;
+            operation.newOrder = operation.show;
+
+            if (self.config.animation.enable) {
+                self.getStartMixData(operation);
+                self.setInter(operation);
+
+                operation.docState = h.getDocumentState(self.dom.document);
+
+                self.getInterMixData(operation);
+                self.setFinal(operation);
+                self.getFinalMixData(operation);
+
+                self.parseEffects();
+
+                operation.hasEffect = self.hasEffect();
+
+                self.getTweenData(operation);
+            }
+
+            self.targets = operation.show.slice();
+
+            operation.newState = self.buildState(operation);
+
+            // NB: Targets to be removed must be included in `self.targets` for removal during clean up,
+            // but are added after state is built so that state is accurate
+
+            Array.prototype.push.apply(self.targets, operation.toRemove);
+
+            operation = self.callFilters('operationMappedGetDataOperation', operation, arguments);
+
+            return operation;
+        },
+
+        /**
          * @private
          * @instance
          * @since   3.0.0
          * @param   {mixitup.Operation} operation
          * @return  {void}
-         */diffDatasets:function diffDatasets(operation){var self=this,persistantStartIds=[],persistantNewIds=[],insertedTargets=[],data=null,target=null,el=null,frag=null,nextEl=null,uids={},id='',i=-1;self.callActions('beforeDiffDatasets',arguments);for(i=0;data=operation.newDataset[i];i++){if(typeof(id=data[self.config.data.uidKey])==='undefined'||id.toString().length<1){throw new TypeError(_mixitup.messages.errorDatasetInvalidUidKey({uidKey:self.config.data.uidKey}));}if(!uids[id]){uids[id]=true;}else{throw new Error(_mixitup.messages.errorDatasetDuplicateUid({uid:id}));}if((target=self.cache[id])instanceof _mixitup.Target){// Already in cache
-if(self.config.data.dirtyCheck&&!h.deepEquals(data,target.data)){// change detected
-el=target.render(data);target.data=data;if(el!==target.dom.el){// Update target element reference
-if(target.isInDom){target.unbindEvents();self.dom.parent.replaceChild(el,target.dom.el);}if(!target.isShown){el.style.display='none';}target.dom.el=el;if(target.isInDom){target.bindEvents();}}}el=target.dom.el;}else{// New target
-target=new _mixitup.Target();target.init(null,self,data);target.hide();}if(!target.isInDom){// Adding to DOM
-if(!frag){// Open frag
-frag=self.dom.document.createDocumentFragment();}if(frag.lastElementChild){frag.appendChild(self.dom.document.createTextNode(' '));}frag.appendChild(target.dom.el);target.isInDom=true;target.unbindEvents();target.bindEvents();target.hide();operation.toShow.push(target);insertedTargets.push(target);}else{// Already in DOM
-nextEl=target.dom.el.nextElementSibling;persistantNewIds.push(id);if(frag){// Close and insert previously opened frag
-if(frag.lastElementChild){frag.appendChild(self.dom.document.createTextNode(' '));}self.insertDatasetFrag(frag,target.dom.el,insertedTargets);frag=null;}}operation.show.push(target);}if(frag){// Unclosed frag remaining
-nextEl=nextEl||self.config.layout.siblingAfter;if(nextEl){frag.appendChild(self.dom.document.createTextNode(' '));}self.insertDatasetFrag(frag,nextEl,insertedTargets);}for(i=0;data=operation.startDataset[i];i++){id=data[self.config.data.uidKey];target=self.cache[id];if(operation.show.indexOf(target)<0){// Previously shown but now absent
-operation.hide.push(target);operation.toHide.push(target);operation.toRemove.push(target);}else{persistantStartIds.push(id);}}if(!h.isEqualArray(persistantStartIds,persistantNewIds)){operation.willSort=true;}self.callActions('afterDiffDatasets',arguments);},/**
+         */
+
+        diffDatasets: function diffDatasets(operation) {
+            var self = this,
+                persistantStartIds = [],
+                persistantNewIds = [],
+                insertedTargets = [],
+                data = null,
+                target = null,
+                el = null,
+                frag = null,
+                nextEl = null,
+                uids = {},
+                id = '',
+                i = -1;
+
+            self.callActions('beforeDiffDatasets', arguments);
+
+            for (i = 0; data = operation.newDataset[i]; i++) {
+                if (typeof (id = data[self.config.data.uidKey]) === 'undefined' || id.toString().length < 1) {
+                    throw new TypeError(_mixitup.messages.errorDatasetInvalidUidKey({
+                        uidKey: self.config.data.uidKey
+                    }));
+                }
+
+                if (!uids[id]) {
+                    uids[id] = true;
+                } else {
+                    throw new Error(_mixitup.messages.errorDatasetDuplicateUid({
+                        uid: id
+                    }));
+                }
+
+                if ((target = self.cache[id]) instanceof _mixitup.Target) {
+                    // Already in cache
+
+                    if (self.config.data.dirtyCheck && !h.deepEquals(data, target.data)) {
+                        // change detected
+
+                        el = target.render(data);
+
+                        target.data = data;
+
+                        if (el !== target.dom.el) {
+                            // Update target element reference
+
+                            if (target.isInDom) {
+                                target.unbindEvents();
+
+                                self.dom.parent.replaceChild(el, target.dom.el);
+                            }
+
+                            if (!target.isShown) {
+                                el.style.display = 'none';
+                            }
+
+                            target.dom.el = el;
+
+                            if (target.isInDom) {
+                                target.bindEvents();
+                            }
+                        }
+                    }
+
+                    el = target.dom.el;
+                } else {
+                    // New target
+
+                    target = new _mixitup.Target();
+
+                    target.init(null, self, data);
+
+                    target.hide();
+                }
+
+                if (!target.isInDom) {
+                    // Adding to DOM
+
+                    if (!frag) {
+                        // Open frag
+
+                        frag = self.dom.document.createDocumentFragment();
+                    }
+
+                    if (frag.lastElementChild) {
+                        frag.appendChild(self.dom.document.createTextNode(' '));
+                    }
+
+                    frag.appendChild(target.dom.el);
+
+                    target.isInDom = true;
+
+                    target.unbindEvents();
+                    target.bindEvents();
+                    target.hide();
+
+                    operation.toShow.push(target);
+
+                    insertedTargets.push(target);
+                } else {
+                    // Already in DOM
+
+                    nextEl = target.dom.el.nextElementSibling;
+
+                    persistantNewIds.push(id);
+
+                    if (frag) {
+                        // Close and insert previously opened frag
+
+                        if (frag.lastElementChild) {
+                            frag.appendChild(self.dom.document.createTextNode(' '));
+                        }
+
+                        self.insertDatasetFrag(frag, target.dom.el, insertedTargets);
+
+                        frag = null;
+                    }
+                }
+
+                operation.show.push(target);
+            }
+
+            if (frag) {
+                // Unclosed frag remaining
+
+                nextEl = nextEl || self.config.layout.siblingAfter;
+
+                if (nextEl) {
+                    frag.appendChild(self.dom.document.createTextNode(' '));
+                }
+
+                self.insertDatasetFrag(frag, nextEl, insertedTargets);
+            }
+
+            for (i = 0; data = operation.startDataset[i]; i++) {
+                id = data[self.config.data.uidKey];
+
+                target = self.cache[id];
+
+                if (operation.show.indexOf(target) < 0) {
+                    // Previously shown but now absent
+
+                    operation.hide.push(target);
+                    operation.toHide.push(target);
+                    operation.toRemove.push(target);
+                } else {
+                    persistantStartIds.push(id);
+                }
+            }
+
+            if (!h.isEqualArray(persistantStartIds, persistantNewIds)) {
+                operation.willSort = true;
+            }
+
+            self.callActions('afterDiffDatasets', arguments);
+        },
+
+        /**
          * @private
          * @instance
          * @since   3.1.5
@@ -4035,14 +8976,46 @@ operation.hide.push(target);operation.toHide.push(target);operation.toRemove.pus
          * @param   {(HTMLElement|null)}        nextEl
          * @param   {Array.<mixitup.Target>}    targets
          * @return  {void}
-         */insertDatasetFrag:function insertDatasetFrag(frag,nextEl,targets){var self=this;var insertAt=nextEl?Array.from(self.dom.parent.children).indexOf(nextEl):self.targets.length;self.dom.parent.insertBefore(frag,nextEl);while(targets.length){self.targets.splice(insertAt,0,targets.shift());insertAt++;}},/**
+         */
+
+        insertDatasetFrag: function insertDatasetFrag(frag, nextEl, targets) {
+            var self = this;
+            var insertAt = nextEl ? Array.from(self.dom.parent.children).indexOf(nextEl) : self.targets.length;
+
+            self.dom.parent.insertBefore(frag, nextEl);
+
+            while (targets.length) {
+                self.targets.splice(insertAt, 0, targets.shift());
+
+                insertAt++;
+            }
+        },
+
+        /**
          * @private
          * @instance
          * @since   3.0.0
          * @param   {mixitup.CommandSort} sortCommandA
          * @param   {mixitup.CommandSort} sortCommandB
          * @return  {boolean}
-         */willSort:function willSort(sortCommandA,sortCommandB){var self=this,result=false;if(self.config.behavior.liveSort||sortCommandA.order==='random'||sortCommandA.attribute!==sortCommandB.attribute||sortCommandA.order!==sortCommandB.order||sortCommandA.collection!==sortCommandB.collection||sortCommandA.next===null&&sortCommandB.next||sortCommandA.next&&sortCommandB.next===null){result=true;}else if(sortCommandA.next&&sortCommandB.next){result=self.willSort(sortCommandA.next,sortCommandB.next);}else{result=false;}return self.callFilters('resultWillSort',result,arguments);},/**
+         */
+
+        willSort: function willSort(sortCommandA, sortCommandB) {
+            var self = this,
+                result = false;
+
+            if (self.config.behavior.liveSort || sortCommandA.order === 'random' || sortCommandA.attribute !== sortCommandB.attribute || sortCommandA.order !== sortCommandB.order || sortCommandA.collection !== sortCommandB.collection || sortCommandA.next === null && sortCommandB.next || sortCommandA.next && sortCommandB.next === null) {
+                result = true;
+            } else if (sortCommandA.next && sortCommandB.next) {
+                result = self.willSort(sortCommandA.next, sortCommandB.next);
+            } else {
+                result = false;
+            }
+
+            return self.callFilters('resultWillSort', result, arguments);
+        },
+
+        /**
          * A shorthand method for `.filter('all')`. Shows all targets in the container.
          *
          * @example
@@ -4060,7 +9033,15 @@ operation.hide.push(target);operation.toHide.push(target);operation.toRemove.pus
          * @instance
          * @since       3.0.0
          * @return      {Promise.<mixitup.State>}
-         */show:function show(){var self=this;return self.filter('all');},/**
+         */
+
+        show: function show() {
+            var self = this;
+
+            return self.filter('all');
+        },
+
+        /**
          * A shorthand method for `.filter('none')`. Hides all targets in the container.
          *
          * @example
@@ -4079,7 +9060,15 @@ operation.hide.push(target);operation.toHide.push(target);operation.toRemove.pus
          * @instance
          * @since       3.0.0
          * @return      {Promise.<mixitup.State>}
-         */hide:function hide(){var self=this;return self.filter('none');},/**
+         */
+
+        hide: function hide() {
+            var self = this;
+
+            return self.filter('none');
+        },
+
+        /**
          * Returns a boolean indicating whether or not a MixItUp operation is
          * currently in progress.
          *
@@ -4099,7 +9088,15 @@ operation.hide.push(target);operation.toHide.push(target);operation.toRemove.pus
          * @instance
          * @since   2.0.0
          * @return  {boolean}
-         */isMixing:function isMixing(){var self=this;return self.isBusy;},/**
+         */
+
+        isMixing: function isMixing() {
+            var self = this;
+
+            return self.isBusy;
+        },
+
+        /**
          * Filters all targets in the container by a provided selector string, or the values `'all'`
          * or `'none'`. Only targets matching the selector will be shown.
          *
@@ -4162,7 +9159,18 @@ operation.hide.push(target);operation.toHide.push(target);operation.toRemove.pus
          *      An optional callback function to be invoked after the operation has completed.
          * @return      {Promise.<mixitup.State>}
          *      A promise resolving with the current state object.
-         */filter:function filter(){var self=this,instruction=self.parseFilterArgs(arguments);return self.multimix({filter:instruction.command},instruction.animate,instruction.callback);},/**
+         */
+
+        filter: function filter() {
+            var self = this,
+                instruction = self.parseFilterArgs(arguments);
+
+            return self.multimix({
+                filter: instruction.command
+            }, instruction.animate, instruction.callback);
+        },
+
+        /**
          * Adds an additional selector to the currently active filter selector, concatenating
          * as per the logic defined in `controls.toggleLogic`.
          *
@@ -4190,7 +9198,28 @@ operation.hide.push(target);operation.toHide.push(target);operation.toRemove.pus
          *      An optional callback function to be invoked after the operation has completed.
          * @return      {Promise.<mixitup.State>}
          *      A promise resolving with the current state object.
-         */toggleOn:function toggleOn(){var self=this,instruction=self.parseFilterArgs(arguments),selector=instruction.command.selector,toggleSelector='';self.isToggling=true;if(self.toggleArray.indexOf(selector)<0){self.toggleArray.push(selector);}toggleSelector=self.getToggleSelector();return self.multimix({filter:toggleSelector},instruction.animate,instruction.callback);},/**
+         */
+
+        toggleOn: function toggleOn() {
+            var self = this,
+                instruction = self.parseFilterArgs(arguments),
+                selector = instruction.command.selector,
+                toggleSelector = '';
+
+            self.isToggling = true;
+
+            if (self.toggleArray.indexOf(selector) < 0) {
+                self.toggleArray.push(selector);
+            }
+
+            toggleSelector = self.getToggleSelector();
+
+            return self.multimix({
+                filter: toggleSelector
+            }, instruction.animate, instruction.callback);
+        },
+
+        /**
          * Removes a selector from the active filter selector.
          *
          * @example
@@ -4217,7 +9246,26 @@ operation.hide.push(target);operation.toHide.push(target);operation.toRemove.pus
          *      An optional callback function to be invoked after the operation has completed.
          * @return      {Promise.<mixitup.State>}
          *      A promise resolving with the current state object.
-         */toggleOff:function toggleOff(){var self=this,instruction=self.parseFilterArgs(arguments),selector=instruction.command.selector,toggleSelector='';self.isToggling=true;self.toggleArray.splice(self.toggleArray.indexOf(selector),1);toggleSelector=self.getToggleSelector();return self.multimix({filter:toggleSelector},instruction.animate,instruction.callback);},/**
+         */
+
+        toggleOff: function toggleOff() {
+            var self = this,
+                instruction = self.parseFilterArgs(arguments),
+                selector = instruction.command.selector,
+                toggleSelector = '';
+
+            self.isToggling = true;
+
+            self.toggleArray.splice(self.toggleArray.indexOf(selector), 1);
+
+            toggleSelector = self.getToggleSelector();
+
+            return self.multimix({
+                filter: toggleSelector
+            }, instruction.animate, instruction.callback);
+        },
+
+        /**
          * Sorts all targets in the container according to a provided sort string.
          *
          * @example
@@ -4293,7 +9341,18 @@ operation.hide.push(target);operation.toHide.push(target);operation.toRemove.pus
          *      An optional callback function to be invoked after the operation has completed.
          * @return      {Promise.<mixitup.State>}
          *      A promise resolving with the current state object.
-         */sort:function sort(){var self=this,instruction=self.parseSortArgs(arguments);return self.multimix({sort:instruction.command},instruction.animate,instruction.callback);},/**
+         */
+
+        sort: function sort() {
+            var self = this,
+                instruction = self.parseSortArgs(arguments);
+
+            return self.multimix({
+                sort: instruction.command
+            }, instruction.animate, instruction.callback);
+        },
+
+        /**
          * Changes the layout of the container by adding, removing or updating a
          * layout-specific class name. If `animation.animateResizetargets` is
          * enabled, MixItUp will attempt to gracefully animate the width, height,
@@ -4328,7 +9387,18 @@ operation.hide.push(target);operation.toHide.push(target);operation.toRemove.pus
          *      An optional callback function to be invoked after the operation has completed.
          * @return      {Promise.<mixitup.State>}
          *      A promise resolving with the current state object.
-         */changeLayout:function changeLayout(){var self=this,instruction=self.parseChangeLayoutArgs(arguments);return self.multimix({changeLayout:instruction.command},instruction.animate,instruction.callback);},/**
+         */
+
+        changeLayout: function changeLayout() {
+            var self = this,
+                instruction = self.parseChangeLayoutArgs(arguments);
+
+            return self.multimix({
+                changeLayout: instruction.command
+            }, instruction.animate, instruction.callback);
+        },
+
+        /**
          * Updates the contents and order of the container to reflect the provided dataset,
          * if the dataset API is in use.
          *
@@ -4390,7 +9460,36 @@ operation.hide.push(target);operation.toHide.push(target);operation.toRemove.pus
          *      An optional callback function to be invoked after the operation has completed.
          * @return      {Promise.<mixitup.State>}
          *      A promise resolving with the current state object.
-         */dataset:function dataset(){var self=this,instruction=self.parseDatasetArgs(arguments),operation=null,queueItem=null,animate=false;self.callActions('beforeDataset',arguments);if(!self.isBusy){if(instruction.callback)self.userCallback=instruction.callback;animate=instruction.animate^self.config.animation.enable?instruction.animate:self.config.animation.enable;operation=self.getDataOperation(instruction.command.dataset);return self.goMix(animate,operation);}else{queueItem=new _mixitup.QueueItem();queueItem.args=arguments;queueItem.instruction=instruction;return self.queueMix(queueItem);}},/**
+         */
+
+        dataset: function dataset() {
+            var self = this,
+                instruction = self.parseDatasetArgs(arguments),
+                operation = null,
+                queueItem = null,
+                animate = false;
+
+            self.callActions('beforeDataset', arguments);
+
+            if (!self.isBusy) {
+                if (instruction.callback) self.userCallback = instruction.callback;
+
+                animate = instruction.animate ^ self.config.animation.enable ? instruction.animate : self.config.animation.enable;
+
+                operation = self.getDataOperation(instruction.command.dataset);
+
+                return self.goMix(animate, operation);
+            } else {
+                queueItem = new _mixitup.QueueItem();
+
+                queueItem.args = arguments;
+                queueItem.instruction = instruction;
+
+                return self.queueMix(queueItem);
+            }
+        },
+
+        /**
          * Performs simultaneous `filter`, `sort`, `insert`, `remove` and `changeLayout`
          * operations as requested.
          *
@@ -4441,11 +9540,58 @@ operation.hide.push(target);operation.toHide.push(target);operation.toRemove.pus
          *      An optional callback function to be invoked after the operation has completed.
          * @return      {Promise.<mixitup.State>}
          *      A promise resolving with the current state object.
-         */multimix:function multimix(){var self=this,operation=null,animate=false,queueItem=null,instruction=self.parseMultimixArgs(arguments);self.callActions('beforeMultimix',arguments);if(!self.isBusy){operation=self.getOperation(instruction.command);if(self.config.controls.enable){// Update controls for API calls
-if(instruction.command.filter&&!self.isToggling){// As we are not toggling, reset the toggle array
-// so new filter overrides existing toggles
-self.toggleArray.length=0;self.buildToggleArray(operation.command);}if(self.queue.length<1){self.updateControls(operation.command);}}if(instruction.callback)self.userCallback=instruction.callback;// Always allow the instruction to override the instance setting
-animate=instruction.animate^self.config.animation.enable?instruction.animate:self.config.animation.enable;self.callFilters('operationMultimix',operation,arguments);return self.goMix(animate,operation);}else{queueItem=new _mixitup.QueueItem();queueItem.args=arguments;queueItem.instruction=instruction;queueItem.triggerElement=self.lastClicked;queueItem.isToggling=self.isToggling;return self.queueMix(queueItem);}},/**
+         */
+
+        multimix: function multimix() {
+            var self = this,
+                operation = null,
+                animate = false,
+                queueItem = null,
+                instruction = self.parseMultimixArgs(arguments);
+
+            self.callActions('beforeMultimix', arguments);
+
+            if (!self.isBusy) {
+                operation = self.getOperation(instruction.command);
+
+                if (self.config.controls.enable) {
+                    // Update controls for API calls
+
+                    if (instruction.command.filter && !self.isToggling) {
+                        // As we are not toggling, reset the toggle array
+                        // so new filter overrides existing toggles
+
+                        self.toggleArray.length = 0;
+                        self.buildToggleArray(operation.command);
+                    }
+
+                    if (self.queue.length < 1) {
+                        self.updateControls(operation.command);
+                    }
+                }
+
+                if (instruction.callback) self.userCallback = instruction.callback;
+
+                // Always allow the instruction to override the instance setting
+
+                animate = instruction.animate ^ self.config.animation.enable ? instruction.animate : self.config.animation.enable;
+
+                self.callFilters('operationMultimix', operation, arguments);
+
+                return self.goMix(animate, operation);
+            } else {
+                queueItem = new _mixitup.QueueItem();
+
+                queueItem.args = arguments;
+                queueItem.instruction = instruction;
+                queueItem.triggerElement = self.lastClicked;
+                queueItem.isToggling = self.isToggling;
+
+                return self.queueMix(queueItem);
+            }
+        },
+
+        /**
          * @private
          * @instance
          * @since   3.0.0
@@ -4453,8 +9599,111 @@ animate=instruction.animate^self.config.animation.enable?instruction.animate:sel
          * @param   {boolean}           [isPreFetch]
          *      An optional boolean indicating that the operation is being pre-fetched for execution at a later time.
          * @return  {Operation|null}
-         */getOperation:function getOperation(multimixCommand){var self=this,sortCommand=multimixCommand.sort,filterCommand=multimixCommand.filter,changeLayoutCommand=multimixCommand.changeLayout,removeCommand=multimixCommand.remove,insertCommand=multimixCommand.insert,operation=new _mixitup.Operation();operation=self.callFilters('operationUnmappedGetOperation',operation,arguments);operation.id=h.randomHex();operation.command=multimixCommand;operation.startState=self.state;operation.triggerElement=self.lastClicked;if(self.isBusy){if(self.config.debug.showWarnings){console.warn(_mixitup.messages.warningGetOperationInstanceBusy());}return null;}if(insertCommand){self.insertTargets(insertCommand,operation);}if(removeCommand){operation.toRemove=removeCommand.targets;}operation.startSort=operation.newSort=operation.startState.activeSort;operation.startOrder=operation.newOrder=self.targets;if(sortCommand){operation.startSort=operation.startState.activeSort;operation.newSort=sortCommand;operation.willSort=self.willSort(sortCommand,operation.startState.activeSort);if(operation.willSort){self.sortOperation(operation);}}operation.startFilter=operation.startState.activeFilter;if(filterCommand){operation.newFilter=filterCommand;}else{operation.newFilter=h.extend(new _mixitup.CommandFilter(),operation.startFilter);}if(operation.newFilter.selector==='all'){operation.newFilter.selector=self.config.selectors.target;}else if(operation.newFilter.selector==='none'){operation.newFilter.selector='';}self.filterOperation(operation);operation.startContainerClassName=operation.startState.activeContainerClassName;if(changeLayoutCommand){operation.newContainerClassName=changeLayoutCommand.containerClassName;if(operation.newContainerClassName!==operation.startContainerClassName){operation.willChangeLayout=true;}}else{operation.newContainerClassName=operation.startContainerClassName;}if(self.config.animation.enable){// Populate the operation's position data
-self.getStartMixData(operation);self.setInter(operation);operation.docState=h.getDocumentState(self.dom.document);self.getInterMixData(operation);self.setFinal(operation);self.getFinalMixData(operation);self.parseEffects();operation.hasEffect=self.hasEffect();self.getTweenData(operation);}if(operation.willSort){self.targets=operation.newOrder;}operation.newState=self.buildState(operation);return self.callFilters('operationMappedGetOperation',operation,arguments);},/**
+         */
+
+        getOperation: function getOperation(multimixCommand) {
+            var self = this,
+                sortCommand = multimixCommand.sort,
+                filterCommand = multimixCommand.filter,
+                changeLayoutCommand = multimixCommand.changeLayout,
+                removeCommand = multimixCommand.remove,
+                insertCommand = multimixCommand.insert,
+                operation = new _mixitup.Operation();
+
+            operation = self.callFilters('operationUnmappedGetOperation', operation, arguments);
+
+            operation.id = h.randomHex();
+            operation.command = multimixCommand;
+            operation.startState = self.state;
+            operation.triggerElement = self.lastClicked;
+
+            if (self.isBusy) {
+                if (self.config.debug.showWarnings) {
+                    console.warn(_mixitup.messages.warningGetOperationInstanceBusy());
+                }
+
+                return null;
+            }
+
+            if (insertCommand) {
+                self.insertTargets(insertCommand, operation);
+            }
+
+            if (removeCommand) {
+                operation.toRemove = removeCommand.targets;
+            }
+
+            operation.startSort = operation.newSort = operation.startState.activeSort;
+            operation.startOrder = operation.newOrder = self.targets;
+
+            if (sortCommand) {
+                operation.startSort = operation.startState.activeSort;
+                operation.newSort = sortCommand;
+
+                operation.willSort = self.willSort(sortCommand, operation.startState.activeSort);
+
+                if (operation.willSort) {
+                    self.sortOperation(operation);
+                }
+            }
+
+            operation.startFilter = operation.startState.activeFilter;
+
+            if (filterCommand) {
+                operation.newFilter = filterCommand;
+            } else {
+                operation.newFilter = h.extend(new _mixitup.CommandFilter(), operation.startFilter);
+            }
+
+            if (operation.newFilter.selector === 'all') {
+                operation.newFilter.selector = self.config.selectors.target;
+            } else if (operation.newFilter.selector === 'none') {
+                operation.newFilter.selector = '';
+            }
+
+            self.filterOperation(operation);
+
+            operation.startContainerClassName = operation.startState.activeContainerClassName;
+
+            if (changeLayoutCommand) {
+                operation.newContainerClassName = changeLayoutCommand.containerClassName;
+
+                if (operation.newContainerClassName !== operation.startContainerClassName) {
+                    operation.willChangeLayout = true;
+                }
+            } else {
+                operation.newContainerClassName = operation.startContainerClassName;
+            }
+
+            if (self.config.animation.enable) {
+                // Populate the operation's position data
+
+                self.getStartMixData(operation);
+                self.setInter(operation);
+
+                operation.docState = h.getDocumentState(self.dom.document);
+
+                self.getInterMixData(operation);
+                self.setFinal(operation);
+                self.getFinalMixData(operation);
+
+                self.parseEffects();
+
+                operation.hasEffect = self.hasEffect();
+
+                self.getTweenData(operation);
+            }
+
+            if (operation.willSort) {
+                self.targets = operation.newOrder;
+            }
+
+            operation.newState = self.buildState(operation);
+
+            return self.callFilters('operationMappedGetOperation', operation, arguments);
+        },
+
+        /**
          * Renders a previously created operation at a specific point in its path, as
          * determined by a multiplier between 0 and 1.
          *
@@ -4470,7 +9719,41 @@ self.getStartMixData(operation);self.setInter(operation);operation.docState=h.ge
          * @param   {Float}                 multiplier
          *      Any number between 0 and 1 representing the percentage complete of the operation
          * @return  {void}
-         */tween:function tween(operation,multiplier){var target=null,posData=null,toHideIndex=-1,i=-1;multiplier=Math.min(multiplier,1);multiplier=Math.max(multiplier,0);for(i=0;target=operation.show[i];i++){posData=operation.showPosData[i];target.applyTween(posData,multiplier);}for(i=0;target=operation.hide[i];i++){if(target.isShown){target.hide();}if((toHideIndex=operation.toHide.indexOf(target))>-1){posData=operation.toHidePosData[toHideIndex];if(!target.isShown){target.show();}target.applyTween(posData,multiplier);}}},/**
+         */
+
+        tween: function tween(operation, multiplier) {
+            var target = null,
+                posData = null,
+                toHideIndex = -1,
+                i = -1;
+
+            multiplier = Math.min(multiplier, 1);
+            multiplier = Math.max(multiplier, 0);
+
+            for (i = 0; target = operation.show[i]; i++) {
+                posData = operation.showPosData[i];
+
+                target.applyTween(posData, multiplier);
+            }
+
+            for (i = 0; target = operation.hide[i]; i++) {
+                if (target.isShown) {
+                    target.hide();
+                }
+
+                if ((toHideIndex = operation.toHide.indexOf(target)) > -1) {
+                    posData = operation.toHidePosData[toHideIndex];
+
+                    if (!target.isShown) {
+                        target.show();
+                    }
+
+                    target.applyTween(posData, multiplier);
+                }
+            }
+        },
+
+        /**
          * Inserts one or more new target elements into the container at a specified
          * index.
          *
@@ -4561,7 +9844,18 @@ self.getStartMixData(operation);self.setInter(operation);operation.docState=h.ge
          *      An optional callback function to be invoked after the operation has completed.
          * @return      {Promise.<mixitup.State>}
          *      A promise resolving with the current state object.
-         */insert:function insert(){var self=this,args=self.parseInsertArgs(arguments);return self.multimix({insert:args.command},args.animate,args.callback);},/**
+         */
+
+        insert: function insert() {
+            var self = this,
+                args = self.parseInsertArgs(arguments);
+
+            return self.multimix({
+                insert: args.command
+            }, args.animate, args.callback);
+        },
+
+        /**
          * Inserts one or more new elements before a provided reference element.
          *
          * @example
@@ -4603,7 +9897,16 @@ self.getStartMixData(operation);self.setInter(operation);operation.docState=h.ge
          *      An optional callback function to be invoked after the operation has completed.
          * @return      {Promise.<mixitup.State>}
          *      A promise resolving with the current state object.
-         */insertBefore:function insertBefore(){var self=this,args=self.parseInsertArgs(arguments);return self.insert(args.command.collection,'before',args.command.sibling,args.animate,args.callback);},/**
+         */
+
+        insertBefore: function insertBefore() {
+            var self = this,
+                args = self.parseInsertArgs(arguments);
+
+            return self.insert(args.command.collection, 'before', args.command.sibling, args.animate, args.callback);
+        },
+
+        /**
          * Inserts one or more new elements after a provided reference element.
          *
          * @example
@@ -4641,7 +9944,16 @@ self.getStartMixData(operation);self.setInter(operation);operation.docState=h.ge
          *      An optional callback function to be invoked after the operation has completed.
          * @return      {Promise.<mixitup.State>}
          *      A promise resolving with the current state object.
-         */insertAfter:function insertAfter(){var self=this,args=self.parseInsertArgs(arguments);return self.insert(args.command.collection,'after',args.command.sibling,args.animate,args.callback);},/**
+         */
+
+        insertAfter: function insertAfter() {
+            var self = this,
+                args = self.parseInsertArgs(arguments);
+
+            return self.insert(args.command.collection, 'after', args.command.sibling, args.animate, args.callback);
+        },
+
+        /**
          * Inserts one or more new elements into the container before all existing targets.
          *
          * @example
@@ -4673,7 +9985,16 @@ self.getStartMixData(operation);self.setInter(operation);operation.docState=h.ge
          *      An optional callback function to be invoked after the operation has completed.
          * @return      {Promise.<mixitup.State>}
          *      A promise resolving with the current state object.
-         */prepend:function prepend(){var self=this,args=self.parseInsertArgs(arguments);return self.insert(0,args.command.collection,args.animate,args.callback);},/**
+         */
+
+        prepend: function prepend() {
+            var self = this,
+                args = self.parseInsertArgs(arguments);
+
+            return self.insert(0, args.command.collection, args.animate, args.callback);
+        },
+
+        /**
          * Inserts one or more new elements into the container after all existing targets.
          *
          * @example
@@ -4705,7 +10026,16 @@ self.getStartMixData(operation);self.setInter(operation);operation.docState=h.ge
          *      An optional callback function to be invoked after the operation has completed.
          * @return      {Promise.<mixitup.State>}
          *      A promise resolving with the current state object.
-         */append:function append(){var self=this,args=self.parseInsertArgs(arguments);return self.insert(self.state.totalTargets,args.command.collection,args.animate,args.callback);},/**
+         */
+
+        append: function append() {
+            var self = this,
+                args = self.parseInsertArgs(arguments);
+
+            return self.insert(self.state.totalTargets, args.command.collection, args.animate, args.callback);
+        },
+
+        /**
          * Removes one or more existing target elements from the container.
          *
          * @example
@@ -4763,7 +10093,18 @@ self.getStartMixData(operation);self.setInter(operation);operation.docState=h.ge
          *      An optional callback function to be invoked after the operation has completed.
          * @return      {Promise.<mixitup.State>}
          *      A promise resolving with the current state object.
-         */remove:function remove(){var self=this,args=self.parseRemoveArgs(arguments);return self.multimix({remove:args.command},args.animate,args.callback);},/**
+         */
+
+        remove: function remove() {
+            var self = this,
+                args = self.parseRemoveArgs(arguments);
+
+            return self.multimix({
+                remove: args.command
+            }, args.animate, args.callback);
+        },
+
+        /**
          * Retrieves the the value of any property or sub-object within the current
          * mixitup configuration, or the whole configuration object.
          *
@@ -4788,7 +10129,22 @@ self.getStartMixData(operation);self.setInter(operation);operation.docState=h.ge
          * @since       2.0.0
          * @param       {string}    [stringKey]    A "dot-notation" string key
          * @return      {*}
-         */getConfig:function getConfig(stringKey){var self=this,value=null;if(!stringKey){value=self.config;}else{value=h.getProperty(self.config,stringKey);}return self.callFilters('valueGetConfig',value,arguments);},/**
+         */
+
+        getConfig: function getConfig(stringKey) {
+            var self = this,
+                value = null;
+
+            if (!stringKey) {
+                value = self.config;
+            } else {
+                value = h.getProperty(self.config, stringKey);
+            }
+
+            return self.callFilters('valueGetConfig', value, arguments);
+        },
+
+        /**
          * Updates the configuration of the mixer, after it has been instantiated.
          *
          * See the Configuration Object documentation for a full list of avilable
@@ -4837,7 +10193,19 @@ self.getStartMixData(operation);self.setInter(operation);operation.docState=h.ge
          * @param       {object}    config
          *      An object containing one of more configuration options.
          * @return      {void}
-         */configure:function configure(config){var self=this;self.callActions('beforeConfigure',arguments);h.extend(self.config,config,true,true);self.callActions('afterConfigure',arguments);},/**
+         */
+
+        configure: function configure(config) {
+            var self = this;
+
+            self.callActions('beforeConfigure', arguments);
+
+            h.extend(self.config, config, true, true);
+
+            self.callActions('afterConfigure', arguments);
+        },
+
+        /**
          * Returns an object containing information about the current state of the
          * mixer. See the State Object documentation for more information.
          *
@@ -4858,7 +10226,22 @@ self.getStartMixData(operation);self.setInter(operation);operation.docState=h.ge
          * @instance
          * @since       2.0.0
          * @return      {mixitup.State} An object reflecting the current state of the mixer.
-         */getState:function getState(){var self=this,state=null;state=new _mixitup.State();h.extend(state,self.state);h.freeze(state);return self.callFilters('stateGetState',state,arguments);},/**
+         */
+
+        getState: function getState() {
+            var self = this,
+                state = null;
+
+            state = new _mixitup.State();
+
+            h.extend(state, self.state);
+
+            h.freeze(state);
+
+            return self.callFilters('stateGetState', state, arguments);
+        },
+
+        /**
          * Forces the re-indexing all targets within the container.
          *
          * This should only be used if some other piece of code in your application
@@ -4894,7 +10277,15 @@ self.getStartMixData(operation);self.setInter(operation);operation.docState=h.ge
          * @instance
          * @since 2.1.2
          * @return {void}
-         */forceRefresh:function forceRefresh(){var self=this;self.indexTargets();},/**
+         */
+
+        forceRefresh: function forceRefresh() {
+            var self = this;
+
+            self.indexTargets();
+        },
+
+        /**
          * Forces the re-rendering of all targets when using the Dataset API.
          *
          * By default, targets are only re-rendered when `data.dirtyCheck` is
@@ -4928,8 +10319,44 @@ self.getStartMixData(operation);self.setInter(operation);operation.docState=h.ge
          * @instance
          * @since 3.2.1
          * @return {void}
-         */forceRender:function forceRender(){var self=this,target=null,el=null,id='';for(id in self.cache){target=self.cache[id];el=target.render(target.data);if(el!==target.dom.el){// Update target element reference
-if(target.isInDom){target.unbindEvents();self.dom.parent.replaceChild(el,target.dom.el);}if(!target.isShown){el.style.display='none';}target.dom.el=el;if(target.isInDom){target.bindEvents();}}}self.state=self.buildState(self.lastOperation);},/**
+         */
+
+        forceRender: function forceRender() {
+            var self = this,
+                target = null,
+                el = null,
+                id = '';
+
+            for (id in self.cache) {
+                target = self.cache[id];
+
+                el = target.render(target.data);
+
+                if (el !== target.dom.el) {
+                    // Update target element reference
+
+                    if (target.isInDom) {
+                        target.unbindEvents();
+
+                        self.dom.parent.replaceChild(el, target.dom.el);
+                    }
+
+                    if (!target.isShown) {
+                        el.style.display = 'none';
+                    }
+
+                    target.dom.el = el;
+
+                    if (target.isInDom) {
+                        target.bindEvents();
+                    }
+                }
+            }
+
+            self.state = self.buildState(self.lastOperation);
+        },
+
+        /**
          * Removes mixitup functionality from the container, unbinds all control
          * event handlers, and deletes the mixer instance from MixItUp's internal
          * cache.
@@ -4954,23 +10381,133 @@ if(target.isInDom){target.unbindEvents();self.dom.parent.replaceChild(el,target.
          * @param   {boolean}   [cleanUp=false]
          *     An optional boolean dictating whether or not to clean up any inline `display: none;` styling applied to hidden targets.
          * @return  {void}
-         */destroy:function destroy(cleanUp){var self=this,control=null,target=null,i=0;self.callActions('beforeDestroy',arguments);for(i=0;control=self.controls[i];i++){control.removeBinding(self);}for(i=0;target=self.targets[i];i++){if(cleanUp){target.show();}target.unbindEvents();}if(self.dom.container.id.match(/^MixItUp/)){self.dom.container.removeAttribute('id');}delete _mixitup.instances[self.id];self.callActions('afterDestroy',arguments);}});/**
+         */
+
+        destroy: function destroy(cleanUp) {
+            var self = this,
+                control = null,
+                target = null,
+                i = 0;
+
+            self.callActions('beforeDestroy', arguments);
+
+            for (i = 0; control = self.controls[i]; i++) {
+                control.removeBinding(self);
+            }
+
+            for (i = 0; target = self.targets[i]; i++) {
+                if (cleanUp) {
+                    target.show();
+                }
+
+                target.unbindEvents();
+            }
+
+            if (self.dom.container.id.match(/^MixItUp/)) {
+                self.dom.container.removeAttribute('id');
+            }
+
+            delete _mixitup.instances[self.id];
+
+            self.callActions('afterDestroy', arguments);
+        }
+    });
+
+    /**
      * @constructor
      * @memberof    mixitup
      * @private
      * @since       3.0.0
-     */_mixitup.IMoveData=function(){_mixitup.Base.call(this);this.callActions('beforeConstruct');this.posIn=null;this.posOut=null;this.operation=null;this.callback=null;this.statusChange='';this.duration=-1;this.staggerIndex=-1;this.callActions('afterConstruct');h.seal(this);};_mixitup.BaseStatic.call(_mixitup.IMoveData);_mixitup.IMoveData.prototype=Object.create(_mixitup.Base.prototype);_mixitup.IMoveData.prototype.constructor=_mixitup.IMoveData;/**
+     */
+
+    _mixitup.IMoveData = function () {
+        _mixitup.Base.call(this);
+
+        this.callActions('beforeConstruct');
+
+        this.posIn = null;
+        this.posOut = null;
+        this.operation = null;
+        this.callback = null;
+        this.statusChange = '';
+        this.duration = -1;
+        this.staggerIndex = -1;
+
+        this.callActions('afterConstruct');
+
+        h.seal(this);
+    };
+
+    _mixitup.BaseStatic.call(_mixitup.IMoveData);
+
+    _mixitup.IMoveData.prototype = Object.create(_mixitup.Base.prototype);
+
+    _mixitup.IMoveData.prototype.constructor = _mixitup.IMoveData;
+
+    /**
      * @constructor
      * @memberof    mixitup
      * @private
      * @since       3.0.0
-     */_mixitup.TargetDom=function(){_mixitup.Base.call(this);this.callActions('beforeConstruct');this.el=null;this.callActions('afterConstruct');h.seal(this);};_mixitup.BaseStatic.call(_mixitup.TargetDom);_mixitup.TargetDom.prototype=Object.create(_mixitup.Base.prototype);_mixitup.TargetDom.prototype.constructor=_mixitup.TargetDom;/**
+     */
+
+    _mixitup.TargetDom = function () {
+        _mixitup.Base.call(this);
+
+        this.callActions('beforeConstruct');
+
+        this.el = null;
+
+        this.callActions('afterConstruct');
+
+        h.seal(this);
+    };
+
+    _mixitup.BaseStatic.call(_mixitup.TargetDom);
+
+    _mixitup.TargetDom.prototype = Object.create(_mixitup.Base.prototype);
+
+    _mixitup.TargetDom.prototype.constructor = _mixitup.TargetDom;
+
+    /**
      * @constructor
      * @namespace
      * @memberof    mixitup
      * @private
      * @since       3.0.0
-     */_mixitup.Target=function(){_mixitup.Base.call(this);this.callActions('beforeConstruct');this.id='';this.sortString='';this.mixer=null;this.callback=null;this.isShown=false;this.isBound=false;this.isExcluded=false;this.isInDom=false;this.handler=null;this.operation=null;this.data=null;this.dom=new _mixitup.TargetDom();this.callActions('afterConstruct');h.seal(this);};_mixitup.BaseStatic.call(_mixitup.Target);_mixitup.Target.prototype=Object.create(_mixitup.Base.prototype);h.extend(_mixitup.Target.prototype,{constructor:_mixitup.Target,/**
+     */
+
+    _mixitup.Target = function () {
+        _mixitup.Base.call(this);
+
+        this.callActions('beforeConstruct');
+
+        this.id = '';
+        this.sortString = '';
+        this.mixer = null;
+        this.callback = null;
+        this.isShown = false;
+        this.isBound = false;
+        this.isExcluded = false;
+        this.isInDom = false;
+        this.handler = null;
+        this.operation = null;
+        this.data = null;
+        this.dom = new _mixitup.TargetDom();
+
+        this.callActions('afterConstruct');
+
+        h.seal(this);
+    };
+
+    _mixitup.BaseStatic.call(_mixitup.Target);
+
+    _mixitup.Target.prototype = Object.create(_mixitup.Base.prototype);
+
+    h.extend(_mixitup.Target.prototype, {
+        constructor: _mixitup.Target,
+
+        /**
          * Initialises a newly instantiated Target.
          *
          * @private
@@ -4980,8 +10517,47 @@ if(target.isInDom){target.unbindEvents();self.dom.parent.replaceChild(el,target.
          * @param   {object}            mixer
          * @param   {object}            [data]
          * @return  {void}
-         */init:function init(el,mixer,data){var self=this,id='';self.callActions('beforeInit',arguments);self.mixer=mixer;if(!el){// If no element is provided, render it
-el=self.render(data);}self.cacheDom(el);self.bindEvents();if(self.dom.el.style.display!=='none'){self.isShown=true;}if(data&&mixer.config.data.uidKey){if(typeof(id=data[mixer.config.data.uidKey])==='undefined'||id.toString().length<1){throw new TypeError(_mixitup.messages.errorDatasetInvalidUidKey({uidKey:mixer.config.data.uidKey}));}self.id=id;self.data=data;mixer.cache[id]=self;}self.callActions('afterInit',arguments);},/**
+         */
+
+        init: function init(el, mixer, data) {
+            var self = this,
+                id = '';
+
+            self.callActions('beforeInit', arguments);
+
+            self.mixer = mixer;
+
+            if (!el) {
+                // If no element is provided, render it
+
+                el = self.render(data);
+            }
+
+            self.cacheDom(el);
+
+            self.bindEvents();
+
+            if (self.dom.el.style.display !== 'none') {
+                self.isShown = true;
+            }
+
+            if (data && mixer.config.data.uidKey) {
+                if (typeof (id = data[mixer.config.data.uidKey]) === 'undefined' || id.toString().length < 1) {
+                    throw new TypeError(_mixitup.messages.errorDatasetInvalidUidKey({
+                        uidKey: mixer.config.data.uidKey
+                    }));
+                }
+
+                self.id = id;
+                self.data = data;
+
+                mixer.cache[id] = self;
+            }
+
+            self.callActions('afterInit', arguments);
+        },
+
+        /**
          * Renders the target element using a user-defined renderer function.
          *
          * @private
@@ -4989,7 +10565,38 @@ el=self.render(data);}self.cacheDom(el);self.bindEvents();if(self.dom.el.style.d
          * @since   3.1.4
          * @param   {object} data
          * @return  {void}
-         */render:function render(data){var self=this,render=null,el=null,temp=null,output='';self.callActions('beforeRender',arguments);render=self.callFilters('renderRender',self.mixer.config.render.target,arguments);if(typeof render!=='function'){throw new TypeError(_mixitup.messages.errorDatasetRendererNotSet());}output=render(data);if(output&&(typeof output==='undefined'?'undefined':_typeof(output))==='object'&&h.isElement(output)){el=output;}else if(typeof output==='string'){temp=document.createElement('div');temp.innerHTML=output;el=temp.firstElementChild;}return self.callFilters('elRender',el,arguments);},/**
+         */
+
+        render: function render(data) {
+            var self = this,
+                render = null,
+                el = null,
+                temp = null,
+                output = '';
+
+            self.callActions('beforeRender', arguments);
+
+            render = self.callFilters('renderRender', self.mixer.config.render.target, arguments);
+
+            if (typeof render !== 'function') {
+                throw new TypeError(_mixitup.messages.errorDatasetRendererNotSet());
+            }
+
+            output = render(data);
+
+            if (output && (typeof output === 'undefined' ? 'undefined' : _typeof(output)) === 'object' && h.isElement(output)) {
+                el = output;
+            } else if (typeof output === 'string') {
+                temp = document.createElement('div');
+                temp.innerHTML = output;
+
+                el = temp.firstElementChild;
+            }
+
+            return self.callFilters('elRender', el, arguments);
+        },
+
+        /**
          * Caches references of DOM elements neccessary for the target's functionality.
          *
          * @private
@@ -4997,36 +10604,176 @@ el=self.render(data);}self.cacheDom(el);self.bindEvents();if(self.dom.el.style.d
          * @since   3.0.0
          * @param   {Element} el
          * @return  {void}
-         */cacheDom:function cacheDom(el){var self=this;self.callActions('beforeCacheDom',arguments);self.dom.el=el;self.callActions('afterCacheDom',arguments);},/**
+         */
+
+        cacheDom: function cacheDom(el) {
+            var self = this;
+
+            self.callActions('beforeCacheDom', arguments);
+
+            self.dom.el = el;
+
+            self.callActions('afterCacheDom', arguments);
+        },
+
+        /**
          * @private
          * @instance
          * @since   3.0.0
          * @param   {string}    attributeName
          * @return  {void}
-         */getSortString:function getSortString(attributeName){var self=this,value=self.dom.el.getAttribute('data-'+attributeName)||'';self.callActions('beforeGetSortString',arguments);value=isNaN(value*1)?value.toLowerCase():value*1;self.sortString=value;self.callActions('afterGetSortString',arguments);},/**
+         */
+
+        getSortString: function getSortString(attributeName) {
+            var self = this,
+                value = self.dom.el.getAttribute('data-' + attributeName) || '';
+
+            self.callActions('beforeGetSortString', arguments);
+
+            value = isNaN(value * 1) ? value.toLowerCase() : value * 1;
+
+            self.sortString = value;
+
+            self.callActions('afterGetSortString', arguments);
+        },
+
+        /**
          * @private
          * @instance
          * @since   3.0.0
          * @return  {void}
-         */show:function show(){var self=this;self.callActions('beforeShow',arguments);if(!self.isShown){self.dom.el.style.display='';self.isShown=true;}self.callActions('afterShow',arguments);},/**
+         */
+
+        show: function show() {
+            var self = this;
+
+            self.callActions('beforeShow', arguments);
+
+            if (!self.isShown) {
+                self.dom.el.style.display = '';
+
+                self.isShown = true;
+            }
+
+            self.callActions('afterShow', arguments);
+        },
+
+        /**
          * @private
          * @instance
          * @since   3.0.0
          * @return  {void}
-         */hide:function hide(){var self=this;self.callActions('beforeHide',arguments);if(self.isShown){self.dom.el.style.display='none';self.isShown=false;}self.callActions('afterHide',arguments);},/**
+         */
+
+        hide: function hide() {
+            var self = this;
+
+            self.callActions('beforeHide', arguments);
+
+            if (self.isShown) {
+                self.dom.el.style.display = 'none';
+
+                self.isShown = false;
+            }
+
+            self.callActions('afterHide', arguments);
+        },
+
+        /**
          * @private
          * @instance
          * @since   3.0.0
          * @param   {mixitup.IMoveData} moveData
          * @return  {void}
-         */move:function move(moveData){var self=this;self.callActions('beforeMove',arguments);if(!self.isExcluded){self.mixer.targetsMoved++;}self.applyStylesIn(moveData);requestAnimationFrame(function(){self.applyStylesOut(moveData);});self.callActions('afterMove',arguments);},/**
+         */
+
+        move: function move(moveData) {
+            var self = this;
+
+            self.callActions('beforeMove', arguments);
+
+            if (!self.isExcluded) {
+                self.mixer.targetsMoved++;
+            }
+
+            self.applyStylesIn(moveData);
+
+            requestAnimationFrame(function () {
+                self.applyStylesOut(moveData);
+            });
+
+            self.callActions('afterMove', arguments);
+        },
+
+        /**
          * @private
          * @instance
          * @since   3.0.0
          * @param   {object}    posData
          * @param   {number}    multiplier
          * @return  {void}
-         */applyTween:function applyTween(posData,multiplier){var self=this,propertyName='',tweenData=null,posIn=posData.posIn,currentTransformValues=[],currentValues=new _mixitup.StyleData(),i=-1;self.callActions('beforeApplyTween',arguments);currentValues.x=posIn.x;currentValues.y=posIn.y;if(multiplier===0){self.hide();}else if(!self.isShown){self.show();}for(i=0;propertyName=_mixitup.features.TWEENABLE[i];i++){tweenData=posData.tweenData[propertyName];if(propertyName==='x'){if(!tweenData)continue;currentValues.x=posIn.x+tweenData*multiplier;}else if(propertyName==='y'){if(!tweenData)continue;currentValues.y=posIn.y+tweenData*multiplier;}else if(tweenData instanceof _mixitup.TransformData){if(!tweenData.value)continue;currentValues[propertyName].value=posIn[propertyName].value+tweenData.value*multiplier;currentValues[propertyName].unit=tweenData.unit;currentTransformValues.push(propertyName+'('+currentValues[propertyName].value+tweenData.unit+')');}else{if(!tweenData)continue;currentValues[propertyName]=posIn[propertyName]+tweenData*multiplier;self.dom.el.style[propertyName]=currentValues[propertyName];}}if(currentValues.x||currentValues.y){currentTransformValues.unshift('translate('+currentValues.x+'px, '+currentValues.y+'px)');}if(currentTransformValues.length){self.dom.el.style[_mixitup.features.transformProp]=currentTransformValues.join(' ');}self.callActions('afterApplyTween',arguments);},/**
+         */
+
+        applyTween: function applyTween(posData, multiplier) {
+            var self = this,
+                propertyName = '',
+                tweenData = null,
+                posIn = posData.posIn,
+                currentTransformValues = [],
+                currentValues = new _mixitup.StyleData(),
+                i = -1;
+
+            self.callActions('beforeApplyTween', arguments);
+
+            currentValues.x = posIn.x;
+            currentValues.y = posIn.y;
+
+            if (multiplier === 0) {
+                self.hide();
+            } else if (!self.isShown) {
+                self.show();
+            }
+
+            for (i = 0; propertyName = _mixitup.features.TWEENABLE[i]; i++) {
+                tweenData = posData.tweenData[propertyName];
+
+                if (propertyName === 'x') {
+                    if (!tweenData) continue;
+
+                    currentValues.x = posIn.x + tweenData * multiplier;
+                } else if (propertyName === 'y') {
+                    if (!tweenData) continue;
+
+                    currentValues.y = posIn.y + tweenData * multiplier;
+                } else if (tweenData instanceof _mixitup.TransformData) {
+                    if (!tweenData.value) continue;
+
+                    currentValues[propertyName].value = posIn[propertyName].value + tweenData.value * multiplier;
+
+                    currentValues[propertyName].unit = tweenData.unit;
+
+                    currentTransformValues.push(propertyName + '(' + currentValues[propertyName].value + tweenData.unit + ')');
+                } else {
+                    if (!tweenData) continue;
+
+                    currentValues[propertyName] = posIn[propertyName] + tweenData * multiplier;
+
+                    self.dom.el.style[propertyName] = currentValues[propertyName];
+                }
+            }
+
+            if (currentValues.x || currentValues.y) {
+                currentTransformValues.unshift('translate(' + currentValues.x + 'px, ' + currentValues.y + 'px)');
+            }
+
+            if (currentTransformValues.length) {
+                self.dom.el.style[_mixitup.features.transformProp] = currentTransformValues.join(' ');
+            }
+
+            self.callActions('afterApplyTween', arguments);
+        },
+
+        /**
          * Applies the initial styling to a target element before any transition
          * is applied.
          *
@@ -5034,8 +10781,42 @@ el=self.render(data);}self.cacheDom(el);self.bindEvents();if(self.dom.el.style.d
          * @instance
          * @param   {mixitup.IMoveData} moveData
          * @return  {void}
-         */applyStylesIn:function applyStylesIn(moveData){var self=this,posIn=moveData.posIn,isFading=self.mixer.effectsIn.opacity!==1,transformValues=[];self.callActions('beforeApplyStylesIn',arguments);transformValues.push('translate('+posIn.x+'px, '+posIn.y+'px)');if(self.mixer.config.animation.animateResizeTargets){if(moveData.statusChange!=='show'){// Don't apply posIn width or height or showing, as will be 0
-self.dom.el.style.width=posIn.width+'px';self.dom.el.style.height=posIn.height+'px';}self.dom.el.style.marginRight=posIn.marginRight+'px';self.dom.el.style.marginBottom=posIn.marginBottom+'px';}isFading&&(self.dom.el.style.opacity=posIn.opacity);if(moveData.statusChange==='show'){transformValues=transformValues.concat(self.mixer.transformIn);}self.dom.el.style[_mixitup.features.transformProp]=transformValues.join(' ');self.callActions('afterApplyStylesIn',arguments);},/**
+         */
+
+        applyStylesIn: function applyStylesIn(moveData) {
+            var self = this,
+                posIn = moveData.posIn,
+                isFading = self.mixer.effectsIn.opacity !== 1,
+                transformValues = [];
+
+            self.callActions('beforeApplyStylesIn', arguments);
+
+            transformValues.push('translate(' + posIn.x + 'px, ' + posIn.y + 'px)');
+
+            if (self.mixer.config.animation.animateResizeTargets) {
+                if (moveData.statusChange !== 'show') {
+                    // Don't apply posIn width or height or showing, as will be 0
+
+                    self.dom.el.style.width = posIn.width + 'px';
+                    self.dom.el.style.height = posIn.height + 'px';
+                }
+
+                self.dom.el.style.marginRight = posIn.marginRight + 'px';
+                self.dom.el.style.marginBottom = posIn.marginBottom + 'px';
+            }
+
+            isFading && (self.dom.el.style.opacity = posIn.opacity);
+
+            if (moveData.statusChange === 'show') {
+                transformValues = transformValues.concat(self.mixer.transformIn);
+            }
+
+            self.dom.el.style[_mixitup.features.transformProp] = transformValues.join(' ');
+
+            self.callActions('afterApplyStylesIn', arguments);
+        },
+
+        /**
          * Applies a transition followed by the final styles for the element to
          * transition towards.
          *
@@ -5043,28 +10824,115 @@ self.dom.el.style.width=posIn.width+'px';self.dom.el.style.height=posIn.height+'
          * @instance
          * @param   {mixitup.IMoveData} moveData
          * @return  {void}
-         */applyStylesOut:function applyStylesOut(moveData){var self=this,transitionRules=[],transformValues=[],isResizing=self.mixer.config.animation.animateResizeTargets,isFading=typeof self.mixer.effectsIn.opacity!=='undefined';self.callActions('beforeApplyStylesOut',arguments);// Build the transition rules
-transitionRules.push(self.writeTransitionRule(_mixitup.features.transformRule,moveData.staggerIndex));if(moveData.statusChange!=='none'){transitionRules.push(self.writeTransitionRule('opacity',moveData.staggerIndex,moveData.duration));}if(isResizing){transitionRules.push(self.writeTransitionRule('width',moveData.staggerIndex,moveData.duration));transitionRules.push(self.writeTransitionRule('height',moveData.staggerIndex,moveData.duration));transitionRules.push(self.writeTransitionRule('margin',moveData.staggerIndex,moveData.duration));}// If no callback was provided, the element will
-// not transition in any way so tag it as "immovable"
-if(!moveData.callback){self.mixer.targetsImmovable++;if(self.mixer.targetsMoved===self.mixer.targetsImmovable){// If the total targets moved is equal to the
-// number of immovable targets, the operation
-// should be considered finished
-self.mixer.cleanUp(moveData.operation);}return;}// If the target will transition in some fasion,
-// assign a callback function
-self.operation=moveData.operation;self.callback=moveData.callback;// As long as the target is not excluded, increment
-// the total number of targets bound
-!self.isExcluded&&self.mixer.targetsBound++;// Tag the target as bound to differentiate from transitionEnd
-// events that may come from stylesheet driven effects
-self.isBound=true;// Apply the transition
-self.applyTransition(transitionRules);// Apply width, height and margin negation
-if(isResizing&&moveData.posOut.width>0&&moveData.posOut.height>0){self.dom.el.style.width=moveData.posOut.width+'px';self.dom.el.style.height=moveData.posOut.height+'px';self.dom.el.style.marginRight=moveData.posOut.marginRight+'px';self.dom.el.style.marginBottom=moveData.posOut.marginBottom+'px';}if(!self.mixer.config.animation.nudge&&moveData.statusChange==='hide'){// If we're not nudging, the translation should be
-// applied before any other transforms to prevent
-// lateral movement
-transformValues.push('translate('+moveData.posOut.x+'px, '+moveData.posOut.y+'px)');}// Apply fade
-switch(moveData.statusChange){case'hide':isFading&&(self.dom.el.style.opacity=self.mixer.effectsOut.opacity);transformValues=transformValues.concat(self.mixer.transformOut);break;case'show':isFading&&(self.dom.el.style.opacity=1);}if(self.mixer.config.animation.nudge||!self.mixer.config.animation.nudge&&moveData.statusChange!=='hide'){// Opposite of above - apply translate after
-// other transform
-transformValues.push('translate('+moveData.posOut.x+'px, '+moveData.posOut.y+'px)');}// Apply transforms
-self.dom.el.style[_mixitup.features.transformProp]=transformValues.join(' ');self.callActions('afterApplyStylesOut',arguments);},/**
+         */
+
+        applyStylesOut: function applyStylesOut(moveData) {
+            var self = this,
+                transitionRules = [],
+                transformValues = [],
+                isResizing = self.mixer.config.animation.animateResizeTargets,
+                isFading = typeof self.mixer.effectsIn.opacity !== 'undefined';
+
+            self.callActions('beforeApplyStylesOut', arguments);
+
+            // Build the transition rules
+
+            transitionRules.push(self.writeTransitionRule(_mixitup.features.transformRule, moveData.staggerIndex));
+
+            if (moveData.statusChange !== 'none') {
+                transitionRules.push(self.writeTransitionRule('opacity', moveData.staggerIndex, moveData.duration));
+            }
+
+            if (isResizing) {
+                transitionRules.push(self.writeTransitionRule('width', moveData.staggerIndex, moveData.duration));
+
+                transitionRules.push(self.writeTransitionRule('height', moveData.staggerIndex, moveData.duration));
+
+                transitionRules.push(self.writeTransitionRule('margin', moveData.staggerIndex, moveData.duration));
+            }
+
+            // If no callback was provided, the element will
+            // not transition in any way so tag it as "immovable"
+
+            if (!moveData.callback) {
+                self.mixer.targetsImmovable++;
+
+                if (self.mixer.targetsMoved === self.mixer.targetsImmovable) {
+                    // If the total targets moved is equal to the
+                    // number of immovable targets, the operation
+                    // should be considered finished
+
+                    self.mixer.cleanUp(moveData.operation);
+                }
+
+                return;
+            }
+
+            // If the target will transition in some fasion,
+            // assign a callback function
+
+            self.operation = moveData.operation;
+            self.callback = moveData.callback;
+
+            // As long as the target is not excluded, increment
+            // the total number of targets bound
+
+            !self.isExcluded && self.mixer.targetsBound++;
+
+            // Tag the target as bound to differentiate from transitionEnd
+            // events that may come from stylesheet driven effects
+
+            self.isBound = true;
+
+            // Apply the transition
+
+            self.applyTransition(transitionRules);
+
+            // Apply width, height and margin negation
+
+            if (isResizing && moveData.posOut.width > 0 && moveData.posOut.height > 0) {
+                self.dom.el.style.width = moveData.posOut.width + 'px';
+                self.dom.el.style.height = moveData.posOut.height + 'px';
+                self.dom.el.style.marginRight = moveData.posOut.marginRight + 'px';
+                self.dom.el.style.marginBottom = moveData.posOut.marginBottom + 'px';
+            }
+
+            if (!self.mixer.config.animation.nudge && moveData.statusChange === 'hide') {
+                // If we're not nudging, the translation should be
+                // applied before any other transforms to prevent
+                // lateral movement
+
+                transformValues.push('translate(' + moveData.posOut.x + 'px, ' + moveData.posOut.y + 'px)');
+            }
+
+            // Apply fade
+
+            switch (moveData.statusChange) {
+                case 'hide':
+                    isFading && (self.dom.el.style.opacity = self.mixer.effectsOut.opacity);
+
+                    transformValues = transformValues.concat(self.mixer.transformOut);
+
+                    break;
+                case 'show':
+                    isFading && (self.dom.el.style.opacity = 1);
+            }
+
+            if (self.mixer.config.animation.nudge || !self.mixer.config.animation.nudge && moveData.statusChange !== 'hide') {
+                // Opposite of above - apply translate after
+                // other transform
+
+                transformValues.push('translate(' + moveData.posOut.x + 'px, ' + moveData.posOut.y + 'px)');
+            }
+
+            // Apply transforms
+
+            self.dom.el.style[_mixitup.features.transformProp] = transformValues.join(' ');
+
+            self.callActions('afterApplyStylesOut', arguments);
+        },
+
+        /**
          * Combines the name of a CSS property with the appropriate duration and delay
          * values to created a valid transition rule.
          *
@@ -5075,7 +10943,19 @@ self.dom.el.style[_mixitup.features.transformProp]=transformValues.join(' ');sel
          * @param   {number}    staggerIndex
          * @param   {number}    duration
          * @return  {string}
-         */writeTransitionRule:function writeTransitionRule(property,staggerIndex,duration){var self=this,delay=self.getDelay(staggerIndex),rule='';rule=property+' '+(duration>0?duration:self.mixer.config.animation.duration)+'ms '+delay+'ms '+(property==='opacity'?'linear':self.mixer.config.animation.easing);return self.callFilters('ruleWriteTransitionRule',rule,arguments);},/**
+         */
+
+        writeTransitionRule: function writeTransitionRule(property, staggerIndex, duration) {
+            var self = this,
+                delay = self.getDelay(staggerIndex),
+                rule = '';
+
+            rule = property + ' ' + (duration > 0 ? duration : self.mixer.config.animation.duration) + 'ms ' + delay + 'ms ' + (property === 'opacity' ? 'linear' : self.mixer.config.animation.easing);
+
+            return self.callFilters('ruleWriteTransitionRule', rule, arguments);
+        },
+
+        /**
          * Calculates the transition delay for each target element based on its index, if
          * staggering is applied. If defined, A custom `animation.staggerSeqeuence`
          * function can be used to manipulate the order of indices to produce custom
@@ -5086,46 +10966,199 @@ self.dom.el.style[_mixitup.features.transformProp]=transformValues.join(' ');sel
          * @since   2.0.0
          * @param   {number}    index
          * @return  {number}
-         */getDelay:function getDelay(index){var self=this,delay=-1;if(typeof self.mixer.config.animation.staggerSequence==='function'){index=self.mixer.config.animation.staggerSequence.call(self,index,self.state);}delay=!!self.mixer.staggerDuration?index*self.mixer.staggerDuration:0;return self.callFilters('delayGetDelay',delay,arguments);},/**
+         */
+
+        getDelay: function getDelay(index) {
+            var self = this,
+                delay = -1;
+
+            if (typeof self.mixer.config.animation.staggerSequence === 'function') {
+                index = self.mixer.config.animation.staggerSequence.call(self, index, self.state);
+            }
+
+            delay = !!self.mixer.staggerDuration ? index * self.mixer.staggerDuration : 0;
+
+            return self.callFilters('delayGetDelay', delay, arguments);
+        },
+
+        /**
          * @private
          * @instance
          * @since   3.0.0
          * @param   {string[]}  rules
          * @return  {void}
-         */applyTransition:function applyTransition(rules){var self=this,transitionString=rules.join(', ');self.callActions('beforeApplyTransition',arguments);self.dom.el.style[_mixitup.features.transitionProp]=transitionString;self.callActions('afterApplyTransition',arguments);},/**
+         */
+
+        applyTransition: function applyTransition(rules) {
+            var self = this,
+                transitionString = rules.join(', ');
+
+            self.callActions('beforeApplyTransition', arguments);
+
+            self.dom.el.style[_mixitup.features.transitionProp] = transitionString;
+
+            self.callActions('afterApplyTransition', arguments);
+        },
+
+        /**
          * @private
          * @instance
          * @since   3.0.0
          * @param   {Event} e
          * @return  {void}
-         */handleTransitionEnd:function handleTransitionEnd(e){var self=this,propName=e.propertyName,canResize=self.mixer.config.animation.animateResizeTargets;self.callActions('beforeHandleTransitionEnd',arguments);if(self.isBound&&e.target.matches(self.mixer.config.selectors.target)&&(propName.indexOf('transform')>-1||propName.indexOf('opacity')>-1||canResize&&propName.indexOf('height')>-1||canResize&&propName.indexOf('width')>-1||canResize&&propName.indexOf('margin')>-1)){self.callback.call(self,self.operation);self.isBound=false;self.callback=null;self.operation=null;}self.callActions('afterHandleTransitionEnd',arguments);},/**
+         */
+
+        handleTransitionEnd: function handleTransitionEnd(e) {
+            var self = this,
+                propName = e.propertyName,
+                canResize = self.mixer.config.animation.animateResizeTargets;
+
+            self.callActions('beforeHandleTransitionEnd', arguments);
+
+            if (self.isBound && e.target.matches(self.mixer.config.selectors.target) && (propName.indexOf('transform') > -1 || propName.indexOf('opacity') > -1 || canResize && propName.indexOf('height') > -1 || canResize && propName.indexOf('width') > -1 || canResize && propName.indexOf('margin') > -1)) {
+                self.callback.call(self, self.operation);
+
+                self.isBound = false;
+                self.callback = null;
+                self.operation = null;
+            }
+
+            self.callActions('afterHandleTransitionEnd', arguments);
+        },
+
+        /**
          * @private
          * @instance
          * @since   3.0.0
          * @param   {Event}     e
          * @return  {void}
-         */eventBus:function eventBus(e){var self=this;self.callActions('beforeEventBus',arguments);switch(e.type){case'webkitTransitionEnd':case'transitionend':self.handleTransitionEnd(e);}self.callActions('afterEventBus',arguments);},/**
+         */
+
+        eventBus: function eventBus(e) {
+            var self = this;
+
+            self.callActions('beforeEventBus', arguments);
+
+            switch (e.type) {
+                case 'webkitTransitionEnd':
+                case 'transitionend':
+                    self.handleTransitionEnd(e);
+            }
+
+            self.callActions('afterEventBus', arguments);
+        },
+
+        /**
          * @private
          * @instance
          * @since   3.0.0
          * @return  {void}
-         */unbindEvents:function unbindEvents(){var self=this;self.callActions('beforeUnbindEvents',arguments);h.off(self.dom.el,'webkitTransitionEnd',self.handler);h.off(self.dom.el,'transitionend',self.handler);self.callActions('afterUnbindEvents',arguments);},/**
+         */
+
+        unbindEvents: function unbindEvents() {
+            var self = this;
+
+            self.callActions('beforeUnbindEvents', arguments);
+
+            h.off(self.dom.el, 'webkitTransitionEnd', self.handler);
+            h.off(self.dom.el, 'transitionend', self.handler);
+
+            self.callActions('afterUnbindEvents', arguments);
+        },
+
+        /**
          * @private
          * @instance
          * @since   3.0.0
          * @return  {void}
-         */bindEvents:function bindEvents(){var self=this,transitionEndEvent='';self.callActions('beforeBindEvents',arguments);transitionEndEvent=_mixitup.features.transitionPrefix==='webkit'?'webkitTransitionEnd':'transitionend';self.handler=function(e){return self.eventBus(e);};h.on(self.dom.el,transitionEndEvent,self.handler);self.callActions('afterBindEvents',arguments);},/**
+         */
+
+        bindEvents: function bindEvents() {
+            var self = this,
+                transitionEndEvent = '';
+
+            self.callActions('beforeBindEvents', arguments);
+
+            transitionEndEvent = _mixitup.features.transitionPrefix === 'webkit' ? 'webkitTransitionEnd' : 'transitionend';
+
+            self.handler = function (e) {
+                return self.eventBus(e);
+            };
+
+            h.on(self.dom.el, transitionEndEvent, self.handler);
+
+            self.callActions('afterBindEvents', arguments);
+        },
+
+        /**
          * @private
          * @instance
          * @since   3.0.0
          * @param   {boolean}   [getBox]
          * @return  {PosData}
-         */getPosData:function getPosData(getBox){var self=this,styles={},rect=null,posData=new _mixitup.StyleData();self.callActions('beforeGetPosData',arguments);posData.x=self.dom.el.offsetLeft;posData.y=self.dom.el.offsetTop;if(self.mixer.config.animation.animateResizeTargets||getBox){rect=self.dom.el.getBoundingClientRect();posData.top=rect.top;posData.right=rect.right;posData.bottom=rect.bottom;posData.left=rect.left;posData.width=rect.width;posData.height=rect.height;}if(self.mixer.config.animation.animateResizeTargets){styles=window.getComputedStyle(self.dom.el);posData.marginBottom=parseFloat(styles.marginBottom);posData.marginRight=parseFloat(styles.marginRight);}return self.callFilters('posDataGetPosData',posData,arguments);},/**
+         */
+
+        getPosData: function getPosData(getBox) {
+            var self = this,
+                styles = {},
+                rect = null,
+                posData = new _mixitup.StyleData();
+
+            self.callActions('beforeGetPosData', arguments);
+
+            posData.x = self.dom.el.offsetLeft;
+            posData.y = self.dom.el.offsetTop;
+
+            if (self.mixer.config.animation.animateResizeTargets || getBox) {
+                rect = self.dom.el.getBoundingClientRect();
+
+                posData.top = rect.top;
+                posData.right = rect.right;
+                posData.bottom = rect.bottom;
+                posData.left = rect.left;
+
+                posData.width = rect.width;
+                posData.height = rect.height;
+            }
+
+            if (self.mixer.config.animation.animateResizeTargets) {
+                styles = window.getComputedStyle(self.dom.el);
+
+                posData.marginBottom = parseFloat(styles.marginBottom);
+                posData.marginRight = parseFloat(styles.marginRight);
+            }
+
+            return self.callFilters('posDataGetPosData', posData, arguments);
+        },
+
+        /**
          * @private
          * @instance
          * @since       3.0.0
          * @return      {void}
-         */cleanUp:function cleanUp(){var self=this;self.callActions('beforeCleanUp',arguments);self.dom.el.style[_mixitup.features.transformProp]='';self.dom.el.style[_mixitup.features.transitionProp]='';self.dom.el.style.opacity='';if(self.mixer.config.animation.animateResizeTargets){self.dom.el.style.width='';self.dom.el.style.height='';self.dom.el.style.marginRight='';self.dom.el.style.marginBottom='';}self.callActions('afterCleanUp',arguments);}});/**
+         */
+
+        cleanUp: function cleanUp() {
+            var self = this;
+
+            self.callActions('beforeCleanUp', arguments);
+
+            self.dom.el.style[_mixitup.features.transformProp] = '';
+            self.dom.el.style[_mixitup.features.transitionProp] = '';
+            self.dom.el.style.opacity = '';
+
+            if (self.mixer.config.animation.animateResizeTargets) {
+                self.dom.el.style.width = '';
+                self.dom.el.style.height = '';
+                self.dom.el.style.marginRight = '';
+                self.dom.el.style.marginBottom = '';
+            }
+
+            self.callActions('afterCleanUp', arguments);
+        }
+    });
+
+    /**
      * A jQuery-collection-like wrapper around one or more `mixitup.Mixer` instances
      * allowing simultaneous control of said instances similar to the MixItUp 2 API.
      *
@@ -5138,7 +11171,35 @@ self.dom.el.style[_mixitup.features.transformProp]=transformValues.join(' ');sel
      * @private
      * @since       3.0.0
      * @param       {mixitup.Mixer[]}   instances
-     */_mixitup.Collection=function(instances){var instance=null,i=-1;this.callActions('beforeConstruct');for(i=0;instance=instances[i];i++){this[i]=instance;}this.length=instances.length;this.callActions('afterConstruct');h.freeze(this);};_mixitup.BaseStatic.call(_mixitup.Collection);_mixitup.Collection.prototype=Object.create(_mixitup.Base.prototype);h.extend(_mixitup.Collection.prototype,/** @lends mixitup.Collection */{constructor:_mixitup.Collection,/**
+     */
+
+    _mixitup.Collection = function (instances) {
+        var instance = null,
+            i = -1;
+
+        this.callActions('beforeConstruct');
+
+        for (i = 0; instance = instances[i]; i++) {
+            this[i] = instance;
+        }
+
+        this.length = instances.length;
+
+        this.callActions('afterConstruct');
+
+        h.freeze(this);
+    };
+
+    _mixitup.BaseStatic.call(_mixitup.Collection);
+
+    _mixitup.Collection.prototype = Object.create(_mixitup.Base.prototype);
+
+    h.extend(_mixitup.Collection.prototype,
+    /** @lends mixitup.Collection */
+    {
+        constructor: _mixitup.Collection,
+
+        /**
          * Calls a method on all instances in the collection by passing the method
          * name as a string followed by any applicable parameters to be curried into
          * to the method.
@@ -5161,7 +11222,28 @@ self.dom.el.style[_mixitup.features.transformProp]=transformValues.join(' ');sel
          * @since       3.0.0
          * @param       {string}  methodName
          * @return      {Promise<Array<mixitup.State>>}
-         */mixitup:function mixitup(methodName){var self=this,instance=null,args=Array.prototype.slice.call(arguments),tasks=[],i=-1;this.callActions('beforeMixitup');args.shift();for(i=0;instance=self[i];i++){tasks.push(instance[methodName].apply(instance,args));}return self.callFilters('promiseMixitup',h.all(tasks,_mixitup.libraries),arguments);}});/**
+         */
+
+        mixitup: function mixitup(methodName) {
+            var self = this,
+                instance = null,
+                args = Array.prototype.slice.call(arguments),
+                tasks = [],
+                i = -1;
+
+            this.callActions('beforeMixitup');
+
+            args.shift();
+
+            for (i = 0; instance = self[i]; i++) {
+                tasks.push(instance[methodName].apply(instance, args));
+            }
+
+            return self.callFilters('promiseMixitup', h.all(tasks, _mixitup.libraries), arguments);
+        }
+    });
+
+    /**
      * `mixitup.Operation` objects contain all data neccessary to describe the full
      * lifecycle of any MixItUp operation. They can be used to compute and store an
      * operation for use at a later time (e.g. programmatic tweening).
@@ -5171,7 +11253,73 @@ self.dom.el.style[_mixitup.features.transformProp]=transformValues.join(' ');sel
      * @memberof    mixitup
      * @private
      * @since       3.0.0
-     */_mixitup.Operation=function(){_mixitup.Base.call(this);this.callActions('beforeConstruct');this.id='';this.args=[];this.command=null;this.showPosData=[];this.toHidePosData=[];this.startState=null;this.newState=null;this.docState=null;this.willSort=false;this.willChangeLayout=false;this.hasEffect=false;this.hasFailed=false;this.triggerElement=null;this.show=[];this.hide=[];this.matching=[];this.toShow=[];this.toHide=[];this.toMove=[];this.toRemove=[];this.startOrder=[];this.newOrder=[];this.startSort=null;this.newSort=null;this.startFilter=null;this.newFilter=null;this.startDataset=null;this.newDataset=null;this.viewportDeltaX=0;this.viewportDeltaY=0;this.startX=0;this.startY=0;this.startHeight=0;this.startWidth=0;this.newX=0;this.newY=0;this.newHeight=0;this.newWidth=0;this.startContainerClassName='';this.startDisplay='';this.newContainerClassName='';this.newDisplay='';this.callActions('afterConstruct');h.seal(this);};_mixitup.BaseStatic.call(_mixitup.Operation);_mixitup.Operation.prototype=Object.create(_mixitup.Base.prototype);_mixitup.Operation.prototype.constructor=_mixitup.Operation;/**
+     */
+
+    _mixitup.Operation = function () {
+        _mixitup.Base.call(this);
+
+        this.callActions('beforeConstruct');
+
+        this.id = '';
+
+        this.args = [];
+        this.command = null;
+        this.showPosData = [];
+        this.toHidePosData = [];
+
+        this.startState = null;
+        this.newState = null;
+        this.docState = null;
+
+        this.willSort = false;
+        this.willChangeLayout = false;
+        this.hasEffect = false;
+        this.hasFailed = false;
+
+        this.triggerElement = null;
+
+        this.show = [];
+        this.hide = [];
+        this.matching = [];
+        this.toShow = [];
+        this.toHide = [];
+        this.toMove = [];
+        this.toRemove = [];
+        this.startOrder = [];
+        this.newOrder = [];
+        this.startSort = null;
+        this.newSort = null;
+        this.startFilter = null;
+        this.newFilter = null;
+        this.startDataset = null;
+        this.newDataset = null;
+        this.viewportDeltaX = 0;
+        this.viewportDeltaY = 0;
+        this.startX = 0;
+        this.startY = 0;
+        this.startHeight = 0;
+        this.startWidth = 0;
+        this.newX = 0;
+        this.newY = 0;
+        this.newHeight = 0;
+        this.newWidth = 0;
+        this.startContainerClassName = '';
+        this.startDisplay = '';
+        this.newContainerClassName = '';
+        this.newDisplay = '';
+
+        this.callActions('afterConstruct');
+
+        h.seal(this);
+    };
+
+    _mixitup.BaseStatic.call(_mixitup.Operation);
+
+    _mixitup.Operation.prototype = Object.create(_mixitup.Base.prototype);
+
+    _mixitup.Operation.prototype.constructor = _mixitup.Operation;
+
+    /**
      * `mixitup.State` objects expose various pieces of data detailing the state of
      * a MixItUp instance. They are provided at the start and end of any operation via
      * callbacks and events, with the most recent state stored between operations
@@ -5182,7 +11330,14 @@ self.dom.el.style[_mixitup.features.transformProp]=transformValues.join(' ');sel
      * @memberof    mixitup
      * @public
      * @since       3.0.0
-     */_mixitup.State=function(){_mixitup.Base.call(this);this.callActions('beforeConstruct');/**
+     */
+
+    _mixitup.State = function () {
+        _mixitup.Base.call(this);
+
+        this.callActions('beforeConstruct');
+
+        /**
          * The ID of the mixer instance.
          *
          * @name        id
@@ -5190,7 +11345,11 @@ self.dom.el.style[_mixitup.features.transformProp]=transformValues.join(' ');sel
          * @instance
          * @type        {string}
          * @default     ''
-         */this.id='';/**
+         */
+
+        this.id = '';
+
+        /**
          * The currently active filter command as set by a control click or API call.
          *
          * @name        activeFilter
@@ -5198,7 +11357,11 @@ self.dom.el.style[_mixitup.features.transformProp]=transformValues.join(' ');sel
          * @instance
          * @type        {mixitup.CommandFilter}
          * @default     null
-         */this.activeFilter=null;/**
+         */
+
+        this.activeFilter = null;
+
+        /**
          * The currently active sort command as set by a control click or API call.
          *
          * @name        activeSort
@@ -5206,7 +11369,11 @@ self.dom.el.style[_mixitup.features.transformProp]=transformValues.join(' ');sel
          * @instance
          * @type        {mixitup.CommandSort}
          * @default     null
-         */this.activeSort=null;/**
+         */
+
+        this.activeSort = null;
+
+        /**
          * The current layout-specific container class name, if applied.
          *
          * @name        activeContainerClassName
@@ -5214,7 +11381,11 @@ self.dom.el.style[_mixitup.features.transformProp]=transformValues.join(' ');sel
          * @instance
          * @type        {string}
          * @default     ''
-         */this.activeContainerClassName='';/**
+         */
+
+        this.activeContainerClassName = '';
+
+        /**
          * A reference to the container element that the mixer is instantiated on.
          *
          * @name        container
@@ -5222,7 +11393,11 @@ self.dom.el.style[_mixitup.features.transformProp]=transformValues.join(' ');sel
          * @instance
          * @type        {Element}
          * @default     null
-         */this.container=null;/**
+         */
+
+        this.container = null;
+
+        /**
          * An array of all target elements indexed by the mixer.
          *
          * @name        targets
@@ -5230,7 +11405,11 @@ self.dom.el.style[_mixitup.features.transformProp]=transformValues.join(' ');sel
          * @instance
          * @type        {Array.<Element>}
          * @default     []
-         */this.targets=[];/**
+         */
+
+        this.targets = [];
+
+        /**
          * An array of all target elements not matching the current filter.
          *
          * @name        hide
@@ -5238,7 +11417,11 @@ self.dom.el.style[_mixitup.features.transformProp]=transformValues.join(' ');sel
          * @instance
          * @type        {Array.<Element>}
          * @default     []
-         */this.hide=[];/**
+         */
+
+        this.hide = [];
+
+        /**
          * An array of all target elements matching the current filter and any additional
          * limits applied such as pagination.
          *
@@ -5247,7 +11430,11 @@ self.dom.el.style[_mixitup.features.transformProp]=transformValues.join(' ');sel
          * @instance
          * @type        {Array.<Element>}
          * @default     []
-         */this.show=[];/**
+         */
+
+        this.show = [];
+
+        /**
          * An array of all target elements matching the current filter irrespective of
          * any additional limits applied such as pagination.
          *
@@ -5256,7 +11443,11 @@ self.dom.el.style[_mixitup.features.transformProp]=transformValues.join(' ');sel
          * @instance
          * @type        {Array.<Element>}
          * @default     []
-         */this.matching=[];/**
+         */
+
+        this.matching = [];
+
+        /**
          * An integer representing the total number of target elements indexed by the
          * mixer. Equivalent to `state.targets.length`.
          *
@@ -5265,7 +11456,11 @@ self.dom.el.style[_mixitup.features.transformProp]=transformValues.join(' ');sel
          * @instance
          * @type        {number}
          * @default     -1
-         */this.totalTargets=-1;/**
+         */
+
+        this.totalTargets = -1;
+
+        /**
          * An integer representing the total number of target elements matching the
          * current filter and any additional limits applied such as pagination.
          * Equivalent to `state.show.length`.
@@ -5275,7 +11470,11 @@ self.dom.el.style[_mixitup.features.transformProp]=transformValues.join(' ');sel
          * @instance
          * @type        {number}
          * @default     -1
-         */this.totalShow=-1;/**
+         */
+
+        this.totalShow = -1;
+
+        /**
          * An integer representing the total number of target elements not matching
          * the current filter. Equivalent to `state.hide.length`.
          *
@@ -5284,7 +11483,11 @@ self.dom.el.style[_mixitup.features.transformProp]=transformValues.join(' ');sel
          * @instance
          * @type        {number}
          * @default     -1
-         */this.totalHide=-1;/**
+         */
+
+        this.totalHide = -1;
+
+        /**
          * An integer representing the total number of target elements matching the
          * current filter irrespective of any other limits applied such as pagination.
          * Equivalent to `state.matching.length`.
@@ -5294,7 +11497,11 @@ self.dom.el.style[_mixitup.features.transformProp]=transformValues.join(' ');sel
          * @instance
          * @type        {number}
          * @default     -1
-         */this.totalMatching=-1;/**
+         */
+
+        this.totalMatching = -1;
+
+        /**
          * A boolean indicating whether the last operation "failed", i.e. no targets
          * could be found matching the filter.
          *
@@ -5303,7 +11510,11 @@ self.dom.el.style[_mixitup.features.transformProp]=transformValues.join(' ');sel
          * @instance
          * @type        {boolean}
          * @default     false
-         */this.hasFailed=false;/**
+         */
+
+        this.hasFailed = false;
+
+        /**
          * The DOM element that was clicked if the last operation was triggered by the
          * clicking of a control and not an API call.
          *
@@ -5312,7 +11523,11 @@ self.dom.el.style[_mixitup.features.transformProp]=transformValues.join(' ');sel
          * @instance
          * @type        {Element|null}
          * @default     null
-         */this.triggerElement=null;/**
+         */
+
+        this.triggerElement = null;
+
+        /**
          * The currently active dataset underlying the rendered targets, if the
          * dataset API is in use.
          *
@@ -5321,27 +11536,204 @@ self.dom.el.style[_mixitup.features.transformProp]=transformValues.join(' ');sel
          * @instance
          * @type        {Array.<object>}
          * @default     null
-         */this.activeDataset=null;this.callActions('afterConstruct');h.seal(this);};_mixitup.BaseStatic.call(_mixitup.State);_mixitup.State.prototype=Object.create(_mixitup.Base.prototype);_mixitup.State.prototype.constructor=_mixitup.State;/**
+         */
+
+        this.activeDataset = null;
+
+        this.callActions('afterConstruct');
+
+        h.seal(this);
+    };
+
+    _mixitup.BaseStatic.call(_mixitup.State);
+
+    _mixitup.State.prototype = Object.create(_mixitup.Base.prototype);
+
+    _mixitup.State.prototype.constructor = _mixitup.State;
+
+    /**
      * @constructor
      * @memberof    mixitup
      * @private
      * @since       3.0.0
-     */_mixitup.UserInstruction=function(){_mixitup.Base.call(this);this.callActions('beforeConstruct');this.command={};this.animate=false;this.callback=null;this.callActions('afterConstruct');h.seal(this);};_mixitup.BaseStatic.call(_mixitup.UserInstruction);_mixitup.UserInstruction.prototype=Object.create(_mixitup.Base.prototype);_mixitup.UserInstruction.prototype.constructor=_mixitup.UserInstruction;/**
+     */
+
+    _mixitup.UserInstruction = function () {
+        _mixitup.Base.call(this);
+
+        this.callActions('beforeConstruct');
+
+        this.command = {};
+        this.animate = false;
+        this.callback = null;
+
+        this.callActions('afterConstruct');
+
+        h.seal(this);
+    };
+
+    _mixitup.BaseStatic.call(_mixitup.UserInstruction);
+
+    _mixitup.UserInstruction.prototype = Object.create(_mixitup.Base.prototype);
+
+    _mixitup.UserInstruction.prototype.constructor = _mixitup.UserInstruction;
+
+    /**
      * @constructor
      * @memberof    mixitup
      * @private
      * @since       3.0.0
-     */_mixitup.Messages=function(){_mixitup.Base.call(this);this.callActions('beforeConstruct');/* Errors
-        ----------------------------------------------------------------------------- */this.ERROR_FACTORY_INVALID_CONTAINER='[MixItUp] An invalid selector or element reference was passed to the mixitup factory function';this.ERROR_FACTORY_CONTAINER_NOT_FOUND='[MixItUp] The provided selector yielded no container element';this.ERROR_CONFIG_INVALID_ANIMATION_EFFECTS='[MixItUp] Invalid value for `animation.effects`';this.ERROR_CONFIG_INVALID_CONTROLS_SCOPE='[MixItUp] Invalid value for `controls.scope`';this.ERROR_CONFIG_INVALID_PROPERTY='[MixitUp] Invalid configuration object property "${erroneous}"${suggestion}';this.ERROR_CONFIG_INVALID_PROPERTY_SUGGESTION='. Did you mean "${probableMatch}"?';this.ERROR_CONFIG_DATA_UID_KEY_NOT_SET='[MixItUp] To use the dataset API, a UID key must be specified using `data.uidKey`';this.ERROR_DATASET_INVALID_UID_KEY='[MixItUp] The specified UID key "${uidKey}" is not present on one or more dataset items';this.ERROR_DATASET_DUPLICATE_UID='[MixItUp] The UID "${uid}" was found on two or more dataset items. UIDs must be unique.';this.ERROR_INSERT_INVALID_ARGUMENTS='[MixItUp] Please provider either an index or a sibling and position to insert, not both';this.ERROR_INSERT_PREEXISTING_ELEMENT='[MixItUp] An element to be inserted already exists in the container';this.ERROR_FILTER_INVALID_ARGUMENTS='[MixItUp] Please provide either a selector or collection `.filter()`, not both';this.ERROR_DATASET_NOT_SET='[MixItUp] To use the dataset API with pre-rendered targets, a starting dataset must be set using `load.dataset`';this.ERROR_DATASET_PRERENDERED_MISMATCH='[MixItUp] `load.dataset` does not match pre-rendered targets';this.ERROR_DATASET_RENDERER_NOT_SET='[MixItUp] To insert an element via the dataset API, a target renderer function must be provided to `render.target`';/* Warnings
-        ----------------------------------------------------------------------------- */this.WARNING_FACTORY_PREEXISTING_INSTANCE='[MixItUp] WARNING: This element already has an active MixItUp instance. The provided configuration object will be ignored.'+' If you wish to perform additional methods on this instance, please create a reference.';this.WARNING_INSERT_NO_ELEMENTS='[MixItUp] WARNING: No valid elements were passed to `.insert()`';this.WARNING_REMOVE_NO_ELEMENTS='[MixItUp] WARNING: No valid elements were passed to `.remove()`';this.WARNING_MULTIMIX_INSTANCE_QUEUE_FULL='[MixItUp] WARNING: An operation was requested but the MixItUp instance was busy. The operation was rejected because the '+'queue is full or queuing is disabled.';this.WARNING_GET_OPERATION_INSTANCE_BUSY='[MixItUp] WARNING: Operations can be be created while the MixItUp instance is busy.';this.WARNING_NO_PROMISE_IMPLEMENTATION='[MixItUp] WARNING: No Promise implementations could be found. If you wish to use promises with MixItUp please install'+' an ES6 Promise polyfill.';this.WARNING_INCONSISTENT_SORTING_ATTRIBUTES='[MixItUp] WARNING: The requested sorting data attribute "${attribute}" was not present on one or more target elements'+' which may product unexpected sort output';this.callActions('afterConstruct');this.compileTemplates();h.seal(this);};_mixitup.BaseStatic.call(_mixitup.Messages);_mixitup.Messages.prototype=Object.create(_mixitup.Base.prototype);_mixitup.Messages.prototype.constructor=_mixitup.Messages;/**
+     */
+
+    _mixitup.Messages = function () {
+        _mixitup.Base.call(this);
+
+        this.callActions('beforeConstruct');
+
+        /* Errors
+        ----------------------------------------------------------------------------- */
+
+        this.ERROR_FACTORY_INVALID_CONTAINER = '[MixItUp] An invalid selector or element reference was passed to the mixitup factory function';
+
+        this.ERROR_FACTORY_CONTAINER_NOT_FOUND = '[MixItUp] The provided selector yielded no container element';
+
+        this.ERROR_CONFIG_INVALID_ANIMATION_EFFECTS = '[MixItUp] Invalid value for `animation.effects`';
+
+        this.ERROR_CONFIG_INVALID_CONTROLS_SCOPE = '[MixItUp] Invalid value for `controls.scope`';
+
+        this.ERROR_CONFIG_INVALID_PROPERTY = '[MixitUp] Invalid configuration object property "${erroneous}"${suggestion}';
+
+        this.ERROR_CONFIG_INVALID_PROPERTY_SUGGESTION = '. Did you mean "${probableMatch}"?';
+
+        this.ERROR_CONFIG_DATA_UID_KEY_NOT_SET = '[MixItUp] To use the dataset API, a UID key must be specified using `data.uidKey`';
+
+        this.ERROR_DATASET_INVALID_UID_KEY = '[MixItUp] The specified UID key "${uidKey}" is not present on one or more dataset items';
+
+        this.ERROR_DATASET_DUPLICATE_UID = '[MixItUp] The UID "${uid}" was found on two or more dataset items. UIDs must be unique.';
+
+        this.ERROR_INSERT_INVALID_ARGUMENTS = '[MixItUp] Please provider either an index or a sibling and position to insert, not both';
+
+        this.ERROR_INSERT_PREEXISTING_ELEMENT = '[MixItUp] An element to be inserted already exists in the container';
+
+        this.ERROR_FILTER_INVALID_ARGUMENTS = '[MixItUp] Please provide either a selector or collection `.filter()`, not both';
+
+        this.ERROR_DATASET_NOT_SET = '[MixItUp] To use the dataset API with pre-rendered targets, a starting dataset must be set using `load.dataset`';
+
+        this.ERROR_DATASET_PRERENDERED_MISMATCH = '[MixItUp] `load.dataset` does not match pre-rendered targets';
+
+        this.ERROR_DATASET_RENDERER_NOT_SET = '[MixItUp] To insert an element via the dataset API, a target renderer function must be provided to `render.target`';
+
+        /* Warnings
+        ----------------------------------------------------------------------------- */
+
+        this.WARNING_FACTORY_PREEXISTING_INSTANCE = '[MixItUp] WARNING: This element already has an active MixItUp instance. The provided configuration object will be ignored.' + ' If you wish to perform additional methods on this instance, please create a reference.';
+
+        this.WARNING_INSERT_NO_ELEMENTS = '[MixItUp] WARNING: No valid elements were passed to `.insert()`';
+
+        this.WARNING_REMOVE_NO_ELEMENTS = '[MixItUp] WARNING: No valid elements were passed to `.remove()`';
+
+        this.WARNING_MULTIMIX_INSTANCE_QUEUE_FULL = '[MixItUp] WARNING: An operation was requested but the MixItUp instance was busy. The operation was rejected because the ' + 'queue is full or queuing is disabled.';
+
+        this.WARNING_GET_OPERATION_INSTANCE_BUSY = '[MixItUp] WARNING: Operations can be be created while the MixItUp instance is busy.';
+
+        this.WARNING_NO_PROMISE_IMPLEMENTATION = '[MixItUp] WARNING: No Promise implementations could be found. If you wish to use promises with MixItUp please install' + ' an ES6 Promise polyfill.';
+
+        this.WARNING_INCONSISTENT_SORTING_ATTRIBUTES = '[MixItUp] WARNING: The requested sorting data attribute "${attribute}" was not present on one or more target elements' + ' which may product unexpected sort output';
+
+        this.callActions('afterConstruct');
+
+        this.compileTemplates();
+
+        h.seal(this);
+    };
+
+    _mixitup.BaseStatic.call(_mixitup.Messages);
+
+    _mixitup.Messages.prototype = Object.create(_mixitup.Base.prototype);
+
+    _mixitup.Messages.prototype.constructor = _mixitup.Messages;
+
+    /**
      * @return {void}
-     */_mixitup.Messages.prototype.compileTemplates=function(){var errorKey='';var errorMessage='';for(errorKey in this){if(typeof(errorMessage=this[errorKey])!=='string')continue;this[h.camelCase(errorKey)]=h.template(errorMessage);}};_mixitup.messages=new _mixitup.Messages();/**
+     */
+
+    _mixitup.Messages.prototype.compileTemplates = function () {
+        var errorKey = '';
+        var errorMessage = '';
+
+        for (errorKey in this) {
+            if (typeof (errorMessage = this[errorKey]) !== 'string') continue;
+
+            this[h.camelCase(errorKey)] = h.template(errorMessage);
+        }
+    };
+
+    _mixitup.messages = new _mixitup.Messages();
+
+    /**
      * @constructor
      * @memberof    mixitup
      * @private
      * @since       3.0.0
      * @param       {mixitup.Mixer} mixer
-     */_mixitup.Facade=function Mixer(mixer){_mixitup.Base.call(this);this.callActions('beforeConstruct',arguments);this.configure=mixer.configure.bind(mixer);this.show=mixer.show.bind(mixer);this.hide=mixer.hide.bind(mixer);this.filter=mixer.filter.bind(mixer);this.toggleOn=mixer.toggleOn.bind(mixer);this.toggleOff=mixer.toggleOff.bind(mixer);this.sort=mixer.sort.bind(mixer);this.changeLayout=mixer.changeLayout.bind(mixer);this.multimix=mixer.multimix.bind(mixer);this.dataset=mixer.dataset.bind(mixer);this.tween=mixer.tween.bind(mixer);this.insert=mixer.insert.bind(mixer);this.insertBefore=mixer.insertBefore.bind(mixer);this.insertAfter=mixer.insertAfter.bind(mixer);this.prepend=mixer.prepend.bind(mixer);this.append=mixer.append.bind(mixer);this.remove=mixer.remove.bind(mixer);this.destroy=mixer.destroy.bind(mixer);this.forceRefresh=mixer.forceRefresh.bind(mixer);this.forceRender=mixer.forceRender.bind(mixer);this.isMixing=mixer.isMixing.bind(mixer);this.getOperation=mixer.getOperation.bind(mixer);this.getConfig=mixer.getConfig.bind(mixer);this.getState=mixer.getState.bind(mixer);this.callActions('afterConstruct',arguments);h.freeze(this);h.seal(this);};_mixitup.BaseStatic.call(_mixitup.Facade);_mixitup.Facade.prototype=Object.create(_mixitup.Base.prototype);_mixitup.Facade.prototype.constructor=_mixitup.Facade;if((typeof exports==='undefined'?'undefined':_typeof(exports))==='object'&&(typeof module==='undefined'?'undefined':_typeof(module))==='object'){module.exports=_mixitup;}else if(typeof define==='function'&&define.amd){define(function(){return _mixitup;});}else if(typeof window.mixitup==='undefined'||typeof window.mixitup!=='function'){window.mixitup=_mixitup;}_mixitup.BaseStatic.call(_mixitup.constructor);_mixitup.NAME='mixitup';_mixitup.CORE_VERSION='3.2.1';})(window);
+     */
+
+    _mixitup.Facade = function Mixer(mixer) {
+        _mixitup.Base.call(this);
+
+        this.callActions('beforeConstruct', arguments);
+
+        this.configure = mixer.configure.bind(mixer);
+        this.show = mixer.show.bind(mixer);
+        this.hide = mixer.hide.bind(mixer);
+        this.filter = mixer.filter.bind(mixer);
+        this.toggleOn = mixer.toggleOn.bind(mixer);
+        this.toggleOff = mixer.toggleOff.bind(mixer);
+        this.sort = mixer.sort.bind(mixer);
+        this.changeLayout = mixer.changeLayout.bind(mixer);
+        this.multimix = mixer.multimix.bind(mixer);
+        this.dataset = mixer.dataset.bind(mixer);
+        this.tween = mixer.tween.bind(mixer);
+        this.insert = mixer.insert.bind(mixer);
+        this.insertBefore = mixer.insertBefore.bind(mixer);
+        this.insertAfter = mixer.insertAfter.bind(mixer);
+        this.prepend = mixer.prepend.bind(mixer);
+        this.append = mixer.append.bind(mixer);
+        this.remove = mixer.remove.bind(mixer);
+        this.destroy = mixer.destroy.bind(mixer);
+        this.forceRefresh = mixer.forceRefresh.bind(mixer);
+        this.forceRender = mixer.forceRender.bind(mixer);
+        this.isMixing = mixer.isMixing.bind(mixer);
+        this.getOperation = mixer.getOperation.bind(mixer);
+        this.getConfig = mixer.getConfig.bind(mixer);
+        this.getState = mixer.getState.bind(mixer);
+
+        this.callActions('afterConstruct', arguments);
+
+        h.freeze(this);
+        h.seal(this);
+    };
+
+    _mixitup.BaseStatic.call(_mixitup.Facade);
+
+    _mixitup.Facade.prototype = Object.create(_mixitup.Base.prototype);
+
+    _mixitup.Facade.prototype.constructor = _mixitup.Facade;
+
+    if ((typeof exports === 'undefined' ? 'undefined' : _typeof(exports)) === 'object' && (typeof module === 'undefined' ? 'undefined' : _typeof(module)) === 'object') {
+        module.exports = _mixitup;
+    } else if (typeof define === 'function' && define.amd) {
+        define(function () {
+            return _mixitup;
+        });
+    } else if (typeof window.mixitup === 'undefined' || typeof window.mixitup !== 'function') {
+        window.mixitup = _mixitup;
+    }
+    _mixitup.BaseStatic.call(_mixitup.constructor);
+
+    _mixitup.NAME = 'mixitup';
+    _mixitup.CORE_VERSION = '3.2.1';
+})(window);
 "use strict";
 
 var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };

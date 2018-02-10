@@ -6,7 +6,7 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
 
   "use strict";
 
-  var FOUNDATION_VERSION = '6.2.4';
+  var FOUNDATION_VERSION = '6.3.1';
 
   // Global Foundation object
   // This is attached to the window, or used as a module for AMD/Browserify
@@ -379,7 +379,7 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
     }
   }
   function parseValue(str) {
-    if (/true/.test(str)) return true;else if (/false/.test(str)) return false;else if (!isNaN(str * 1)) return parseFloat(str);
+    if ('true' === str) return true;else if ('false' === str) return false;else if (!isNaN(str * 1)) return parseFloat(str);
     return str;
   }
   // Convert PascalCase to kebab-case
@@ -423,9 +423,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
       Foundation.Keyboard.register('Dropdown', {
         'ENTER': 'open',
         'SPACE': 'open',
-        'ESCAPE': 'close',
-        'TAB': 'tab_forward',
-        'SHIFT_TAB': 'tab_backward'
+        'ESCAPE': 'close'
       });
     }
 
@@ -451,6 +449,11 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 
         });
 
+        if (this.options.parentClass) {
+          this.$parent = this.$element.parents('.' + this.options.parentClass);
+        } else {
+          this.$parent = null;
+        }
         this.options.positionClass = this.getPositionClass();
         this.counter = 4;
         this.usedPositions = [];
@@ -542,9 +545,19 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
             param = direction === 'top' ? 'height' : 'width',
             offset = param === 'height' ? this.options.vOffset : this.options.hOffset;
 
-        if ($eleDims.width >= $eleDims.windowDims.width || !this.counter && !Foundation.Box.ImNotTouchingYou(this.$element)) {
-          this.$element.offset(Foundation.Box.GetOffsets(this.$element, this.$anchor, 'center bottom', this.options.vOffset, this.options.hOffset, true)).css({
-            'width': $eleDims.windowDims.width - this.options.hOffset * 2,
+        if ($eleDims.width >= $eleDims.windowDims.width || !this.counter && !Foundation.Box.ImNotTouchingYou(this.$element, this.$parent)) {
+          var newWidth = $eleDims.windowDims.width,
+              parentHOffset = 0;
+          if (this.$parent) {
+            var $parentDims = Foundation.Box.GetDimensions(this.$parent),
+                parentHOffset = $parentDims.offset.left;
+            if ($parentDims.width < newWidth) {
+              newWidth = $parentDims.width;
+            }
+          }
+
+          this.$element.offset(Foundation.Box.GetOffsets(this.$element, this.$anchor, 'center bottom', this.options.vOffset, this.options.hOffset + parentHOffset, true)).css({
+            'width': newWidth - this.options.hOffset * 2,
             'height': 'auto'
           });
           this.classChanged = true;
@@ -553,7 +566,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 
         this.$element.offset(Foundation.Box.GetOffsets(this.$element, this.$anchor, position, this.options.vOffset, this.options.hOffset));
 
-        while (!Foundation.Box.ImNotTouchingYou(this.$element, false, true) && this.counter) {
+        while (!Foundation.Box.ImNotTouchingYou(this.$element, this.$parent, true) && this.counter) {
           this._reposition(position);
           this._setPosition();
         }
@@ -578,7 +591,8 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 
         if (this.options.hover) {
           this.$anchor.off('mouseenter.zf.dropdown mouseleave.zf.dropdown').on('mouseenter.zf.dropdown', function () {
-            if ($('body[data-whatinput="mouse"]').is('*')) {
+            var bodyData = $('body').data();
+            if (typeof bodyData.whatinput === 'undefined' || bodyData.whatinput === 'mouse') {
               clearTimeout(_this.timeout);
               _this.timeout = setTimeout(function () {
                 _this.open();
@@ -610,32 +624,6 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
               visibleFocusableElements = Foundation.Keyboard.findFocusable(_this.$element);
 
           Foundation.Keyboard.handleKey(e, 'Dropdown', {
-            tab_forward: function tab_forward() {
-              if (_this.$element.find(':focus').is(visibleFocusableElements.eq(-1))) {
-                // left modal downwards, setting focus to first element
-                if (_this.options.trapFocus) {
-                  // if focus shall be trapped
-                  visibleFocusableElements.eq(0).focus();
-                  e.preventDefault();
-                } else {
-                  // if focus is not trapped, close dropdown on focus out
-                  _this.close();
-                }
-              }
-            },
-            tab_backward: function tab_backward() {
-              if (_this.$element.find(':focus').is(visibleFocusableElements.eq(0)) || _this.$element.is(':focus')) {
-                // left modal upwards, setting focus to last element
-                if (_this.options.trapFocus) {
-                  // if focus shall be trapped
-                  visibleFocusableElements.eq(-1).focus();
-                  e.preventDefault();
-                } else {
-                  // if focus is not trapped, close dropdown on focus out
-                  _this.close();
-                }
-              }
-            },
             open: function open() {
               if ($target.is(_this.$anchor)) {
                 _this.open();
@@ -686,7 +674,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
       value: function open() {
         // var _this = this;
         /**
-         * Fires to close other open dropdowns
+         * Fires to close other open dropdowns, typically when dropdown is opening
          * @event Dropdown#closeme
          */
         this.$element.trigger('closeme.zf.dropdown', this.$element.attr('id'));
@@ -704,6 +692,10 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 
         if (this.options.closeOnClick) {
           this._addBodyHandler();
+        }
+
+        if (this.options.trapFocus) {
+          Foundation.Keyboard.trapFocus(this.$element);
         }
 
         /**
@@ -740,7 +732,15 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
           this.counter = 4;
           this.usedPositions.length = 0;
         }
+        /**
+         * Fires once the dropdown is no longer visible.
+         * @event Dropdown#hide
+         */
         this.$element.trigger('hide.zf.dropdown', [this.$element]);
+
+        if (this.options.trapFocus) {
+          Foundation.Keyboard.releaseFocus(this.$element);
+        }
       }
 
       /**
@@ -779,63 +779,78 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 
   Dropdown.defaults = {
     /**
+     * Class that designates bounding container of Dropdown (default: window)
+     * @option
+     * @type {?string}
+     * @default null
+     */
+    parentClass: null,
+    /**
      * Amount of time to delay opening a submenu on hover event.
      * @option
-     * @example 250
+     * @type {number}
+     * @default 250
      */
     hoverDelay: 250,
     /**
      * Allow submenus to open on hover events
      * @option
-     * @example false
+     * @type {boolean}
+     * @default false
      */
     hover: false,
     /**
      * Don't close dropdown when hovering over dropdown pane
      * @option
-     * @example true
+     * @type {boolean}
+     * @default false
      */
     hoverPane: false,
     /**
      * Number of pixels between the dropdown pane and the triggering element on open.
      * @option
-     * @example 1
+     * @type {number}
+     * @default 1
      */
     vOffset: 1,
     /**
      * Number of pixels between the dropdown pane and the triggering element on open.
      * @option
-     * @example 1
+     * @type {number}
+     * @default 1
      */
     hOffset: 1,
     /**
      * Class applied to adjust open position. JS will test and fill this in.
      * @option
-     * @example 'top'
+     * @type {string}
+     * @default ''
      */
     positionClass: '',
     /**
      * Allow the plugin to trap focus to the dropdown pane if opened with keyboard commands.
      * @option
-     * @example false
+     * @type {boolean}
+     * @default false
      */
     trapFocus: false,
     /**
      * Allow the plugin to set focus to the first focusable element within the pane, regardless of method of opening.
      * @option
-     * @example true
+     * @type {boolean}
+     * @default false
      */
     autoFocus: false,
     /**
      * Allows a click on the body to close the dropdown.
      * @option
-     * @example false
+     * @type {boolean}
+     * @default false
      */
     closeOnClick: false
-  };
 
-  // Window exports
-  Foundation.plugin(Dropdown, 'Dropdown');
+    // Window exports
+  };Foundation.plugin(Dropdown, 'Dropdown');
 }(jQuery);
 'use strict';
 
@@ -885,6 +900,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 
         this.$watched = $watched.length ? $watched : this.$element.find('[data-equalizer-watch]');
         this.$element.attr('data-resize', eqId || Foundation.GetYoDigits(6, 'eq'));
+        this.$element.attr('data-mutate', eqId || Foundation.GetYoDigits(6, 'eq'));
 
         this.hasNested = this.$element.find('[data-equalizer]').length > 0;
         this.isNested = this.$element.parentsUntil(document.body, '[data-equalizer]').length > 0;
@@ -922,7 +938,8 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
         this.isOn = false;
         this.$element.off({
           '.zf.equalizer': this._bindHandler.onPostEqualizedBound,
-          'resizeme.zf.trigger': this._bindHandler.onResizeMeBound
+          'resizeme.zf.trigger': this._bindHandler.onResizeMeBound,
+          'mutateme.zf.trigger': this._bindHandler.onResizeMeBound
         });
       }
 
@@ -964,6 +981,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
           this.$element.on('postequalized.zf.equalizer', this._bindHandler.onPostEqualizedBound);
         } else {
           this.$element.on('resizeme.zf.trigger', this._bindHandler.onResizeMeBound);
+          this.$element.on('mutateme.zf.trigger', this._bindHandler.onResizeMeBound);
         }
         this.isOn = true;
       }
@@ -976,7 +994,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
     }, {
       key: '_checkMQ',
       value: function _checkMQ() {
-        var tooSmall = !Foundation.MediaQuery.atLeast(this.options.equalizeOn);
+        var tooSmall = !Foundation.MediaQuery.is(this.options.equalizeOn);
         if (tooSmall) {
           if (this.isOn) {
             this._pauseEvents();
@@ -1030,6 +1048,9 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
     }, {
       key: '_isStacked',
       value: function _isStacked() {
+        if (!this.$watched[0] || !this.$watched[1]) {
+          return true;
+        }
         return this.$watched[0].getBoundingClientRect().top !== this.$watched[1].getBoundingClientRect().top;
       }
 
@@ -1116,8 +1137,8 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
        * Changes the CSS height property of each child in an Equalizer parent to match the tallest by row
        * @param {array} groups - An array of heights of children within Equalizer container grouped by row with element,height and max as last child
        * @fires Equalizer#preequalized
-       * @fires Equalizer#preequalizedRow
-       * @fires Equalizer#postequalizedRow
+       * @fires Equalizer#preequalizedrow
+       * @fires Equalizer#postequalizedrow
        * @fires Equalizer#postequalized
        */
 
@@ -1137,7 +1158,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
           }
           /**
             * Fires before the heights per row are applied
-            * @event Equalizer#preequalizedRow
+            * @event Equalizer#preequalizedrow
             */
           this.$element.trigger('preequalizedrow.zf.equalizer');
           for (var j = 0, lenJ = groupsILength - 1; j < lenJ; j++) {
@@ -1145,7 +1166,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
           }
           /**
             * Fires when the heights per row have been applied
-            * @event Equalizer#postequalizedRow
+            * @event Equalizer#postequalizedrow
             */
           this.$element.trigger('postequalizedrow.zf.equalizer');
         }
@@ -1182,19 +1203,22 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
     /**
      * Enable height equalization when stacked on smaller screens.
      * @option
-     * @example true
+     * @type {boolean}
+     * @default false
      */
     equalizeOnStack: false,
     /**
      * Enable height equalization row by row.
      * @option
-     * @example false
+     * @type {boolean}
+     * @default false
      */
     equalizeByRow: false,
     /**
      * String representing the minimum breakpoint size the plugin should equalize heights on.
      * @option
-     * @example 'medium'
+     * @type {string}
+     * @default ''
      */
     equalizeOn: ''
   };
@@ -1256,15 +1280,18 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
     _createClass(Tabs, [{
       key: '_init',
       value: function _init() {
+        var _this2 = this;
+
         var _this = this;
 
+        this.$element.attr({ 'role': 'tablist' });
         this.$tabTitles = this.$element.find('.' + this.options.linkClass);
         this.$tabContent = $('[data-tabs-content="' + this.$element[0].id + '"]');
 
         this.$tabTitles.each(function () {
           var $elem = $(this),
               $link = $elem.find('a'),
-              isActive = $elem.hasClass('is-active'),
+              isActive = $elem.hasClass('' + _this.options.linkActiveClass),
               hash = $link[0].hash.slice(1),
               linkId = $link[0].id ? $link[0].id : hash + '-label',
               $tabContent = $('#' + hash);
@@ -1285,10 +1312,13 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
           });
 
           if (isActive && _this.options.autoFocus) {
-            $link.focus();
+            $(window).load(function () {
+              $('html, body').animate({ scrollTop: $elem.offset().top }, _this.options.deepLinkSmudgeDelay, function () {
+                $link.focus();
+              });
+            });
           }
         });
-
         if (this.options.matchHeight) {
           var $images = this.$tabContent.find('img');
 
@@ -1297,6 +1327,35 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
           } else {
             this._setHeight();
           }
+        }
+
+        //current context-bound function to open tabs on page load or history popstate
+        this._checkDeepLink = function () {
+          var anchor = window.location.hash;
+          //need a hash and a relevant anchor in this tabset
+          if (anchor.length) {
+            var $link = _this2.$element.find('[href="' + anchor + '"]');
+            if ($link.length) {
+              _this2.selectTab($(anchor), true);
+
+              //roll up a little to show the titles
+              if (_this2.options.deepLinkSmudge) {
+                var offset = _this2.$element.offset();
+                $('html, body').animate({ scrollTop: offset.top }, _this2.options.deepLinkSmudgeDelay);
+              }
+
+              /**
+                * Fires when the zplugin has deeplinked at pageload
+                * @event Tabs#deeplink
+                */
+              _this2.$element.trigger('deeplink.zf.tabs', [$link, $(anchor)]);
+            }
+          }
+        };
+
+        //use browser to open a tab, if it exists in this tabset
+        if (this.options.deepLink) {
+          this._checkDeepLink();
         }
 
         this._events();
@@ -1319,6 +1378,10 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 
           $(window).on('changed.zf.mediaquery', this._setHeightMqHandler);
         }
+
+        if (this.options.deepLink) {
+          $(window).on('popstate', this._checkDeepLink);
+        }
       }
 
       /**
@@ -1334,9 +1397,6 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
         this.$element.off('click.zf.tabs').on('click.zf.tabs', '.' + this.options.linkClass, function (e) {
           e.preventDefault();
           e.stopPropagation();
-          if ($(this).hasClass('is-active')) {
-            return;
-          }
           _this._handleTabChange($(this));
         });
       }
@@ -1350,8 +1410,6 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
       key: '_addKeyHandler',
       value: function _addKeyHandler() {
         var _this = this;
-        var $firstTab = _this.$element.find('li:first-of-type');
-        var $lastTab = _this.$element.find('li:last-of-type');
 
         this.$tabTitles.off('keydown.zf.tabs').on('keydown.zf.tabs', function (e) {
           if (e.which === 9) return;
@@ -1397,44 +1455,109 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
       }
 
       /**
-       * Opens the tab `$targetContent` defined by `$target`.
+       * Opens the tab `$targetContent` defined by `$target`. Collapses active tab.
        * @param {jQuery} $target - Tab to open.
+       * @param {boolean} historyHandled - browser has already handled a history update
        * @fires Tabs#change
        * @function
        */
 
     }, {
       key: '_handleTabChange',
-      value: function _handleTabChange($target) {
-        var $tabLink = $target.find('[role="tab"]'),
+      value: function _handleTabChange($target, historyHandled) {
+
+        /**
+         * Check for active class on target. Collapse if exists.
+         */
+        if ($target.hasClass('' + this.options.linkActiveClass)) {
+          if (this.options.activeCollapse) {
+            this._collapseTab($target);
+
+            /**
+             * Fires when the zplugin has successfully collapsed tabs.
+             * @event Tabs#collapse
+             */
+            this.$element.trigger('collapse.zf.tabs', [$target]);
+          }
+          return;
+        }
+
+        var $oldTab = this.$element.find('.' + this.options.linkClass + '.' + this.options.linkActiveClass),
+            $tabLink = $target.find('[role="tab"]'),
             hash = $tabLink[0].hash,
-            $targetContent = this.$tabContent.find(hash),
-            $oldTab = this.$element.find('.' + this.options.linkClass + '.is-active').removeClass('is-active').find('[role="tab"]').attr({ 'aria-selected': 'false' });
+            $targetContent = this.$tabContent.find(hash);
 
-        $('#' + $oldTab.attr('aria-controls')).removeClass('is-active').attr({ 'aria-hidden': 'true' });
+        //close old tab
+        this._collapseTab($oldTab);
 
-        $target.addClass('is-active');
+        //open new tab
+        this._openTab($target);
 
-        $tabLink.attr({ 'aria-selected': 'true' });
+        //either replace or update browser history
+        if (this.options.deepLink && !historyHandled) {
+          var anchor = $target.find('a').attr('href');
 
-        $targetContent.addClass('is-active').attr({ 'aria-hidden': 'false' });
+          if (this.options.updateHistory) {
+            history.pushState({}, '', anchor);
+          } else {
+            history.replaceState({}, '', anchor);
+          }
+        }
 
         /**
          * Fires when the plugin has successfully changed tabs.
          * @event Tabs#change
          */
-        this.$element.trigger('change.zf.tabs', [$target]);
+        this.$element.trigger('change.zf.tabs', [$target, $targetContent]);
+
+        //fire to children a mutation event
+        $targetContent.find("[data-mutate]").trigger("mutateme.zf.trigger");
+      }
+
+      /**
+       * Opens the tab `$targetContent` defined by `$target`.
+       * @param {jQuery} $target - Tab to Open.
+       * @function
+       */
+
+    }, {
+      key: '_openTab',
+      value: function _openTab($target) {
+        var $tabLink = $target.find('[role="tab"]'),
+            hash = $tabLink[0].hash,
+            $targetContent = this.$tabContent.find(hash);
+
+        $target.addClass('' + this.options.linkActiveClass);
+
+        $tabLink.attr({ 'aria-selected': 'true' });
+
+        $targetContent.addClass('' + this.options.panelActiveClass).attr({ 'aria-hidden': 'false' });
+      }
+
+      /**
+       * Collapses `$targetContent` defined by `$target`.
+       * @param {jQuery} $target - Tab to Open.
+       * @function
+       */
+
+    }, {
+      key: '_collapseTab',
+      value: function _collapseTab($target) {
+        var $target_anchor = $target.removeClass('' + this.options.linkActiveClass).find('[role="tab"]').attr({ 'aria-selected': 'false' });
+
+        $('#' + $target_anchor.attr('aria-controls')).removeClass('' + this.options.panelActiveClass).attr({ 'aria-hidden': 'true' });
       }
 
       /**
        * Public method for selecting a content pane to display.
        * @param {jQuery | String} elem - jQuery object or string of the id of the pane to display.
+       * @param {boolean} historyHandled - browser has already handled a history update
        * @function
        */
 
     }, {
       key: 'selectTab',
-      value: function selectTab(elem) {
+      value: function selectTab(elem, historyHandled) {
         var idStr;
 
         if ((typeof elem === 'undefined' ? 'undefined' : _typeof(elem)) === 'object') {
@@ -1449,7 +1572,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 
         var $target = this.$tabTitles.find('[href="' + idStr + '"]').parent('.' + this.options.linkClass);
 
-        this._handleTabChange($target);
+        this._handleTabChange($target, historyHandled);
       }
     }, {
       key: '_setHeight',
@@ -1458,14 +1581,18 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
        * Sets the height of each panel to the height of the tallest panel.
        * If enabled in options, gets called on media query change.
        * If loading content via external source, can be called directly or with _reflow.
+       * If enabled with `data-match-height="true"`, tabs sets to equal height
        * @function
        * @private
        */
       value: function _setHeight() {
-        var max = 0;
+        var max = 0,
+            _this = this; // Lock down the `this` value for the root tabs object
+
         this.$tabContent.find('.' + this.options.panelClass).css('height', '').each(function () {
+
           var panel = $(this),
-              isActive = panel.hasClass('is-active');
+              isActive = panel.hasClass('' + _this.options.panelActiveClass); // get the options from the parent instead of trying to get them from the child
 
           if (!isActive) {
             panel.css({ 'visibility': 'hidden', 'display': 'block' });
@@ -1500,6 +1627,10 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
           }
         }
 
+        if (this.options.deepLink) {
+          $(window).off('popstate', this._checkDeepLink);
+        }
+
         Foundation.unregisterPlugin(this);
       }
     }]);
@@ -1509,47 +1640,736 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 
   Tabs.defaults = {
     /**
-     * Allows the window to scroll to content of active pane on load if set to true.
+     * Allows the window to scroll to content of pane specified by hash anchor
      * @option
-     * @example false
+     * @type {boolean}
+     * @default false
+     */
+    deepLink: false,
+
+    /**
+     * Adjust the deep link scroll to make sure the top of the tab panel is visible
+     * @option
+     * @type {boolean}
+     * @default false
+     */
+    deepLinkSmudge: false,
+
+    /**
+     * Animation time (ms) for the deep link adjustment
+     * @option
+     * @type {number}
+     * @default 300
+     */
+    deepLinkSmudgeDelay: 300,
+
+    /**
+     * Update the browser history with the open tab
+     * @option
+     * @type {boolean}
+     * @default false
+     */
+    updateHistory: false,
+
+    /**
+     * Allows the window to scroll to content of active pane on load if set to true.
+     * Not recommended if more than one tab panel per page.
+     * @option
+     * @type {boolean}
+     * @default false
      */
     autoFocus: false,
 
     /**
      * Allows keyboard input to 'wrap' around the tab links.
      * @option
-     * @example true
+     * @type {boolean}
+     * @default true
      */
     wrapOnKeys: true,
 
     /**
      * Allows the tab content panes to match heights if set to true.
      * @option
-     * @example false
+     * @type {boolean}
+     * @default false
      */
     matchHeight: false,
 
     /**
+     * Allows active tabs to collapse when clicked.
+     * @option
+     * @type {boolean}
+     * @default false
+     */
+    activeCollapse: false,
+
+    /**
      * Class applied to `li`'s in tab link list.
      * @option
-     * @example 'tabs-title'
+     * @type {string}
+     * @default 'tabs-title'
      */
     linkClass: 'tabs-title',
 
     /**
+     * Class applied to the active `li` in tab link list.
+     * @option
+     * @type {string}
+     * @default 'is-active'
+     */
+    linkActiveClass: 'is-active',
+
+    /**
      * Class applied to the content containers.
      * @option
-     * @example 'tabs-panel'
+     * @type {string}
+     * @default 'tabs-panel'
      */
-    panelClass: 'tabs-panel'
-  };
+    panelClass: 'tabs-panel',
 
-  function checkClass($elem) {
-    return $elem.hasClass('is-active');
-  }
+    /**
+     * Class applied to the active content container.
+     * @option
+     * @type {string}
+     * @default 'is-active'
+     */
+    panelActiveClass: 'is-active'
+  };
 
   // Window exports
   Foundation.plugin(Tabs, 'Tabs');
+}(jQuery);
+'use strict';
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+!function ($) {
+
+  /**
+   * Reveal module.
+   * @module foundation.reveal
+   * @requires foundation.util.keyboard
+   * @requires foundation.util.box
+   * @requires foundation.util.triggers
+   * @requires foundation.util.mediaQuery
+   * @requires foundation.util.motion if using animations
+   */
+
+  var Reveal = function () {
+    /**
+     * Creates a new instance of Reveal.
+     * @class
+     * @param {jQuery} element - jQuery object to use for the modal.
+     * @param {Object} options - optional parameters.
+     */
+    function Reveal(element, options) {
+      _classCallCheck(this, Reveal);
+
+      this.$element = element;
+      this.options = $.extend({}, Reveal.defaults, this.$element.data(), options);
+      this._init();
+
+      Foundation.registerPlugin(this, 'Reveal');
+      Foundation.Keyboard.register('Reveal', {
+        'ENTER': 'open',
+        'SPACE': 'open',
+        'ESCAPE': 'close'
+      });
+    }
+
+    /**
+     * Initializes the modal by adding the overlay and close buttons, (if selected).
+     * @private
+     */
+
+
+    _createClass(Reveal, [{
+      key: '_init',
+      value: function _init() {
+        this.id = this.$element.attr('id');
+        this.isActive = false;
+        this.cached = { mq: Foundation.MediaQuery.current };
+        this.isMobile = mobileSniff();
+
+        this.$anchor = $('[data-open="' + this.id + '"]').length ? $('[data-open="' + this.id + '"]') : $('[data-toggle="' + this.id + '"]');
+        this.$anchor.attr({
+          'aria-controls': this.id,
+          'aria-haspopup': true,
+          'tabindex': 0
+        });
+
+        if (this.options.fullScreen || this.$element.hasClass('full')) {
+          this.options.fullScreen = true;
+          this.options.overlay = false;
+        }
+        if (this.options.overlay && !this.$overlay) {
+          this.$overlay = this._makeOverlay(this.id);
+        }
+
+        this.$element.attr({
+          'role': 'dialog',
+          'aria-hidden': true,
+          'data-yeti-box': this.id,
+          'data-resize': this.id
+        });
+
+        if (this.$overlay) {
+          this.$element.detach().appendTo(this.$overlay);
+        } else {
+          this.$element.detach().appendTo($(this.options.appendTo));
+          this.$element.addClass('without-overlay');
+        }
+        this._events();
+        if (this.options.deepLink && window.location.hash === '#' + this.id) {
+          $(window).one('load.zf.reveal', this.open.bind(this));
+        }
+      }
+
+      /**
+       * Creates an overlay div to display behind the modal.
+       * @private
+       */
+
+    }, {
+      key: '_makeOverlay',
+      value: function _makeOverlay() {
+        return $('<div></div>').addClass('reveal-overlay').appendTo(this.options.appendTo);
+      }
+
+      /**
+       * Updates position of modal
+       * TODO:  Figure out if we actually need to cache these values or if it doesn't matter
+       * @private
+       */
+
+    }, {
+      key: '_updatePosition',
+      value: function _updatePosition() {
+        var width = this.$element.outerWidth();
+        var outerWidth = $(window).width();
+        var height = this.$element.outerHeight();
+        var outerHeight = $(window).height();
+        var left, top;
+        if (this.options.hOffset === 'auto') {
+          left = parseInt((outerWidth - width) / 2, 10);
+        } else {
+          left = parseInt(this.options.hOffset, 10);
+        }
+        if (this.options.vOffset === 'auto') {
+          if (height > outerHeight) {
+            top = parseInt(Math.min(100, outerHeight / 10), 10);
+          } else {
+            top = parseInt((outerHeight - height) / 4, 10);
+          }
+        } else {
+          top = parseInt(this.options.vOffset, 10);
+        }
+        this.$element.css({ top: top + 'px' });
+        // only worry about left if we don't have an overlay or we havea  horizontal offset,
+        // otherwise we're perfectly in the middle
+        if (!this.$overlay || this.options.hOffset !== 'auto') {
+          this.$element.css({ left: left + 'px' });
+          this.$element.css({ margin: '0px' });
+        }
+      }
+
+      /**
+       * Adds event handlers for the modal.
+       * @private
+       */
+
+    }, {
+      key: '_events',
+      value: function _events() {
+        var _this2 = this;
+
+        var _this = this;
+
+        this.$element.on({
+          'open.zf.trigger': this.open.bind(this),
+          'close.zf.trigger': function closeZfTrigger(event, $element) {
+            if (event.target === _this.$element[0] || $(event.target).parents('[data-closable]')[0] === $element) {
+              // only close reveal when it's explicitly called
+              return _this2.close.apply(_this2);
+            }
+          },
+          'toggle.zf.trigger': this.toggle.bind(this),
+          'resizeme.zf.trigger': function resizemeZfTrigger() {
+            _this._updatePosition();
+          }
+        });
+
+        if (this.$anchor.length) {
+          this.$anchor.on('keydown.zf.reveal', function (e) {
+            if (e.which === 13 || e.which === 32) {
+              e.stopPropagation();
+              e.preventDefault();
+              _this.open();
+            }
+          });
+        }
+
+        if (this.options.closeOnClick && this.options.overlay) {
+          this.$overlay.off('.zf.reveal').on('click.zf.reveal', function (e) {
+            if (e.target === _this.$element[0] || $.contains(_this.$element[0], e.target) || !$.contains(document, e.target)) {
+              return;
+            }
+            _this.close();
+          });
+        }
+        if (this.options.deepLink) {
+          $(window).on('popstate.zf.reveal:' + this.id, this._handleState.bind(this));
+        }
+      }
+
+      /**
+       * Handles modal methods on back/forward button clicks or any other event that triggers popstate.
+       * @private
+       */
+
+    }, {
+      key: '_handleState',
+      value: function _handleState(e) {
+        if (window.location.hash === '#' + this.id && !this.isActive) {
+          this.open();
+        } else {
+          this.close();
+        }
+      }
+
+      /**
+       * Opens the modal controlled by `this.$anchor`, and closes all others by default.
+       * @function
+       * @fires Reveal#closeme
+       * @fires Reveal#open
+       */
+
+    }, {
+      key: 'open',
+      value: function open() {
+        var _this3 = this;
+
+        if (this.options.deepLink) {
+          var hash = '#' + this.id;
+
+          if (window.history.pushState) {
+            window.history.pushState(null, null, hash);
+          } else {
+            window.location.hash = hash;
+          }
+        }
+
+        this.isActive = true;
+
+        // Make elements invisible, but remove display: none so we can get size and positioning
+        this.$element.css({ 'visibility': 'hidden' }).show().scrollTop(0);
+        if (this.options.overlay) {
+          this.$overlay.css({ 'visibility': 'hidden' }).show();
+        }
+
+        this._updatePosition();
+
+        this.$element.hide().css({ 'visibility': '' });
+
+        if (this.$overlay) {
+          this.$overlay.css({ 'visibility': '' }).hide();
+          if (this.$element.hasClass('fast')) {
+            this.$overlay.addClass('fast');
+          } else if (this.$element.hasClass('slow')) {
+            this.$overlay.addClass('slow');
+          }
+        }
+
+        if (!this.options.multipleOpened) {
+          /**
+           * Fires immediately before the modal opens.
+           * Closes any other modals that are currently open
+           * @event Reveal#closeme
+           */
+          this.$element.trigger('closeme.zf.reveal', this.id);
+        }
+
+        var _this = this;
+
+        function addRevealOpenClasses() {
+          if (_this.isMobile) {
+            if (!_this.originalScrollPos) {
+              _this.originalScrollPos = window.pageYOffset;
+            }
+            $('html, body').addClass('is-reveal-open');
+          } else {
+            $('body').addClass('is-reveal-open');
+          }
+        }
+        // Motion UI method of reveal
+        if (this.options.animationIn) {
+          var afterAnimation = function afterAnimation() {
+            _this.$element.attr({
+              'aria-hidden': false,
+              'tabindex': -1
+            }).focus();
+            addRevealOpenClasses();
+            Foundation.Keyboard.trapFocus(_this.$element);
+          };
+
+          if (this.options.overlay) {
+            Foundation.Motion.animateIn(this.$overlay, 'fade-in');
+          }
+          Foundation.Motion.animateIn(this.$element, this.options.animationIn, function () {
+            if (_this3.$element) {
+              // protect against object having been removed
+              _this3.focusableElements = Foundation.Keyboard.findFocusable(_this3.$element);
+              afterAnimation();
+            }
+          });
+        }
+        // jQuery method of reveal
+        else {
+            if (this.options.overlay) {
+              this.$overlay.show(0);
+            }
+            this.$element.show(this.options.showDelay);
+          }
+
+        // handle accessibility
+        this.$element.attr({
+          'aria-hidden': false,
+          'tabindex': -1
+        }).focus();
+        Foundation.Keyboard.trapFocus(this.$element);
+
+        /**
+         * Fires when the modal has successfully opened.
+         * @event Reveal#open
+         */
+        this.$element.trigger('open.zf.reveal');
+
+        addRevealOpenClasses();
+
+        setTimeout(function () {
+          _this3._extraHandlers();
+        }, 0);
+      }
+
+      /**
+       * Adds extra event handlers for the body and window if necessary.
+       * @private
+       */
+
+    }, {
+      key: '_extraHandlers',
+      value: function _extraHandlers() {
+        var _this = this;
+        if (!this.$element) {
+          return;
+        } // If we're in the middle of cleanup, don't freak out
+        this.focusableElements = Foundation.Keyboard.findFocusable(this.$element);
+
+        if (!this.options.overlay && this.options.closeOnClick && !this.options.fullScreen) {
+          $('body').on('click.zf.reveal', function (e) {
+            if (e.target === _this.$element[0] || $.contains(_this.$element[0], e.target) || !$.contains(document, e.target)) {
+              return;
+            }
+            _this.close();
+          });
+        }
+
+        if (this.options.closeOnEsc) {
+          $(window).on('keydown.zf.reveal', function (e) {
+            Foundation.Keyboard.handleKey(e, 'Reveal', {
+              close: function close() {
+                if (_this.options.closeOnEsc) {
+                  _this.close();
+                  _this.$anchor.focus();
+                }
+              }
+            });
+          });
+        }
+
+        // lock focus within modal while tabbing
+        this.$element.on('keydown.zf.reveal', function (e) {
+          var $target = $(this);
+          // handle keyboard event with keyboard util
+          Foundation.Keyboard.handleKey(e, 'Reveal', {
+            open: function open() {
+              if (_this.$element.find(':focus').is(_this.$element.find('[data-close]'))) {
+                setTimeout(function () {
+                  // set focus back to anchor if close button has been activated
+                  _this.$anchor.focus();
+                }, 1);
+              } else if ($target.is(_this.focusableElements)) {
+                // dont't trigger if acual element has focus (i.e. inputs, links, ...)
+                _this.open();
+              }
+            },
+            close: function close() {
+              if (_this.options.closeOnEsc) {
+                _this.close();
+                _this.$anchor.focus();
+              }
+            },
+            handled: function handled(preventDefault) {
+              if (preventDefault) {
+                e.preventDefault();
+              }
+            }
+          });
+        });
+      }
+
+      /**
+       * Closes the modal.
+       * @function
+       * @fires Reveal#closed
+       */
+
+    }, {
+      key: 'close',
+      value: function close() {
+        if (!this.isActive || !this.$element.is(':visible')) {
+          return false;
+        }
+        var _this = this;
+
+        // Motion UI method of hiding
+        if (this.options.animationOut) {
+          if (this.options.overlay) {
+            Foundation.Motion.animateOut(this.$overlay, 'fade-out', finishUp);
+          } else {
+            finishUp();
+          }
+
+          Foundation.Motion.animateOut(this.$element, this.options.animationOut);
+        }
+        // jQuery method of hiding
+        else {
+            if (this.options.overlay) {
+              this.$overlay.hide(0, finishUp);
+            } else {
+              finishUp();
+            }
+
+            this.$element.hide(this.options.hideDelay);
+          }
+
+        // Conditionals to remove extra event listeners added on open
+        if (this.options.closeOnEsc) {
+          $(window).off('keydown.zf.reveal');
+        }
+
+        if (!this.options.overlay && this.options.closeOnClick) {
+          $('body').off('click.zf.reveal');
+        }
+
+        this.$element.off('keydown.zf.reveal');
+
+        function finishUp() {
+          if (_this.isMobile) {
+            $('html, body').removeClass('is-reveal-open');
+            if (_this.originalScrollPos) {
+              $('body').scrollTop(_this.originalScrollPos);
+              _this.originalScrollPos = null;
+            }
+          } else {
+            $('body').removeClass('is-reveal-open');
+          }
+
+          Foundation.Keyboard.releaseFocus(_this.$element);
+
+          _this.$element.attr('aria-hidden', true);
+
+          /**
+          * Fires when the modal is done closing.
+          * @event Reveal#closed
+          */
+          _this.$element.trigger('closed.zf.reveal');
+        }
+
+        /**
+        * Resets the modal content
+        * This prevents a running video to keep going in the background
+        */
+        if (this.options.resetOnClose) {
+          this.$element.html(this.$element.html());
+        }
+
+        this.isActive = false;
+        if (_this.options.deepLink) {
+          if (window.history.replaceState) {
+            window.history.replaceState('', document.title, window.location.href.replace('#' + this.id, ''));
+          } else {
+            window.location.hash = '';
+          }
+        }
+      }
+
+      /**
+       * Toggles the open/closed state of a modal.
+       * @function
+       */
+
+    }, {
+      key: 'toggle',
+      value: function toggle() {
+        if (this.isActive) {
+          this.close();
+        } else {
+          this.open();
+        }
+      }
+    }, {
+      key: 'destroy',
+
+
+      /**
+       * Destroys an instance of a modal.
+       * @function
+       */
+      value: function destroy() {
+        if (this.options.overlay) {
+          this.$element.appendTo($(this.options.appendTo)); // move $element outside of $overlay to prevent error unregisterPlugin()
+          this.$overlay.hide().off().remove();
+        }
+        this.$element.hide().off();
+        this.$anchor.off('.zf');
+        $(window).off('.zf.reveal:' + this.id);
+
+        Foundation.unregisterPlugin(this);
+      }
+    }]);
+
+    return Reveal;
+  }();
+
+  Reveal.defaults = {
+    /**
+     * Motion-UI class to use for animated elements. If none used, defaults to simple show/hide.
+     * @option
+     * @type {string}
+     * @default ''
+     */
+    animationIn: '',
+    /**
+     * Motion-UI class to use for animated elements. If none used, defaults to simple show/hide.
+     * @option
+     * @type {string}
+     * @default ''
+     */
+    animationOut: '',
+    /**
+     * Time, in ms, to delay the opening of a modal after a click if no animation used.
+     * @option
+     * @type {number}
+     * @default 0
+     */
+    showDelay: 0,
+    /**
+     * Time, in ms, to delay the closing of a modal after a click if no animation used.
+     * @option
+     * @type {number}
+     * @default 0
+     */
+    hideDelay: 0,
+    /**
+     * Allows a click on the body/overlay to close the modal.
+     * @option
+     * @type {boolean}
+     * @default true
+     */
+    closeOnClick: true,
+    /**
+     * Allows the modal to close if the user presses the `ESCAPE` key.
+     * @option
+     * @type {boolean}
+     * @default true
+     */
+    closeOnEsc: true,
+    /**
+     * If true, allows multiple modals to be displayed at once.
+     * @option
+     * @type {boolean}
+     * @default false
+     */
+    multipleOpened: false,
+    /**
+     * Distance, in pixels, the modal should push down from the top of the screen.
+     * @option
+     * @type {number|string}
+     * @default auto
+     */
+    vOffset: 'auto',
+    /**
+     * Distance, in pixels, the modal should push in from the side of the screen.
+     * @option
+     * @type {number|string}
+     * @default auto
+     */
+    hOffset: 'auto',
+    /**
+     * Allows the modal to be fullscreen, completely blocking out the rest of the view. JS checks for this as well.
+     * @option
+     * @type {boolean}
+     * @default false
+     */
+    fullScreen: false,
+    /**
+     * Percentage of screen height the modal should push up from the bottom of the view.
+     * @option
+     * @type {number}
+     * @default 10
+     */
+    btmOffsetPct: 10,
+    /**
+     * Allows the modal to generate an overlay div, which will cover the view when modal opens.
+     * @option
+     * @type {boolean}
+     * @default true
+     */
+    overlay: true,
+    /**
+     * Allows the modal to remove and reinject markup on close. Should be true if using video elements w/o using provider's api, otherwise, videos will continue to play in the background.
+     * @option
+     * @type {boolean}
+     * @default false
+     */
+    resetOnClose: false,
+    /**
+     * Allows the modal to alter the url on open/close, and allows the use of the `back` button to close modals. ALSO, allows a modal to auto-maniacally open on page load IF the hash === the modal's user-set id.
+     * @option
+     * @type {boolean}
+     * @default false
+     */
+    deepLink: false,
+    /**
+    * Allows the modal to append to custom div.
+    * @option
+    * @type {string}
+    * @default "body"
+    */
+    appendTo: "body"
+
+  };
+
+  // Window exports
+  Foundation.plugin(Reveal, 'Reveal');
+
+  function iPhoneSniff() {
+    return (/iP(ad|hone|od).*OS/.test(window.navigator.userAgent)
+    );
+  }
+
+  function androidSniff() {
+    return (/Android/.test(window.navigator.userAgent)
+    );
+  }
+
+  function mobileSniff() {
+    return iPhoneSniff() || androidSniff();
+  }
 }(jQuery);
 'use strict';
 
@@ -1610,6 +2430,23 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
         return window.matchMedia(query).matches;
       }
 
+      return false;
+    },
+
+
+    /**
+     * Checks if the screen matches to a breakpoint.
+     * @function
+     * @param {String} size - Name of the breakpoint to check, either 'small only' or 'small'. Omitting 'only' falls back to using atLeast() method.
+     * @returns {Boolean} `true` if the breakpoint matches, `false` if it does not.
+     */
+    is: function is(size) {
+      size = size.trim().split(' ');
+      if (size.length > 1 && size[1] === 'only') {
+        if (size[0] === this._getCurrentSize()) return true;
+      } else {
+        return this.atLeast(size[0]);
+      }
       return false;
     },
 
@@ -1777,19 +2614,18 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
     ImNotTouchingYou: ImNotTouchingYou,
     GetDimensions: GetDimensions,
     GetOffsets: GetOffsets
-  };
 
-  /**
-   * Compares the dimensions of an element to a container and determines collision events with container.
-   * @function
-   * @param {jQuery} element - jQuery object to test for collisions.
-   * @param {jQuery} parent - jQuery object to use as bounding container.
-   * @param {Boolean} lrOnly - set to true to check left and right values only.
-   * @param {Boolean} tbOnly - set to true to check top and bottom values only.
-   * @default if no parent object passed, detects collisions with `window`.
-   * @returns {Boolean} - true if collision free, false if a collision in any direction.
-   */
-  function ImNotTouchingYou(element, parent, lrOnly, tbOnly) {
+    /**
+     * Compares the dimensions of an element to a container and determines collision events with container.
+     * @function
+     * @param {jQuery} element - jQuery object to test for collisions.
+     * @param {jQuery} parent - jQuery object to use as bounding container.
+     * @param {Boolean} lrOnly - set to true to check left and right values only.
+     * @param {Boolean} tbOnly - set to true to check top and bottom values only.
+     * @default if no parent object passed, detects collisions with `window`.
+     * @returns {Boolean} - true if collision free, false if a collision in any direction.
+     */
+  };function ImNotTouchingYou(element, parent, lrOnly, tbOnly) {
     var eleDims = GetDimensions(element),
         top,
         bottom,
@@ -1948,13 +2784,13 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
       case 'left bottom':
         return {
           left: $anchorDims.offset.left,
-          top: $anchorDims.offset.top + $anchorDims.height
+          top: $anchorDims.offset.top + $anchorDims.height + vOffset
         };
         break;
       case 'right bottom':
         return {
           left: $anchorDims.offset.left + $anchorDims.width + hOffset - $eleDims.width,
-          top: $anchorDims.offset.top + $anchorDims.height
+          top: $anchorDims.offset.top + $anchorDims.height + vOffset
         };
         break;
       default:
@@ -2004,7 +2840,12 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
 
   // Elements with [data-toggle] will toggle a plugin that supports it when clicked.
   $(document).on('click.zf.trigger', '[data-toggle]', function () {
-    triggers($(this), 'toggle');
+    var id = $(this).data('toggle');
+    if (id) {
+      triggers($(this), 'toggle');
+    } else {
+      $(this).trigger('toggle.zf.trigger');
+    }
   });
 
   // Elements with [data-closable] will respond to close.zf.trigger events.
@@ -2039,6 +2880,7 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
     eventsListener();
     resizeListener();
     scrollListener();
+    mutateListener();
     closemeListener();
   }
 
@@ -2122,6 +2964,17 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
     }
   }
 
+  function mutateListener(debounce) {
+    var $nodes = $('[data-mutate]');
+    if ($nodes.length && MutationObserver) {
+      //trigger all listening elements and signal a mutate event
+      //no IE 9 or 10
+      $nodes.each(function () {
+        $(this).triggerHandler('mutateme.zf.trigger');
+      });
+    }
+  }
+
   function eventsListener() {
     if (!MutationObserver) {
       return false;
@@ -2131,26 +2984,27 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
     //element callback
     var listeningElementsMutation = function listeningElementsMutation(mutationRecordsList) {
       var $target = $(mutationRecordsList[0].target);
+
       //trigger the event handler for the element depending on type
-      switch ($target.attr("data-events")) {
+      switch (mutationRecordsList[0].type) {
 
-        case "resize":
-          $target.triggerHandler('resizeme.zf.trigger', [$target]);
+        case "attributes":
+          if ($target.attr("data-events") === "scroll" && mutationRecordsList[0].attributeName === "data-events") {
+            $target.triggerHandler('scrollme.zf.trigger', [$target, window.pageYOffset]);
+          }
+          if ($target.attr("data-events") === "resize" && mutationRecordsList[0].attributeName === "data-events") {
+            $target.triggerHandler('resizeme.zf.trigger', [$target]);
+          }
+          if (mutationRecordsList[0].attributeName === "style") {
+            $target.closest("[data-mutate]").attr("data-events", "mutate");
+            $target.closest("[data-mutate]").triggerHandler('mutateme.zf.trigger', [$target.closest("[data-mutate]")]);
+          }
           break;
 
-        case "scroll":
-          $target.triggerHandler('scrollme.zf.trigger', [$target, window.pageYOffset]);
+        case "childList":
+          $target.closest("[data-mutate]").attr("data-events", "mutate");
+          $target.closest("[data-mutate]").triggerHandler('mutateme.zf.trigger', [$target.closest("[data-mutate]")]);
           break;
-
-        // case "mutate" :
-        // console.log('mutate', $target);
-        // $target.triggerHandler('mutate.zf.trigger');
-        //
-        // //make sure we don't get stuck in an infinite loop from sloppy codeing
-        // if ($target.index('[data-mutate]') == $("[data-mutate]").length-1) {
-        //   domMutationObserver();
-        // }
-        // break;
 
         default:
           return false;
@@ -2159,10 +3013,10 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
     };
 
     if (nodes.length) {
-      //for each element that needs to listen for resizing, scrolling, (or coming soon mutation) add a single observer
+      //for each element that needs to listen for resizing, scrolling, or mutation add a single observer
       for (var i = 0; i <= nodes.length - 1; i++) {
         var elementObserver = new MutationObserver(listeningElementsMutation);
-        elementObserver.observe(nodes[i], { attributes: true, childList: false, characterData: false, subtree: false, attributeFilter: ["data-events"] });
+        elementObserver.observe(nodes[i], { attributes: true, childList: true, characterData: false, subtree: true, attributeFilter: ["data-events", "style"] });
       }
     }
   }
@@ -2246,9 +3100,17 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
      */
     parseKey: function parseKey(event) {
       var key = keyCodes[event.which || event.keyCode] || String.fromCharCode(event.which).toUpperCase();
+
+      // Remove un-printable characters, e.g. for `fromCharCode` calls for CTRL only events
+      key = key.replace(/\W+/, '');
+
       if (event.shiftKey) key = 'SHIFT_' + key;
       if (event.ctrlKey) key = 'CTRL_' + key;
       if (event.altKey) key = 'ALT_' + key;
+
+      // Remove trailing underscore, in case only modifiers were used (e.g. only `CTRL_ALT`)
+      key = key.replace(/_$/, '');
+
       return key;
     },
 
@@ -2300,6 +3162,9 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
      * @return {jQuery} $focusable - all focusable elements within `$element`
      */
     findFocusable: function findFocusable($element) {
+      if (!$element) {
+        return false;
+      }
       return $element.find('a[href], area[href], input:not([disabled]), select:not([disabled]), textarea:not([disabled]), button:not([disabled]), iframe, object, embed, *[tabindex], *[contenteditable]').filter(function () {
         if (!$(this).is(':visible') || $(this).attr('tabindex') < 0) {
           return false;
@@ -2317,6 +3182,35 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
 
     register: function register(componentName, cmds) {
       commands[componentName] = cmds;
+    },
+
+
+    /**
+     * Traps the focus in the given element.
+     * @param  {jQuery} $element  jQuery object to trap the foucs into.
+     */
+    trapFocus: function trapFocus($element) {
+      var $focusable = Foundation.Keyboard.findFocusable($element),
+          $firstFocusable = $focusable.eq(0),
+          $lastFocusable = $focusable.eq(-1);
+
+      $element.on('keydown.zf.trapfocus', function (event) {
+        if (event.target === $lastFocusable[0] && Foundation.Keyboard.parseKey(event) === 'TAB') {
+          event.preventDefault();
+          $firstFocusable.focus();
+        } else if (event.target === $firstFocusable[0] && Foundation.Keyboard.parseKey(event) === 'SHIFT_TAB') {
+          event.preventDefault();
+          $lastFocusable.focus();
+        }
+      });
+    },
+
+    /**
+     * Releases the trapped focus from the given element.
+     * @param  {jQuery} $element  jQuery object to release the focus for.
+     */
+    releaseFocus: function releaseFocus($element) {
+      $element.off('keydown.zf.trapfocus');
     }
   };
 
@@ -2361,8 +3255,14 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
         start = null;
     // console.log('called');
 
+    if (duration === 0) {
+      fn.apply(elem);
+      elem.trigger('finished.zf.animate', [elem]).triggerHandler('finished.zf.animate', [elem]);
+      return;
+    }
+
     function move(ts) {
-      if (!start) start = window.performance.now();
+      if (!start) start = ts;
       // console.log(start, ts);
       prog = ts - start;
       fn.apply(elem);
@@ -2494,15 +3394,19 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
     }
 
     images.each(function () {
-      if (this.complete) {
+      // Check if image is loaded
+      if (this.complete || this.readyState === 4 || this.readyState === 'complete') {
         singleImageLoaded();
-      } else if (typeof this.naturalWidth !== 'undefined' && this.naturalWidth > 0) {
-        singleImageLoaded();
-      } else {
-        $(this).one('load', function () {
-          singleImageLoaded();
-        });
       }
+      // Force load the image
+      else {
+          // fix for IE. See https://css-tricks.com/snippets/jquery/fixing-load-in-ie-for-cached-images/
+          var src = $(this).attr('src');
+          $(this).attr('src', src + (src.indexOf('?') >= 0 ? '&' : '?') + new Date().getTime());
+          $(this).one('load', function () {
+            singleImageLoaded();
+          });
+        }
     });
 
     function singleImageLoaded() {

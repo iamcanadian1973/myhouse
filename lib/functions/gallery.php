@@ -1,5 +1,77 @@
 <?php
 
+function get_term_progenitor( $term, $tax = 'category' ) {
+	if ( is_int( $term ) ) {
+		$term = get_term_by( 'id', $term, $tax );
+	}
+
+	if ( ! $term instanceof WP_Term ) {
+		return false;
+	}
+    
+    if ( 0 == $term->parent ) {
+		return $term;
+	}
+
+	while ( $term instanceof WP_Term && 0 != $term->parent ) {
+		$term = get_term_by( 'id', $term->parent, $term->taxonomy );
+	}
+	return $term;
+}
+
+
+function get_gallery_parent_term() {
+    
+    $queried_object = get_queried_object();
+    $term = $queried_object;
+    
+    return get_term_progenitor( $term, 'gallery_cat' );
+}
+
+
+function get_child_terms() {
+ 
+    $parent_term = get_gallery_parent_term();
+    
+    if( empty( $parent_term ) ) {
+        return false;
+    }
+    
+    return get_terms( array(
+        'parent' => $parent_term->term_id,
+        'taxonomy' => 'gallery_cat'
+    )); 
+
+}
+
+
+function get_child_term_menu() {
+    
+    $queried_object = get_queried_object();
+    $current_term = $queried_object;
+    
+    $terms = get_child_terms();
+    
+    if( empty( $terms ) ) {
+        return false;
+    }
+    
+    $out = '';
+    
+    foreach( $terms as $term ) {
+        
+        $class = ( $current_term == $term ) ? ' class="current-menu-item"' : '';
+        
+        $out .= sprintf( '<li%s><a href="%s">%s</a></li>', $class, get_term_link( $term, 'gallery_cat' ), $term->name );
+    }
+    
+    return sprintf( '<div class="term-menu"><ul class="menu">%s</ul></div>', $out );
+    
+}
+
+
+
+
 // Slideshow
 
 /*

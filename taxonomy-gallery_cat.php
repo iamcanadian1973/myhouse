@@ -6,7 +6,21 @@
  *
  * @package _s
  */
+ 
+$child_terms = get_child_terms();
+$queried_object = get_queried_object();
+$term = $queried_object;
 
+if( $term->parent == 0 && ! empty( $child_terms ) ) {
+    
+    $first_term = array_shift( $child_terms );
+    
+    if( $first_term != $term ) {
+        wp_redirect( get_term_link( $first_term, 'gallery_cat' ) );
+        exit;
+    }    
+}
+  
 get_header(); ?>
 
 
@@ -16,15 +30,35 @@ get_header(); ?>
 		
 		<div class="wrap">
 			<div class="column row">
+                
+                <header class="page-header">
+                    <?php
+                    // get parent term heading/description
+                    // printf( '<h1 class="page-title">%s</h1>', single_term_title( '', false ) );
+                    // the_archive_description( '<div class="taxonomy-description featured">', '</div>' );	
+                    
+                    $parent_term = get_gallery_parent_term();
+                    
+                    printf( '<h1 class="page-title">%s</h1>', $parent_term->name );
+                    
+                    $description = $parent_term->description;
+                    if( !empty( $description ) ) {
+                        printf( '<div class="taxonomy-description featured">%s</div>', wpautop( $description ) );	
+                    }
+                    
+                    
+                    echo get_child_term_menu();
+                    
+                    if( $term->parent != 0 ) {
+                        printf( '<h2 class="page-title">%s</h2>', single_term_title( '', false ) );
+                    }
+                    ?>
+                </header>
 		
 			<?php
 			if ( have_posts() ) : ?>
 	
-				<header class="page-header">
-					<?php
-					printf( '<h1 class="page-title">%s</h1>', single_term_title( '', false ) );
-					the_archive_description( '<div class="taxonomy-description featured">', '</div>' );	?>
-				</header>
+				
 	
 				<?php
 				
