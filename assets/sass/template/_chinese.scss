@@ -1,0 +1,25 @@
+// Chinese Tweka
+
+html[lang="zh-hans"] {
+    
+    .header-widget-area .menu {
+        
+        flex-flow: row wrap;
+        justify-content: flex-end;
+        li {
+            margin: 0;
+            padding: 0 0 0 5px;
+            flex: inherit;
+            min-width: 100px;
+        }
+    }
+    
+    .section-resources {
+    
+        .grid .column:last-child {
+            display: none;   
+        }
+        
+    }
+    
+}

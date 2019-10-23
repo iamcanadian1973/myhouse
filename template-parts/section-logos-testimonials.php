@@ -13,7 +13,10 @@ function section_logos_testimonials() {
 	
 	$logos .= sprintf( '<a href="http://www.houzz.com/pro/myhousedesignbuildteam/my-house-design-build-team#11" target="_blank"><img src="%slogos-testimonials/houzz-design.png" alt="best custom home builder 2016, best interior design 2016 houzz, vancouver home builder" class="houzz" /></a>', trailingslashit( THEME_IMG ) );
     $logos .= sprintf( '<a href="http://www.houzz.com/pro/myhousedesignbuildteam/my-house-design-build-team#11" target="_blank"><img src="%slogos-testimonials/houzz-service.png" alt="best custom home builder 2016, best interior design 2016 houzz, vancouver home builder" class="houzz" /></a>', trailingslashit( THEME_IMG ) );
-	$logos .= sprintf( '<a href="http://www.baeumlerapproved.ca/contractors/1932/My-House-DesignBuild-Team.aspx" target="_blank"><img src="%slogos-testimonials/baeumler.png" alt="" class="baeumler" /></a>', trailingslashit( THEME_IMG ) );
+    
+    if( 'en' == ICL_LANGUAGE_CODE ) {
+	    $logos .= sprintf( '<a href="http://www.baeumlerapproved.ca/contractors/1932/My-House-DesignBuild-Team.aspx" target="_blank"><img src="%slogos-testimonials/baeumler.png" alt="" class="baeumler" /></a>', trailingslashit( THEME_IMG ) );
+    }
 	$logos .= '</div>';
 	
 	$free_consultation = sprintf( '<p class="cta"><a href="%s" class="btn xlarge">%s</a></p>', get_permalink( 1444 ), __( 'Request a free Consultation', '_s' ) );

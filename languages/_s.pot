@@ -76,10 +76,6 @@ msgstr ""
 msgid "Site by SWCA"
 msgstr ""
 
-#: front-page - Copy.php:50
-msgid "See Our Galleries"
-msgstr ""
-
 #: front-page.php:52
 msgid "View Our Galleries"
 msgstr ""
@@ -236,7 +232,7 @@ msgid ""
 "Great Living Spaces"
 msgstr ""
 
-#: template-parts/section-logos-testimonials.php:19, template-parts/section-process-guarantee.php:12
+#: template-parts/section-logos-testimonials.php:22, template-parts/section-process-guarantee.php:12
 msgid "Request a free Consultation"
 msgstr ""
 

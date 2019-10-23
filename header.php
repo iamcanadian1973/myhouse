@@ -45,7 +45,7 @@ _s_site_overlay();
 				<div class="site-branding small-4 large-2 xxlarge-3 columns">
 					<?php		
 					$logo = _s_site_logo();
-					$site_url = site_url();
+					$site_url = home_url();
 					printf('<div class="site-title"><a href="%s" title="%s">%s</a></div>', $site_url, get_bloginfo( 'name' ), $logo );
 					?>
 				</div><!-- .site-branding -->
@@ -63,7 +63,7 @@ _s_site_overlay();
  				
   
   				// Language Switcher: coming soon
-				$language_switcher = '<a href="http://cn.myhousedesignbuild.com/" class="ch">中文</a>';
+				$language_switcher = languages_list_header();
 				
 				$mobile_toggle = _s_get_off_canvas_menu_button();
 				

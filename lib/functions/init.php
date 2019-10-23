@@ -26,3 +26,5 @@ require_once( 'videos.php' );
 require_once( 'gallery.php' );
 
 require_once( 'addtoany.php' );
+
+require_once( 'wpml.php' );
