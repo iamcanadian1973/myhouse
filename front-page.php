@@ -49,7 +49,9 @@ echo kr_module_slideshow( 'slider' );
  		$content = sprintf( '<div class="entry-content featured">%s</div>', apply_filters( 'the_content', get_the_content() ) );
 		
  		// Gallery button
-		$button = sprintf( '<p class="cta"><a href="%s" class="btn large">%s</a></p>', get_post_type_archive_link( 'gallery' ), __( 'View Our Galleries', '_s' ) );
+		$button = sprintf( '<p class="button-group cta"><a href="%s" class="btn large">%s</a><a href="%s" class="btn large">%s</a></p>', 
+                            get_permalink( 1444 ), __( 'Free Consultation', '_s' ), 
+                            get_post_type_archive_link( 'gallery' ), __( 'View Our Galleries', '_s' ) );
         
         // Video
  		$video_id = get_field( 'video' );

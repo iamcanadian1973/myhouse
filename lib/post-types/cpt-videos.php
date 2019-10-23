@@ -99,17 +99,18 @@ function videos_custom_filters() {
 	?>
 	
 	<!-- Categories Filter -->
-	<div id="category-names-filter" class="clearfix">
-		<a class="filter" data-filter="all" rel="All"><?php _e('All', '_s'); ?></a>
+	<div id="category-names-filter" class="clearfix"><ul class="menu">
+		<li><a class="filter current-menu-item" data-filter="all" rel="All"><?php _e('All Videos', '_s'); ?></a></li>
 		<?php foreach ( $categories as $category ) : 
 		
 			////if( current_query_terms_exist( $taxonomies[0], $category->slug ) ) {
-				printf( '<a class="filter" data-filter=".video_cat-%s" rel="%s">%s</a>', $category->slug, $category->name, $category->name );
+				printf( '<li><a class="filter" data-filter=".video_cat-%s" rel="%s">%s</a></li>', $category->slug, $category->name, $category->name );
 			//}
 		
 		?>
 			
 		<?php endforeach; ?>
+        </ul>
 	</div>
 	<?php
 	

@@ -1,4 +1,4 @@
-# Copyright (C) 2018 _s
+# Copyright (C) 2019 _s
 # This file is distributed under the same license as the _s package.
 msgid ""
 msgstr ""
@@ -78,6 +78,10 @@ msgstr ""
 
 #: front-page.php:52
 msgid "View Our Galleries"
+msgstr ""
+
+#: front-page.php:53, template-parts/section-logos-testimonials.php:22, template-parts/section-process-guarantee.php:12
+msgid "Request a free Consultation"
 msgstr ""
 
 #: functions.php:70
@@ -223,17 +227,13 @@ msgid "2016 Ovation Awards Winner"
 msgstr ""
 
 #: template-parts/section-footer-awards.php:22
-msgid "See Full List"
+msgid "See All Awards"
 msgstr ""
 
 #: template-parts/section-footer-awards.php:27
 msgid ""
 "We Create  \n"
 "Great Living Spaces"
-msgstr ""
-
-#: template-parts/section-logos-testimonials.php:22, template-parts/section-process-guarantee.php:12
-msgid "Request a free Consultation"
 msgstr ""
 
 #: template-parts/section-process-guarantee.php:10

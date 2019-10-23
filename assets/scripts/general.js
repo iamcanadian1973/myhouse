@@ -58,7 +58,7 @@
 		  
 	var testimonial_slider_opts = {
 		transitionType: 'fade',
-		controlNavigation:'none',
+		controlNavigation:'bullets',
 		imageScaleMode: 'none',
 		imageAlignCenter:false,
 		arrowsNav: true,
@@ -91,7 +91,7 @@
 	
    	$('#testimonial-slider').royalSlider({
 		transitionType: 'fade',
-		controlNavigation:'none',
+		controlNavigation:'bullets',
 		imageScaleMode: 'none',
 		imageAlignCenter:false,
 		arrowsNav: true,
@@ -116,7 +116,7 @@
 		
 		autoPlay: {
 				// autoplay options go gere
-				enabled: true,
+				enabled: false,
 				pauseOnHover: true,
 				delay: 6000
 			}

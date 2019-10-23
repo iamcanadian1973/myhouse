@@ -51,7 +51,7 @@ echo kr_module_slideshow( 'slider' );
 		if( !empty( $photo_gallery_link ) ) {
 			$photo_gallery_link_title = get_post_meta( get_the_ID(), 'photo_gallery_link_title', true );
 			if( empty( $photo_gallery_link_title ) ) {
-				$photo_gallery_link_title = __( 'View Our Gallery', '_s' );
+				$photo_gallery_link_title = __( 'View Our Galleries', '_s' );
 			}
 			$buttons .= sprintf( '<div class="column"><a href="%s" class="btn medium flex" data-equalizer-watch><span>%s</span></a></div>', $photo_gallery_link, $photo_gallery_link_title );
 		}

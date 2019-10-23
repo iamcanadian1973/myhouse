@@ -49,34 +49,42 @@ a.youtube {
 	}
     
     #category-names-filter {
-        text-align: center;
-        margin-bottom: 24px;   
-    }
-    
-    #category-names-filter a {
-		display: inline-block;
-		padding: 4px 8px;
- 		font-size: 15px;
-		font-weight: 400;
-		cursor: pointer;
-		text-transform: none;
-		margin-bottom: 4px;
-        border: 1px solid $medium-gray;
-        color: $medium-gray;
-        
-        @media #{$xxxlarge-up} {
-            min-width: 100px;
+        .menu {
+            @include list-reset;   
+            margin: 25px auto 25px;
+            
+            li {
+                display: inline-block;  
+                margin-bottom: 4px;
+                
+                a {
+                    display: block;
+                    padding: 4px 8px;
+                    font-size: 15px;
+                    font-weight: 400;
+                    cursor: pointer;
+                    text-transform: none;
+                    
+                    background: $light-gray;
+                    color: #fff;
+                    
+                    @media #{$xxxlarge-up} {
+                        min-width: 100px; 
+                        font-size: 18px;  
+                    }
+                    
+                    &:hover {
+                        background: $gray;   
+                    }
+                }
+                
+                a.current-menu-item,
+                a.mixitup-control-active {
+                    background: $gray;   
+                }
+            }
         }
-	}
-	
-	#category-names-filter a.mixitup-control-active,
-	#category-names-filter a:hover {
-		background-color: rgba($light-gray, .3);
-	}
-	
-	#category-names-filter button:focus {
-		outline: 0 none;
-	}
+    }
     
     .video-grid {
         font-size: 0;   

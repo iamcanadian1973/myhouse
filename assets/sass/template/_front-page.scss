@@ -63,3 +63,32 @@
 .rsTextSlide {
 	background: #fff;	
 }
+
+.button-group {
+    
+    padding-bottom: 0;
+    
+    a {
+        width: 100%;
+        margin-bottom: rem-calc(20);   
+    }
+    
+    @media #{$large-up} {
+        display: flex;
+        flex-wrap: nowrap;
+        align-items: stretch;
+        margin: 0 -10px;
+        
+        a {
+            display: inline-block;
+            vertical-align: middle;
+            width: calc(50% - 20px);
+            padding-left: 10px!important;
+            padding-right: 10px!important; 
+            margin-left: 10px;
+            margin-right: 10px;  
+        }
+    }
+    
+
+}

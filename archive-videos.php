@@ -52,10 +52,12 @@ get_header(); ?>
 			endif; ?>
 			
  		</div>
+        
+        </div>
 
 	</main>
 
-</div>
+
 
 <?php
 get_footer();

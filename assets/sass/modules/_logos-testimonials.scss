@@ -1,32 +1,23 @@
 /* CSS Document */
 
 .section-logos-testimonials {
-
-	.award-logos {
- 		display: table;
-		margin: 0 -15px 30px;	
-		
-		
-		> * {
-			padding: 0 15px;
-			display: table-cell;
-            vertical-align: middle;
-		}
-		
-		.houzz {
-			//height: 60px;	
-		}
-		
-		.baeumler {
-			//height: 72px;	
-		}
-	}
-	
+    
+    background: #efeff0;
+    padding-top: 45px;
+    padding-bottom: 15px;
+    margin-bottom: 0!important;
+    	
+    
 	.testimonial-slider {
-		
-		@media #{$large-up} {
-      		padding: 0 0 0 30px;
-		}	
+        
+        
+        .rsTextSlide {
+            background: #efeff0!important;   
+        }
+        
+        img {
+            margin-bottom: 0;   
+        }
 		
 		.quote {
 			* {
@@ -34,15 +25,43 @@
 		        line-height: 1.72;
 				font-style: italic;	
 				font-weight: 300;
+                color: #707070;
 			}
 		}
 		
 		.details {
 			* {
 				font-size: 16px;
-				
+				color: #707070;
 			}
+            
+            padding-bottom: 50px;  
+            
+            @media #{$large-up} {
+                padding-bottom: 50px;   
+            }
 		}
+        
+        @media #{$large-up} {
+            .rsBullets {
+                width: 50%;
+                left: calc(50% + 15px);
+                bottom: 30px;   
+                text-align: left;
+            }
+        }
+        
+        .rsBullet span {
+            background-color: #ffffff;
+        }
+        
+        .rsBullet.rsNavSelected span {
+            background-color: #818285;
+        }
+        
+        .rsArrowIcn {
+            background-color: $gray;
+        }
 	}
 	
 }

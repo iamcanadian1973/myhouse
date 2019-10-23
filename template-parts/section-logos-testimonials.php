@@ -4,34 +4,16 @@
 Section - Logos & Testimonials
 */
 
-section_logos_testimonials();
-function section_logos_testimonials() {
+section_testimonials();
+function section_testimonials() {
 	
 	global $post;
 	
-	$logos = '<div class="award-logos">';
-	
-	$logos .= sprintf( '<a href="http://www.houzz.com/pro/myhousedesignbuildteam/my-house-design-build-team#11" target="_blank"><img src="%slogos-testimonials/houzz-design.png" alt="best custom home builder 2016, best interior design 2016 houzz, vancouver home builder" class="houzz" /></a>', trailingslashit( THEME_IMG ) );
-    $logos .= sprintf( '<a href="http://www.houzz.com/pro/myhousedesignbuildteam/my-house-design-build-team#11" target="_blank"><img src="%slogos-testimonials/houzz-service.png" alt="best custom home builder 2016, best interior design 2016 houzz, vancouver home builder" class="houzz" /></a>', trailingslashit( THEME_IMG ) );
-    
-    if( 'en' == ICL_LANGUAGE_CODE ) {
-	    $logos .= sprintf( '<a href="http://www.baeumlerapproved.ca/contractors/1932/My-House-DesignBuild-Team.aspx" target="_blank"><img src="%slogos-testimonials/baeumler.png" alt="" class="baeumler" /></a>', trailingslashit( THEME_IMG ) );
-    }
-	$logos .= '</div>';
-	
-	$free_consultation = sprintf( '<p class="cta"><a href="%s" class="btn xlarge">%s</a></p>', get_permalink( 1444 ), __( 'Request a free Consultation', '_s' ) );
-	$left_column = sprintf( '<div class="small-12 large-6 columns"><div class="entry-content">%s%s</div></div>', $logos, $free_consultation );
-			
-	// Right Column
 	$testimonials = get_testimonials();
 				
-	$right_column = sprintf( '<div class="small-12 large-6 columns">%s</div>', $testimonials );
-			
-	// Output section
-			
 	$attr = array( 'class' => 'section-content section-logos-testimonials' );
 	_s_section_open( $attr );		
-		printf( '<div class="row">%s%s</div>', $left_column, $right_column );
+		echo $testimonials;
 	_s_section_close();	
 
 }
@@ -68,19 +50,37 @@ function section_logos_testimonials() {
 		
 		while ( $loop->have_posts() ) : $loop->the_post(); 
 	
- 			$title = get_the_title();
+ 			$photo =  get_the_post_thumbnail( get_the_ID(), 'large' );
+				$thumbnail = '';
+				if( !empty( $photo ) ) {
+					$thumbnail = $photo;
+				}
+            
+            $title = get_the_title();
 			$description = get_post_meta( get_the_ID(), 'testimonial_description', true );
 			if( !empty( $description ) ) {
 				$title = sprintf( '%s/ %s', $title, $description );
 			}
 			$content = apply_filters( 'pb_the_content', get_the_content() );	
+            
+            $testimonial_project_details = get_field( 'testimonial_project_details' );	
 			
-			$items .= sprintf( '<div class="rsContent"><div class="rsTextSlide"><div class="quote">%s</div><div class="details"><p>%s</p></div></div></div>', $content, $title );		
+			$items .= sprintf( '<div class="rsContent"><div class="rsTextSlide">
+                <div class="row">
+                        <div class="column column-block small-12 large-6">
+                        <div class="hide-for-large"><h2>%s</h2></div>
+                        %s</div>
+                        <div class="column column-block small-12 large-6">
+                            <div class="show-for-large"><h2>%s</h2></div>
+                            <div class="quote">%s</div><div class="details">%s<p>%s</p></div>
+                        </div>
+                    </div>
+            </div></div>', __( 'Client Reviews', '_s' ), $thumbnail, __( 'Client Reviews', '_s' ), $content, $testimonial_project_details, $title );		
 			
 		endwhile;
 	wp_reset_postdata();
  	
-	return sprintf( '<div id="testimonial-slider" class="royalSlider testimonial-slider rsHor">%s</div>', $items );
+	return sprintf( '<div id="testimonial-slider" class="royalSlider testimonial-slider rsDefault rsHor">%s</div>', $items );
 	
 	endif;
 			 

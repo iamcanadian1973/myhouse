@@ -73,9 +73,11 @@ get_header(); ?>
 					$thumbnail = sprintf( '<div class="thumbnail" style="background-image: url(%s);"></div>', $photo );
 				}
 				$description = get_post_meta( get_the_ID(), 'testimonial_description', true );
-				$content = apply_filters( 'pb_the_content', get_the_content() );	
+				$content = apply_filters( 'pb_the_content', get_the_content() );
+                
+                $testimonial_project_details = get_field( 'testimonial_project_details' );	
 				
-				$items .= sprintf( '<div class="column"><div class="quote" data-equalizer-watch>%s%s<div class="details"><strong>%s</strong>%s</div></div></div>', $thumbnail, $content, $description, $title );		
+				$items .= sprintf( '<div class="column"><div class="quote" data-equalizer-watch>%s%s<div class="details">%s<strong>%s</strong>%s</div></div></div>', $thumbnail, $content, $testimonial_project_details, $description, $title );		
 				
 			endwhile;
 		wp_reset_postdata();

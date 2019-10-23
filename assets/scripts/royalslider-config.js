@@ -51,7 +51,7 @@
 	
 	if (nav.length && royalSlider.data('royalSlider').numSlides > 1 ) { 
 		nav.show();
-	}
+	}  
 		
 	
 })(jQuery);
